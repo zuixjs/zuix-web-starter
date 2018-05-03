@@ -202,10 +202,10 @@ function generateApp(sourceFolder, data) {
             stats[s.path].css = true;
         });
         const json = stringify(resourceBundle, null, 2);
-        let jsonBundle = '\n<script>zuix.bundle('+json+')</script>\n';
+        let jsonBundle = '\n    <script>zuix.bundle('+json+')</script>\n';
 
         // add style to hide inline views
-        dom.window.document.querySelector('head').innerHTML += '<style>[data-ui-view] { display: none; }</style>\n';
+        dom.window.document.querySelector('head').innerHTML += '    <style>[data-ui-view] { display: none; }</style>\n';
         // add inline views
         dom.window.document.body.innerHTML += inlineViews;
         // add bundle
@@ -221,8 +221,15 @@ module.exports = function(options, template, data, cb) {
     hasErrors = false;
     // zUIx bundle
     tlog.br().info('^w%s^:', data.file);
+    // Default static-site processing
+    tlog.info(' ^r*^: static-site content');
+    let html = swigTemplate(data)._result.contents;
+    let isStaticSite = (html != data.content);
+    if (isStaticSite) {
+        data.content = html;
+    }
     // Generate inline zUIx bundle
-    tlog.info(' ^r*^: zuix bundle').br();
+    tlog.update(' ^r*^: zuix bundle').br();
     generateApp(options.source, data);
     tlog.term.previousLine();
     if (Object.keys(stats).length > 0) {
@@ -247,8 +254,8 @@ module.exports = function(options, template, data, cb) {
     }
     // Default static-site processing
     tlog.info(' ^r*^: static-site content');
-    let html = swigTemplate(data)._result.contents;
-    if (html != data.content) {
+    html = swigTemplate(data)._result.contents;
+    if (html != data.content || isStaticSite) {
         data.content = html;
         tlog.update(' ^G\u2713^: static-site content');
     } else {

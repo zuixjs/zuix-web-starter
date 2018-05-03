@@ -20,7 +20,8 @@
       ]
     },
     "app": {
-      "resourcePath": "./app/"
+      "resourcePath": "./app/",
+      "googleSiteId": "UA-XXX-XXX"
     }
   }
 }
