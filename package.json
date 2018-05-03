@@ -1,6 +1,7 @@
 {
   "name": "zuix-web-starter",
   "version": "1.0.0",
+  "private": true,
   "description": "zUIx Web Starter project",
   "main": "index.js",
   "scripts": {
@@ -19,8 +20,10 @@
     "node",
     "javascript"
   ],
-  "author": "https://github.com/genielabs",
+  "author": "G-Labs",
   "license": "MIT",
+  "homepage": "https://github.com/genielabs",
+  "repository": "https://github.com/genemars/zuix-web-starter",
   "devDependencies": {
     "chokidar": "^2.0.3",
     "config": "^1.30.0",

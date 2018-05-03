@@ -21,3 +21,4 @@ This setting can be changed by modifying the `./config/default.json` file.
 
 - zUIx http://zuix.it
 - Static Site https://github.com/paulcpederson/static-site
+- Google Web Starter Kit https://github.com/google/web-starter-kit

@@ -32,10 +32,12 @@ const fs = require('fs');
 const path = require('path');
 const measureTime = require('measure-time');
 
-const version = require('../../../package.json').version;
+// Current package info
+const pkg = require(process.cwd()+'/package.json');
 tlog.term
     .bgDefaultColor()
-    .defaultColor(util.format('^BzUIx Web Starter^: v%s ^whttps://genielabs.github.io/zuix^:\n\n', version));
+    .defaultColor(util.format('^B%s^: v%s ^w%s^:\n\n',
+        pkg.name, pkg.version, pkg.homepage));
 
 // Configuration
 tlog.info('^+Configuration')
@@ -71,6 +73,7 @@ for (let i = 0; i < copyFiles.length; i++) {
 // Copy zuix-dist files
 tlog.update('   | "%s" -> "%s"', 'zuix-dist', 'js');
 copyFolder(util.format('%s/node_modules/zuix-dist/js', process.cwd()), util.format('%s/js/zuix', buildFolder));
+copyAppConfig();
 tlog.update('');
 
 const getElapsed = measureTime();
@@ -94,6 +97,13 @@ staticSite({
 });
 
 //process.exit(0);
+
+function copyAppConfig() {
+    let cfg = 'zuix.store("config", ';
+    cfg += JSON.stringify(config.get('zuix.app'), null, 4);
+    cfg += ');\n';
+    fs.writeFileSync(buildFolder+'/config.js', cfg);
+}
 
 // destination type must match source (dir/dir or file/file)
 function copyFolder(source, destination, done) {

@@ -5,7 +5,6 @@
       "output": "./docs",
       "copy": [
         "app",
-        "apps",
         "_inc",
         "css",
         "images",
@@ -19,6 +18,9 @@
         "md",
         "svg"
       ]
+    },
+    "app": {
+      "resourcePath": "./app/"
     }
   }
 }
