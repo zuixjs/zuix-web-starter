@@ -1,0 +1,47 @@
+{
+  "name": "zuix-web-starter",
+  "version": "1.0.0",
+  "description": "zUIx Web Starter project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server --cors ./docs",
+    "watch": "node tasks/zuix/bin/watch",
+    "build": "node tasks/zuix/bin/build"
+  },
+  "keywords": [
+    "zuixx",
+    "web",
+    "starter",
+    "web components",
+    "static-site",
+    "template",
+    "node",
+    "javascript"
+  ],
+  "author": "https://github.com/genielabs",
+  "license": "MIT",
+  "devDependencies": {
+    "chokidar": "^2.0.3",
+    "config": "^1.30.0",
+    "delay": "^2.0.0",
+    "es6-promise": "latest",
+    "eslint": "^4.19.1",
+    "eslint-config-google": "^0.9.1",
+    "fs-extra": "^5.0.0",
+    "highlight.js": "latest",
+    "http-server": "^0.11.1",
+    "jsdom": "^11.10.0",
+    "json-stringify": "^1.0.0",
+    "markdown-it": "latest",
+    "measure-time": "^3.1.1",
+    "ncp": "^2.0.0",
+    "npmlog": "^4.1.2",
+    "static-site": "^1.3.3",
+    "swig-extras": "latest",
+    "swig-templates": "latest",
+    "sync-request": "^6.0.0",
+    "terminal-kit": "^1.15.1",
+    "zuix-dist": "^0.4.9-40"
+  }
+}
