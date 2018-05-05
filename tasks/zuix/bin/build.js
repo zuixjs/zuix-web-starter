@@ -47,9 +47,13 @@ const zuixConfig = config.get('zuix');
 const sourceFolder = zuixConfig.get('build.input');
 const buildFolder = zuixConfig.get('build.output');
 const copyFiles = zuixConfig.get('build.copy');
-tlog.br('   ^Yinput^ %s', sourceFolder);
-tlog.br('  ^Youtput^ %s', buildFolder);
-tlog.br('    ^Ycopy^ %s', copyFiles)
+const ignoreFiles = zuixConfig.get('build.ignore');
+const compileFiles = zuixConfig.get('build.compile');
+tlog.br('   ^Ginput^ %s', sourceFolder);
+tlog.br('  ^Goutput^ %s', buildFolder);
+tlog.br('    ^Gcopy^ %s', copyFiles);
+tlog.br('  ^Gignore^ %s', ignoreFiles);
+tlog.br('  ^Gcompile^ %s', compileFiles)
     .br();
 if (!fs.existsSync(sourceFolder)) {
     tlog.error('   "%s" does not exist', sourceFolder);
@@ -83,8 +87,8 @@ tlog.info('^+Generating files ...');
 staticSite({
     build: buildFolder,
     source: sourceFolder,
-    ignore: copyFiles,
-    files: zuixConfig.get('build.compile'),
+    ignore: ignoreFiles.concat(copyFiles),
+    files: compileFiles,
     helpers: ['tasks/zuix/helpers/subfolder_root.js'],
     templateEngine: 'tasks/zuix/engines/zuix-bundler.js'
 }, function(err, stats) {
@@ -115,11 +119,11 @@ function copyFolder(source, destination, done) {
         if (fs.lstatSync(source).isFile()) {
             folder = path.dirname(destination);
         }
-        if (!fs.existsSync(destination)) {
+        if (!fs.existsSync(folder)) {
             mkdirp.sync(folder);
             tlog.update();
             tlog.term.previousLine();
-            tlog.info('  ^wcreated folder "%s"', destination)
+            tlog.info('  ^wcreated folder "%s"', folder)
                 .br();
         }
     } else {

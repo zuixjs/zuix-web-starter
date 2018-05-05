@@ -5,23 +5,34 @@
       "output": "./docs",
       "copy": [
         "app",
-        "_inc",
         "css",
         "images",
         "js",
-        ".nojekyll"
+        ".nojekyll",
+        "manifest.json",
+        "manifest.webapp",
+        "humans.txt",
+        "favicon.ico",
+        "robots.txt"
+      ],
+      "ignore": [
+        "_inc"
       ],
       "compile": [
         "html",
+        "less",
         "css",
         "js",
         "md",
         "svg"
-      ]
+      ],
+      "less": {},
+      "eslint": {}
     },
     "app": {
-      "resourcePath": "./app/",
-      "googleSiteId": "UA-XXX-XXX"
+      "resourcePath": "/app/",
+      "libraryPath": "//genielabs.github.io/zkit/lib",
+      "googleSiteId": "UA-123-456"
     }
   }
 }

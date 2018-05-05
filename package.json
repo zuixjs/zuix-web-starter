@@ -13,6 +13,8 @@
   "keywords": [
     "zuixx",
     "web",
+    "app",
+    "front-end",
     "starter",
     "web components",
     "static-site",
@@ -36,6 +38,7 @@
     "http-server": "^0.11.1",
     "jsdom": "^11.10.0",
     "json-stringify": "^1.0.0",
+    "less": "^3.0.2",
     "markdown-it": "latest",
     "measure-time": "^3.1.1",
     "ncp": "^2.0.0",

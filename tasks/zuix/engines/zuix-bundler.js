@@ -32,6 +32,14 @@ const request = require('sync-request');
 const stringify = require('json-stringify');
 // logging
 const tlog = require('../lib/logger');
+// ESLint
+const linter = require("eslint").linter;
+const lintConfig = require('../../../.eslintrc');
+// LESS
+const less = require('less');
+// config
+const config = require('config');
+const zuixConfig = config.get('zuix');
 // zuix-bundler cli
 const jsdom = require('jsdom');
 const {JSDOM} = jsdom;
@@ -81,7 +89,7 @@ function createBundle(sourceFolder, data) {
                         el.outerHTML = content;
                     } else {
                         createBundle(sourceFolder, {
-                            file: sourceFolder + '/app/' + path + '.html',
+                            file: sourceFolder + '/' + zuixConfig.app.resourcePath + '/' + path + '.html',
                             content: content
                         });
                         zuixBundle.viewList.push({path: path, content: content});
@@ -140,7 +148,7 @@ function fetchResource(type, path, sourceFolder, reportError) {
                 .br();
         }
     } else {
-        const f = sourceFolder + '/app/' + path;
+        const f = sourceFolder + '/' + zuixConfig.app.resourcePath + '/' + path;
         tlog.update('   ^C%s^: reading "%s"', tlog.busyCursor(), path);
         try {
             content = fs.readFileSync(f).toString();
@@ -262,6 +270,35 @@ module.exports = function(options, template, data, cb) {
         tlog.update('');
         tlog.term.previousLine();
     }
+
+    // run ESlint
+    if (data.file.endsWith('.js')) {
+        tlog.info(' ^r*^: lint');
+        const issues = linter.verify(data.content, lintConfig, data.file);
+        issues.forEach(function (m) {
+            if (m.fatal || m.severity > 1) {
+                tlog.error('   ^RError^: %s ^R(^Y%s^w:^Y%s^R)', m.message, m.line, m.column);
+            } else {
+                tlog.warn('   ^YWarning^: %s ^R(^Y%s^w:^Y%s^R)', m.message, m.line, m.column);
+            }
+        });
+        if (issues.length === 0) {
+            tlog.update(' ^G\u2713^: lint');
+        }
+    }
+
+    // run LESS
+    if (data.file.endsWith('.less')) {
+        tlog.info(' ^r*^: less');
+        less.render(data.content, {sourceMap: {}}, function(error, output) {
+            const baseName = data.dest.substring(0, data.dest.length - 5);
+            fs.writeFileSync(baseName+'.css', output.css);
+            // TODO: source map generation disabled
+            //fs.writeFileSync(baseName+'.css.map', output.map);
+            tlog.update(' ^G\u2713^: less');
+        });
+    }
+
     cb(null, data.content);
     tlog.info(' ^G\u2713^: done');
 };
