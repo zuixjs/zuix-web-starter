@@ -231,7 +231,7 @@ module.exports = function(options, template, data, cb) {
     // zUIx bundle
     tlog.br().info('^w%s^:', data.file);
     // Default static-site processing
-    tlog.info(' ^w*^: static-site content');
+    tlog.info(' ^r*^: static-site content');
     let html = swigTemplate(data)._result.contents;
     let isStaticSite = (html != data.content);
     if (isStaticSite) {
@@ -261,7 +261,7 @@ module.exports = function(options, template, data, cb) {
         tlog.overwrite();
     }
     // Default static-site processing
-    tlog.info(' ^w*^: static-site content');
+    tlog.info(' ^r*^: static-site content');
     html = swigTemplate(data)._result.contents;
     if (html != data.content || isStaticSite) {
         data.content = html;
@@ -273,7 +273,7 @@ module.exports = function(options, template, data, cb) {
 
     // run ESlint
     if (data.file.endsWith('.js')) {
-        tlog.info(' ^w*^: lint');
+        tlog.info(' ^r*^: lint');
         const issues = linter.verify(data.content, lintConfig, data.file);
         issues.forEach(function (m) {
             if (m.fatal || m.severity > 1) {
@@ -289,7 +289,7 @@ module.exports = function(options, template, data, cb) {
 
     // run LESS
     if (data.file.endsWith('.less')) {
-        tlog.info(' ^w*^: less');
+        tlog.info(' ^r*^: less');
         less.render(data.content, lessConfig, function(error, output) {
             const baseName = data.dest.substring(0, data.dest.length - 5);
             fs.writeFileSync(baseName+'.css', output.css);

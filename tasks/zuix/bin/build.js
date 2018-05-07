@@ -74,11 +74,11 @@ for (let i = 0; i < copyFiles.length; i++) {
     copyFolder(source, destination);
 }
 
-// Copy zuix-dist files
+// Copy zuix-dist files and 'config.json'
 tlog.overwrite('   | "%s" -> "%s"', 'zuix-dist', 'js');
 copyFolder(util.format('%s/node_modules/zuix-dist/js', process.cwd()), util.format('%s/js/zuix', buildFolder));
 copyAppConfig();
-tlog.br();
+tlog.overwrite(' ^G\u2713^: done').br();
 
 const getElapsed = measureTime();
 tlog.info('^+Generating files ...');
@@ -95,13 +95,25 @@ staticSite({
     tlog.term.defaultColor('\n\n');
     if (err != null) {
         tlog.term.bgBrightWhite().red('Error^: '+err+'\n');
+        tlog.stats().error++;
     }
     const elapsed = getElapsed().millisecondsTotal;
     const count = stats.pages.length;
-    tlog.term.defaultColor(util.format('Generated ^B%s^: file%s in ^B%s^:^wms^:.\n\n', count, count !== 1 ? 's' : '', elapsed));
+    tlog.term.defaultColor(util.format(
+        'Generated ^B%s^: %s in ^B%s^:^w ms^:.\n%s ^r%s^: %s, ^y%s^: %s.\n\n',
+        count,
+        plural('file', count !== 1 ? 's' : ''),
+        elapsed,
+        tlog.stats().error === 0 ? '^G\u2713^:' : '^R*^:',
+        tlog.stats().error,
+        plural('error', tlog.stats().error),
+        tlog.stats().warn,
+        plural('warning', tlog.stats().warn),
+    ));
+    process.exit(tlog.stats().error);
 });
 
-//process.exit(0);
+// TODO: should wait task to complete before.. process.exit(0);
 
 function copyAppConfig() {
     let cfg = 'zuix.store("config", ';
@@ -122,12 +134,12 @@ function copyFolder(source, destination, done) {
         }
         if (!fs.existsSync(folder)) {
             mkdirp.sync(folder);
-            tlog.overwrite('  ^wcreated folder "%s"', folder)
+            tlog.overwrite('   ^wcreated folder "%s"', folder)
                 .br();
         }
     } else {
         tlog.overwrite();
-        tlog.warn('  ^w"%s" not found', source)
+        tlog.warn('   ^w"%s" not found', source)
             .br();
         // TODO: handle return value
         return false;
@@ -137,4 +149,8 @@ function copyFolder(source, destination, done) {
             done(err);
         }
     });
+}
+
+function plural(s, n) {
+    return s+(n !== 1 ? 's' : '');
 }

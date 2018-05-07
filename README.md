@@ -86,6 +86,7 @@ The default configuration is read from `config/default.json`
       "eslint": true
     },
     "app": {
+      "title": "zUIx Web Starter application.",
       "resourcePath": "/app/",
       "libraryPath": "//genielabs.github.io/zkit/lib",
       "googleSiteId": "UA-123-456"
@@ -119,17 +120,20 @@ List of folder and files to ignore.
 
 List of file types to parse and generate.
 
+##### `less`
 
-`// TODO ... `
+Set `true` to enable compile of `.less` files to `.css`.
+Configuration is read from `.lessrc.json` file.
 
+##### `eslint`
 
-Configuration for `zuix.build.eslint` and `zuix.build.less` options
-is read from `.eslintrc.json` and `.lessrc.json` file.
+Set `true` to enable JavaScript error checking/reporting with *ESLint*.
+Configuration is read from `.eslintrc.json` file.
 
 
 ### Site Structure
 
-`// TODO: ...`
+`// TODO: ... examples and folders structure clues`
 
 
 ##### Resources and Docs
