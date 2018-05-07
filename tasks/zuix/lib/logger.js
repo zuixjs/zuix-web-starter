@@ -10,33 +10,33 @@ function update(s, ...args) {
 
 function br(s, ...args) {
     if (s == null) s = '';
-    term.bgDefaultColor().defaultColor('             ^#^k^W|^: ').saveCursor(util.format(s, ...args)+'\n');
+    term.bgDefaultColor('\n').defaultColor('             ^#^k^W|^: ').saveCursor(util.format(s, ...args));
     return this;
 }
 
 function info(s, ...args) {
     if (s == null) s = '';
     t().bgBrightGreen().black('I')
-        .bgDefaultColor().defaultColor(' ').saveCursor(util.format(s, ...args)+'\n');
+        .bgDefaultColor().defaultColor(' ').saveCursor(util.format(s, ...args));
     return this;
 }
 
 function warn(s, ...args) {
     if (s == null) s = '';
-    t().bgYellow().black('W').saveCursor()
-        .bgDefaultColor().defaultColor(' ').saveCursor(util.format(s, ...args)+'\n');
+    t().bgYellow().black('W')
+        .bgDefaultColor().defaultColor(' ').saveCursor(util.format(s, ...args));
     return this;
 }
 
 function error(s, ...args) {
     if (s == null) s = '';
-    t().bgBrightRed().white('E').saveCursor()
-        .bgDefaultColor().defaultColor(' ').saveCursor(util.format(s, ...args)+'\n');
+    t().bgBrightRed().white('E')
+        .bgDefaultColor().defaultColor(' ').saveCursor(util.format(s, ...args));
     return this;
 }
 
 function t() {
-    return term.bgDefaultColor().white(timestamp()+' ');
+    return term.bgDefaultColor('\n').white(timestamp()+' ');
 }
 
 function timestamp() {
@@ -59,6 +59,13 @@ module.exports = {
     error: error,
     warn: warn,
     update: update,
+    overwrite: function(s, ...args) {
+        term.eraseLine().previousLine();
+        if (s != null) {
+            return info(s, ...args);
+        }
+        return this;
+    },
     br: br,
     busyCursor: busyCursor,
     timestamp: timestamp,

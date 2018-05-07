@@ -2,7 +2,7 @@
   "name": "zuix-web-starter",
   "version": "1.0.0",
   "private": true,
-  "description": "zUIx Web Starter project",
+  "description": "Starter project for component oriented web development.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -16,6 +16,7 @@
     "app",
     "front-end",
     "starter",
+    "component oriented web",
     "web components",
     "static-site",
     "template",

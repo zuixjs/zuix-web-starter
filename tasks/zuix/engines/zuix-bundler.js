@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2017 G-Labs. All Rights Reserved.
+ * Copyright 2017-2018 G-Labs. All Rights Reserved.
  *         https://genielabs.github.io/zuix
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,9 +34,10 @@ const stringify = require('json-stringify');
 const tlog = require('../lib/logger');
 // ESLint
 const linter = require("eslint").linter;
-const lintConfig = require('../../../.eslintrc');
+const lintConfig = require(process.cwd()+'/.eslintrc');
 // LESS
 const less = require('less');
+const lessConfig = require(process.cwd()+'/.lessrc');
 // config
 const config = require('config');
 const zuixConfig = config.get('zuix');
@@ -136,11 +137,11 @@ function fetchResource(type, path, sourceFolder, reportError) {
         if (path.startsWith('//')) {
             path = 'https:'+path;
         }
-        tlog.update('   ^C%s^: downloading "%s"', tlog.busyCursor(), path);
+        tlog.overwrite('   ^C%s^: downloading "%s"', tlog.busyCursor(), path);
         const res = request('GET', path);
         if (res.statusCode === 200) {
             content = res.getBody('utf8');
-            tlog.update('');
+            tlog.overwrite('');
         } else if (reportError) {
             hasErrors = true;
             tlog.term.previousLine();
@@ -149,10 +150,10 @@ function fetchResource(type, path, sourceFolder, reportError) {
         }
     } else {
         const f = sourceFolder + '/' + zuixConfig.app.resourcePath + '/' + path;
-        tlog.update('   ^C%s^: reading "%s"', tlog.busyCursor(), path);
+        tlog.overwrite('   ^C%s^: reading "%s"', tlog.busyCursor(), path);
         try {
             content = fs.readFileSync(f).toString();
-            tlog.update('');
+            tlog.overwrite('');
         } catch (e) {
             if (reportError) {
                 hasErrors = true;
@@ -230,20 +231,18 @@ module.exports = function(options, template, data, cb) {
     // zUIx bundle
     tlog.br().info('^w%s^:', data.file);
     // Default static-site processing
-    tlog.info(' ^r*^: static-site content');
+    tlog.info(' ^w*^: static-site content');
     let html = swigTemplate(data)._result.contents;
     let isStaticSite = (html != data.content);
     if (isStaticSite) {
         data.content = html;
     }
     // Generate inline zUIx bundle
-    tlog.update(' ^r*^: zuix bundle').br();
+    tlog.overwrite(' ^r*^: zuix bundle');
     generateApp(options.source, data);
-    tlog.term.previousLine();
     if (Object.keys(stats).length > 0) {
         if (!hasErrors) {
-            tlog.term.previousLine();
-            tlog.info(' ^G\u2713^: zuix bundle');
+            tlog.overwrite(' ^G\u2713^: zuix bundle');
         }
         // output stats
         for (const key in stats) {
@@ -258,22 +257,23 @@ module.exports = function(options, template, data, cb) {
             );
         }
     } else {
-        tlog.term.previousLine();
+        // no zuix data processed ([data-ui-*] attributes)
+        tlog.overwrite();
     }
     // Default static-site processing
-    tlog.info(' ^r*^: static-site content');
+    tlog.info(' ^w*^: static-site content');
     html = swigTemplate(data)._result.contents;
     if (html != data.content || isStaticSite) {
         data.content = html;
-        tlog.update(' ^G\u2713^: static-site content');
+        tlog.overwrite(' ^G\u2713^: static-site content');
     } else {
-        tlog.update('');
-        tlog.term.previousLine();
+        // no template data processed
+        tlog.overwrite();
     }
 
     // run ESlint
     if (data.file.endsWith('.js')) {
-        tlog.info(' ^r*^: lint');
+        tlog.info(' ^w*^: lint');
         const issues = linter.verify(data.content, lintConfig, data.file);
         issues.forEach(function (m) {
             if (m.fatal || m.severity > 1) {
@@ -283,19 +283,19 @@ module.exports = function(options, template, data, cb) {
             }
         });
         if (issues.length === 0) {
-            tlog.update(' ^G\u2713^: lint');
+            tlog.overwrite(' ^G\u2713^: lint');
         }
     }
 
     // run LESS
     if (data.file.endsWith('.less')) {
-        tlog.info(' ^r*^: less');
-        less.render(data.content, {sourceMap: {}}, function(error, output) {
+        tlog.info(' ^w*^: less');
+        less.render(data.content, lessConfig, function(error, output) {
             const baseName = data.dest.substring(0, data.dest.length - 5);
             fs.writeFileSync(baseName+'.css', output.css);
             // TODO: source map generation disabled
             //fs.writeFileSync(baseName+'.css.map', output.map);
-            tlog.update(' ^G\u2713^: less');
+            tlog.overwrite(' ^G\u2713^: less');
         });
     }
 
@@ -308,8 +308,8 @@ module.exports = function(options, template, data, cb) {
 
 const Promise = require('es6-promise').Promise;
 const swig = require('swig-templates');
-const isMarkdown = require('../../../node_modules/static-site/lib/utils/is-markdown');
-const markdownTag = require('../../../node_modules/static-site/lib/utils/markdown-tag');
+const isMarkdown = require(process.cwd()+'/node_modules/static-site/lib/utils/is-markdown');
+const markdownTag = require(process.cwd()+'/node_modules/static-site/lib/utils/markdown-tag');
 const MarkdownIt = require('markdown-it');
 const hljs = require('highlight.js');
 const extras = require('swig-extras');

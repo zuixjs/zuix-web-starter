@@ -26,10 +26,11 @@
         "md",
         "svg"
       ],
-      "less": {},
-      "eslint": {}
+      "less": true,
+      "eslint": true
     },
     "app": {
+      "title": "zUIx Web Starter application.",
       "resourcePath": "/app/",
       "libraryPath": "//genielabs.github.io/zkit/lib",
       "googleSiteId": "UA-123-456"

@@ -36,7 +36,7 @@ const measureTime = require('measure-time');
 const pkg = require(process.cwd()+'/package.json');
 tlog.term
     .bgDefaultColor()
-    .defaultColor(util.format('^B%s^: v%s ^w%s^:\n\n',
+    .defaultColor(util.format('^B%s^: v%s ^w%s^:\n',
         pkg.name, pkg.version, pkg.homepage));
 
 // Configuration
@@ -70,15 +70,15 @@ for (let i = 0; i < copyFiles.length; i++) {
     const path = copyFiles[i];
     const source = util.format('%s/%s', sourceFolder, path);
     const destination = util.format('%s/%s', buildFolder, path);
-    tlog.update('   | "%s" -> "%s"', source, destination);
+    tlog.overwrite('   | "%s" -> "%s"', source, destination);
     copyFolder(source, destination);
 }
 
 // Copy zuix-dist files
-tlog.update('   | "%s" -> "%s"', 'zuix-dist', 'js');
+tlog.overwrite('   | "%s" -> "%s"', 'zuix-dist', 'js');
 copyFolder(util.format('%s/node_modules/zuix-dist/js', process.cwd()), util.format('%s/js/zuix', buildFolder));
 copyAppConfig();
-tlog.update('');
+tlog.br();
 
 const getElapsed = measureTime();
 tlog.info('^+Generating files ...');
@@ -89,15 +89,16 @@ staticSite({
     source: sourceFolder,
     ignore: ignoreFiles.concat(copyFiles),
     files: compileFiles,
-    helpers: ['tasks/zuix/helpers/subfolder_root.js'],
+    helpers: ['tasks/zuix/helpers/zuix-context.js'],
     templateEngine: 'tasks/zuix/engines/zuix-bundler.js'
 }, function(err, stats) {
+    tlog.term.defaultColor('\n\n');
+    if (err != null) {
+        tlog.term.bgBrightWhite().red('Error^: '+err+'\n');
+    }
     const elapsed = getElapsed().millisecondsTotal;
     const count = stats.pages.length;
-    tlog.br().info('Generated ^B%s^: file%s in ^B%s^:^W ms^:.\n', count, count !== 1 ? 's' : '', elapsed);
-    if (err != null) {
-        tlog.br().error(err).br();
-    }
+    tlog.term.defaultColor(util.format('Generated ^B%s^: file%s in ^B%s^:^wms^:.\n\n', count, count !== 1 ? 's' : '', elapsed));
 });
 
 //process.exit(0);
@@ -121,14 +122,11 @@ function copyFolder(source, destination, done) {
         }
         if (!fs.existsSync(folder)) {
             mkdirp.sync(folder);
-            tlog.update();
-            tlog.term.previousLine();
-            tlog.info('  ^wcreated folder "%s"', folder)
+            tlog.overwrite('  ^wcreated folder "%s"', folder)
                 .br();
         }
     } else {
-        tlog.update();
-        tlog.term.previousLine();
+        tlog.overwrite();
         tlog.warn('  ^w"%s" not found', source)
             .br();
         // TODO: handle return value
