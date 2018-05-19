@@ -14,7 +14,7 @@ Starter project for component oriented web development.
     * Templates
 - LESS to CSS compiling
 - ESLint .js code linting
-- PWA (wip)
+- PWA (wip - resources pre-caching)
 
 
 ### Prerequisites
@@ -53,7 +53,7 @@ This setting can be changed by modifying the `./config/default.json` file.
 
 The default configuration is read from `config/default.json`
 
-```
+```json
 {
   "zuix": {
     "build": {
@@ -102,15 +102,16 @@ to use a different configuration file (eg. `config/production.json`):
 
 ##### `zuix.build.input`
 
-Input folder.
+Input folder, where source files are located.
 
 ##### `zuix.build.output`
 
-Output folder.
+Output folder, where to copy/generate site files.
 
 ##### `copy`
 
-List of folder and files to copy as-is with no further processing.
+List of folder and files to copy as-is, from input to output folder,
+with no further processing.
 
 ##### `ignore`
 
@@ -118,7 +119,8 @@ List of folder and files to ignore.
 
 ##### `compile`
 
-List of file types to parse and generate.
+List of file types to parse and generate (comma separated list of
+file extensions without the dot).
 
 ##### `less`
 
@@ -134,6 +136,18 @@ Configuration is read from `.eslintrc.json` file.
 ### Site Structure
 
 `// TODO: ... examples and folders structure clues`
+
+```
+├── /source/              #
+│   ├── /_inc/            # Static-Site includes (eg. header.html, footer.html)
+│   ├── /app/             #
+│   ├────── /components/  # UI components
+│   ├───*!* /content/     # Pages, articles, images and other resources.
+│   ├────── /controllers/ # UI controllers
+│   ├────── /templates/   # UI templates
+│   ├── /images/          # Images (generic)
+│   └── /...              # Landing/Home page, PWA service worker, SEO, etc.
+```
 
 
 ##### Resources and Docs
