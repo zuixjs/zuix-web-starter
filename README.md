@@ -88,7 +88,7 @@ The default configuration is read from `config/default.json`
     "app": {
       "title": "zUIx Web Starter application.",
       "resourcePath": "/app/",
-      "libraryPath": "//genielabs.github.io/zkit/lib",
+      "libraryPath": "https://genielabs.github.io/zkit/lib",
       "googleSiteId": "UA-123-456"
     }
   }
@@ -100,40 +100,62 @@ to use a different configuration file (eg. `config/production.json`):
     export NODE_ENV=production
     npm run build # (or watch)
 
-##### `zuix.build.input`
+#### `zuix.build`
+
+The building configuration object implements the following fileds.
+
+###### `input`
 
 Input folder, where source files are located.
 
-##### `zuix.build.output`
+###### `output`
 
 Output folder, where to copy/generate site files.
 
-##### `copy`
+###### `copy`
 
 List of folder and files to copy as-is, from input to output folder,
 with no further processing.
 
-##### `ignore`
+###### `ignore`
 
 List of folder and files to ignore.
 
-##### `compile`
+###### `compile`
 
 List of file types to parse and generate (comma separated list of
 file extensions without the dot).
 
-##### `less`
+###### `less`
 
 Set `true` to enable compile of `.less` files to `.css`.
 Configuration is read from `.lessrc.json` file.
 
-##### `eslint`
+###### `eslint`
 
 Set `true` to enable JavaScript error checking/reporting with *ESLint*.
 Configuration is read from `.eslintrc.json` file.
 
+#### `zuix.app`
+
+The application settings object can also contain user-defined fields
+that can be then recalled from app pages using *double angulars* (eg. `{{title}}`
+will be replaced with `zuix.app.title` value).
+
+###### `resourcePath`
+
+Path where application resources are located (components, templates, etc..).
+
+###### `libraryPath`
+
+Path where library (`lib://`) components are located. By default
+points to [zKit](https://genielabs.github.io/zkit) components.
+
 
 ### Site Structure
+
+These are just guide lines for app structuring, so feel free to adopt your own
+solution as every aspect of the app can be customized.
 
 `// TODO: ... examples and folders structure clues`
 

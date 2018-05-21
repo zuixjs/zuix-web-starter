@@ -31,9 +31,9 @@
     },
     "app": {
       "title": "zUIx Web Starter application.",
+      "googleSiteId": "UA-123-456",
       "resourcePath": "/app/",
-      "libraryPath": "//genielabs.github.io/zkit/lib",
-      "googleSiteId": "UA-123-456"
+      "libraryPath": "https://genielabs.github.io/zkit/lib"
     }
   }
 }

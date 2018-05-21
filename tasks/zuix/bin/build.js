@@ -57,7 +57,7 @@ tlog.br('  ^Gcompile^ %s', compileFiles)
     .br();
 if (!fs.existsSync(sourceFolder)) {
     tlog.error('   "%s" does not exist', sourceFolder);
-    //process.exit(-1);
+    process.exitCode = -1;
     return false;
 }
 
@@ -110,10 +110,8 @@ staticSite({
         tlog.stats().warn,
         plural('warning', tlog.stats().warn),
     ));
-    process.exit(tlog.stats().error);
+    process.exitCode = tlog.stats().error;
 });
-
-// TODO: should wait task to complete before.. process.exit(0);
 
 function copyAppConfig() {
     let cfg = 'zuix.store("config", ';
