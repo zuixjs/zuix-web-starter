@@ -163,6 +163,8 @@ The following are just guide-lines for app structuring.
 │   ├────── components/  # - UI components
 │   ├────── controllers/ # - UI controllers
 │   ├────── templates/   # - UI templates
+│   ├────── content/     # - Content fragments conveniently
+│   │                    #   organized into subfolders
 │   ├── images/          # Images (generic/shared)
 │   └── ...              # Landing/Home and other entry pages,
 .   .                    #  PWA service worker, SEO, etc.
@@ -224,9 +226,9 @@ of the following files/folder:
 ├── source/
 │   ├── app/
 │   ├────── components/
-│   ├────────── login_dialog.css    # Style
-│   ├────────── login_dialog.html   # View
 │   ├────────── login_dialog.js     # Controller
+│   ├────────── login_dialog.html   # View
+│   ├────────── login_dialog.css    # Style
 │   ├────────── login_dialog/       # Folder where to put
 .   .                               #  component-local assets/resources
 ```
