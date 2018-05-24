@@ -164,8 +164,8 @@ The following are just guide-lines for app structuring.
 │   ├────── controllers/ # - UI controllers
 │   ├────── templates/   # - UI templates
 │   ├── images/          # Images (generic/shared)
-│   └── ...              # Landing/Home and other entry pages
-.   .                    # PWA service worker, SEO, etc.
+│   └── ...              # Landing/Home and other entry pages,
+.   .                    #  PWA service worker, SEO, etc.
 ```
 
 The **_inc** folder is reserved for **static-site** content fragments that are
@@ -228,7 +228,7 @@ of the following files/folder:
 │   ├────────── login_dialog.html   # View
 │   ├────────── login_dialog.js     # Controller
 │   ├────────── login_dialog/       # Folder where to put
-.   .                               # component-local images and resources
+.   .                               #  component-local assets/resources
 ```
 
 as an example see the *Media Browser* component structure in the
