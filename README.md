@@ -3,7 +3,7 @@
 Starter project for component oriented web development.
 
 
-### Featuring
+## Featuring
 
 - zUIx web components and app bundler
 - Static Site
@@ -17,12 +17,12 @@ Starter project for component oriented web development.
 - PWA (wip - resources pre-caching)
 
 
-### Prerequisites
+## Prerequisites
 
 This project requires [Node.js/npm](https://www.npmjs.com/get-npm) to be installed.
 
 
-### Usage
+## Usage
 
 Download or clone this repository
 
@@ -49,9 +49,9 @@ website source files are located in the `./source` folder and are
 generated in the `./docs` folder.
 This setting can be changed by modifying the `./config/default.json` file.
 
-#### Configuration options
+### Configuration options
 
-The default configuration is read from `config/default.json`
+The default configuration is read from `config/default.json`:
 
 ```json
 {
@@ -100,21 +100,21 @@ to use a different configuration file (eg. `config/production.json`):
     export NODE_ENV=production
     npm run build # (or watch)
 
-#### `zuix.build`
+### zuix.build
 
-The building configuration object implements the following fileds.
+The `build` configuration object implements the following fileds.
 
 ###### `input`
 
-Input folder, where source files are located.
+Input folder: where source files are located.
 
 ###### `output`
 
-Output folder, where to copy/generate site files.
+Output folder: where to copy/generate site files.
 
 ###### `copy`
 
-List of folder and files to copy as-is, from input to output folder,
+List of folders and files to copy as-is, from input to output folder,
 with no further processing.
 
 ###### `ignore`
@@ -136,11 +136,11 @@ Configuration is read from `.lessrc.json` file.
 Set `true` to enable JavaScript error checking/reporting with *ESLint*.
 Configuration is read from `.eslintrc.json` file.
 
-#### `zuix.app`
+### zuix.app
 
 The application settings object can also contain user-defined fields
-that can be then recalled from app pages using *double angulars* (eg. `{{title}}`
-will be replaced with `zuix.app.title` value).
+that can be then recalled inside app pages using *double angulars*
+(eg. `{{app.title}}` will be replaced with `zuix.app.title` value).
 
 ###### `resourcePath`
 
@@ -152,27 +152,90 @@ Path where library (`lib://`) components are located. By default
 points to [zKit](https://genielabs.github.io/zkit) components.
 
 
-### Site Structure
+## Site Structure
 
-These are just guide lines for app structuring, so feel free to adopt your own
-solution as every aspect of the app can be customized.
-
-`// TODO: ... examples and folders structure clues`
+The following are just guide-lines for app structuring.
 
 ```
-├── /source/              #
-│   ├── /_inc/            # Static-Site includes (eg. header.html, footer.html)
-│   ├── /app/             #
-│   ├────── /components/  # UI components
-│   ├───*!* /content/     # Pages, articles, images and other resources.
-│   ├────── /controllers/ # UI controllers
-│   ├────── /templates/   # UI templates
-│   ├── /images/          # Images (generic)
-│   └── /...              # Landing/Home page, PWA service worker, SEO, etc.
+├── source/              #
+│   ├── _inc/            # Static-Site includes (eg. header.html, footer.html)
+│   ├── app/             # zUIx app folder
+│   ├────── components/  # - UI components
+│   ├────── controllers/ # - UI controllers
+│   ├────── templates/   # - UI templates
+│   ├── images/          # Images (generic/shared)
+│   └── ...              # Landing/Home and other entry pages
+.   .                    # PWA service worker, SEO, etc.
 ```
 
+The **_inc** folder is reserved for **static-site** content fragments that are
+reusable fragments of page that can be included by using the
+`{% include "<file_to_include>" %}` command.
 
-##### Resources and Docs
+The following example shows how the main `source/index.html' file includes
+common stuff that is usually put in the header and before the end of
+the body of all pages:
+
+
+```html
+{% include "_inc/head_open.html" %}
+    <link rel="stylesheet" href="index.css">
+    <!-- put any custom content that goes inside `<head>` here -->
+{% include "_inc/head_close.html" %}
+<body>
+
+    <header>
+        ...
+    </header>
+
+    <main>
+        ...
+    </main>
+
+    <footer>
+        ...
+    </footer>
+
+    <script src="index.js"></script>
+{% include "_inc/body_end.html" %}
+</body>
+{% include "_inc/html_close.html" %}
+```
+
+Find out all other *static-site* commands and functionality from its
+[documentation page](https://github.com/paulcpederson/static-site#how).
+
+The **app** folder is reserverd for **zUIx** components and templates that
+are loaded using the `data-ui-load` and `data-ui-include`
+attributes. See *zUIx* [Getting Started](https://genielabs.github.io/zuix/#/docs)
+guide for documentation about how to apply templates and how to create/use
+components. The name of this folder (*app*) is defined by the
+`zuix.app.resourcePath` configuration setting.
+
+The **images** folder should be reserved for all graphic resources that
+are shared and are usually referenced by more than a single page or component.
+
+It is recommended to put component-wise of content-wise resources inside
+a dedicated subfolder.
+
+For instance, a `app/components/login_dialog` component will consist
+of the following files/folder:
+```
+├── source/
+│   ├── app/
+│   ├────── components/
+│   ├────────── login_dialog.css    # Style
+│   ├────────── login_dialog.html   # View
+│   ├────────── login_dialog.js     # Controller
+│   ├────────── login_dialog/       # Folder where to put
+.   .                               # component-local images and resources
+```
+
+as an example see the *Media Browser* component structure in the
+[zKit repository](https://github.com/genielabs/zkit/tree/master/source/lib/components).
+
+
+## Resources and Docs
 
 - **zUIx** http://zuix.it
 - **Static Site** https://github.com/paulcpederson/static-site
