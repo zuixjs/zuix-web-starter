@@ -215,7 +215,7 @@ components. The name of this folder (*app*) is defined by the
 The **images** folder should be reserved for all graphic resources that
 are shared and are usually referenced by more than a single page or component.
 
-It is recommended to put component-wise of content-wise resources inside
+It is recommended to put component-local or content-local resources inside
 a dedicated subfolder.
 
 For instance, a `app/components/login_dialog` component will consist
