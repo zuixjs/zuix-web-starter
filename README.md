@@ -9,7 +9,7 @@ Starter project for component oriented web development.
 - Static Site
     * Front-Matter
     * Data Files
-    * Helper
+    * Helpers
     * Collections
     * Templates
 - LESS to CSS compiling
@@ -82,6 +82,7 @@ The default configuration is read from `config/default.json`:
         "md",
         "svg"
       ],
+      "bundle": true,
       "less": true,
       "eslint": true
     },
@@ -125,6 +126,13 @@ List of folder and files to ignore.
 
 List of file types to parse and generate (comma separated list of
 file extensions without the dot).
+
+###### `bundle`
+
+Generate inline bundle for zUIx components and contents loaded with
+`data-ui-include` and `data-ui-load` attributes.
+Use the attribute `data-o-markdown="true"` to post-process loaded content
+with [MarkDown](http://demo.showdownjs.com/) parser.
 
 ###### `less`
 
