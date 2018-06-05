@@ -265,6 +265,7 @@ module.exports = function(options, template, data, cb) {
     hasErrors = false;
     // zUIx bundle
     tlog.br().info('^w%s^:', data.file);
+    let postProcessed = false;
     // Default static-site processing
     tlog.info(' ^r*^: static-site content');
     let html = swigTemplate(data)._result.contents;
@@ -296,6 +297,7 @@ module.exports = function(options, template, data, cb) {
             html = swigTemplate(data)._result.contents;
             isStaticSite = isStaticSite || html != data.content;
             tlog.info();
+            postProcessed = true;
         } else {
             // no zuix data processed ([data-ui-*] attributes)
             tlog.overwrite();
@@ -304,6 +306,7 @@ module.exports = function(options, template, data, cb) {
     if (isStaticSite) {
         data.content = html;
         tlog.overwrite(' ^G\u2713^: static-site content').br();
+        postProcessed = true;
     }
 
     if (zuixConfig.build.eslint) {
@@ -322,6 +325,7 @@ module.exports = function(options, template, data, cb) {
                 tlog.overwrite(' ^G\u2713^: lint');
             }
             tlog.info();
+            postProcessed = true;
         }
     }
 
@@ -337,10 +341,14 @@ module.exports = function(options, template, data, cb) {
                 tlog.overwrite(' ^G\u2713^: less');
             });
             tlog.info();
+            postProcessed = true;
         }
     }
 
     cb(null, data.content);
+    if (!postProcessed) {
+        tlog.info();
+    }
     tlog.overwrite(' ^G\u2713^: done');
 };
 
