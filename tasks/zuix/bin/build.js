@@ -95,7 +95,6 @@ staticSite({
     source: sourceFolder,
     ignore: ignoreFiles.concat(copyFiles),
     files: compileFiles,
-    prettyUrl: false,
     helpers: ['tasks/zuix/helpers/zuix-context.js'],
     templateEngine: 'tasks/zuix/engines/zuix-bundler.js'
 }, function(err, stats) {

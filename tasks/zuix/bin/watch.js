@@ -28,7 +28,6 @@ const delay = require('delay');
 const chokidar = require('chokidar');
 const config = require('config');
 const zuixConfig = config.get('zuix');
-
 const sourceFolder = zuixConfig.get('build.input');
 
 const BuildingState = {
@@ -36,16 +35,18 @@ const BuildingState = {
     RUNNING: 1,
     PENDING: 2
 };
-
 let status = BuildingState.IDLE;
 
 startWatch();
 
-
 function build() {
     status = BuildingState.RUNNING;
     const childProcess = require('child_process');
-    childProcess.execFileSync('npm', ['run', 'build'], {stdio:[0, 1, 2]});
+    try {
+        childProcess.execFileSync('npm', ['run', 'build'], {stdio: [0, 1, 2]});
+    } catch (e) {
+        // TODO: report exception?
+    }
     delay(1000).then(function() {
         if (status === BuildingState.PENDING) {
             build();
