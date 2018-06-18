@@ -26,6 +26,7 @@
         "md",
         "svg"
       ],
+      "prettyUrl": false,
       "bundle": true,
       "less": true,
       "eslint": true

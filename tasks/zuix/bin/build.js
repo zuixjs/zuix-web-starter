@@ -49,17 +49,19 @@ const buildFolder = zuixConfig.get('build.output');
 const copyFiles = zuixConfig.get('build.copy');
 const ignoreFiles = zuixConfig.get('build.ignore');
 const compileFiles = zuixConfig.get('build.compile');
+const prettyUrl = zuixConfig.get('build.prettyUrl');
 const bundle = zuixConfig.get('build.bundle');
 const less = zuixConfig.get('build.less');
 const eslint = zuixConfig.get('build.eslint');
-tlog.br('    ^Ginput^ %s', sourceFolder)
-    .br('   ^Goutput^ %s', buildFolder)
-    .br('     ^Gcopy^ %s', copyFiles)
-    .br('   ^Gignore^ %s', ignoreFiles)
-    .br('  ^Gcompile^ %s', compileFiles)
-    .br('   ^Gbundle^ %s', bundle)
-    .br('     ^Gless^ %s', less)
-    .br('   ^Geslint^ %s', eslint)
+tlog.br('     ^Ginput^ %s', sourceFolder)
+    .br('    ^Goutput^ %s', buildFolder)
+    .br('      ^Gcopy^ %s', copyFiles)
+    .br('    ^Gignore^ %s', ignoreFiles)
+    .br('   ^Gcompile^ %s', compileFiles)
+    .br(' ^GprettyUrl^ %s', prettyUrl)
+    .br('    ^Gbundle^ %s', bundle)
+    .br('      ^Gless^ %s', less)
+    .br('    ^Geslint^ %s', eslint)
     .br();
 if (!fs.existsSync(sourceFolder)) {
     tlog.error('   "%s" does not exist', sourceFolder);
@@ -95,6 +97,7 @@ staticSite({
     source: sourceFolder,
     ignore: ignoreFiles.concat(copyFiles),
     files: compileFiles,
+    prettyUrl: prettyUrl,
     helpers: ['tasks/zuix/helpers/zuix-context.js'],
     templateEngine: 'tasks/zuix/engines/zuix-bundler.js'
 }, function(err, stats) {

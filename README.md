@@ -82,6 +82,7 @@ The default configuration is read from `config/default.json`:
         "md",
         "svg"
       ],
+      "prettyUrl": false,
       "bundle": true,
       "less": true,
       "eslint": true
@@ -126,6 +127,12 @@ List of folder and files to ignore.
 
 List of file types to parse and generate (comma separated list of
 file extensions without the dot).
+
+###### `prettyUrl`
+
+Enable pretty urls. For example, if you have a file called
+`about.html` it will be built to `about/index.html`,
+so that it can be linked just as `/about`.
 
 ###### `bundle`
 
