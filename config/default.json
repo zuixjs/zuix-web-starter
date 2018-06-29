@@ -27,9 +27,13 @@
         "svg"
       ],
       "prettyUrl": false,
-      "bundle": true,
       "less": true,
-      "eslint": true
+      "esLint": true,
+      "bundle": {
+        "js": true,
+        "css": true,
+        "zuix": true
+      }
     },
     "app": {
       "title": "zUIx Web Starter application.",

@@ -83,9 +83,13 @@ The default configuration is read from `config/default.json`:
         "svg"
       ],
       "prettyUrl": false,
-      "bundle": true,
       "less": true,
-      "eslint": true
+      "eslint": true,
+      "bundle": {
+        "js": true,
+        "css": true,
+        "zuix": true
+      }
     },
     "app": {
       "title": "zUIx Web Starter application.",
@@ -136,10 +140,12 @@ so that it can be linked just as `/about`.
 
 ###### `bundle`
 
-Generate inline bundle for zUIx components and contents loaded with
-`data-ui-include` and `data-ui-load` attributes.
-Use the attribute `data-o-markdown="true"` to post-process loaded content
-with [MarkDown](http://demo.showdownjs.com/) parser.
+Compile external resources as inline and pack them into the application bundle.
+
+- `js` (true/false) bundle scripts (`<script .. />`)
+- `css` (true/false) bundle styles (`<link rel="stylesheet"  .. />`)
+- `zuix` (true/false) bundle zUIx components and contents loaded via `data-ui-include` or `data-ui-load` attributes.
+Add the attribute `data-o-markdown="true"` to post-process loaded content with [MarkDown](http://demo.showdownjs.com/) parser.
 
 ###### `less`
 
