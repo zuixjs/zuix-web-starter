@@ -32,7 +32,6 @@ module.exports = function (site, cb) {
     site = site.map(function(page) {
         // Add app config to page data
         page.app = zuixConfig.app;
-        page.data.prettyUrl = false;
         // Adjust {{root} to relative path
         page.root = page.root.substring(3);
         if (page.root.length > 0)

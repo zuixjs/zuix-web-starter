@@ -25,11 +25,7 @@
  */
 
 // common
-const fs = require('fs');
 const path = require('path');
-const util = require('util');
-const request = require('sync-request');
-const stringify = require('json-stringify');
 // Markdown
 const showdown = require('showdown');
 const markdown = new showdown.Converter();

@@ -53,16 +53,36 @@ const prettyUrl = zuixConfig.get('build.prettyUrl');
 const bundle = zuixConfig.get('build.bundle');
 const less = zuixConfig.get('build.less');
 const esLint = zuixConfig.get('build.esLint');
+
+// Build helpers list
+const helperList = [];
+const zuixHelpersPath = 'tasks/zuix/helpers/';
+fs.readdirSync(zuixHelpersPath).forEach(file => {
+    if (file.endsWith('.js')) {
+        helperList.push(zuixHelpersPath + file);
+    }
+});
+const customHelpersPath = sourceFolder+'/_helpers/';
+if (fs.existsSync(customHelpersPath)) {
+    fs.readdirSync(customHelpersPath).forEach(file => {
+        if (file.endsWith('.js')) {
+            helperList.push(customHelpersPath + file);
+        }
+    });
+}
+
 tlog.br('     ^Ginput^ %s', sourceFolder)
     .br('    ^Goutput^ %s', buildFolder)
     .br('      ^Gcopy^ %s', copyFiles)
     .br('    ^Gignore^ %s', ignoreFiles)
     .br('   ^Gcompile^ %s', compileFiles)
     .br(' ^GprettyUrl^ %s', prettyUrl)
+    .br('   ^Ghelpers^ %s', JSON.stringify(helperList))
     .br('    ^Gbundle^ %s', JSON.stringify(bundle))
     .br('      ^Gless^ %s', less)
     .br('    ^GesLint^ %s', esLint)
     .br();
+
 if (!fs.existsSync(sourceFolder)) {
     tlog.error('   "%s" does not exist', sourceFolder);
     process.exitCode = -1;
@@ -102,7 +122,7 @@ staticSite({
     ignore: ignoreFiles.concat(copyFiles),
     files: compileFiles,
     prettyUrl: prettyUrl,
-    helpers: ['tasks/zuix/helpers/zuix-context.js'],
+    helpers: helperList,
     templateEngine: 'tasks/zuix/engines/zuix-bundler.js'
 }, function(err, stats) {
     tlog.term.defaultColor('\n\n');

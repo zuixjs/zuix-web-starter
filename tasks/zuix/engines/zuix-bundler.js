@@ -26,7 +26,6 @@
 
 // common
 const fs = require('fs');
-const path = require('path');
 const util = require('util');
 const request = require('sync-request');
 const stringify = require('json-stringify');
@@ -59,166 +58,170 @@ let stats;
 let hasErrors;
 
 function createBundle(sourceFolder, data) {
-    if (data.file.endsWith('.html')) {
-        const dom = new JSDOM(data.content);
+    const dom = new JSDOM(data.content);
 
-        // JavaScript resources
-        if (zuixConfig.build.bundle && zuixConfig.build.bundle.js) {
-            // TODO: check/parse scripts
-            const scriptList = dom.window.document.querySelectorAll('script[src]');
-            if (scriptList != null) {
-                scriptList.forEach(function (el) {
-                    if (el.getAttribute('defer') != null) {
-                        return;
-                    }
-                    let path = el.getAttribute('src');
-                    if (!(path.startsWith('http') || path.startsWith('//'))) {
-                        path = sourceFolder + '/' + path;
-                    }
-                    let scriptText = fetchResource(path, null, false);
-                    if (scriptText == null) {
-                        scriptText = fetchResource(zuixConfig.build.output+'/'+el.getAttribute('src'), null, true);
-                    }
-                    if (scriptText != null) {
-                        scriptText = '//{% raw %}\n' + scriptText + '\n//{% endraw %}';
-                        el.innerHTML = scriptText;
-                        el.removeAttribute('src');
-                        zuixBundle.assetList.push({path: path, content: scriptText, type: 'script'});
-                    }
-                });
-            }
+    // JavaScript resources
+    if (zuixConfig.build.bundle && zuixConfig.build.bundle.js) {
+        // TODO: check/parse scripts
+        const scriptList = dom.window.document.querySelectorAll('script[src]');
+        if (scriptList != null) {
+            scriptList.forEach(function (el) {
+                if (el.getAttribute('defer') != null) {
+                    return;
+                }
+                let path = el.getAttribute('src');
+                if (!(path.startsWith('http') || path.startsWith('//'))) {
+                    path = sourceFolder + '/' + path;
+                }
+                let scriptText = fetchResource(path, null, false);
+                if (scriptText == null) {
+                    scriptText = fetchResource(zuixConfig.build.output+'/'+el.getAttribute('src'), null, true);
+                }
+                if (scriptText != null) {
+                    scriptText = '//{% raw %}\n' + scriptText + '\n//{% endraw %}';
+                    el.innerHTML = scriptText;
+                    el.removeAttribute('src');
+                    zuixBundle.assetList.push({path: path, content: scriptText, type: 'script'});
+                }
+            });
         }
-
-        // CSS resources
-        if (zuixConfig.build.bundle && zuixConfig.build.bundle.css) {
-            // TODO: check/parse css
-            const styleList = dom.window.document.querySelectorAll('link[rel="stylesheet"][href]');
-            if (styleList != null) {
-                styleList.forEach(function(el) {
-                    let path = el.getAttribute('href');
-                    if (!(path.startsWith('http') || path.startsWith('//'))) {
-                        path = sourceFolder+'/'+path;
-                    }
-                    let cssText = fetchResource(path, null, false);
-                    if (cssText == null) {
-                        cssText = fetchResource(zuixConfig.build.output+'/'+el.getAttribute('href'), null, true);
-                    }
-                    if (cssText != null) {
-                        el.outerHTML = '<style>\n/*{% raw %}*/\n'+cssText+'\n/*{% endraw %}*/\n</style>';
-                        zuixBundle.assetList.push({path: path, content: cssText, type: 'style'});
-                    }
-                });
-            }
-        }
-
-        // zUIx resources
-        if (zuixConfig.build.bundle.zuix !== false) {
-            const nodeList = dom.window.document.querySelectorAll('[data-ui-include],[data-ui-load]');
-            if (nodeList != null) {
-                nodeList.forEach(function (el) {
-                    let skipElement = false;
-                    let parent = el.parentNode;
-                    while (parent != null) {
-                        if (parent.tagName == 'PRE') {
-                            skipElement = true;
-                            break;
-                        }
-                        parent = parent.parentNode;
-                    }
-                    if (skipElement) {
-                        return;
-                    }
-
-                    let hasJsFile = false;
-                    let path = el.getAttribute('data-ui-include');
-                    if (path == null || path === '') {
-                        hasJsFile = true;
-                        path = el.getAttribute('data-ui-load');
-                    }
-                    // do not process inline views
-                    if (dom.window.document.querySelectorAll('[data-ui-view="' + path + '"]').length > 0) {
-                        return;
-                    }
-
-                    let content;
-                    if (hasJsFile) {
-                        if (isBundled(zuixBundle.controllerList, path)) {
-                            return;
-                        }
-                        content = fetchResource(path + '.js', sourceFolder, true);
-                        if (content != null) {
-                            zuixBundle.controllerList.push({path: path, content: content});
-                        }
-                    }
-                    // HTML
-                    const item = isBundled(zuixBundle.viewList, path);
-                    if (item !== false) {
-                        item.count++;
-                        return;
-                    }
-                    content = fetchResource(path + '.html', sourceFolder, !hasJsFile);
-                    if (content != null) {
-                        const md = el.getAttribute('data-o-markdown');
-                        if (md != null && md.trim() === 'true') {
-                            content = staticSite.markdown(content);
-                        }
-                        const d = {
-                            file: sourceFolder + '/' + zuixConfig.app.resourcePath + '/' + path + '.html',
-                            content: content
-                        };
-                        const dm = createBundle(sourceFolder, d);
-                        content = dm.window.document.body.innerHTML;
-                        if (el.getAttribute('data-ui-mode') === 'unwrap') {
-                            // TODO: add HTML comment with file info
-                            el.outerHTML = content;
-                        } else {
-                            // Lazy-loaded elements and components (data-ui-load) can't be defined inline
-                            let inline = false;
-                            // TODO: improve lazy-load check (inherit flag from parents)
-                            if (el.getAttribute('data-ui-lazyload') != 'true' && el.getAttribute('data-ui-load') == null) {
-                                inline = true;
-                                el.innerHTML = '\n' + content + '\n';
-                                let p = resolveAppPath(sourceFolder, path);
-                                p = p.lib ? p.path : path;
-                                el.setAttribute('data-ui-view', p);
-                            }
-                            zuixBundle.viewList.push({path: path, content: content, element: el, bundle: !inline});
-                        }
-                    }
-                    // CSS
-                    content = fetchResource(path + '.css', sourceFolder);
-                    if (content != null) {
-                        if (el.getAttribute('data-ui-mode') === 'unwrap') {
-                            // TODO: add // comment with file info
-                            content = util.format('\n<style id="%s">\n%s\n</style>\n', path, content);
-                            dom.window.document.querySelector('head').innerHTML += util.format('\n<!--{[%s]}-->\n%s', path, content);
-                        } else {
-                            zuixBundle.styleList.push({path: path, content: content});
-                        }
-                    }
-                });
-            }
-        }
-        return dom;
     }
+
+    // CSS resources
+    if (zuixConfig.build.bundle && zuixConfig.build.bundle.css) {
+        // TODO: check/parse css
+        const styleList = dom.window.document.querySelectorAll('link[rel="stylesheet"][href]');
+        if (styleList != null) {
+            styleList.forEach(function(el) {
+                let path = el.getAttribute('href');
+                if (!(path.startsWith('http') || path.startsWith('//'))) {
+                    path = sourceFolder+'/'+path;
+                }
+                let cssText = fetchResource(path, null, false);
+                if (cssText == null) {
+                    cssText = fetchResource(zuixConfig.build.output+'/'+el.getAttribute('href'), null, true);
+                }
+                if (cssText != null) {
+                    el.outerHTML = '<style>\n/*{% raw %}*/\n'+cssText+'\n/*{% endraw %}*/\n</style>';
+                    zuixBundle.assetList.push({path: path, content: cssText, type: 'style'});
+                }
+            });
+        }
+    }
+
+    // zUIx resources
+    if (zuixConfig.build.bundle.zuix !== false) {
+        const nodeList = dom.window.document.querySelectorAll('[data-ui-include],[data-ui-load]');
+        if (nodeList != null) {
+            nodeList.forEach(function (el) {
+                let skipElement = false;
+                let parent = el.parentNode;
+                while (parent != null) {
+                    if (parent.tagName == 'PRE') {
+                        skipElement = true;
+                        break;
+                    }
+                    parent = parent.parentNode;
+                }
+                if (skipElement) {
+                    return;
+                }
+
+                let hasJsFile = false;
+                let path = el.getAttribute('data-ui-include');
+                if (path == null || path === '') {
+                    hasJsFile = true;
+                    path = el.getAttribute('data-ui-load');
+                }
+                // do not process inline views
+                if (dom.window.document.querySelectorAll('[data-ui-view="' + path + '"]').length > 0) {
+                    return;
+                }
+
+                let content;
+                if (hasJsFile) {
+                    if (isBundled(zuixBundle.controllerList, path)) {
+                        return;
+                    }
+                    content = fetchResource(path + '.js', sourceFolder, true);
+                    if (content != null) {
+                        zuixBundle.controllerList.push({path: path, content: content});
+                    }
+                }
+                // HTML
+                const item = isBundled(zuixBundle.viewList, path);
+                if (item !== false) {
+                    item.count++;
+                    return;
+                }
+                content = fetchResource(path + '.html', sourceFolder, !hasJsFile);
+                if (content != null) {
+                    // Run static-site processing
+                    content = staticSite.swig({ file: path + '.html', content: content, data: data.data, app: data.app })._result.contents;
+                    // check markdown option
+                    const md = el.getAttribute('data-o-markdown');
+                    if (md != null && md.trim() === 'true') {
+                        content = staticSite.markdown(content);
+                        el.removeAttribute('data-o-markdown');
+                    }
+                    const d = {
+                        file: sourceFolder + '/' + zuixConfig.app.resourcePath + '/' + path + '.html',
+                        content: content
+                    };
+                    const dm = createBundle(sourceFolder, d);
+                    content = dm.window.document.body.innerHTML;
+                    if (el.getAttribute('data-ui-mode') === 'unwrap') {
+                        // TODO: add HTML comment with file info
+                        el.outerHTML = content;
+                    } else {
+                        // Lazy-loaded elements and components (data-ui-load) can't be defined inline
+                        let inline = false;
+                        // TODO: improve lazy-load check (inherit flag from parents)
+                        if (el.getAttribute('data-ui-lazyload') != 'true' && el.getAttribute('data-ui-load') == null) {
+                            inline = true;
+                            el.innerHTML = '\n' + content + '\n';
+                            let p = resolveAppPath(sourceFolder, path);
+                            p = p.lib ? p.path : path;
+                            el.setAttribute('data-ui-view', p);
+                        }
+                        zuixBundle.viewList.push({path: path, content: content, element: el, bundle: !inline});
+                    }
+                }
+                // CSS
+                content = fetchResource(path + '.css', sourceFolder);
+                if (content != null) {
+                    if (el.getAttribute('data-ui-mode') === 'unwrap') {
+                        // TODO: add // comment with file info
+                        content = util.format('\n<style id="%s">\n%s\n</style>\n', path, content);
+                        dom.window.document.querySelector('head').innerHTML += util.format('\n<!--{[%s]}-->\n%s', path, content);
+                    } else {
+                        zuixBundle.styleList.push({path: path, content: content});
+                    }
+                }
+            });
+        }
+    }
+    return dom;
 }
 
 function resolveAppPath(sourceFolder, path) {
     let isLibraryPath = false;
-    if (path.startsWith('@lib/')) {
-        // resolve components library path
-        if (zuixConfig.app.libraryPath != null) {
-            if (zuixConfig.app.libraryPath.indexOf('://') > 0 || zuixConfig.app.libraryPath.startsWith('//')) {
-                path = zuixConfig.app.libraryPath + path.substring(4);
+    if (!isUrl(path)) {
+        if (path.startsWith('@lib/')) {
+            // resolve components library path
+            if (zuixConfig.app.libraryPath != null) {
+                if (zuixConfig.app.libraryPath.indexOf('://') > 0 || zuixConfig.app.libraryPath.startsWith('//')) {
+                    path = zuixConfig.app.libraryPath + path.substring(4);
+                } else {
+                    path = sourceFolder + '/' + zuixConfig.app.libraryPath + path.substring(4);
+                }
             } else {
-                path = sourceFolder + '/' + zuixConfig.app.libraryPath + path.substring(4);
+                path = LIBRARY_PATH_DEFAULT + path.substring(4);
             }
-        } else {
-            path = LIBRARY_PATH_DEFAULT + path.substring(4);
+            isLibraryPath = true;
         }
-        isLibraryPath = true;
+        path = isLibraryPath ? path : sourceFolder + '/' + zuixConfig.app.resourcePath + '/' + path;
     }
-    path = isLibraryPath ? path : sourceFolder + '/' + zuixConfig.app.resourcePath + '/' + path;
     return {
         lib: isLibraryPath,
         path: path
@@ -234,13 +237,17 @@ function isBundled(list, path) {
     return false;
 }
 
+function isUrl(path) {
+    return path.indexOf('://') > 0 || path.startsWith('//');
+}
+
 function fetchResource(path, sourceFolder, reportError) {
     let content = null;
     if (sourceFolder != null) {
         path = resolveAppPath(sourceFolder, path).path;
     }
     const error = '   ^#^R^W[%s]^:';
-    if (path.indexOf('://') > 0 || path.startsWith('//')) {
+    if (isUrl(path)) {
         if (path.startsWith('//')) {
             path = 'https:'+path;
         }
@@ -336,7 +343,7 @@ function generateApp(sourceFolder, data) {
             // add zuix resource bundle (css,js)
             const json = stringify(resourceBundle, null, 2);
             if (resourceBundle.length > 0) {
-                let jsonBundle = '\n    <script>zuix.bundle(' + json + ')</script>\n';
+                let jsonBundle = '\n<script>zuix.bundle(' + json + ')</script>\n';
                 dom.window.document.body.innerHTML += jsonBundle;
             }
         }
@@ -375,37 +382,32 @@ module.exports = function(options, template, data, cb) {
         data.content = html;
     }
 
-    // Generate resources bundle
-    tlog.overwrite(' ^r*^: resource bundle');
-    generateApp(options.source, data);
-    if (Object.keys(stats).length > 0) {
-        if (!hasErrors) {
-            tlog.overwrite(' ^G\u2713^: resource bundle');
-        }
-        // output stats
-        for (const key in stats) {
-            const s = stats[key];
-            const ok = '^+^g';
-            const ko = '^w';
-            tlog.info('   ^w[^:%s^:%s^:%s^:^w]^: %s',
-                s.view ? ok + 'v' : ko + '-',
-                s.css ? ok + 's' : ko + '-',
-                s.controller ? ok + 'c' : ko + '-',
-                '^:' + key
-            );
-        }
-        // Re-run static-site processing
-        html = staticSite.swig(data)._result.contents;
-        isStaticSite = isStaticSite || html != data.content;
-        tlog.info();
-        postProcessed = true;
-    } else {
-        // no zuix data processed ([data-ui-*] attributes)
-        tlog.overwrite();
-    }
+    if (data.file.endsWith('.html')) {
+        // Generate resources bundle
+        tlog.overwrite(' ^r*^: resource bundle');
+        generateApp(options.source, data);
+        if (Object.keys(stats).length > 0) {
+            if (!hasErrors) {
+                tlog.overwrite(' ^G\u2713^: resource bundle');
+            }
+            // output stats
+            for (const key in stats) {
+                const s = stats[key];
+                const ok = '^+^g';
+                const ko = '^w';
+                tlog.info('   ^w[^:%s^:%s^:%s^:^w]^: %s',
+                    s.view ? ok + 'v' : ko + '-',
+                    s.css ? ok + 's' : ko + '-',
+                    s.controller ? ok + 'c' : ko + '-',
+                    '^:' + key
+                );
+            }
+            tlog.info();
+            postProcessed = true;
+        } else tlog.overwrite();
+    } else tlog.overwrite();
 
     if (isStaticSite) {
-        data.content = html;
         tlog.info(' ^G\u2713^: static-site content').br();
         postProcessed = true;
     }

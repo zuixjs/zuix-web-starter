@@ -3,7 +3,7 @@ title: 'zUIx Web Starter'
 link: 'https://github.com/genemars/zuix-web-starter'
 head:
   title: 'zUIx Web Starter'
-  description: 'zUIx Web Starter application.'
+  description: 'Component-based web development.'
 ---
 {% include "_inc/head_open.html" %}
     <link rel="stylesheet" href="index.css">
@@ -16,6 +16,9 @@ head:
     </header>
 
     <main>
+
+        {% markdown %}{% include "README.txt" %}{% endmarkdown %}
+
         <h2>Documentation</h2>
         <ul>
             <li>
@@ -28,6 +31,24 @@ head:
                 <a href="https://github.com/paulcpederson/static-site">Static-Site</a>
             </li>
         </ul>
+
+
+        <div data-ui-load="@lib/components/media_browser"
+             data-ui-context="image-browser">
+
+            <div data-ui-field="media">
+
+                <img src="https://picsum.photos/400/300/?image=10">
+                <img src="https://picsum.photos/400/300/?image=20">
+                <img src="https://picsum.photos/400/300/?image=30">
+                <img src="https://picsum.photos/400/300/?image=40">
+                <img src="https://picsum.photos/400/300/?image=50">
+                <img src="https://picsum.photos/400/300/?image=60">
+
+            </div>
+
+        </div>
+
     </main>
 
     <footer></footer>
