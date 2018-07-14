@@ -404,8 +404,12 @@ module.exports = function(options, template, data, cb) {
             }
             tlog.info();
             postProcessed = true;
-        } else tlog.overwrite();
-    } else tlog.overwrite();
+        } else {
+            tlog.overwrite();
+        }
+    } else {
+        tlog.overwrite();
+    }
 
     if (isStaticSite) {
         tlog.info(' ^G\u2713^: static-site content').br();

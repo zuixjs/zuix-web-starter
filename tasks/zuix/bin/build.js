@@ -53,6 +53,7 @@ const prettyUrl = zuixConfig.get('build.prettyUrl');
 const bundle = zuixConfig.get('build.bundle');
 const less = zuixConfig.get('build.less');
 const esLint = zuixConfig.get('build.esLint');
+const workBox = require('workbox-build');
 
 // Build helpers list
 const helperList = [];
@@ -143,13 +144,38 @@ staticSite({
         tlog.stats().warn,
         plural('warning', tlog.stats().warn),
     ));
-    process.exitCode = tlog.stats().error;
+
+    // TODO: run work box
+    // NOTE: This should be run *AFTER* all your assets are built
+    const buildSW = () => {
+        // This will return a Promise
+        return workBox.generateSW({
+            globDirectory: 'docs',
+            globPatterns: [
+                '**\/*.{html,json,js,css}',
+            ],
+            swDest: 'docs/service-worker.js',
+        });
+    };
+    buildSW().then(function () {
+        process.exitCode = tlog.stats().error;
+    });
 });
 
 function copyAppConfig() {
     let cfg = 'zuix.store("config", ';
     cfg += JSON.stringify(config.get('zuix.app'), null, 4);
     cfg += ');\n';
+    // WorkBox / Service Worker
+    cfg += `
+    // Check that service workers are registered
+    if ('serviceWorker' in navigator) {
+        // Use the window load event to keep the page load performant
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./service-worker.js');
+        });
+    }
+    `;
     fs.writeFileSync(buildFolder+'/config.js', cfg);
 }
 
