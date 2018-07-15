@@ -150,11 +150,11 @@ staticSite({
     const buildSW = () => {
         // This will return a Promise
         return workBox.generateSW({
-            globDirectory: 'docs',
+            globDirectory: buildFolder,
             globPatterns: [
                 '**\/*.{html,json,js,css}',
             ],
-            swDest: 'docs/service-worker.js',
+            swDest: path.join(buildFolder, 'service-worker.js'),
         });
     };
     buildSW().then(function () {
@@ -163,10 +163,13 @@ staticSite({
 });
 
 function copyAppConfig() {
-    let cfg = 'zuix.store("config", ';
-    cfg += JSON.stringify(config.get('zuix.app'), null, 4);
+    let cfg = `/* eslint-disable quotes */
+(function() {
+    zuix.store("config", `;
+    cfg += JSON.stringify(config.get('zuix.app'), null, 8);
     cfg += ');\n';
     // WorkBox / Service Worker
+    // TODO: fix service-worker path
     cfg += `
     // Check that service workers are registered
     if ('serviceWorker' in navigator) {
@@ -175,7 +178,7 @@ function copyAppConfig() {
             navigator.serviceWorker.register('./service-worker.js');
         });
     }
-    `;
+})();\n`;
     fs.writeFileSync(buildFolder+'/config.js', cfg);
 }
 
