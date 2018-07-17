@@ -381,6 +381,7 @@ function generateApp(sourceFolder, page) {
 }
 
 module.exports = function(options, template, page, cb) {
+    localVars = page;
     // reset globals for every page
     stats = {};
     hasErrors = false;
@@ -389,10 +390,6 @@ module.exports = function(options, template, page, cb) {
     let postProcessed = false;
     // Default static-site processing
     tlog.info(' ^r*^: static-site content');
-    localVars = {
-        app: page.app,
-        root: page.root
-    };
     let html = staticSite.swig(page, localVars)._result.contents;
     let isStaticSite = (html != page.content);
     if (isStaticSite) {
