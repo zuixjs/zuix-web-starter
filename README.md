@@ -22,7 +22,7 @@ Starter project for component oriented web development.
 This project requires [Node.js/npm](https://www.npmjs.com/get-npm) to be installed.
 
 
-## Usage
+## Installation
 
 Download or clone this repository
 
@@ -33,15 +33,17 @@ Install development dependencies
 
     npm install
 
+## Usage
+
 Start local web server
 
     npm start
 
-Start auto-rebuild script (watch file tree for changes and auto-rebuild)
+Start auto-build script (watch file tree for changes and auto-rebuild)
 
     npm run watch
 
-Manual building
+Or manual building
 
     npm run build
 
@@ -89,6 +91,20 @@ The default configuration is read from `config/default.json`:
         "js": true,
         "css": true,
         "zuix": true
+      },
+      "minify": {
+        "disable": true,
+        "collapseWhitespace": true,
+        "removeOptionalTags": true,
+        "removeRedundantAttributes": true,
+        "removeScriptTypeAttributes": true,
+        "removeTagWhitespace": true,
+        "useShortDoctype": true,
+        "collapseBooleanAttributes": true,
+        "removeAttributeQuotes": true,
+        "removeEmptyAttributes": true,
+        "minifyCSS": true,
+        "minifyJS": true
       }
     },
     "app": {
@@ -146,6 +162,11 @@ Compile external resources as inline and pack them into the application bundle.
 - `css` (true/false) bundle styles (`<link rel="stylesheet"  .. />`)
 - `zuix` (true/false) bundle zUIx components and contents loaded via `data-ui-include` or `data-ui-load` attributes.
 Add the attribute `data-o-markdown="true"` to post-process loaded content with [MarkDown](http://demo.showdownjs.com/) parser.
+
+###### `minify`
+
+To enable minification set `minify.enable` to `true`. See all available options
+from [html-minifier](https://github.com/kangax/html-minifier) repository.
 
 ###### `less`
 
