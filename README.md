@@ -14,7 +14,13 @@ Starter project for component oriented web development.
     * Templates
 - LESS to CSS compiling
 - ESLint .js code linting
-- PWA (wip - resources pre-caching)
+- Minifier
+- Progressive Web App generator
+
+
+## Example
+
+https://genielabs.github.io/zuix-web-book
 
 
 ## Prerequisites
