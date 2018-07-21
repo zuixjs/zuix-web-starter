@@ -1,3 +1,1 @@
-zuix.context('image-browser', function(ctx){
-   //this.open();
-});
+// TODO: add JavaScript code
