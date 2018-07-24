@@ -291,4 +291,5 @@ as an example see the *Media Browser* component structure in the
 - **Static Site** https://github.com/paulcpederson/static-site
 - **LESS** http://lesscss.org/features/
 - **ESLint** https://eslint.org/docs/user-guide/getting-started
+- **HTML-minifier** https://github.com/kangax/html-minifier
 - **Node-config** http://lorenwest.github.io/node-config/
