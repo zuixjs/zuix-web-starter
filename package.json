@@ -10,13 +10,9 @@
     "build": "node tasks/zuix/bin/build"
   },
   "keywords": [
-    "zuixx",
-    "web",
-    "app",
-    "front-end",
-    "starter",
+    "zuix",
+    "web-starter",
     "component oriented web",
-    "web components",
     "static-site",
     "template",
     "node",
@@ -24,8 +20,8 @@
   ],
   "author": "G-Labs",
   "license": "MIT",
-  "homepage": "https://github.com/genielabs",
-  "repository": "https://github.com/genemars/zuix-web-starter",
+  "homepage": "https://github.com/zuixjs",
+  "repository": "https://github.com/zuixjs/zuix-web-starter",
   "devDependencies": {
     "chokidar": "^2.0.4",
     "config": "^1.30.0",

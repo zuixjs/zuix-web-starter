@@ -20,7 +20,7 @@ Starter project for component oriented web development.
 
 ## Example
 
-https://genielabs.github.io/zuix-web-book
+https://zuixjs.github.io/zuix-web-book
 
 
 ## Prerequisites
@@ -32,7 +32,7 @@ This project requires [Node.js/npm](https://www.npmjs.com/get-npm) to be install
 
 Download or clone this repository
 
-     git clone https://github.com/genemars/zuix-web-starter.git
+     git clone https://github.com/zuixjs/zuix-web-starter.git
      cd zuix-web-starter.git
 
 Install development dependencies
@@ -116,7 +116,7 @@ The default configuration is read from `config/default.json`:
     "app": {
       "title": "zUIx Web Starter application.",
       "resourcePath": "/app/",
-      "libraryPath": "https://genielabs.github.io/zkit/lib",
+      "libraryPath": "https://zuixjs.github.io/zkit/lib",
       "googleSiteId": "UA-123-456"
     }
   }
@@ -197,7 +197,7 @@ Path where application resources are located (components, templates, etc..).
 ###### `libraryPath`
 
 Path where library (`lib://`) components are located. By default
-points to [zKit](https://genielabs.github.io/zkit) components.
+points to [zKit](https://zuixjs.github.io/zkit) components.
 
 
 ## Site Structure
@@ -257,7 +257,7 @@ Find out all other *static-site* commands and functionality from its
 
 The **app** folder is reserverd for **zUIx** components and templates that
 are loaded using the `data-ui-load` and `data-ui-include`
-attributes. See *zUIx* [Getting Started](https://genielabs.github.io/zuix/#/docs)
+attributes. See *zUIx* [Getting Started](https://zuixjs.github.io/zuix/#/docs)
 guide for documentation about how to apply templates and how to create/use
 components. The name of this folder (*app*) is defined by the
 `zuix.app.resourcePath` configuration setting.
@@ -282,7 +282,7 @@ of the following files/folder:
 ```
 
 as an example see the *Media Browser* component structure in the
-[zKit repository](https://github.com/genielabs/zkit/tree/master/source/lib/components).
+[zKit repository](https://github.com/zuixjs/zkit/tree/master/source/lib/components).
 
 
 ## Resources and Docs
