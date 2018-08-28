@@ -18,8 +18,10 @@ Starter project for component oriented web development.
 - Progressive Web App generator
 
 
-## Example
+## Examples
 
+https://zuixjs.org
+https://zuixjs.github.io/zkit
 https://zuixjs.github.io/zuix-web-book
 
 
@@ -287,7 +289,7 @@ as an example see the *Media Browser* component structure in the
 
 ## Resources and Docs
 
-- **zUIx** http://zuix.it
+- **zUIx** https://zuixjs.org
 - **Static Site** https://github.com/paulcpederson/static-site
 - **LESS** http://lesscss.org/features/
 - **ESLint** https://eslint.org/docs/user-guide/getting-started
