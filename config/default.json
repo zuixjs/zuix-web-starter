@@ -35,7 +35,7 @@
         "zuix": false
       },
       "minify": {
-        "disable": false,
+        "disable": true,
         "collapseWhitespace": true,
         "removeOptionalTags": true,
         "removeRedundantAttributes": true,
@@ -53,10 +53,18 @@
       "title": "zUIx Web Starter application.",
       "googleSiteId": "UA-123-456",
       "resourcePath": "/app/",
-      "libraryPath": "https://zuixjs.github.io/zkit/lib/",
+      "libraryPath": {
+        "@lib": "https://zuixjs.github.io/zkit/lib/",
+        "@hgui": "https://genielabs.github.io/homegenie-web-ui/app/",
+        "@cdnjs": "https://cdnjs.cloudflare.com/ajax/libs/"
+      },
       "zuixjs.github.io": {
         "resourcePath": "/zuix-web-starter/app",
-        "libraryPath": "https://zuixjs.github.io/zkit/lib/"
+        "libraryPath": {
+          "@lib": "https://zuixjs.github.io/zkit/lib/",
+          "@hgui": "https://genielabs.github.io/homegenie-web-ui/app/",
+          "@cdnjs": "https://cdnjs.cloudflare.com/ajax/libs/"
+        }
       }
     }
   }

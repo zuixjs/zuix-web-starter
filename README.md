@@ -1,11 +1,12 @@
 # zUIx Web Starter
 
-Starter project for component oriented web development.
+zuix web starter is a web bundler and progressive web app (PWA) generator
+with static-site features and component oriented development based on [zuix.js](https://zuixjs.github.io/zuixjs.org).
 
 
 ## Featuring
 
-- zUIx web components and app bundler
+- zuix.js web components and app bundler
 - Static Site
     * Front-Matter
     * Data Files
@@ -15,14 +16,24 @@ Starter project for component oriented web development.
 - LESS to CSS compiling
 - ESLint .js code linting
 - Minifier
-- Progressive Web App generator
+- Progressive Web App generator (PWA)
 
 
-## Examples
+## zuix web starter examples
 
-https://zuixjs.org
-https://zuixjs.github.io/zkit
-https://zuixjs.github.io/zuix-web-book
+- https://genielabs.github.io/homegenie-web-ui
+- https://zuixjs.org
+- https://zuixjs.github.io/zkit
+- https://zuixjs.github.io/zuix-web-book
+
+## Other zuix web app examples
+
+The following examples are not based on `zuix-web-starter` and do not require
+any build tool (just a browser) but can be integrated into `zuix-web-starter`
+just by copying files from `source` folder.
+
+- https://zuixjs.github.io/zuix-html-pwa
+- https://zuixjs.github.io/zuix-net-flix
 
 
 ## Prerequisites
@@ -35,11 +46,11 @@ This project requires [Node.js/npm](https://www.npmjs.com/get-npm) to be install
 Download or clone this repository
 
      git clone https://github.com/zuixjs/zuix-web-starter.git
-     cd zuix-web-starter.git
+     cd zuix-web-starter
 
-Install development dependencies
+Install development dependencies and run initial build
 
-    npm install
+    npm install && npm run build
 
 ## Usage
 
@@ -49,7 +60,7 @@ Start local web server
 
 Start auto-build script (watch file tree for changes and auto-rebuild)
 
-    npm run watch
+    npm run build && npm run watch
 
 Or manual building
 
@@ -96,9 +107,9 @@ The default configuration is read from `config/default.json`:
       "less": true,
       "eslint": true,
       "bundle": {
-        "js": true,
-        "css": true,
-        "zuix": true
+        "js": false,
+        "css": false,
+        "zuix": false
       },
       "minify": {
         "disable": true,
@@ -118,7 +129,11 @@ The default configuration is read from `config/default.json`:
     "app": {
       "title": "zUIx Web Starter application.",
       "resourcePath": "/app/",
-      "libraryPath": "https://zuixjs.github.io/zkit/lib",
+      "libraryPath": {
+        "@lib": "https://zuixjs.github.io/zkit/lib/",
+        "@hgui": "https://genielabs.github.io/homegenie-web-ui/app/",
+        "@cdnjs": "https://cdnjs.cloudflare.com/ajax/libs/"
+      },
       "googleSiteId": "UA-123-456"
     }
   }
@@ -198,13 +213,24 @@ Path where application resources are located (components, templates, etc..).
 
 ###### `libraryPath`
 
-Path where library (`lib://`) components are located. By default
-points to [zKit](https://zuixjs.github.io/zkit) components.
+Path where components prefixed by (`@lib://`) are located. By default
+the `@lib://` prefix will point to [zKit](https://zuixjs.github.io/zkit) library components.
+The `libraryPath` property can also define more than one library source each of whose
+having a different prefix starting with `@`.
 
+**Example**
+
+```
+"libraryPath": {
+  "@lib": "https://zuixjs.github.io/zkit/lib/",
+  "@hgui": "https://genielabs.github.io/homegenie-web-ui/app/",
+  "@cdnjs": "https://cdnjs.cloudflare.com/ajax/libs/"
+}
+```
 
 ## Site Structure
 
-The following are just guide-lines for app structuring.
+The following are just guide-lines for structuring a *zuixjs* web app.
 
 ```
 ├── source/              #
@@ -216,7 +242,7 @@ The following are just guide-lines for app structuring.
 │   ├────── content/     # - Content fragments conveniently
 │   │                    #   organized into subfolders
 │   ├── images/          # Images (generic/shared)
-│   └── ...              # Landing/Home and other entry pages,
+│   └── ...              # Landing/Home and other main pages,
 .   .                    #  PWA service worker, SEO, etc.
 ```
 
@@ -258,8 +284,8 @@ Find out all other *static-site* commands and functionality from its
 [documentation page](https://github.com/paulcpederson/static-site#how).
 
 The **app** folder is reserverd for **zUIx** components and templates that
-are loaded using the `data-ui-load` and `data-ui-include`
-attributes. See *zUIx* [Getting Started](https://zuixjs.github.io/zuix/#/docs)
+are loaded using the `data-ui-load` and `data-ui-include` attributes.
+See *zuix* [Getting Started](https://zuixjs.github.io/zuix/#/docs)
 guide for documentation about how to apply templates and how to create/use
 components. The name of this folder (*app*) is defined by the
 `zuix.app.resourcePath` configuration setting.
@@ -289,7 +315,7 @@ as an example see the *Media Browser* component structure in the
 
 ## Resources and Docs
 
-- **zUIx** https://zuixjs.org
+- **zuix.js** https://zuixjs.org
 - **Static Site** https://github.com/paulcpederson/static-site
 - **LESS** http://lesscss.org/features/
 - **ESLint** https://eslint.org/docs/user-guide/getting-started
