@@ -1,44 +1,22 @@
 # zUIx Web Starter
 
-zuix web starter is a web bundler and progressive web app (PWA) generator
-with static-site features and component oriented development based on [zuix.js](https://zuixjs.github.io/zuixjs.org).
-
+Starter project for component oriented web development with [zuix.js](https://zuixjs.github.io/zuixjs.org) and [Eleventy](https://www.11ty.dev).
 
 ## Featuring
 
-- zuix.js web components and app bundler
-- Static Site
-    * Front-Matter
-    * Data Files
-    * Helpers
-    * Collections
+- zuix.js web components
+- Eleventy static site generator
+    * Multiple template languages
     * Templates
+    * Front matter and external data files
 - LESS to CSS compiling
-- ESLint .js code linting
 - Minifier
-- Progressive Web App generator (PWA)
-
-
-## zuix web starter examples
-
-- https://genielabs.github.io/homegenie-web-ui
-- https://zuixjs.org
-- https://zuixjs.github.io/zkit
-- https://zuixjs.github.io/zuix-web-book
-
-## Other zuix web app examples
-
-The following examples are not based on `zuix-web-starter` and do not require
-any build tool (just a browser) but can be integrated into `zuix-web-starter`
-just by copying files from `source` folder.
-
-- https://zuixjs.github.io/zuix-html-pwa
-- https://zuixjs.github.io/zuix-net-flix
+- Progressive Web App (PWA)
 
 
 ## Prerequisites
 
-This project requires [Node.js/npm](https://www.npmjs.com/get-npm) to be installed.
+This project requires [Node.js/npm](https://www.npmjs.com/get-npm) &gt;= v10 to be installed.
 
 
 ## Installation
@@ -48,27 +26,24 @@ Download or clone this repository
      git clone https://github.com/zuixjs/zuix-web-starter.git
      cd zuix-web-starter
 
-Install development dependencies and run initial build
+Install development dependencies
 
-    npm install && npm run build
+    npm install
 
 ## Usage
 
-Start local web server
+Start local web server and watch for file changes
 
     npm start
 
-Start auto-build script (watch file tree for changes and auto-rebuild)
-
-    npm run build && npm run watch
-
-Or manual building
-
-    npm run build
-
 website source files are located in the `./source` folder and are
-generated in the `./docs` folder.
-This setting can be changed by modifying the `./config/default.json` file.
+generated in the `./build` folder.
+This can also be done by issuing `Eleventy` command directly:
+```
+npx @11ty/eleventy --incremental --serve
+```
+
+See [Eleventy](https://11ty.dev) static site generator website for complete documentation.
 
 ### Configuration options
 
@@ -79,53 +54,21 @@ The default configuration is read from `config/default.json`:
   "zuix": {
     "build": {
       "input": "./source",
-      "output": "./docs",
-      "copy": [
-        "app",
-        "css",
-        "images",
-        "js",
-        ".nojekyll",
-        "manifest.json",
-        "manifest.webapp",
-        "humans.txt",
-        "favicon.ico",
-        "robots.txt"
-      ],
-      "ignore": [
-        "_inc"
-      ],
-      "compile": [
-        "html",
-        "less",
-        "css",
-        "js",
-        "md",
-        "svg"
-      ],
-      "prettyUrl": false,
-      "less": true,
-      "eslint": true,
-      "bundle": {
-        "js": false,
-        "css": false,
-        "zuix": false
-      },
-      "minify": {
-        "disable": true,
-        "collapseWhitespace": true,
-        "removeOptionalTags": true,
-        "removeRedundantAttributes": true,
-        "removeScriptTypeAttributes": true,
-        "removeTagWhitespace": true,
-        "useShortDoctype": true,
-        "collapseBooleanAttributes": true,
-        "removeAttributeQuotes": true,
-        "removeEmptyAttributes": true,
-        "minifyCSS": true,
-        "minifyJS": true
-      }
+      "output": "./build"
     },
+    "copy": [
+      "app",
+      "css",
+      "images",
+      "js",
+      ".nojekyll",
+      "browserconfig.xml",
+      "manifest.json",
+      "humans.txt",
+      "favicon.ico",
+      "robots.txt"
+    ],
+    "includesFolder": "_inc",
     "app": {
       "title": "zUIx Web Starter application.",
       "resourcePath": "/app/",
@@ -143,7 +86,7 @@ The default configuration is read from `config/default.json`:
 to use a different configuration file (eg. `config/production.json`):
 
     export NODE_ENV=production
-    npm run build # (or watch)
+    npm start
 
 ### zuix.build
 
@@ -162,49 +105,14 @@ Output folder: where to copy/generate site files.
 List of folders and files to copy as-is, from input to output folder,
 with no further processing.
 
-###### `ignore`
+###### `includesFolder`
 
-List of folder and files to ignore.
-
-###### `compile`
-
-List of file types to parse and generate (comma separated list of
-file extensions without the dot).
-
-###### `prettyUrl`
-
-Enable pretty urls. For example, if you have a file called
-`about.html` it will be built to `about/index.html`,
-so that it can be linked just as `/about`.
-
-###### `bundle`
-
-Compile external resources as inline and pack them into the application bundle.
-
-- `js` (true/false) bundle scripts (`<script .. />`)
-- `css` (true/false) bundle styles (`<link rel="stylesheet"  .. />`)
-- `zuix` (true/false) bundle zUIx components and contents loaded via `data-ui-include` or `data-ui-load` attributes.
-Add the attribute `data-o-markdown="true"` to post-process loaded content with [MarkDown](http://demo.showdownjs.com/) parser.
-
-###### `minify`
-
-To enable minification set `minify.enable` to `true`. See all available options
-from [html-minifier](https://github.com/kangax/html-minifier) repository.
-
-###### `less`
-
-Set `true` to enable compile of `.less` files to `.css`.
-Configuration is read from `.lessrc.json` file.
-
-###### `eslint`
-
-Set `true` to enable JavaScript error checking/reporting with *ESLint*.
-Configuration is read from `.eslintrc.json` file.
+Folder where to lookup for includes.
 
 ### zuix.app
 
 The application settings object can also contain user-defined fields
-that can be then recalled inside app pages using *double angulars*
+that can be then recalled inside app pages using *double braces*
 (eg. `{{app.title}}` will be replaced with `zuix.app.title` value).
 
 ###### `resourcePath`
@@ -234,7 +142,7 @@ The following are just guide-lines for structuring a *zuixjs* web app.
 
 ```
 ├── source/              #
-│   ├── _inc/            # Static-Site includes (eg. header.html, footer.html)
+│   ├── _inc/            # Eleventy includes (eg. header.html, footer.html)
 │   ├── app/             # zUIx app folder
 │   ├────── components/  # - UI components
 │   ├────── controllers/ # - UI controllers
@@ -246,7 +154,7 @@ The following are just guide-lines for structuring a *zuixjs* web app.
 .   .                    #  PWA service worker, SEO, etc.
 ```
 
-The **_inc** folder is reserved for **static-site** content fragments that are
+The **_inc** folder is reserved for **Eleventy** content fragments that are
 reusable fragments of page that can be included by using the
 `{% include "<file_to_include>" %}` command.
 
@@ -280,11 +188,11 @@ the body of all pages:
 {% include "_inc/html_close.html" %}
 ```
 
-Find out all other *static-site* commands and functionality from its
-[documentation page](https://github.com/paulcpederson/static-site#how).
+Find out all other *Eleventy* commands and functionality from its
+[documentation page](https://11ty.dev/docs).
 
 The **app** folder is reserverd for **zUIx** components and templates that
-are loaded using the `data-ui-load` and `data-ui-include` attributes.
+are loaded using the `z-load` and `z-include` attributes.
 See *zuix* [Getting Started](https://zuixjs.github.io/zuix/#/docs)
 guide for documentation about how to apply templates and how to create/use
 components. The name of this folder (*app*) is defined by the
@@ -294,7 +202,7 @@ The **images** folder should be reserved for all graphic resources that
 are shared and are usually referenced by more than a single page or component.
 
 It is recommended to put component-local or content-local resources inside
-a dedicated subfolder.
+a dedicated sub-folder.
 
 For instance, a `app/components/login_dialog` component will consist
 of the following files/folder:
@@ -316,8 +224,4 @@ as an example see the *Media Browser* component structure in the
 ## Resources and Docs
 
 - **zuix.js** https://zuixjs.org
-- **Static Site** https://github.com/paulcpederson/static-site
-- **LESS** http://lesscss.org/features/
-- **ESLint** https://eslint.org/docs/user-guide/getting-started
-- **HTML-minifier** https://github.com/kangax/html-minifier
-- **Node-config** http://lorenwest.github.io/node-config/
+- **Eleventy** https://11ty.dev
