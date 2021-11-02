@@ -25,12 +25,13 @@
   "devDependencies": {
     "@11ty/eleventy": "^1.0.0-canary.44",
     "config": "^1.31.0",
-    "eleventy-plugin-pwa": "^1.0.8",
     "eslint": "^8.1.0",
     "eslint-config-google": "^0.14.0",
     "less": "^3.9.0",
     "ncp": "^2.0.0",
+    "shimmer": "^1.2.1",
     "terser": "^5.9.0",
+    "workbox-build": "^6.3.0",
     "zuix-dist": "^1.0.8"
   }
 }

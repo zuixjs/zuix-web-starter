@@ -21,7 +21,21 @@ const linter = new Linter();
 const lintConfig = require(process.cwd()+'/.eslintrc');
 
 const { minify } = require("terser");
-const pluginPWA = require("eleventy-plugin-pwa");
+
+// Workbox will run after a build is completed
+const shimmer = require("shimmer");
+const workBox = require('workbox-build');
+const EleventyWatch = require('@11ty/eleventy/src/EleventyWatch');
+shimmer.wrap(EleventyWatch.prototype, "setBuildFinished", function(orig) {
+  return async function() {
+    console.log('Updating Service Worker... ');
+    buildSW().then(function () {
+      console.log('... Service Worker updated.');
+      //process.exitCode = tlog.stats().error;
+    });
+    return await orig.apply(this);
+  };
+});
 
 // - copy last zUIx release
 copyFolder(util.format('%s/node_modules/zuix-dist/js', process.cwd()), util.format('%s/js/zuix', buildFolder), (err) => {
@@ -31,15 +45,11 @@ copyFolder(util.format('%s/node_modules/zuix-dist/js', process.cwd()), util.form
 copyAppConfig();
 
 module.exports = function(eleventyConfig) {
-  // TODO: pluginPWA not working with latest Eleventy (>= 1.0.0)
-  //       see https://github.com/okitavera/eleventy-plugin-pwa/issues/35
+  eleventyConfig.setWatchJavaScriptDependencies(false);
+  // TODO: create a zuixJsPlugin and move buildSW and other zuixJs build funcionality to the plugin
   /*
-  eleventyConfig.addPlugin(pluginPWA, {
-    swDest: `${buildFolder}/service-worker.js`,
-    globDirectory: `${buildFolder}`,
-    clientsClaim: true,
-    skipWaiting: true
-  });
+  zuixJsPlugin = require('./plugins/zuixjs-plugin');
+  eleventyConfig.addPlugin(zuixJsPlugin);
   */
   // Copy base files
   copyFiles.forEach((f) => {
@@ -152,5 +162,53 @@ function copyFolder(source, destination, done) {
     if (typeof done === 'function') {
       done(err);
     }
+  });
+}
+
+function buildSW() {
+  // This will return a Promise
+  return workBox.generateSW({
+
+    globDirectory: buildFolder,
+    globPatterns: [
+      '**\/*.{html,json,js,css}',
+      '**\/*.{png,jpg,jpeg,svg,gif}'
+    ],
+
+    swDest: path.join(buildFolder, 'service-worker.js'),
+
+    // Define runtime caching rules.
+    runtimeCaching: [{
+      // Match any request ends with .png, .jpg, .jpeg or .svg.
+      urlPattern: /\.(?:png|jpg|jpeg|svg)$/,
+
+      // Apply a cache-first strategy.
+      handler: 'CacheFirst',
+
+      options: {
+        // Use a custom cache name.
+        cacheName: 'images',
+        // Cache up to 50 images.
+        expiration: {
+          maxEntries: 50,
+        }
+      }
+    },{
+      // Match any request ends with .html, .json, .js or .css.
+      urlPattern: /\.(?:html|json|js|css)$/,
+
+      // Apply a cache-first strategy.
+      handler: 'CacheFirst',
+
+      options: {
+        // Use a custom cache name.
+        cacheName: 'default',
+        // Cache up to 50 items.
+        expiration: {
+          maxEntries: 50,
+        }
+      }
+    }]
+
   });
 }
