@@ -191,9 +191,9 @@ the body of all pages:
 Find out all other *Eleventy* commands and functionality from its
 [documentation page](https://11ty.dev/docs).
 
-The **app** folder is reserverd for **zUIx** components and templates that
+The **app** folder is reserved for **zUIx** components and templates that
 are loaded using the `z-load` and `z-include` attributes.
-See *zuix* [Getting Started](https://zuixjs.github.io/zuix/#/docs)
+See *zUIx* [Getting Started](https://zuixjs.github.io/zuix/#/docs)
 guide for documentation about how to apply templates and how to create/use
 components. The name of this folder (*app*) is defined by the
 `zuix.app.resourcePath` configuration setting.
