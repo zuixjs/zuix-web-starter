@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Brief document description">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search page - zUIx.js / 11ty</title>
+
+    <!-- Disable tap highlight on IE -->
+    <meta name="msapplication-tap-highlight" content="no">
+
+
+    <!-- Progressive Web App -->
+    <meta name="theme-color" content="white">
+    <link rel="manifest" href="/manifest.json">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="/images/icons/desktop/android-chrome-192x192.png">
+    <link rel="icon" sizes="512x512" href="/images/icons/desktop/android-chrome-512x512.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="A zUIx website">
+    <link rel="apple-touch-icon-precomposed" href="/images/icons/desktop/apple-touch-icon.png">
+    <link rel="mask-icon" href="/images/icons/desktop/safari-pinned-tab.svg" color="#5bbad5">
+
+    <!-- Tile color for Windows -->
+    <meta name="msapplication-TileImage" content="/images/icons/desktop/mstile-150x150.png">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/icons/desktop/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/icons/desktop/favicon-16x16.png">
+
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="https://www.example.com/">
+    -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="/js/prism/prism.js"></script>
+    <link rel="stylesheet" href="/js/prism/prism.css" />
+
+    <!-- zuix.js https://github.com/zuixjs/zuix -->
+    <script src="/js/zuix/zuix.js"></script>
+    <script src="/config.js"></script>
+    <script src="/js/zuix/animate_css.js"></script>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    position: relative;
+    min-height: 100vh;
+    background: var(--background-color);
+}
+
+h1 {
+    font-size: 230% !important;
+}
+
+pre {
+    margin-top: 32px!important;
+    padding-top: 32px!important;
+    padding-bottom: 12px!important;
+}
+pre[class*=language-]:after, pre[class*=language-]:before {
+    box-shadow: none!important;
+}
+pre[class*=language-]>code {
+    border-left: 1px solid #358ccb;
+    border-radius: 6px;
+}
+
+/* prevents links dragging */
+a, a::after, a::before {
+    -webkit-user-drag: none;
+    -webkit-app-region: no-drag;
+}
+
+main {
+    width: 100% !important;
+    padding: 0 !important;
+}
+main div.content {
+    width: 100% !important;
+    max-width: 960px !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+}
+
+[z-field="header"] {
+    position: fixed;
+    z-index: 1;
+    top:0; left: 0; right: 0; bottom: 0;
+    height: 64px;
+    padding-left: 8px;
+    padding-right: 8px;
+    background: #f5f5f5;
+}
+[data-theme="dark"] [z-field="header"] {
+    background: black;
+}
+h1[z-field="alt_header"] {
+    text-align: center;
+    display: block;
+    font-weight: 600;
+}
+
+.header-menu-button {
+    cursor: pointer;
+    height: 48px;
+    width: 48px;
+    padding: 4px;
+}
+[data-theme="dark"] .header-menu-button {
+    filter: invert(1);
+}
+[data-theme="dark"] .header-logo {
+    background: #24333e;
+}
+
+[z-load]:not([z-ready=true]).visible-on-ready,
+[z-include]:not([z-ready=true]).visible-on-ready
+{
+    display: block;
+    visibility: hidden;
+}
+
+.no-select {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+@media screen and (min-width: 1280px) {
+    main {
+        padding-top: 0 !important;
+        padding-left: 304px !important;
+        padding-right: 24px !important;
+    }
+    [z-field="header"] {
+        padding-left: 316px;
+        display: none;
+    }
+    h1[z-field="alt_header"] {
+        margin-top: 32px;
+        margin-bottom: 48px;
+        margin-left: -28px;
+        visibility: visible;
+    }
+    .header-menu-button {
+        display: none;
+    }
+}
+
+/* UI state classes */
+.not-ready {
+    opacity: 0.5;
+    -webkit-animation: pulse .5s infinite ease-in-out;
+    -o-animation: pulse .5s infinite ease-in-out;
+    -ms-animation: pulse .5s infinite ease-in-out;
+    -moz-animation: pulse .5s infinite ease-in-out;
+    animation: pulse .5s infinite ease-in-out;
+}
+@-webkit-keyframes pulse {
+    0% { opacity: 0.2; }
+    50% { opacity: 0.4; }
+    100% { opacity: 0.2; }
+}
+@keyframes pulse {
+    0% { opacity: 0.2; }
+    50% { opacity: 0.4; }
+    100% { opacity: 0.2; }
+}
+
+.drawer-header {
+    color:white;
+    height: 128px;
+    padding: 8px 8px 8px 8px;
+    background: #159957;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #155799, #159957);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #155799, #159957); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.drawer-header img.logo {
+    width: 64px;
+    height: 64px;
+    border: solid 1px rgba(0,0,0,0.75);
+    border-radius: 56px;
+    background: #ffffff;
+}
+[data-theme="dark"] .drawer-header img.logo {
+    background: #000;
+}
+
+.drawer-header .text-logo {
+    font-size: 180%;
+    font-weight: 400;
+    margin-right: 48px;
+}
+.drawer-header .title {
+    margin-left: 4px;
+    margin-right: 4px;
+    font-size: 120%;
+    font-weight: 600;
+}
+.drawer-header .subtitle {
+    margin-left: 4px;
+    margin-right: 4px;
+    font-size: 120%;
+}
+.drawer-content {
+    background: white;
+}
+[data-theme="dark"] .drawer-content {
+    background: #24333e;
+}
+
+.drawer-content ul {
+    padding: 0;
+    margin-top: 8px;
+    /*font-size: 120%;*/
+}
+.drawer-content li:hover {
+    background: rgba(0,0,0,0.1);
+}
+.drawer-content li {
+    border-top: solid 2px transparent;
+    border-bottom: solid 2px transparent;;
+    list-style: none;
+}
+.drawer-content ul li[aria-current=page] {
+    border-top: solid 2px rgba(127,127,127,0.1);
+    border-bottom: solid 2px rgba(127,127,127,0.1);
+    background-color: rgba(127,127,127,0.05);
+}
+.drawer-content ul li[aria-current=page] {
+    font-weight: bold;
+}
+.drawer-content li a {
+    position: relative;
+    display: block;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+.drawer-content ul li[aria-current=page] a {
+    /*pointer-events: none;*/
+    font-weight: bold;
+}
+.drawer-content ul li a div.summary {
+    font-size: 95%;
+    line-height: 150%;
+    margin-top: 4px;
+    margin-right: 32px;
+    font-style: italic;
+    font-weight: 400!important;
+    font-family: 'Helvetica Neue', Helvetica, sans-serif;
+    color: lightslategray;
+}
+[z-context="menu-drawer"]:focus {
+    outline: none;
+}
+
+
+</style>
+
+
+</head>
+
+
+<!-- scroll helper is used to show/hide the header when scrolling -->
+<body ctrl z-load="controllers/scroll_helper" z-lazy="scroll" data-theme=""
+      z-context="scroll-helper"
+      z-options="scroll_opts"
+      layout="column stretch-stretch">
+
+    <nav #header layout="row center-start">
+        <div self="stretch" layout="row center-start">
+            <div>
+                <img src="/images/menu_open_black_48dp.svg" onclick="menuDrawer.open()" class="header-menu-button">
+            </div>
+            <div self="size-x1" layout="row center-center">
+                <h1 style="margin:0;margin-left: -56px">Search page</h1>
+            </div>
+        </div>
+    </nav>
+
+    <!--
+    <div z-load="@lib/components/hamburger_icon"
+         z-context="menu_hamburger"
+         z-options="menuButtonOptions"
+         style="position:fixed;right:0;top:6px;z-index:1001"></div>
+         -->
+
+    <main class="animate__animated animate__fadeIn animate__faster">
+        <div layout="column top-center">
+
+            <h1 #alt_header>Search page</h1>
+            <div class="content">
+                <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.classless.min.css">
+
+<div class="field" layout="row center-left">
+    <i class="material-icons">search</i>
+    <input aria-label="Search" type="search" placeholder="Search this site" z-field="search-input">
+</div>
+<ol z-field="results"></ol>
+<div z-field="results-none" style="display: none">
+    <p>No results found.</p>
+</div>
+
+<!-- zUIx list_view component -->
+<div z-load="@lib/controllers/list_view"
+     z-options="example_lv_options">
+    <!-- Place holder is mandatory for JS-only compoments.. -->
+    Loading listview...
+</div>
+
+
+<!--Inline list item template using Material Design Lite -->
+<div z-view="result-item-view">
+    <a z-field="ref"><h3 z-field="doc.title">Item title</h3></a>
+    <div z-field="doc.description" self="size-x1">Description</div>
+</div>
+
+
+<!--Only 5.7kb GZipped. You may want to bundle this with your application code. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/elasticlunr/0.9.6/elasticlunr.min.js"></script>
+<script>
+  /** @typedef {Zuix} zuix */
+  const searchInput = zuix.field('search-input');
+  searchInput.on('keyup', (e, v) => {
+    const term = searchInput.value();
+    const results = searchIndex.search(term, {
+      bool: "OR",
+      expand: true,
+    });
+    if (resultsList) {
+      resultsList.clear();
+      resultsList.model({
+        itemList: results,
+        getItem: function(index, item) {
+          // Return the item data. Each item could also be rendered with a different template,
+          // in this case all items are using the 'card-template' which is defined
+          // inline in the same page. For further information about ZUIX templates referer
+          // to the documentation http://genielabs.github.io/zuix/#/docs .
+          return {
+            itemId: index,
+            componentId: 'result-item-view',
+            options: {
+              controller: zuix.controller(function(cp){}),
+              className: 'item',
+              model: item,
+              css: false
+            }
+          }
+        }
+      });
+    }
+  });
+  /** @type {elasticlunr.Index} searchIndex */
+  let searchIndex = null;
+  fetch("/search-index.json").then((response) =>
+    response.json().then((rawIndex) => {
+      searchIndex = elasticlunr.Index.load(rawIndex);
+      elasticlunr.clearStopWords(); // the word 'About' is still ignored
+    })
+  );
+  let resultsList;
+  example_lv_options = {
+    ready: function(ctx) {
+      resultsList = ctx;
+    }
+  };
+</script>
+
+            </div>
+
+            
+
+
+<div -self="size-large" layout="row center-spread" style="margin-top: 96px; margin-bottom: 56px; padding-left: 8px; padding-right: 8px; font-size: 140%">
+    
+    
+</div>
+
+
+            
+
+        </div>
+    </main>
+
+    <!-- Navigation Drawer -->
+    <div ctrl z-load="controllers/drawer_layout"
+         z-context="menu-drawer"
+         z-options="drawer_opts"
+         class="drawer-layout no-select visible-on-ready"
+         layout="column top-stretch">
+        <!-- Navigation Drawer content -->
+
+        <!-- Header -->
+        <div class="drawer-header" layout="column bottom-stretch">
+            <img src="/images/profile-icon.png" class="logo">
+            <div class="title">Example Drawer</div>
+            <div class="subtitle">www.glabs.it</div>
+        </div>
+
+        <!-- Menu items and other content -->
+        <div class="drawer-content" self="size-x1">
+            <ul>
+    <li >
+        <a href="/pages/blog/material-design-light/">
+            <div layout="row center-justify">
+                <span>MDL Examples</span>
+                <i class="material-icons"></i>
+            </div>
+            <div class="summary">
+                
+            </div>
+        </a>
+    </li>
+    <li >
+        <a href="/pages/blog/welcome/">
+            <div layout="row center-justify">
+                <span>Welcome</span>
+                <i class="material-icons"></i>
+            </div>
+            <div class="summary">
+                
+            </div>
+        </a>
+    </li>
+    <li >
+        <a href="/pages/blog/today-is-another-day/">
+            <div layout="row center-justify">
+                <span>TodayIsAnotherDay</span>
+                <i class="material-icons"></i>
+            </div>
+            <div class="summary">
+                
+            </div>
+        </a>
+    </li></ul>
+
+        </div>
+
+    </div>
+
+    
+<!-- Built with love using zUIx Web Starter -->
+
+<script>
+
+  // Google Analytics: change UA-123-456 to be your site's ID
+  if (location.hostname !== "localhost" && location.hostname !== "127.0.0.1") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-123-456', 'auto');
+    ga('send', 'pageview');
+  }
+
+</script>
+
+
+    <!-- Common JS scripts -->
+    <script>
+    /** type {ComponentContext} */
+let menuDrawer;
+/** type {ComponentContext} */
+let menuButton;
+window.drawer_opts = {
+  autoHideWidth: 1280,
+  on: {
+    'drawer:open': function() {
+      //zuix.context('menu_hamburger', function() {
+      //  this.open();
+      //});
+    },
+    'drawer:close': function() {
+      //zuix.context('menu_hamburger', function() {
+      //  this.close();
+      //});
+    }
+  },
+  ready: function() {
+    menuDrawer = this;
+  }
+};
+window.menuButtonOptions = {
+  on: {
+    'menu:open': function() {
+      //headerMenu.open();
+    },
+    'menu:close': function() {
+      //headerMenu.close();
+    }
+  },
+  ready: function() {
+    menuButton = this;
+  }
+};
+
+let scrollHelper;
+window.scroll_opts = {
+  ready: (ctx) => {
+    scrollHelper = ctx;
+    setTimeout(enableScrollHelper, 500);
+  }
+};
+function enableScrollHelper() {
+  scrollHelper.on('scroll:change', function(e, data) {
+    switch (data.event) {
+      case 'hit-top':
+        // reached top of the page
+        showHeader();
+        break;
+      case 'scroll':
+        // show/hide header when scrolling up/down
+        if (data.info.shift.y > 0) {
+          showHeader();
+        } else {
+          hideHeader();
+        }
+        break;
+      case 'hit-bottom':
+        // reached end of the page
+        showHeader();
+        break;
+    }
+  });
+  if (location.hash) {
+    setTimeout(hideHeader, 200);
+  }
+}
+
+let headerVisible = true;
+function showHeader() {
+  if (!headerVisible) {
+    headerVisible = true;
+    zuix.field('header').animateCss('fadeInDown').show();
+  }
+  ////if (!menuButton.$.hasClass('animate__animated')) {
+  //  menuButton.$.animateCss('fadeInDown').show();
+  ////}
+}
+function hideHeader() {
+  if (headerVisible && !zuix.field('header').hasClass('animate__animated')) {
+    headerVisible = false;
+    zuix.field('header').animateCss('fadeOutUp', function() {
+      this.hide();
+    });
+  }
+  ////if (!menuButton.$.hasClass('animate__animated')) {
+  //  menuButton.$.animateCss('fadeOutUp', function() {
+  //    this.hide();
+  //  });
+  ////}
+}
+
+function processExternalLinks(view) {
+  // Force opening of all non-local links in a new window
+  zuix.$(view).find('a[href*="://"]')
+      .attr('target', '_blank')
+      .attr('rel', 'noreferrer');
+}
+
+zuix.hook('view:process', function(view) {
+  processExternalLinks(view);
+  // Material Design Light auto-detection
+  // Call DOM upgrade on newly added view elements
+  if (window['componentHandler']) {
+    window['componentHandler'].upgradeElements(view.get());
+  }
+});
+processExternalLinks(document);
+
+//html = css = js = (s) => s[0];
+
+    </script>
+
+</body>
+
+</html>
+

@@ -1,61 +1,84 @@
-const fs = require('fs');
 const path = require('path');
-//const {dirname: getDirName} = require("path");
 const config = require('config');
 const util = require('util');
-const mkdirp = require('mkdirp');
+const compress = require('compression');
 
+// 11ty
+const { EleventyRenderPlugin } = require("@11ty/eleventy");
+
+// zuix.js CLI utils
+const zuixCompile = require('zuix-cli/commands/compile-page');
+const zuixUtils = require('zuix-cli/common/utils');
+
+// Read configuration either from './config/{default}.json'
+// or './config/production.json' based on current `NODE_ENV'
+// environment variable value
 const zuixConfig = config.get('zuix');
 const sourceFolder = zuixConfig.get('build.input');
 const buildFolder = zuixConfig.get('build.output');
+const dataFolder = zuixConfig.get('build.dataFolder');
 const includesFolder = zuixConfig.get('build.includesFolder');
 const copyFiles = zuixConfig.get('build.copy');
+const ignoreFiles = zuixConfig.get('build.ignore');
 
-// LESS
+// LESS CSS compiler
 const less = require('less');
 const lessConfig = require(process.cwd()+'/.lessrc');
 
-// ESLint
+// Linter (ESLint)
 const Linter = require('eslint').Linter;
 const linter = new Linter();
 const lintConfig = require(process.cwd()+'/.eslintrc');
 
-const { minify } = require("terser");
+// Minifier
+//const { minify } = require("terser");
+//const fs = require('fs');
 
-// Workbox will run after a build is completed
-const shimmer = require("shimmer");
-const workBox = require('workbox-build');
-const EleventyWatch = require('@11ty/eleventy/src/EleventyWatch');
-shimmer.wrap(EleventyWatch.prototype, "setBuildFinished", function(orig) {
-  return async function() {
-    console.log('Updating Service Worker... ');
-    buildSW().then(function () {
-      console.log('... Service Worker updated.');
-      //process.exitCode = tlog.stats().error;
-    });
-    return await orig.apply(this);
-  };
-});
-
+// Keep track of changed files for zUIx.js post-processing
+const postProcessFiles = [];
+const changedFiles = [];
+let browserSync;
+let rebuildAll = true;
 // - copy last zUIx release
-copyFolder(util.format('%s/node_modules/zuix-dist/js', process.cwd()), util.format('%s/js/zuix', buildFolder), (err) => {
+zuixUtils.copyFolder(util.format('%s/node_modules/zuix-dist/js', process.cwd()), util.format('%s/js/zuix', buildFolder), (err) => {
   if (err) console.log(err);
 });
 // - auto-generated config.js
-copyAppConfig();
+zuixUtils.generateAppConfig(zuixConfig);
+
 
 module.exports = function(eleventyConfig) {
   eleventyConfig.setWatchJavaScriptDependencies(false);
-  // TODO: create a zuixJsPlugin and move buildSW and other zuixJs build funcionality to the plugin
-  /*
-  zuixJsPlugin = require('./plugins/zuixjs-plugin');
-  eleventyConfig.addPlugin(zuixJsPlugin);
-  */
+  eleventyConfig.addPlugin(EleventyRenderPlugin);
+
+  // Add ignores
+  ignoreFiles.forEach((f) => {
+    f = path.join(sourceFolder, f);
+    eleventyConfig.ignores.add(f);
+    console.log('Adding ignore "%s"', f);
+  });
   // Copy base files
   copyFiles.forEach((f) => {
-    eleventyConfig.addPassthroughCopy(`${sourceFolder}/${f}`);
+    f = path.join(sourceFolder, f);
+    eleventyConfig.addPassthroughCopy(f);
+    console.log('Adding copy "%s"', f);
   });
-  // Add Nunjucks
+
+  // from https://github.com/kkgthb/web-site-11ty-03-netlify-function/blob/main/.eleventy.js
+  // See if this helps with things that do not refresh
+  module.exports = function (eleventyConfig) {
+    eleventyConfig.setUseGitIgnore(false);
+  };
+  // Make Liquid capable of rendering "partials"
+  eleventyConfig.setLiquidOptions({
+    cache: false,
+    dynamicPartials: true,
+    strictFilters: false,
+  });
+
+  // Add custom file types and handlers
+  eleventyConfig.addTemplateFormats([ 'less', 'css', 'js' ]);
+  /*
   eleventyConfig.addNunjucksAsyncFilter("jsmin", async function (
       code,
       callback
@@ -64,24 +87,12 @@ module.exports = function(eleventyConfig) {
       const minified = await minify(code);
       callback(null, minified.code);
     } catch (err) {
-      console.error("Terser error: ", err);
+      console.error('Terser error: ', err);
       // Fail gracefully.
       callback(null, code);
     }
   });
-  // Declare custom types
-  eleventyConfig.addExtension("less", {
-    read: true,
-    outputFileExtension: 'css',
-    compile: (content, path) => () => {
-        let output;
-        less.render(content, lessConfig, function(error, lessOutput) {
-          output = lessOutput;
-        });
-        return output.css;
-      }
-  });
-  eleventyConfig.addExtension("js", {
+  eleventyConfig.addExtension('js', {
     read: true,
     outputFileExtension: 'js',
     compile: (content, path) => async () => {
@@ -89,126 +100,139 @@ module.exports = function(eleventyConfig) {
       return output.code;
     }
   });
-  // Add custom file types
-  eleventyConfig.addTemplateFormats([ "less", "js" ]);
-  // Add linter
-  eleventyConfig.addLinter("eslint", function(content, inputPath, outputPath) {
-    if( inputPath.endsWith(".js") ) {
+   */
+  eleventyConfig.addExtension('less', {
+    read: true,
+    outputFileExtension: 'css',
+    compile: (content, path) => () => {
+        let output;
+        less.render(content, lessConfig, function(error, lessOutput) {
+          // TODO: handle and report 'error'
+          output = lessOutput;
+        });
+        return output.css;
+      }
+  });
+  // Add linter to report code errors
+  eleventyConfig.addLinter('eslint', function(content, inputPath, outputPath) {
+    if( inputPath.endsWith('.js') ) {
+      // TODO: collect and report at the end of the build (inside 'afterBuild' event handler)
       const issues = linter.verify(content, lintConfig, inputPath);
       if (issues.length > 0) {
-        console.log('[%s] ESLint result', inputPath)
+        console.log('[11ty] "%s" linter result', inputPath)
       }
       issues.forEach(function(m) {
         if (m.fatal || m.severity > 1) {
-          console.error('   Error: %s (%s:%s)', m.message, m.line, m.column);
+          console.error('       Error: %s (%s:%s)', m.message, m.line, m.column);
         } else {
-          console.warn('   Warning: %s (%s:%s)', m.message, m.line, m.column);
+          console.warn('       Warning: %s (%s:%s)', m.message, m.line, m.column);
         }
       });
     }
   });
-  // Return configuration options:
+  // Add any BrowserSync config option here
+  eleventyConfig.setBrowserSyncConfig({
+    //reloadDelay: 2000,
+    //files: [ path.resolve(sourceFolder, 'app') ],
+    notify: false,
+    cors: true,
+    middleware: [compress()],
+    callbacks: {
+      ready: function(err, bs) {
+        // store a local reference of BrowserSync object
+        browserSync = bs;
+      }
+    },
+    /*
+    snippet: false,
+    snippetOptions: {
+      rule: {
+        match: /<head[^>]*>/i,
+        fn: function(snippet, match) {
+          return match + snippet;
+        }
+      }
+    }*/
+  });
+
+
+  // zUIx.js specific code and life-cycle hooks
+  eleventyConfig.addGlobalData("app", zuixConfig.app);
+  // Add zUIx transform
+  eleventyConfig.addTransform('zuix-js', function(content) {
+    const inputPath = this.inputPath;
+    const outputPath = this.outputPath;
+    const hasChanged = changedFiles.find(f => path.resolve(f) === path.resolve(inputPath));
+    if (!rebuildAll && !hasChanged) return content;
+    // populates a list of `.html` files
+    // to be post processed after build
+    if (outputPath && outputPath.endsWith('.html')) {
+      let file = path.resolve(outputPath);
+      const baseFolder = path.resolve(zuixConfig.build.output);
+      if (file.startsWith(baseFolder)) {
+        file = file.substr(baseFolder.length + 1);
+      }
+      postProcessFiles.push({file, baseFolder: zuixConfig.build.output});
+    }
+    return content;
+  });
+  eleventyConfig.on('beforeWatch', (cf) => {
+    // changedFiles is an array of files that changed
+    // to trigger the watch/serve build
+    changedFiles.length = 0;
+    const baseFolder = path.resolve(zuixConfig.build.input);
+    const dataFolder = path.join(baseFolder, zuixConfig.build.dataFolder);
+    const includesFolder = path.join(baseFolder, zuixConfig.build.includesFolder);
+    const templateChanged = cf.find(f => path.resolve(f).startsWith(includesFolder));
+    const dataChanged = cf.find(f => path.resolve(f).startsWith(dataFolder));
+    if (templateChanged || dataChanged) {
+      rebuildAll = true;
+      return;
+    }
+    changedFiles.push(...cf);
+  });
+  eleventyConfig.on('afterBuild', async function(args) {
+    console.log();
+    postProcessFiles.forEach((pf) => {
+      const result = zuixCompile(pf.file, pf.file, {
+        baseFolder: pf.baseFolder,
+        ...zuixConfig
+      });
+      // TODO: check result code and report
+    });
+    postProcessFiles.length = 0;
+    if (zuixConfig.build.serviceWorker) {
+      console.log('\nUpdating Service Worker... ');
+      await zuixUtils.generateServiceWorker().then(function () {
+        console.log('... Service Worker updated.');
+      });
+    } else {
+      console.log();
+    }
+    if (rebuildAll) {
+      // revert back to incremental build mode
+      rebuildAll = false;
+    }
+  });
+
+
+  // integrate custom user config with a dedicated
+  // `eleventy-config.js` module file
+  require('./eleventy-config')(eleventyConfig);
+
+
+  // Return 11ty configuration options:
   return {
+    pathPrefix: zuixConfig.app.baseUrl,
     dir: {
       input: sourceFolder,
       output: buildFolder,
-      includes: includesFolder
+      data: dataFolder,
+      includes: includesFolder,
+      layouts: "_inc/layouts"
     },
-    //markdownTemplateEngine: false,
-    //templateFormats: ['html', 'liquid', 'ejs', 'hbs', 'mustache', 'haml', 'pug', 'njk', '11ty.js']
+    //htmlTemplateEngine: false, // 'liquid'
+    markdownTemplateEngine: 'liquid',
+    templateFormats: ['html', 'liquid', 'ejs', 'md', 'hbs', 'mustache', 'haml', 'pug', 'njk', '11ty.js']
   }
 };
-
-function copyAppConfig() {
-  let cfg = `/* eslint-disable quotes */
-(function() {
-    zuix.store("config", `;
-  cfg += JSON.stringify(config.get('zuix.app'), null, 8);
-  cfg += ');\n';
-  // WorkBox / Service Worker
-  // TODO: fix service-worker path
-  cfg += `
-    // Check that service workers are registered
-    if ('serviceWorker' in navigator) {
-        // Use the window load event to keep the page load performant
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./service-worker.js');
-        });
-    }
-})();\n`;
-  fs.writeFileSync(buildFolder+'/config.js', cfg);
-}
-
-// destination type must match source (dir/dir or file/file)
-function copyFolder(source, destination, done) {
-  const ncp = require('ncp').ncp;
-  // ncp.limit = 16;
-  // ncp.stopOnErr = true;
-  let folder = destination;
-  if (fs.existsSync(source)) {
-    if (fs.lstatSync(source).isFile()) {
-      folder = path.dirname(destination);
-    }
-    if (!fs.existsSync(folder)) {
-      mkdirp.sync(folder);
-      console.debug(' - created folder "%s"', folder);
-    }
-  } else {
-    console.warn(' - "%s" not found', source)
-    // TODO: handle return value
-    return false;
-  }
-  ncp(path.resolve(process.cwd(), source), path.resolve(process.cwd(), destination), function(err) {
-    if (typeof done === 'function') {
-      done(err);
-    }
-  });
-}
-
-function buildSW() {
-  // This will return a Promise
-  return workBox.generateSW({
-
-    globDirectory: buildFolder,
-    globPatterns: [
-      '**\/*.{html,json,js,css}',
-      '**\/*.{png,jpg,jpeg,svg,gif}'
-    ],
-
-    swDest: path.join(buildFolder, 'service-worker.js'),
-
-    // Define runtime caching rules.
-    runtimeCaching: [{
-      // Match any request ends with .png, .jpg, .jpeg or .svg.
-      urlPattern: /\.(?:png|jpg|jpeg|svg)$/,
-
-      // Apply a cache-first strategy.
-      handler: 'CacheFirst',
-
-      options: {
-        // Use a custom cache name.
-        cacheName: 'images',
-        // Cache up to 50 images.
-        expiration: {
-          maxEntries: 50,
-        }
-      }
-    },{
-      // Match any request ends with .html, .json, .js or .css.
-      urlPattern: /\.(?:html|json|js|css)$/,
-
-      // Apply a cache-first strategy.
-      handler: 'CacheFirst',
-
-      options: {
-        // Use a custom cache name.
-        cacheName: 'default',
-        // Cache up to 50 items.
-        expiration: {
-          maxEntries: 50,
-        }
-      }
-    }]
-
-  });
-}

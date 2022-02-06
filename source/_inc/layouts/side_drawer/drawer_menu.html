@@ -1,0 +1,16 @@
+<ul>
+    {%- for post in collections.posts_blog -%}
+    {% assign match = page.url | split:post.url %}
+    <li {% if match[0] == blank %} aria-current="page"{% endif %}>
+        <a href="{{ post.url | url }}">
+            <div layout="row center-justify">
+                <span>{{ post.data.title }}</span>
+                <i class="material-icons">{{ post.data.icon }}</i>
+            </div>
+            <div class="summary">
+                {{ post.data.summary }}
+            </div>
+        </a>
+    </li>
+    {%- endfor -%}
+</ul>

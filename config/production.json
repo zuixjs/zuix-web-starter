@@ -1,13 +1,12 @@
 {
   "zuix": {
     "build": {
-      "input": "./source",
-      "output": "./build",
+      "input": "source",
+      "output": "docs",
       "copy": [
         "app",
         "css",
         "images",
-        "js",
         ".nojekyll",
         "browserconfig.xml",
         "manifest.json",
@@ -15,11 +14,37 @@
         "favicon.ico",
         "robots.txt"
       ],
-      "includesFolder": "_inc"
+      "ignore": [
+        "_filters",
+        "app"
+      ],
+      "dataFolder": "_data",
+      "includesFolder": "_inc",
+      "bundle": {
+        "js": false,
+        "css": true,
+        "zuix": true
+      },
+      "serviceWorker": true,
+      "minify": {
+        "disable": false,
+        "collapseWhitespace": true,
+        "removeOptionalTags": true,
+        "removeRedundantAttributes": true,
+        "removeScriptTypeAttributes": true,
+        "removeTagWhitespace": false,
+        "useShortDoctype": false,
+        "collapseBooleanAttributes": true,
+        "removeAttributeQuotes": false,
+        "removeEmptyAttributes": true,
+        "minifyCSS": true,
+        "minifyJS": true
+      }
     },
     "app": {
       "title": "zUIx Web Starter application.",
       "googleSiteId": "UA-123-456",
+      "baseUrl": "/",
       "resourcePath": "/app/",
       "libraryPath": {
         "@lib": "https://zuixjs.github.io/zkit/lib/",

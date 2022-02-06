@@ -54,21 +54,45 @@ The default configuration is read from `config/default.json`:
   "zuix": {
     "build": {
       "input": "./source",
-      "output": "./build"
+      "output": "./build",
+      "copy": [
+        "app",
+        "css",
+        "images",
+        "js",
+        ".nojekyll",
+        "browserconfig.xml",
+        "manifest.json",
+        "humans.txt",
+        "favicon.ico",
+        "robots.txt"
+      ],
+      "ignore": [
+        "_filters",
+        "app"
+      ],
+      "dataFolder": "_data",
+      "includesFolder": "_inc",
+      "bundle": {
+        "js": false,
+        "css": false,
+        "zuix": false
+      },
+      "minify": {
+        "disable": true,
+        "collapseWhitespace": true,
+        "removeOptionalTags": true,
+        "removeRedundantAttributes": true,
+        "removeScriptTypeAttributes": true,
+        "removeTagWhitespace": false,
+        "useShortDoctype": false,
+        "collapseBooleanAttributes": true,
+        "removeAttributeQuotes": false,
+        "removeEmptyAttributes": true,
+        "minifyCSS": true,
+        "minifyJS": true
+      }
     },
-    "copy": [
-      "app",
-      "css",
-      "images",
-      "js",
-      ".nojekyll",
-      "browserconfig.xml",
-      "manifest.json",
-      "humans.txt",
-      "favicon.ico",
-      "robots.txt"
-    ],
-    "includesFolder": "_inc",
     "app": {
       "title": "zUIx Web Starter application.",
       "resourcePath": "/app/",
@@ -107,7 +131,12 @@ with no further processing.
 
 ###### `includesFolder`
 
-Folder where to lookup for includes.
+Folder where to lookup for template/layout includes.
+
+###### `minify`
+
+To enable minification set `minify.enable` to `true`. See all available options
+from [html-minifier](https://github.com/kangax/html-minifier) repository.
 
 ### zuix.app
 
@@ -142,16 +171,18 @@ The following are just guide-lines for structuring a *zuixjs* web app.
 
 ```
 ├── source/              #
-│   ├── _inc/            # Eleventy includes (eg. header.html, footer.html)
-│   ├── app/             # zUIx app folder
+│   ├── _data            # Eleventy data folder
+│   ├── _filters         # Eleventy liquid filters
+│   ├── _inc/            # Eleventy includes/layouts (eg. header.html, footer.html)
+│   ├── app/             # zuix.js app folder
 │   ├────── components/  # - UI components
 │   ├────── controllers/ # - UI controllers
 │   ├────── templates/   # - UI templates
-│   ├────── content/     # - Content fragments conveniently
-│   │                    #   organized into subfolders
 │   ├── images/          # Images (generic/shared)
-│   └── ...              # Landing/Home and other main pages,
-.   .                    #  PWA service worker, SEO, etc.
+│   └── pages/           # Blog and other sections pages
+|   .
+|   index.html           # Landing page
+.   .                    # PWA service worker, SEO, etc.
 ```
 
 The **_inc** folder is reserved for **Eleventy** content fragments that are
@@ -216,9 +247,6 @@ of the following files/folder:
 │   ├────────── login_dialog/       # Folder where to put
 .   .                               #  component-local assets/resources
 ```
-
-as an example see the *Media Browser* component structure in the
-[zKit repository](https://github.com/zuixjs/zkit/tree/master/source/lib/components).
 
 
 ## Resources and Docs

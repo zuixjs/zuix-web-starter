@@ -1,0 +1,80 @@
+---
+layout: side_drawer.html
+title: Search page
+description: Brief document description
+---
+<link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.classless.min.css">
+
+<div class="field" layout="row center-left">
+    <i class="material-icons">search</i>
+    <input aria-label="Search" type="search" placeholder="Search this site" z-field="search-input">
+</div>
+<ol z-field="results"></ol>
+<div z-field="results-none" style="display: none">
+    <p>No results found.</p>
+</div>
+
+<!-- zUIx list_view component -->
+<div z-load="@lib/controllers/list_view"
+     z-options="example_lv_options">
+    <!-- Place holder is mandatory for JS-only compoments.. -->
+    Loading listview...
+</div>
+
+
+<!--Inline list item template using Material Design Lite -->
+<div z-view="result-item-view">
+    <a z-field="ref"><h3 z-field="doc.title">Item title</h3></a>
+    <div z-field="doc.description" self="size-x1">Description</div>
+</div>
+
+
+<!--Only 5.7kb GZipped. You may want to bundle this with your application code. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/elasticlunr/0.9.6/elasticlunr.min.js"></script>
+<script>
+  /** @typedef {Zuix} zuix */
+  const searchInput = zuix.field('search-input');
+  searchInput.on('keyup', (e, v) => {
+    const term = searchInput.value();
+    const results = searchIndex.search(term, {
+      bool: "OR",
+      expand: true,
+    });
+    if (resultsList) {
+      resultsList.clear();
+      resultsList.model({
+        itemList: results,
+        getItem: function(index, item) {
+          // Return the item data. Each item could also be rendered with a different template,
+          // in this case all items are using the 'card-template' which is defined
+          // inline in the same page. For further information about ZUIX templates referer
+          // to the documentation http://genielabs.github.io/zuix/#/docs .
+          return {
+            itemId: index,
+            componentId: 'result-item-view',
+            options: {
+              controller: zuix.controller(function(cp){}),
+              className: 'item',
+              model: item,
+              css: false
+            }
+          }
+        }
+      });
+    }
+  });
+  /** @type {elasticlunr.Index} searchIndex */
+  let searchIndex = null;
+  fetch("/search-index.json").then((response) =>
+    response.json().then((rawIndex) => {
+      searchIndex = elasticlunr.Index.load(rawIndex);
+      elasticlunr.clearStopWords(); // the word 'About' is still ignored
+    })
+  );
+  let resultsList;
+  example_lv_options = {
+    ready: function(ctx) {
+      resultsList = ctx;
+    }
+  };
+</script>

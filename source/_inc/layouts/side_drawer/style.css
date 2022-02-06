@@ -1,0 +1,132 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    position: relative;
+    min-height: 100vh;
+    background: var(--background-color);
+}
+
+h1 {
+    font-size: 230% !important;
+}
+
+pre {
+    margin-top: 32px!important;
+    padding-top: 32px!important;
+    padding-bottom: 12px!important;
+}
+pre[class*=language-]:after, pre[class*=language-]:before {
+    box-shadow: none!important;
+}
+pre[class*=language-]>code {
+    border-left: 1px solid #358ccb;
+    border-radius: 6px;
+}
+
+/* prevents links dragging */
+a, a::after, a::before {
+    -webkit-user-drag: none;
+    -webkit-app-region: no-drag;
+}
+
+main {
+    width: 100% !important;
+    padding: 0 !important;
+}
+main div.content {
+    width: 100% !important;
+    max-width: 960px !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+}
+
+[z-field="header"] {
+    position: fixed;
+    z-index: 1;
+    top:0; left: 0; right: 0; bottom: 0;
+    height: 64px;
+    padding-left: 8px;
+    padding-right: 8px;
+    background: #f5f5f5;
+}
+[data-theme="dark"] [z-field="header"] {
+    background: black;
+}
+h1[z-field="alt_header"] {
+    text-align: center;
+    display: block;
+    font-weight: 600;
+}
+
+.header-menu-button {
+    cursor: pointer;
+    height: 48px;
+    width: 48px;
+    padding: 4px;
+}
+[data-theme="dark"] .header-menu-button {
+    filter: invert(1);
+}
+[data-theme="dark"] .header-logo {
+    background: #24333e;
+}
+
+[z-load]:not([z-ready=true]).visible-on-ready,
+[z-include]:not([z-ready=true]).visible-on-ready
+{
+    display: block;
+    visibility: hidden;
+}
+
+.no-select {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+@media screen and (min-width: 1280px) {
+    main {
+        padding-top: 0 !important;
+        padding-left: 304px !important;
+        padding-right: 24px !important;
+    }
+    [z-field="header"] {
+        padding-left: 316px;
+        display: none;
+    }
+    h1[z-field="alt_header"] {
+        margin-top: 32px;
+        margin-bottom: 48px;
+        margin-left: -28px;
+        visibility: visible;
+    }
+    .header-menu-button {
+        display: none;
+    }
+}
+
+/* UI state classes */
+.not-ready {
+    opacity: 0.5;
+    -webkit-animation: pulse .5s infinite ease-in-out;
+    -o-animation: pulse .5s infinite ease-in-out;
+    -ms-animation: pulse .5s infinite ease-in-out;
+    -moz-animation: pulse .5s infinite ease-in-out;
+    animation: pulse .5s infinite ease-in-out;
+}
+@-webkit-keyframes pulse {
+    0% { opacity: 0.2; }
+    50% { opacity: 0.4; }
+    100% { opacity: 0.2; }
+}
+@keyframes pulse {
+    0% { opacity: 0.2; }
+    50% { opacity: 0.4; }
+    100% { opacity: 0.2; }
+}
+
+{% include 'layouts/side_drawer/drawer.css' %}

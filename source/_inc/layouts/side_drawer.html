@@ -1,0 +1,82 @@
+---
+date: Last Modified
+---
+{% include "head_open.html" %}
+<style>
+{% include "layouts/side_drawer/style.css" %}
+</style>
+
+{% include "head_close.html" %}
+
+<!-- scroll helper is used to show/hide the header when scrolling -->
+<body ctrl z-load="controllers/scroll_helper" z-lazy="scroll" data-theme="{{ theme }}"
+      z-context="scroll-helper"
+      z-options="scroll_opts"
+      layout="column stretch-stretch">
+
+    <nav #header layout="row center-start">
+        <div self="stretch" layout="row center-start">
+            <div>
+                <img src="{{app.baseUrl}}images/menu_open_black_48dp.svg" onclick="menuDrawer.open()" class="header-menu-button">
+            </div>
+            <div self="size-x1" layout="row center-center">
+                <h1 style="margin:0;margin-left: -56px">{{ title }}</h1>
+            </div>
+        </div>
+    </nav>
+
+    <!--
+    <div z-load="@lib/components/hamburger_icon"
+         z-context="menu_hamburger"
+         z-options="menuButtonOptions"
+         style="position:fixed;right:0;top:6px;z-index:1001"></div>
+         -->
+
+    <main class="animate__animated animate__fadeIn animate__faster">
+        <div layout="column top-center">
+
+            <h1 #alt_header>{{ title }}</h1>
+            <div class="content">
+                {{ content | safe }}
+            </div>
+
+            {% include "page_navigation.html" %}
+
+            {% if pubDate %}
+            <p>Published on: {{ pubDate | dateFormat }}</p>
+            {% endif %}
+
+        </div>
+    </main>
+
+    <!-- Navigation Drawer -->
+    <div ctrl z-load="controllers/drawer_layout"
+         z-context="menu-drawer"
+         z-options="drawer_opts"
+         class="drawer-layout no-select visible-on-ready"
+         layout="column top-stretch">
+        <!-- Navigation Drawer content -->
+
+        <!-- Header -->
+        <div class="drawer-header" layout="column bottom-stretch">
+            <img src="{{app.baseUrl}}images/profile-icon.png" class="logo">
+            <div class="title">Example Drawer</div>
+            <div class="subtitle">www.glabs.it</div>
+        </div>
+
+        <!-- Menu items and other content -->
+        <div class="drawer-content" self="size-x1">
+            {% include "layouts/side_drawer/drawer_menu.html" %}
+        </div>
+
+    </div>
+
+    {% include "body_end.html" %}
+
+    <!-- Common JS scripts -->
+    <script>
+    {% include "layouts/side_drawer/script.js" %}
+    </script>
+
+</body>
+{% include "html_close.html" %}
