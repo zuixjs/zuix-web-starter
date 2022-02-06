@@ -36,7 +36,7 @@ description: Brief document description
       // get the search index
       let searchIndex = null;
       /** @type {elasticlunr.Index} searchIndex */
-      fetch('/search-index.json').then((response) =>
+      fetch('{{ app.baseUrl }}search-index.json').then((response) =>
         response.json().then((rawIndex) => {
           searchIndex = elasticlunr.Index.load(rawIndex);
           elasticlunr.clearStopWords(); // the word 'About' is still ignored

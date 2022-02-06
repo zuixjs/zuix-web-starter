@@ -45,3 +45,8 @@ editor will highlight the code correctly.
 
 Generic use and framework-agnostic components with examples.... (drawer, context_menu, gesture helper...)
 // TODO: referencing components remotely (e.g. @lib) / creating a local copy
+
+
+### Compiling for production
+
+// TODO: ... about `baseUrl` etc...
