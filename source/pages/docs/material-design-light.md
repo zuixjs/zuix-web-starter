@@ -1,5 +1,9 @@
 ---
 layout: side_drawer.html
+options: mdl highlight
+theme: indigo-pink
+order: 20
+icon: auto_stories
 title: MDL Examples
 description: Material Design Light examples
 keywords:

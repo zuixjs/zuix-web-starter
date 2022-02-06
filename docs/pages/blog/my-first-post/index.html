@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Brief document description">
+    <meta name="description" content="My very first blog post description...">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search page</title>
+    <title>About</title>
 
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
@@ -283,7 +283,7 @@ h1[z-field="alt_header"] {
 }
 .drawer-content a {
 
-    color: #24333e;
+    color: #dfdfdf;
 
 }
 [z-context="menu-drawer"]:focus {
@@ -297,7 +297,7 @@ h1[z-field="alt_header"] {
 
 
 <!-- scroll helper is used to show/hide the header when scrolling -->
-<body ctrl z-load="controllers/scroll_helper" z-lazy="scroll" data-theme="light"
+<body ctrl z-load="controllers/scroll_helper" z-lazy="scroll" data-theme="dark"
       z-context="scroll-helper"
       z-options="scroll_opts"
       layout="column stretch-stretch">
@@ -308,7 +308,7 @@ h1[z-field="alt_header"] {
                 <img src="/images/menu_open_black_48dp.svg" onclick="menuDrawer.open()" class="header-menu-button">
             </div>
             <div self="size-x1" layout="row center-center">
-                <h1 style="margin:0;margin-left: -56px">Search page</h1>
+                <h1 style="margin:0;margin-left: -56px">About</h1>
             </div>
         </div>
     </nav>
@@ -323,79 +323,69 @@ h1[z-field="alt_header"] {
     <main class="animate__animated animate__fadeIn animate__faster">
         <div layout="column top-center">
 
-            <h1 #alt_header>Search page</h1>
+            <h1 #alt_header>About</h1>
             <div class="content">
-                
-<!--Inline list item template -->
-<div z-view="inline/result-item-view">
-    <a #ref><h3 #doc.title>Item title</h3></a>
-    <div #doc.description self="size-x1">Description</div>
-</div>
-<style media="#inline/result-item-view">
-    h3 { margin: 0; }
-    div { margin-bottom: 48px; }
-</style>
+                <h2>Title</h2>
+<p>Sint sit cillum pariatur eiusmod nulla pariatur ipsum. Sit laborum anim qui mollit tempor pariatur nisi minim dolor.
+Aliquip et adipisicing sit sit fugiat commodo id sunt.</p>
+<h3>Another title</h3>
+<p>Nostrud enim ad commodo incididunt cupidatat in ullamco ullamco
+Lorem cupidatat velit enim et Lorem. Ut laborum cillum laboris fugiat culpa sint irure do reprehenderit culpa occaecat.</p>
+<p>Hello World! =)</p>
+<blockquote>
+<p>“Dorothy followed her through many of the beautiful rooms in her castle.
+The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.”</p>
+</blockquote>
+<h2><a name="Lists"></a>Lists</h2>
+<h3>Ordered List</h3>
+<ol>
+<li>Longan</li>
+<li>Lychee</li>
+<li>Excepteur ad cupidatat do elit laborum amet cillum reprehenderit consequat quis.
+Deserunt officia esse aliquip consectetur duis ut labore laborum commodo aliquip aliquip velit pariatur dolore.</li>
+<li>Marionberry</li>
+<li>Melon
+<ul>
+<li>Cantaloupe</li>
+<li>Honeydew</li>
+<li>Watermelon</li>
+</ul>
+</li>
+<li>Miracle fruit</li>
+<li>Mulberry</li>
+</ol>
+<h3>Unordered List</h3>
+<ul>
+<li>Olive</li>
+<li>Orange
+<ul>
+<li>Blood orange</li>
+<li>Clementine</li>
+</ul>
+</li>
+<li>Papaya</li>
+<li>Ut aute ipsum occaecat nisi culpa Lorem id occaecat cupidatat id id magna laboris ad duis. Fugiat cillum dolore veniam nostrud proident sint consectetur eiusmod irure adipisicing.</li>
+<li>Passionfruit</li>
+</ul>
+<h2>Code</h2>
+<pre><code class="language-go">package main
 
-<div z-load="default">
+import (
+    &quot;fmt&quot;
+    &quot;net/http&quot;
+)
 
-    <div class="field" layout="row center-left">
-        <input #search-input aria-label="Search" type="search" placeholder="Search this site">
-    </div>
-    <ol #results></ol>
-    <div #results-none style="display: none">
-        <p>No results found.</p>
-    </div>
+func handler(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, &quot;Hi there, I love %s!&quot;, r.URL.Path[1:])
+}
 
-    <!-- zUIx list_view component -->
-    <div #results-list z-load="@lib/controllers/list_view">
-        <!-- Place holder is mandatory for JS-only compoments.. -->
-        Loading listview...
-    </div>
-
-    <script type="jscript">
-      // get the search index
-      let searchIndex = null;
-      /** @type {elasticlunr.Index} searchIndex */
-      fetch('/search-index.json').then((response) =>
-        response.json().then((rawIndex) => {
-          searchIndex = elasticlunr.Index.load(rawIndex);
-          elasticlunr.clearStopWords(); // the word 'About' is still ignored
-        })
-      );
-      // update results list on 'keyup'
-      $searchInput.on('keyup', (e, v) => {
-        if (!_resultsList) return;
-        const term = $searchInput.value();
-        const results = searchIndex.search(term, {
-          bool: 'OR',
-          expand: true
-        });
-        _resultsList.clear();
-        _resultsList.model({
-          itemList: results,
-          getItem: function(index, item) {
-            // Return the item data. Each item could also be rendered with a different template,
-            // in this case all items are using the 'card-template' which is defined
-            // inline in the same page. For further information about ZUIX templates referer
-            // to the documentation http://genielabs.github.io/zuix/#/docs .
-            return {
-              itemId: index,
-              componentId: 'inline/result-item-view',
-              options: {
-                controller: zuix.controller(function(cp){}),
-                className: 'item',
-                model: item
-              }
-            };
-          }
-        });
-      });
-    </script>
-
-</div>
-
-<!--Only 5.7kb GZipped. You may want to bundle this with your application code. -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/elasticlunr/0.9.6/elasticlunr.min.js"></script>
+func main() {
+    http.HandleFunc(&quot;/&quot;, handler)
+    http.ListenAndServe(&quot;:8080&quot;, nil)
+}
+</code></pre>
+<h2>Media</h2>
+<p><a href="https://youtu.be/JfVOs4VSpmA"><img src="https://img.youtube.com/vi/JfVOs4VSpmA/0.jpg" alt="Manny Pacquiao"></a></p>
 
             </div>
 
@@ -453,7 +443,7 @@ h1[z-field="alt_header"] {
 
 <label>Blog</label>
 <ul>
-    <li >
+    <li  aria-current="page">
         <a href="/pages/blog/my-first-post/">
             <div layout="row center-left">
                 <i class="material-icons">pages</i>
@@ -465,7 +455,7 @@ h1[z-field="alt_header"] {
 <hr>
 
 <ul>
-    <li  aria-current="page">
+    <li >
         <a href="/pages/search">
             <div layout="row center-left">
                 <i class="material-icons">search</i>

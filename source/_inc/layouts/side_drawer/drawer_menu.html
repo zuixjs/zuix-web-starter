@@ -1,16 +1,49 @@
+<label>Docs</label>
 <ul>
-    {%- for post in collections.posts_blog -%}
+    {%- for post in collections.posts_docs -%}
     {% assign match = page.url | split:post.url %}
     <li {% if match[0] == blank %} aria-current="page"{% endif %}>
         <a href="{{ post.url | url }}">
-            <div layout="row center-justify">
-                <span>{{ post.data.title }}</span>
+            <div layout="row center-lett">
                 <i class="material-icons">{{ post.data.icon }}</i>
-            </div>
-            <div class="summary">
-                {{ post.data.summary }}
+                <span>{{ post.data.title }}</span>
             </div>
         </a>
     </li>
     {%- endfor -%}
 </ul>
+
+<label>Blog</label>
+<ul>
+    {%- for post in collections.posts_blog -%}
+    {% assign match = page.url | split:post.url %}
+    <li {% if match[0] == blank %} aria-current="page"{% endif %}>
+        <a href="{{ post.url | url }}">
+            <div layout="row center-left">
+                <i class="material-icons">{{ post.data.icon }}</i>
+                <span>{{ post.data.title }}</span>
+            </div>
+        </a>
+    </li>
+    {%- endfor -%}
+</ul>
+
+<hr>
+
+<ul>
+    <li {% if page.url == '/pages/search/' %} aria-current="page"{% endif %}>
+        <a href="{{ '/pages/search' | url }}">
+            <div layout="row center-left">
+                <i class="material-icons">search</i>
+                <span>Search</span>
+            </div>
+        </a>
+    </li>
+</ul>
+
+
+
+<!-- Drawer JS scripts -->
+<script>
+{% include "layouts/side_drawer/script.js" %}
+</script>

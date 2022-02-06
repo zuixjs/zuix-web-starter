@@ -1,51 +1,47 @@
 ---
-layout: side_drawer.html
+layout: basic.html
 order: 1
-title: Home Page
+title: Landing Page
 description: A brand new *zuix.js* project!
 keywords:
 - home
 - welcome
+- landing page
 ---
 
 ## Hello World!
 
-Welcome to *zuix.js* web-starter. Based on *Eleventy* ...
+Welcome to *zuix.js* web-starter, based on *Eleventy*:
 
-Link to *zuix.js* and *Eleventy* documentation.
+- [zuix.js docs](https://zuixjs.org)
+- [11ty docs](https://11ty.dev)
 
-### Project structure
 
-// TODO... files location and usage
+[Go to examples and documentation](pages/docs/welcome)
 
-### Configuration files
+### Page templates
 
-// TODO: ...
+- basic
+- side_drawer
+
+Describe front matter options and flags for templates... // TODO: ...
+
+### Adding a new page
+
+- manually
+- using `zx` CLI
 
 ### Custom `liquid` tags 
 
 About {% raw %}`{% unpre %}` / `{% endunpre %}`{% endraw %} tags.
 
 Sometimes it will happen to use `HTML` code in a markdown `.md` file, in which case the liquid tags {% raw %}`{% unpre %}` / `{% endunpre %}`{% endraw %}
-can be used so that the code can be inserted inside a preformatted block that will so also recognize as *HTML* the code and
-will highlight it correctly.
+can be used to wrap the `HTML` code inside a preformatted block, so that it will be actually recognized as HTML and the
+editor will highlight the code correctly.
 
 // TODO: ...
 
 ### Components
 
 Generic use and framework-agnostic components with examples.... (drawer, context_menu, gesture helper...)
-
 // TODO: referencing components remotely (e.g. @lib) / creating a local copy
-
-{% unpre %}
-```html
-<div>
-    
-    <h1>Hi there!</h1>
-    
-    <h2>Ok!</h2>
-    
-</div>
-```
-{% endunpre %}

@@ -1,3 +1,4 @@
+{% assign opts = options | split: ' ' %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -5,11 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="{{description}}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{title}} - zUIx.js / 11ty</title>
+    <title>{{title}}</title>
 
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
-
 
     <!-- Progressive Web App -->
     <meta name="theme-color" content="white">
@@ -43,8 +43,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+{% if opts contains 'mdl' %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.{{ theme }}.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.min.js"></script>
+{% endif %}
+{% if opts contains 'pico-css' %}
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.classless.min.css">
+{% endif %}
+{% if opts contains 'highlight' %}
     <script src="{{ '/js/prism/prism.js' | url }}"></script>
     <link rel="stylesheet" href="{{ '/js/prism/prism.css' | url }}" />
+{% endif %}
 
     <!-- zuix.js https://github.com/zuixjs/zuix -->
     <script src="{{ '/js/zuix/zuix.js' | url }}"></script>

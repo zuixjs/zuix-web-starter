@@ -1,4 +1,4 @@
-# zUIx Web Starter
+# `zuix.js` Web Starter
 
 Starter project for component oriented web development with [zuix.js](https://zuixjs.github.io/zuixjs.org) and [Eleventy](https://www.11ty.dev).
 
@@ -114,7 +114,7 @@ to use a different configuration file (eg. `config/production.json`):
 
 ### zuix.build
 
-The `build` configuration object implements the following fileds.
+The `build` configuration object implements the following fields.
 
 ###### `input`
 
@@ -167,7 +167,7 @@ having a different prefix starting with `@`.
 
 ## Site Structure
 
-The following are just guide-lines for structuring a *zuixjs* web app.
+The following are just guide-lines for structuring a *zuix.js* web app.
 
 ```
 ├── source/              #
@@ -222,9 +222,9 @@ the body of all pages:
 Find out all other *Eleventy* commands and functionality from its
 [documentation page](https://11ty.dev/docs).
 
-The **app** folder is reserved for **zUIx** components and templates that
-are loaded using the `z-load` and `z-include` attributes.
-See *zUIx* [Getting Started](https://zuixjs.github.io/zuix/#/docs)
+The **app** folder is reserved for **zuix.js** components and templates that
+are loaded using the `z-load` attribute.
+See *zuix.js* [Getting Started](https://zuixjs.github.io/zuix/#/docs)
 guide for documentation about how to apply templates and how to create/use
 components. The name of this folder (*app*) is defined by the
 `zuix.app.resourcePath` configuration setting.

@@ -12,14 +12,6 @@
 function MdlCheckbox() {
   const cp = this;
   let view;
-  cp.init = function() {
-    const theme = this.options().theme || 'indigo-pink';
-    [
-      '@cdnjs/material-design-lite/1.3.0/material.' + theme + '.min.css',
-      '@cdnjs/material-design-lite/1.3.0/material.min.js',
-      'https://fonts.googleapis.com/icon?family=Material+Icons'
-    ].forEach((d) => zuix.using(d.endsWith('.js') ? 'script' : 'style', d));
-  };
   cp.create = onCreate;
 
   function onCreate() {

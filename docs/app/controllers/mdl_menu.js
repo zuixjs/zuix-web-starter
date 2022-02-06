@@ -16,12 +16,6 @@ function MdlMenu() {
 
   function onInit() {
     this.options().css = 'ul{ margin:0 !important; padding:0 !important; } li{width:100%} li[disabled]{ pointer-events: none; } a{text-decoration: none;}';
-    const theme = this.options().theme || 'indigo-pink';
-    [
-      '@cdnjs/material-design-lite/1.3.0/material.' + theme + '.min.css',
-      '@cdnjs/material-design-lite/1.3.0/material.min.js',
-      'https://fonts.googleapis.com/icon?family=Material+Icons'
-    ].forEach((d) => zuix.using(d.endsWith('.js') ? 'script' : 'style', d));
   }
 
   function onCreate() {

@@ -10,14 +10,6 @@
  * @this {ContextController}
  */
 function MdlButton() {
-  this.init = function() {
-    const theme = this.options().theme || 'indigo-pink';
-    [
-      '@cdnjs/material-design-lite/1.3.0/material.' + theme + '.min.css',
-      '@cdnjs/material-design-lite/1.3.0/material.min.js',
-      'https://fonts.googleapis.com/icon?family=Material+Icons'
-    ].forEach((d) => zuix.using(d.endsWith('.js') ? 'script' : 'style', d));
-  };
   this.create = () => {
     const view = this.view();
     const options = this.options();

@@ -1,0 +1,30 @@
+---
+date: Last Modified
+---
+{% include "head_open.html" %}
+
+{% include "head_close.html" %}
+
+<!-- scroll helper is used to show/hide the header when scrolling -->
+<body data-theme="{{ theme }}">
+
+<main>
+    <div layout="column top-center">
+
+        <div class="content">
+            {{ content | safe }}
+        </div>
+
+        {% include "page_navigation.html" %}
+
+        {% if pubDate %}
+        <p>Published on: {{ pubDate | dateFormat }}</p>
+        {% endif %}
+
+    </div>
+</main>
+
+{% include "body_end.html" %}
+
+</body>
+{% include "html_close.html" %}

@@ -1,14 +1,15 @@
 ---
 layout: side_drawer.html
+options: pico-css
+icon: pages
 order: 1
 theme: dark
-title: Welcome
+title: About
 description: My very first blog post description...
 keywords:
 - blog
 - lifestyle
 ---
-<link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.classless.min.css">
 
 ## Title
 

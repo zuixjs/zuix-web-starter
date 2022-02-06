@@ -26,7 +26,7 @@
     margin-left: 4px;
     margin-right: 4px;
     font-size: 120%;
-    font-weight: 600;
+    font-weight: 300;
 }
 .drawer-header .subtitle {
     margin-left: 4px;
@@ -54,22 +54,25 @@
     list-style: none;
 }
 .drawer-content ul li[aria-current=page] {
-    border-top: solid 2px rgba(127,127,127,0.1);
-    border-bottom: solid 2px rgba(127,127,127,0.1);
-    background-color: rgba(127,127,127,0.05);
+    background-color: rgba(127,167,127,0.1);
+    border-radius: 12px;
 }
 .drawer-content ul li[aria-current=page] {
-    font-weight: bold;
+    /*font-weight: bold;*/
 }
 .drawer-content li a {
+    font-weight: 500;
     position: relative;
     display: block;
-    padding: 8px 16px;
+    padding: 6px 16px;
     text-decoration: none;
 }
+.drawer-content li i {
+    width: 48px;
+}
 .drawer-content ul li[aria-current=page] a {
-    /*pointer-events: none;*/
-    font-weight: bold;
+    /*pointer-events: none;
+    font-weight: bold;*/
 }
 .drawer-content ul li a div.summary {
     font-size: 95%;
@@ -80,6 +83,21 @@
     font-weight: 400!important;
     font-family: 'Helvetica Neue', Helvetica, sans-serif;
     color: lightslategray;
+}
+.drawer-content label {
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    margin-left: 12px;
+    font-weight: bold;
+    color: rgba(127,127,127,1);
+}
+.drawer-content a {
+{% if theme == 'dark' %}
+    color: #dfdfdf;
+{% else %}
+    color: #24333e;
+{% endif %}
 }
 [z-context="menu-drawer"]:focus {
     outline: none;

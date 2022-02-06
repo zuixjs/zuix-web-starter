@@ -23,6 +23,10 @@ module.exports = function(eleventyConfig) {
     return collection.getFilteredByGlob('./source/pages/blog/*.md')
         .slice().sort((a, b) => +a.data.order > +b.data.order ? 1 : -1);
   });
+  eleventyConfig.addCollection('posts_docs', function(collection) {
+    return collection.getFilteredByGlob('./source/pages/docs/*.md')
+        .slice().sort((a, b) => +a.data.order > +b.data.order ? 1 : -1);
+  });
 
   // this is used by the searchFilter
   eleventyConfig.addCollection('posts_searchIndex', (collection) => {

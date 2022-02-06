@@ -5,7 +5,6 @@ date: Last Modified
 <style>
 {% include "layouts/side_drawer/style.css" %}
 </style>
-
 {% include "head_close.html" %}
 
 <!-- scroll helper is used to show/hide the header when scrolling -->
@@ -58,10 +57,12 @@ date: Last Modified
         <!-- Navigation Drawer content -->
 
         <!-- Header -->
-        <div class="drawer-header" layout="column bottom-stretch">
-            <img src="{{app.baseUrl}}images/profile-icon.png" class="logo">
-            <div class="title">Example Drawer</div>
-            <div class="subtitle">www.glabs.it</div>
+        <div class="drawer-header" layout="column justify-stretch">
+            <a href="{{ '/' | url }}">
+                <img src="{{app.baseUrl}}images/profile-icon.png" class="logo">
+            </a>
+            <div class="title">{{ app.title }}</div>
+            <div class="subtitle">{{ app.subtitle }}</div>
         </div>
 
         <!-- Menu items and other content -->
@@ -72,11 +73,6 @@ date: Last Modified
     </div>
 
     {% include "body_end.html" %}
-
-    <!-- Common JS scripts -->
-    <script>
-    {% include "layouts/side_drawer/script.js" %}
-    </script>
 
 </body>
 {% include "html_close.html" %}
