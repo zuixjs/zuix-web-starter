@@ -347,13 +347,22 @@ Click Me
      href="#test-link-3">
 <i class="material-icons">home</i>
 </a></p>
-<pre><code class="language-liquid">{% zx 'card' 'MDL card' 'https://picsum.photos/id/110/460/176' 'Show me' '#link-to-somewhere' %}
-A wonderful serenity has taken possession of my entire soul,
-like these sweet mornings of spring which I enjoy with my whole heart.
-{% endzx %}
+<pre><code class="language-liquid">{% layout 'rows center-spread' %}
+    
+  {% zx 'card' 'Sweet mornings' 'https://picsum.photos/id/110/460/176' 'Show me' '#link-to-somewhere' %}
+  A wonderful serenity has taken possession of my entire soul,
+  like these sweet mornings of spring which I enjoy with my whole heart.
+  {% endzx %}
+  
+  {% zx 'card' 'Blind texts' 'https://picsum.photos/id/33/460/176' 'Show me' '#link-to-somewhere' %}
+  Far far away, behind the word mountains, far from the countries
+  Vokalia and Consonantia, there live the blind texts. 
+  {% endzx %}
+
+{% endlayout %}
 </code></pre>
 <div layout="rows center-spread"><div view z-load="templates/mdl_card">
-  <h1 #title>MDL card</h1>
+  <h1 #title>Sweet mornings</h1>
   <img #image src="https://picsum.photos/id/110/460/176" alt="Cover image" role="presentation">
   <p #text>
   A wonderful serenity has taken possession of my entire soul,
@@ -364,11 +373,11 @@ like these sweet mornings of spring which I enjoy with my whole heart.
   </a>
 </div>
   <div view z-load="templates/mdl_card">
-  <h1 #title>MDL card</h1>
+  <h1 #title>Blind texts</h1>
   <img #image src="https://picsum.photos/id/33/460/176" alt="Cover image" role="presentation">
   <p #text>
-  A wonderful serenity has taken possession of my entire soul,
-  like these sweet mornings of spring which I enjoy with my whole heart.
+  Far far away, behind the word mountains, far from the countries
+  Vokalia and Consonantia, there live the blind texts. 
   </p>
   <a #link.url href="#link-to-somewhere">
     <span #link.title>Show me</span>
@@ -378,6 +387,12 @@ like these sweet mornings of spring which I enjoy with my whole heart.
 <p>.</p>
 <p>.</p>
 <p>.</p>
+<pre><code class="language-liquid">{% zx 'menu' 'fab' 'accent' %}
+- [Option 1](#test1)
+- [Option 2](#test2)
+- [Option 3](#test3)
+{% endzx %}
+</code></pre>
 <div ctrl z-load="controllers/mdl_menu" z-lazy="false"
      z-behavior="menuButtonBehavior" class="visible-on-ready">
     <!-- the menu is defined as a simple UL list -->
@@ -474,17 +489,6 @@ like these sweet mornings of spring which I enjoy with my whole heart.
         <a href="/pages/blog/welcome/">
             <div layout="row center-justify">
                 <span>Welcome</span>
-                <i class="material-icons"></i>
-            </div>
-            <div class="summary">
-                
-            </div>
-        </a>
-    </li>
-    <li >
-        <a href="/pages/blog/today-is-another-day/">
-            <div layout="row center-justify">
-                <span>TodayIsAnotherDay</span>
                 <i class="material-icons"></i>
             </div>
             <div class="summary">

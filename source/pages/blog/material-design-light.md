@@ -71,26 +71,36 @@ Click Me
 <i class="material-icons">home</i>
 {% endzx %}
 
+
 {% raw %}
 ```liquid
-{% zx 'card' 'MDL card' 'https://picsum.photos/id/110/460/176' 'Show me' '#link-to-somewhere' %}
-A wonderful serenity has taken possession of my entire soul,
-like these sweet mornings of spring which I enjoy with my whole heart.
-{% endzx %}
+{% layout 'rows center-spread' %}
+    
+  {% zx 'card' 'Sweet mornings' 'https://picsum.photos/id/110/460/176' 'Show me' '#link-to-somewhere' %}
+  A wonderful serenity has taken possession of my entire soul,
+  like these sweet mornings of spring which I enjoy with my whole heart.
+  {% endzx %}
+  
+  {% zx 'card' 'Blind texts' 'https://picsum.photos/id/33/460/176' 'Show me' '#link-to-somewhere' %}
+  Far far away, behind the word mountains, far from the countries
+  Vokalia and Consonantia, there live the blind texts. 
+  {% endzx %}
+
+{% endlayout %}
 ```
 {% endraw %}
 
 
 {% layout 'rows center-spread' %}
     
-  {% zx 'card' 'MDL card' 'https://picsum.photos/id/110/460/176' 'Show me' '#link-to-somewhere' %}
+  {% zx 'card' 'Sweet mornings' 'https://picsum.photos/id/110/460/176' 'Show me' '#link-to-somewhere' %}
   A wonderful serenity has taken possession of my entire soul,
   like these sweet mornings of spring which I enjoy with my whole heart.
   {% endzx %}
   
-  {% zx 'card' 'MDL card' 'https://picsum.photos/id/33/460/176' 'Show me' '#link-to-somewhere' %}
-  A wonderful serenity has taken possession of my entire soul,
-  like these sweet mornings of spring which I enjoy with my whole heart.
+  {% zx 'card' 'Blind texts' 'https://picsum.photos/id/33/460/176' 'Show me' '#link-to-somewhere' %}
+  Far far away, behind the word mountains, far from the countries
+  Vokalia and Consonantia, there live the blind texts. 
   {% endzx %}
 
 {% endlayout %}
@@ -104,7 +114,17 @@ like these sweet mornings of spring which I enjoy with my whole heart.
 
 .
 
-{% zx 'menu' %}
+{% raw %}
+```liquid
+{% zx 'menu' 'fab' 'accent' %}
+- [Option 1](#test1)
+- [Option 2](#test2)
+- [Option 3](#test3)
+{% endzx %}
+```
+{% endraw %}
+
+{% zx 'menu' 'icon' 'accent' %}
 - [Option 1](#test1)
 - [Option 2](#test2)
 - [Option 3](#test3)
