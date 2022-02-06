@@ -369,6 +369,9 @@ h1[z-field="alt_header"] {
         const results = searchIndex.search(term, {
           bool: 'OR',
           expand: true
+        }).map((r) => {
+          r.ref = '/zuix-web-starter/' + r.ref.substring(1);
+          return r;
         });
         _resultsList.clear();
         _resultsList.model({
