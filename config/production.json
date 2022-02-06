@@ -22,12 +22,12 @@
       "includesFolder": "_inc",
       "bundle": {
         "js": false,
-        "css": true,
-        "zuix": true
+        "css": false,
+        "zuix": false
       },
       "serviceWorker": true,
       "minify": {
-        "disable": false,
+        "disable": true,
         "collapseWhitespace": true,
         "removeOptionalTags": true,
         "removeRedundantAttributes": true,
