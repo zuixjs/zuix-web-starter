@@ -31,6 +31,12 @@ Describe front matter options and flags for templates... // TODO: ...
 - using `zx` CLI
 
 
+## Creating a component
+
+- manually
+- using `zx` CLI
+
+
 ## Custom `liquid` tags
 
 About {% raw %}`{% unpre %}` / `{% endunpre %}`{% endraw %} tags.
