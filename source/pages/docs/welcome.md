@@ -1,6 +1,6 @@
 ---
 layout: side_drawer.html
-options: mdl
+options: mdl highlight
 theme: indigo-pink
 order: 10
 icon: mood
@@ -13,16 +13,79 @@ keywords:
 - MDL
 ---
 
-This web starter is based on [zuix.js](https://zuixjs.org), a library for component-based web development, and [Eleventy](https://11ty.dev),
+This [web starter](https://zuixjs.github.io/zuix-web-starter/) is based on [zuix.js](https://zuixjs.org), a library for component-based web development, and [Eleventy](https://11ty.dev),
 static site generator.
 
 
-## Page templates
+## Pages and Layouts
 
-- basic
-- side_drawer
+All pages are placed in the `./source/pages` folder. Pages can be implemented either as `.html` or `.md` files.
+In both cases the [front matter](https://www.11ty.dev/docs/data-frontmatter/) data is used to select the page layout and other options.
 
-Describe front matter options and flags for templates... // TODO: ...
+```yaml
+---
+layout: side_drawer
+options: mdl highlight
+order: 2
+icon: star_outline
+title: My page title
+description: My page description (used for page metadata)
+keywords:
+- Blog
+- Lifestyle
+- Travel
+---
+
+# Hello World!
+
+Welcome to my blog about...
+
+```
+
+### `layout`
+
+The following page layouts are available at this time:
+- **`landing_page`**  
+a simple splash screen used for the main page (`./source/index.md`). 
+- **`basic`**  
+a basic page layout.
+- **`side_drawer`**  
+a page with a responsive *Navigation Drawer* layout, like the one used by this very page.
+
+### `options`
+
+- **`mdl`**  
+use [Material Design Light](https://getmdl.io/components/index.html) styles.
+- **`pico-css`**  
+use [Pico.css](https://picocss.com/) styles.
+- **`highlight`**  
+include Prims code highlighter.
+
+The styles `mdl` and `pico-css` are mutually exclusive.
+When using `mdl` style, also the **`theme`** variable can be added to the front matter for specifying the [material theme](https://getmdl.io/customize/index.html) to be used
+(e.g. `indigo-pink`, `amber-green`, etc...).  
+When using `pico-css` the **`theme`** variable can be either `dark` or `light`.
+
+### `order`
+
+// TODO: ...
+
+### `icon`
+
+// TODO: ...
+
+### `title`
+
+// TODO: ...
+
+### `description`
+
+// TODO: ...
+
+### `keywords`
+
+// TODO: ...
+
 
 
 ## Adding a new page
@@ -30,11 +93,15 @@ Describe front matter options and flags for templates... // TODO: ...
 - manually
 - using `zx` CLI
 
+// TODO: ...
+
 
 ## Creating a component
 
 - manually
 - using `zx` CLI
+
+// TODO: ...
 
 
 ## Custom `liquid` tags

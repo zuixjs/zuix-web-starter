@@ -1,7 +1,8 @@
 /* eslint-disable quotes */
 (function() {
   zuix.store('config', {
-    "title": "zUIx Web Starter",
+    "title": "<code>zuix.js</code> Web Starter",
+    "subtitle": "Simple, yet powerful!",
     "googleSiteId": "UA-123-456",
     "baseUrl": "/zuix-web-starter/",
     "resourcePath": "/app/",

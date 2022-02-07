@@ -18,10 +18,12 @@ h2 {
     font-size: 220% !important;
 }
 h3 {
-    font-size: 200% !important;
+    font-size: 190% !important;
+    opacity: 0.9;
 }
 h4 {
-    font-size: 180% !important;
+    font-size: 170% !important;
+    opacity: 0.8;
 }
 h5 {
     font-size: 150% !important;
