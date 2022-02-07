@@ -3,7 +3,7 @@
 
 <div -self="size-x1" layout="row center-spread" style="margin-top: 96px; margin-bottom: 56px; padding-left: 8px; padding-right: 8px; font-size: 140%">
     {% if prevPost %}
-    <a href="{{ prevPost.url }}">
+    <a href="{{ prevPost.url |  url }}">
         <label layout="row center-center">
             <i class="material-icons">arrow_left</i>&nbsp;
             <span style="padding-right: 24px">Previous</span>
@@ -12,7 +12,7 @@
     </a>
     {% endif %}
     {% if nextPost %}
-    <a href="{{ nextPost.url }}">
+    <a href="{{ nextPost.url |  url }}">
         <label layout="row center-center">
             <span style="padding-left: 24px">Next</span>
             <i class="material-icons">arrow_right</i>&nbsp;
