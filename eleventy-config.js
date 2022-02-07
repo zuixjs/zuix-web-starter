@@ -47,6 +47,10 @@ module.exports = function(eleventyConfig) {
       'dateFormat',
       require('./source/_filters/dateFormat')
   );
+  eleventyConfig.addFilter(
+      'getCollection',
+      require('./source/_filters/getCollection')
+  );
 
   // TODO: describe the following
   eleventyConfig.addPairedShortcode('unpre', function(content) {
@@ -64,6 +68,6 @@ module.exports = function(eleventyConfig) {
     return ''; // 'Not implemented! (' + content + ') [' + args + ']';
   });
   eleventyConfig.addPairedShortcode('layout', function(content, ...args) {
-    return `<div layout="${args.join(' ')}">${normalizeMarkup(content)}</div>`;
+    return `<div layout="${args[0]}" class="${args[1]}">${normalizeMarkup(content)}</div>`;
   });
 };

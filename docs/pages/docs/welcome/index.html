@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Welcome to zuix.js web-starter">
+    <meta name="description" content="Welcome to zuix.js web starter">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome!</title>
 
@@ -45,7 +45,7 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.amber-red.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.indigo-pink.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.min.js"></script>
 
 
@@ -66,8 +66,34 @@ body {
     background: var(--background-color); /* this is also set by Pico.CSS for theming */
 }
 
+a {
+    text-decoration: none;
+}
+
 h1 {
     font-size: 230% !important;
+}
+h2 {
+    font-size: 220% !important;
+}
+h3 {
+    font-size: 200% !important;
+}
+h4 {
+    font-size: 180% !important;
+}
+h5 {
+    font-size: 150% !important;
+}
+h6 {
+    font-size: 130% !important;
+}
+
+hr {
+    margin-bottom: 30px;
+}
+[data-theme="dark"] hr {
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
 pre {
@@ -298,7 +324,7 @@ h1[z-field="alt_header"] {
 
 
 <!-- scroll helper is used to show/hide the header when scrolling -->
-<body ctrl z-load="controllers/scroll_helper" z-lazy="scroll" data-theme="amber-red"
+<body ctrl z-load="controllers/scroll_helper" z-lazy="scroll" data-theme="indigo-pink"
       z-context="scroll-helper"
       z-options="scroll_opts"
       layout="column stretch-stretch">
@@ -326,16 +352,46 @@ h1[z-field="alt_header"] {
 
             <h1 #alt_header>Welcome!</h1>
             <div class="content">
-                <h2>Welcome!</h2>
-<p>=)</p>
+                <p>This web starter is based on <a href="https://zuixjs.org">zuix.js</a>, a library for component-based web development, and <a href="https://11ty.dev">Eleventy</a>,
+static site generator.</p>
+<h2>Page templates</h2>
+<ul>
+<li>basic</li>
+<li>side_drawer</li>
+</ul>
+<p>Describe front matter options and flags for templates... // TODO: ...</p>
+<h2>Adding a new page</h2>
+<ul>
+<li>manually</li>
+<li>using <code>zx</code> CLI</li>
+</ul>
+<h2>Custom <code>liquid</code> tags</h2>
+<p>About <code>{% unpre %}</code> / <code>{% endunpre %}</code> tags.</p>
+<p>Sometimes it will happen to use <code>HTML</code> code in a markdown <code>.md</code> file, in which case the liquid tags <code>{% unpre %}</code> / <code>{% endunpre %}</code>
+can be used to wrap the <code>HTML</code> code inside a preformatted block, so that it will be actually recognized as HTML and the
+editor will highlight the code correctly.</p>
+<p>// TODO: ...</p>
+<h2>Components</h2>
+<p>Generic use and framework-agnostic components with examples.... (drawer, context_menu, gesture helper...)
+// TODO: referencing components remotely (e.g. @lib) / creating a local copy</p>
+<h2>Compiling for production</h2>
+<p>// TODO: ... about <code>baseUrl</code> etc...</p>
 
             </div>
 
             
 
 
-<div -self="size-large" layout="row center-spread" style="margin-top: 96px; margin-bottom: 56px; padding-left: 8px; padding-right: 8px; font-size: 140%">
+<div -self="size-x1" layout="row center-spread" style="margin-top: 96px; margin-bottom: 56px; padding-left: 8px; padding-right: 8px; font-size: 140%">
     
+    
+    <a href="/pages/docs/material-design-light/">
+        <label layout="row center-center">
+            <span style="padding-left: 24px">Next</span>
+            <i class="material-icons">arrow_right</i>&nbsp;
+        </label>
+        <small layout="row center-center">MDL Examples</small>
+    </a>
     
 </div>
 
@@ -358,7 +414,7 @@ h1[z-field="alt_header"] {
             <a href="/zuix-web-starter/">
                 <img src="/zuix-web-starter/images/profile-icon.png" class="logo">
             </a>
-            <div class="title">zUIx Web Starter application</div>
+            <div class="title">zUIx Web Starter</div>
             <div class="subtitle"></div>
         </div>
 
@@ -407,11 +463,33 @@ h1[z-field="alt_header"] {
     </li>
 </ul>
 
+        </div>
 
+    </div>
 
-<!-- Drawer JS scripts -->
+    
+<!-- Built with love using zUIx Web Starter -->
+
 <script>
-/** type {ComponentContext} */
+
+  // Google Analytics: change UA-123-456 to be your site's ID
+  if (location.hostname !== "localhost" && location.hostname !== "127.0.0.1") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-123-456', 'auto');
+    ga('send', 'pageview');
+  }
+
+</script>
+
+
+</body>
+
+<!-- page script -->
+<script>
+  /** type {ComponentContext} */
 let menuDrawer;
 /** type {ComponentContext} */
 let menuButton;
@@ -525,29 +603,6 @@ processExternalLinks(document);
 
 </script>
 
-        </div>
-
-    </div>
-
-    
-<!-- Built with love using zUIx Web Starter -->
-
-<script>
-
-  // Google Analytics: change UA-123-456 to be your site's ID
-  if (location.hostname !== "localhost" && location.hostname !== "127.0.0.1") {
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-123-456', 'auto');
-    ga('send', 'pageview');
-  }
-
-</script>
-
-
-</body>
 
 </html>
 

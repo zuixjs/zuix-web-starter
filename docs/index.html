@@ -53,7 +53,17 @@
     <script src="/zuix-web-starter/config.js"></script>
     <script src="/zuix-web-starter/js/zuix/animate_css.js"></script>
 
+<style>
+    body {
+    margin:0; padding: 0;
+}
+main {
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+}
 
+</style>
 
 </head>
 
@@ -61,54 +71,12 @@
 <!-- scroll helper is used to show/hide the header when scrolling -->
 <body data-theme="">
 
-<main>
-    <div layout="column top-center">
+<main layout="column stretch-stretch">
 
-        <div class="content">
-            <h2>Hello World!</h2>
-<p>Welcome to <em>zuix.js</em> web-starter, based on <em>Eleventy</em>:</p>
-<ul>
-<li><a href="https://zuixjs.org">zuix.js docs</a></li>
-<li><a href="https://11ty.dev">11ty docs</a></li>
-</ul>
-<p><a href="pages/docs/welcome">Go to examples and documentation</a></p>
-<h3>Page templates</h3>
-<ul>
-<li>basic</li>
-<li>side_drawer</li>
-</ul>
-<p>Describe front matter options and flags for templates... // TODO: ...</p>
-<h3>Adding a new page</h3>
-<ul>
-<li>manually</li>
-<li>using <code>zx</code> CLI</li>
-</ul>
-<h3>Custom <code>liquid</code> tags</h3>
-<p>About <code>{% unpre %}</code> / <code>{% endunpre %}</code> tags.</p>
-<p>Sometimes it will happen to use <code>HTML</code> code in a markdown <code>.md</code> file, in which case the liquid tags <code>{% unpre %}</code> / <code>{% endunpre %}</code>
-can be used to wrap the <code>HTML</code> code inside a preformatted block, so that it will be actually recognized as HTML and the
-editor will highlight the code correctly.</p>
-<p>// TODO: ...</p>
-<h3>Components</h3>
-<p>Generic use and framework-agnostic components with examples.... (drawer, context_menu, gesture helper...)
-// TODO: referencing components remotely (e.g. @lib) / creating a local copy</p>
-<h3>Compiling for production</h3>
-<p>// TODO: ... about <code>baseUrl</code> etc...</p>
-
-        </div>
-
-        
+    <div layout="column center-center" class="animate__animated animate__fadeOut animate__faster"><img src="images/zuix-logo.svg" alt="zuix.js logo" class="animate__animated animate__rotateOut animate__faster">
+<h1>Web Starter</h1></div>
 
 
-<div -self="size-large" layout="row center-spread" style="margin-top: 96px; margin-bottom: 56px; padding-left: 8px; padding-right: 8px; font-size: 140%">
-    
-    
-</div>
-
-
-        
-
-    </div>
 </main>
 
 
@@ -130,6 +98,15 @@ editor will highlight the code correctly.</p>
 
 
 </body>
+
+<!-- page script -->
+<script>
+  zuix.$.find('main div').eq(0).on('animationend', () => {
+  location.href = '/pages/docs/welcome/';
+});
+
+</script>
+
 
 </html>
 

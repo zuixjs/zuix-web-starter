@@ -7,8 +7,34 @@ body {
     background: var(--background-color); /* this is also set by Pico.CSS for theming */
 }
 
+a {
+    text-decoration: none;
+}
+
 h1 {
     font-size: 230% !important;
+}
+h2 {
+    font-size: 220% !important;
+}
+h3 {
+    font-size: 200% !important;
+}
+h4 {
+    font-size: 180% !important;
+}
+h5 {
+    font-size: 150% !important;
+}
+h6 {
+    font-size: 130% !important;
+}
+
+hr {
+    margin-bottom: 30px;
+}
+[data-theme="dark"] hr {
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
 pre {

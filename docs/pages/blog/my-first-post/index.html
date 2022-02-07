@@ -65,8 +65,34 @@ body {
     background: var(--background-color); /* this is also set by Pico.CSS for theming */
 }
 
+a {
+    text-decoration: none;
+}
+
 h1 {
     font-size: 230% !important;
+}
+h2 {
+    font-size: 220% !important;
+}
+h3 {
+    font-size: 200% !important;
+}
+h4 {
+    font-size: 180% !important;
+}
+h5 {
+    font-size: 150% !important;
+}
+h6 {
+    font-size: 130% !important;
+}
+
+hr {
+    margin-bottom: 30px;
+}
+[data-theme="dark"] hr {
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
 pre {
@@ -392,7 +418,7 @@ func main() {
             
 
 
-<div -self="size-large" layout="row center-spread" style="margin-top: 96px; margin-bottom: 56px; padding-left: 8px; padding-right: 8px; font-size: 140%">
+<div -self="size-x1" layout="row center-spread" style="margin-top: 96px; margin-bottom: 56px; padding-left: 8px; padding-right: 8px; font-size: 140%">
     
     
 </div>
@@ -416,7 +442,7 @@ func main() {
             <a href="/zuix-web-starter/">
                 <img src="/zuix-web-starter/images/profile-icon.png" class="logo">
             </a>
-            <div class="title">zUIx Web Starter application</div>
+            <div class="title">zUIx Web Starter</div>
             <div class="subtitle"></div>
         </div>
 
@@ -465,11 +491,33 @@ func main() {
     </li>
 </ul>
 
+        </div>
 
+    </div>
 
-<!-- Drawer JS scripts -->
+    
+<!-- Built with love using zUIx Web Starter -->
+
 <script>
-/** type {ComponentContext} */
+
+  // Google Analytics: change UA-123-456 to be your site's ID
+  if (location.hostname !== "localhost" && location.hostname !== "127.0.0.1") {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-123-456', 'auto');
+    ga('send', 'pageview');
+  }
+
+</script>
+
+
+</body>
+
+<!-- page script -->
+<script>
+  /** type {ComponentContext} */
 let menuDrawer;
 /** type {ComponentContext} */
 let menuButton;
@@ -583,29 +631,6 @@ processExternalLinks(document);
 
 </script>
 
-        </div>
-
-    </div>
-
-    
-<!-- Built with love using zUIx Web Starter -->
-
-<script>
-
-  // Google Analytics: change UA-123-456 to be your site's ID
-  if (location.hostname !== "localhost" && location.hostname !== "127.0.0.1") {
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-123-456', 'auto');
-    ga('send', 'pageview');
-  }
-
-</script>
-
-
-</body>
 
 </html>
 
