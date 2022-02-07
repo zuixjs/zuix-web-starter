@@ -12,6 +12,6 @@ keywords:
 {% layout 'column center-center' 'animate__animated animate__fadeOut animate__faster' %}
 
 <img src="{{ 'images/zuix-logo.svg' | url }}" alt="zuix.js logo" class="animate__animated animate__rotateOut animate__faster">
-<h1>Web Starter</h1>
+<h1><a href="{{ 'pages/docs/welcome' | url }}">Web Starter</a></h1>
 
 {% endlayout %}

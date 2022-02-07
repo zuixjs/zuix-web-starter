@@ -36,14 +36,14 @@ date: Last Modified
 
             <h1 #alt_header>{{ title }}</h1>
             <div class="content">
-                {{ content | safe }}
+{{ content | safe }}
             </div>
 
-            {% include "page_navigation.html" %}
+{% include "page_navigation.html" %}
 
-            {% if pubDate %}
+{% if pubDate %}
             <p>Published on: {{ pubDate | dateFormat }}</p>
-            {% endif %}
+{% endif %}
 
         </div>
     </main>
@@ -67,18 +67,18 @@ date: Last Modified
 
         <!-- Menu items and other content -->
         <div class="drawer-content" self="size-x1">
-            {% include "layouts/side_drawer/drawer_menu.html" %}
+{% include "layouts/side_drawer/drawer_menu.html" %}
         </div>
 
     </div>
 
-    {% include "body_end.html" %}
+{% include "body_end.html" %}
 
 </body>
 
 <!-- page script -->
 <script>
-  {% include "layouts/side_drawer/script.js" %}
+{% include "layouts/side_drawer/script.js" %}
 </script>
 
 {% include "html_close.html" %}

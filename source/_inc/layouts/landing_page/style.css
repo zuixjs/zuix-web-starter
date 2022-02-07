@@ -6,3 +6,7 @@ main {
     min-height: 100vh;
     overflow: hidden;
 }
+a {
+    color: forestgreen;
+    text-decoration: none!important;
+}

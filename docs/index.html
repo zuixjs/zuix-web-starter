@@ -54,13 +54,17 @@
     <script src="/zuix-web-starter/js/zuix/animate_css.js"></script>
 
 <style>
-    body {
+body {
     margin:0; padding: 0;
 }
 main {
     width: 100%;
     min-height: 100vh;
     overflow: hidden;
+}
+a {
+    color: forestgreen;
+    text-decoration: none!important;
 }
 
 </style>
@@ -73,8 +77,8 @@ main {
 
 <main layout="column stretch-stretch">
 
-    <div layout="column center-center" class="animate__animated animate__fadeOut animate__faster"><img src="images/zuix-logo.svg" alt="zuix.js logo" class="animate__animated animate__rotateOut animate__faster">
-<h1>Web Starter</h1></div>
+<div layout="column center-center" class="animate__animated animate__fadeOut animate__faster"><img src="images/zuix-logo.svg" alt="zuix.js logo" class="animate__animated animate__rotateOut animate__faster">
+<h1><a href="pages/docs/welcome">Web Starter</a></h1></div>
 
 
 </main>
@@ -101,8 +105,8 @@ main {
 
 <!-- page script -->
 <script>
-  zuix.$.find('main div').eq(0).on('animationend', () => {
-  location.href = '/pages/docs/welcome/';
+zuix.$.find('main div').eq(0).on('animationend', () => {
+  location.href = 'pages/docs/welcome/';
 });
 
 </script>
