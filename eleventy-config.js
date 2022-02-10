@@ -68,6 +68,6 @@ module.exports = function(eleventyConfig) {
     return ''; // 'Not implemented! (' + content + ') [' + args + ']';
   });
   eleventyConfig.addPairedShortcode('layout', function(content, ...args) {
-    return `<div layout="${args[0]}" class="${args[1]}">${normalizeMarkup(content)}</div>`;
+    return `<div layout="${args[0]}" ${args[1]}>${normalizeMarkup(content)}</div>`;
   });
 };

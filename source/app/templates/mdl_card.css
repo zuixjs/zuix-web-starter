@@ -1,13 +1,15 @@
 :host {
-    margin-bottom: 48px;
+    margin: 12px;
+    font-family: "Roboto","Helvetica","Arial",sans-serif !important;
+    transition: box-shadow 0.2s ease-in-out;
 }
+
 .mdl-card {
     padding: 0 !important;
     margin: 0 !important;
     width: 100%;
     max-width: 450px;
 }
-
 .mdl-card__title {
     width: auto !important;
     height: 172px !important;
@@ -33,17 +35,24 @@
 }
 .mdl-card__supporting-text {
     color: black !important;
-    font-family: "Helvetica","Arial",sans-serif !important;
-    font-size: 15pt !important;
-    line-height: 24pt !important;
+    font-size: 110% !important;
+    line-height: 140% !important;
     width: 100% !important;
-    padding: 16px !important;
+    padding: 0 !important;
+    margin: 16px !important;
+    display: block; text-overflow: ellipsis;
+    max-lines: 3;
+    display: -webkit-box;
+    max-width: 418px;
+    max-height: 106px;
+    overflow: hidden !important;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 h1 {
-    font-family: "Roboto","Helvetica","Arial",sans-serif !important;
-    font-size: 28pt !important;
-    font-weight: 600 !important;
-    padding: 12px !important;
+    font-size: 160% !important;
+    font-weight: 500 !important;
+    padding: 16px !important;
     margin: 0 !important;
     text-shadow:
             -1px -1px 0 #000,
@@ -51,4 +60,7 @@ h1 {
             -1px 1px 0 #000,
             1px 1px 0 #000 !important;
     z-index: 10 !important;
+}
+.mdl-button {
+    font-weight: bold;
 }

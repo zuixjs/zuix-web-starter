@@ -1,5 +1,5 @@
 /* globals zuix */
-// componentId: '{{name}}'
+// componentId: '{{componentId}}'
 'use strict';
 
 /*
@@ -11,7 +11,7 @@
  * {{name}} class
  *
  * @class
- * @author Author Name
+ * @author {{author}}
  * @version v1.0
  * @constructor
  * @param {ContextController} [cp] Same as `this`

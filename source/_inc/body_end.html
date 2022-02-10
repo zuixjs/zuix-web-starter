@@ -1,6 +1,6 @@
 
 <!-- Built with love using zUIx Web Starter -->
-
+{% if app.googleSiteId != 'UA-123-456' and app.googleSiteId != null %}
 <script>
 
   // Google Analytics: change {{app.googleSiteId}} to be your site's ID
@@ -14,3 +14,4 @@
   }
 
 </script>
+{% endif %}

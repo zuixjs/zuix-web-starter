@@ -10,9 +10,9 @@ body {
 a {
     text-decoration: none;
 }
-
 h1 {
     font-size: 230% !important;
+    font-weight: 500;
 }
 h2 {
     font-size: 220% !important;
@@ -22,7 +22,7 @@ h3 {
     opacity: 0.9;
 }
 h4 {
-    font-size: 170% !important;
+    font-size: 160% !important;
     opacity: 0.8;
 }
 h5 {
@@ -40,9 +40,8 @@ hr {
 }
 
 pre {
-    margin-top: 32px!important;
-    padding-top: 32px!important;
-    padding-bottom: 12px!important;
+    padding-top: 12px!important;
+    padding-bottom: 24px!important;
 }
 pre[class*=language-]:after, pre[class*=language-]:before {
     box-shadow: none!important;
@@ -69,6 +68,10 @@ main div.content {
     padding-right: 12px !important;
 }
 
+main h1 {
+    margin-top: 10px!important;
+}
+
 [z-field="header"] {
     position: fixed;
     z-index: 1;
@@ -84,7 +87,6 @@ main div.content {
 h1[z-field="alt_header"] {
     text-align: center;
     display: block;
-    font-weight: 600;
 }
 
 .header-menu-button {

@@ -1,4 +1,4 @@
-<div class="animate__animated animate__fadeIn">
+<div class="animate__animated animate__fadeIn" style="margin: 12px">
     <div class="mdl-card mdl-shadow--4dp">
         <div class="mdl-card__title">
             <img #image src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" class="portrait">
@@ -8,16 +8,19 @@
             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             Aliquam accusamus, consectetur.
         </div>
-        <div class="mdl-card__actions mdl-card--border animate__animated animate__fadeInRight">
-            <a #url="link.url" href="javascript:void(0)" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--accent">
+        <div layout="row center-justify" class="mdl-card__actions mdl-card--border animate__animated animate__fadeInUp">
+            <a #url="link.url" href="javascript:void(0)" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                 <span #link.title>Open</span>
+            </a>
+            <a href="javascript:void(0)" class="mdl-button mdl-button--icon mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                <i class="material-icons">share</i>
             </a>
         </div>
     </div>
 </div>
-<script type="jscript">
-  console.log('@@@@@', 'I am the MDL component refresh scriptlet!');
-  function refresh() {
-    //console.log('.');
-  }
+<script type="jscript" refreshDelay="1000">
+  //console.log('@@@@@', 'I am the MDL component refresh scriptlet!');
+  //function refresh() {
+  //  console.log('.');
+  //}
 </script>

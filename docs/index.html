@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="A brand new *zuix.js* project!">
+    <meta name="keywords" content="home,welcome,landing page" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Landing Page</title>
 
@@ -49,6 +50,8 @@
 
 
 
+
+
     <!-- zuix.js https://github.com/zuixjs/zuix -->
     <script src="/zuix-web-starter/js/zuix/zuix.min.js"></script>
     <script src="/zuix-web-starter/config.js"></script>
@@ -78,8 +81,10 @@ a {
 
 <main layout="column stretch-stretch">
 
-<div layout="column center-center" class="animate__animated animate__fadeOut animate__faster"><img src="images/zuix-logo.svg" alt="zuix.js logo" class="animate__animated animate__rotateOut animate__faster">
-<h1><a href="pages/docs/welcome">Web Starter</a></h1></div>
+<div layout="column center-center" class="animate__animated animate__fadeOut animate__faster">
+    <img src="images/zuix-logo.svg" alt="zuix.js logo" class="animate__animated animate__rotateOut animate__faster">
+    <h1><a href="pages/home">Web Starter</a></h1>
+</div>
 
 
 </main>
@@ -87,19 +92,6 @@ a {
 
 <!-- Built with love using zUIx Web Starter -->
 
-<script>
-
-  // Google Analytics: change UA-123-456 to be your site's ID
-  if (location.hostname !== "localhost" && location.hostname !== "127.0.0.1") {
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-123-456', 'auto');
-    ga('send', 'pageview');
-  }
-
-</script>
 
 
 </body>
@@ -107,7 +99,7 @@ a {
 <!-- page script -->
 <script>
 zuix.$.find('main div').eq(0).on('animationend', () => {
-  location.href = 'pages/docs/welcome/';
+  location.href = 'pages/home';
 });
 
 </script>

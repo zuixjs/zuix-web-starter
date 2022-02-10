@@ -15,28 +15,41 @@ keywords:
 
 ## Liquid tags
 
+
+### Basic button
+
+{% zx 'button' '#test-link-1' %}
+Basic
+{% endzx %}
+
 {% raw %}
 ```liquid
 {% zx 'button' '#test-link-1' %}
-Test Button
+Basic
 {% endzx %}
 ```
 {% endraw %}
 
-{% zx 'button' '#test-link-1' %}
-Test Button
+
+### Colored button
+
+{% zx 'button' '#test-link-1' 'raised' 'colored' %}
+Colored
 {% endzx %}
 
 {% raw %}
 ```liquid
 {% zx 'button' '#test-link-1' 'raised' 'colored' %}
-Test Button
+Colored
 {% endzx %}
 ```
 {% endraw %}
 
-{% zx 'button' '#test-link-1' 'raised' 'colored' %}
-Test Button
+
+### Flat button
+
+{% zx 'button' '#test-link-2' 'flat' 'accent' %}
+Click Me
 {% endzx %}
 
 {% raw %}
@@ -47,8 +60,10 @@ Click Me
 ```
 {% endraw %}
 
-{% zx 'button' '#test-link-2' 'flat' 'accent' %}
-Click Me
+### Floating action buttons
+
+{% zx 'button' '#test-link-3' 'fab' 'accent' %}
+<i class="material-icons">mail</i>
 {% endzx %}
 
 {% raw %}
@@ -59,8 +74,8 @@ Click Me
 ```
 {% endraw %}
 
-{% zx 'button' '#test-link-3' 'fab' 'accent' %}
-<i class="material-icons">mail</i>
+{% zx 'button' '#test-link-3' 'fab' 'mini-fab primary' %}
+<i class="material-icons">home</i>
 {% endzx %}
 
 {% raw %}
@@ -71,52 +86,14 @@ Click Me
 ```
 {% endraw %}
 
-{% zx 'button' '#test-link-3' 'fab' 'mini-fab primary' %}
-<i class="material-icons">home</i>
+
+### Menu button
+
+{% zx 'menu' 'icon' 'accent' %}
+- [Option 1](#test1)
+- [Option 2](#test2)
+- [Option 3](#test3)
 {% endzx %}
-
-
-{% raw %}
-```liquid
-{% layout 'rows center-spread' %}
-    
-  {% zx 'card' 'Sweet mornings' 'https://picsum.photos/id/110/460/176' 'Show me' '#link-to-somewhere' %}
-  A wonderful serenity has taken possession of my entire soul,
-  like these sweet mornings of spring which I enjoy with my whole heart.
-  {% endzx %}
-  
-  {% zx 'card' 'Blind texts' 'https://picsum.photos/id/33/460/176' 'Show me' '#link-to-somewhere' %}
-  Far far away, behind the word mountains, far from the countries
-  Vokalia and Consonantia, there live the blind texts. 
-  {% endzx %}
-
-{% endlayout %}
-```
-{% endraw %}
-
-
-{% layout 'rows center-spread' %}
-    
-  {% zx 'card' 'Sweet mornings' 'https://picsum.photos/id/110/460/176' 'Show me' '#link-to-somewhere' %}
-  A wonderful serenity has taken possession of my entire soul,
-  like these sweet mornings of spring which I enjoy with my whole heart.
-  {% endzx %}
-  
-  {% zx 'card' 'Blind texts' 'https://picsum.photos/id/33/460/176' 'Show me' '#link-to-somewhere' %}
-  Far far away, behind the word mountains, far from the countries
-  Vokalia and Consonantia, there live the blind texts. 
-  {% endzx %}
-
-{% endlayout %}
-
-
----
-
-.
-
-.
-
-.
 
 {% raw %}
 ```liquid
@@ -128,19 +105,57 @@ Click Me
 ```
 {% endraw %}
 
-{% zx 'menu' 'icon' 'accent' %}
-- [Option 1](#test1)
-- [Option 2](#test2)
-- [Option 3](#test3)
-{% endzx %}
 
-.
-
-.
-
-.
+### Cards
 
 
+{% layout 'rows center-spread' 'style="overflow-x:hidden"' %}
+
+  {% zx 'card' 'The bridge' 'https://picsum.photos/id/392/256/256' '' '#link-to-somewhere' 'image' %}
+  y uioy ui yiuy 
+  {% endzx %}
+    
+  {% zx 'card' 'Sweet mornings' 'https://picsum.photos/id/110/320/176' 'Take me there' '#link-to-somewhere' 'square' %}
+  A wonderful serenity has taken possession of my entire soul,
+  like these sweet mornings of spring which I enjoy with my whole heart.
+  {% endzx %}
+  
+  {% zx 'card' 'Blind texts' 'https://picsum.photos/id/33/420/172' 'Show me' '#link-to-somewhere' %}
+  Far far away, behind the word mountains, far from the countries
+  Vokalia and Consonantia, there live the blind texts. 
+  {% endzx %}
+
+{% endlayout %}
+
+{% raw %}
+```liquid
+{% layout 'rows center-spread' %}
+
+  {% zx 'card' 'The bridge' 'https://picsum.photos/id/392/256/256' '' '#link-to-somewhere' 'image' %}
+  {% endzx %}
+
+  {% zx 'card' 'Sweet mornings' 'https://picsum.photos/id/110/320/176' 'Show me' '#link-to-somewhere' 'square' %}
+  A wonderful serenity has taken possession of my entire soul,
+  like these sweet mornings of spring which I enjoy with my whole heart.
+  {% endzx %}
+  
+  {% zx 'card' 'Blind texts' 'https://picsum.photos/id/33/420/172' 'Show me' '#link-to-somewhere' %}
+  Far far away, behind the word mountains, far from the countries
+  Vokalia and Consonantia, there live the blind texts. 
+  {% endzx %}
+
+{% endlayout %}
+```
+{% endraw %}
+
+
+## Adding more tags
+
+
+// TODO: ...
+
+
+{% layout 'column top-left' 'style="overflow-x:hidden"' %}
 {% unpre %}
 ```html
 
@@ -151,3 +166,4 @@ Click Me
 
 ```
 {% endunpre %}
+{% endlayout %}

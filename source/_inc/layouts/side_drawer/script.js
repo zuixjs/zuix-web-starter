@@ -62,9 +62,15 @@ function enableScrollHelper() {
         break;
     }
   });
-  if (location.hash) {
-    setTimeout(hideHeader, 200);
-  }
+  setTimeout(function() {
+    if (location.hash && scrollbarVisible(document.body)) {
+      hideHeader();
+    }
+  }, 500);
+}
+function scrollbarVisible(element) {
+  const r = element.getBoundingClientRect();
+  return r.bottom !== r.height;
 }
 
 let headerVisible = true;
@@ -100,11 +106,6 @@ function processExternalLinks(view) {
 
 zuix.hook('view:process', function(view) {
   processExternalLinks(view);
-  // Material Design Light auto-detection
-  // Call DOM upgrade on newly added view elements
-  if (window['componentHandler']) {
-    window['componentHandler'].upgradeElements(view.get());
-  }
 });
 processExternalLinks(document);
 

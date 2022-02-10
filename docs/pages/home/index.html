@@ -4,10 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Brief document description">
-    
+    <meta name="description" content="zuix.js web starter home page">
+    <meta name="keywords" content="zuix,web starter,home" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search page</title>
+    <title>Home</title>
 
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
@@ -48,8 +48,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.indigo-pink.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.min.js"></script>
 
-    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.classless.min.css">
 
 
 
@@ -318,7 +319,7 @@ h1[z-field="alt_header"] {
 }
 .drawer-content a {
 
-    color: #dfdfdf;
+    color: #24333e;
 
 }
 [z-context="menu-drawer"]:focus {
@@ -332,7 +333,7 @@ h1[z-field="alt_header"] {
 
 
 <!-- scroll helper is used to show/hide the header when scrolling -->
-<body ctrl z-load="controllers/scroll_helper" z-lazy="scroll" data-theme="dark"
+<body ctrl z-load="controllers/scroll_helper" z-lazy="scroll" data-theme="indigo-pink"
       z-context="scroll-helper"
       z-options="scroll_opts"
       layout="column stretch-stretch">
@@ -343,7 +344,7 @@ h1[z-field="alt_header"] {
                 <img src="/zuix-web-starter/images/menu_open_black_48dp.svg" onclick="menuDrawer.open()" class="header-menu-button">
             </div>
             <div self="size-x1" layout="row center-center">
-                <h1 style="margin:0;margin-left: -48px">Search page</h1>
+                <h1 style="margin:0;margin-left: -48px">Home</h1>
             </div>
         </div>
     </nav>
@@ -358,82 +359,42 @@ h1[z-field="alt_header"] {
     <main class="animate__animated animate__fadeIn animate__faster">
         <div layout="column top-center">
 
-            <h1 #alt_header>Search page</h1>
+            <h1 #alt_header>Home</h1>
             <div class="content">
-
-<!--Inline list item template -->
-<div z-view="inline/result-item-view">
-    <a #ref><h3 #doc.title>Item title</h3></a>
-    <div #doc.description self="size-x1">Description</div>
+<h2 class="mdl-color-text--primary">Docs</h2>
+<div layout="rows center-start">
+    <div view z-load="templates/mdl_card_image">
+  <h1 #title>Welcome!</h1>
+  <img #image src="https://picsum.photos/seed/docs-0/256/256" alt="Cover image" role="presentation">
+  <p #text>
+    Welcome to zuix.js web starter
+    </p>
+  <a #link.url href="/pages/docs/welcome/">
+    <span #link.title>Open</span>
+  </a>
 </div>
-<style media="#inline/result-item-view">
-    h3 { margin: 0; }
-    div { margin-bottom: 48px; }
-</style>
-
-<div z-load="default">
-
-    <div class="field" layout="row center-left">
-        <input #search-input aria-label="Search" type="search" placeholder="Search this site">
-    </div>
-    <ol #results></ol>
-    <div #results-none style="display: none">
-        <p>No results found.</p>
-    </div>
-
-    <!-- zUIx list_view component -->
-    <div #results-list z-load="@lib/controllers/list_view">
-        <!-- Place holder is mandatory for JS-only compoments.. -->
-        Loading listview...
-    </div>
-
-    <script type="jscript">
-      // get the search index
-      let searchIndex = null;
-      /** @type {elasticlunr.Index} searchIndex */
-      fetch('/zuix-web-starter/search-index.json').then((response) =>
-        response.json().then((rawIndex) => {
-          searchIndex = elasticlunr.Index.load(rawIndex);
-          elasticlunr.clearStopWords(); // the word 'About' is still ignored
-        })
-      );
-      // update results list on 'keyup'
-      $searchInput.on('keyup', (e, v) => {
-        if (!_resultsList) return;
-        const term = $searchInput.value();
-        const results = searchIndex.search(term, {
-          bool: 'OR',
-          expand: true
-        }).map((r) => {
-          r.ref = '/zuix-web-starter/' + r.ref.substring(1);
-          return r;
-        });
-        _resultsList.clear();
-        _resultsList.model({
-          itemList: results,
-          getItem: function(index, item) {
-            // Return the item data. Each item could also be rendered with a different template,
-            // in this case all items are using the 'card-template' which is defined
-            // inline in the same page. For further information about ZUIX templates referer
-            // to the documentation http://genielabs.github.io/zuix/#/docs .
-            return {
-              itemId: index,
-              componentId: 'inline/result-item-view',
-              options: {
-                controller: zuix.controller(function(cp){}),
-                className: 'item',
-                model: item
-              }
-            };
-          }
-        });
-      });
-    </script>
-
-</div>
-
-<!--Only 5.7kb GZipped. You may want to bundle this with your application code. -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/elasticlunr/0.9.6/elasticlunr.min.js"></script>
+    <div view z-load="templates/mdl_card_image">
+  <h1 #title>MDL Examples</h1>
+  <img #image src="https://picsum.photos/seed/docs-1/256/256" alt="Cover image" role="presentation">
+  <p #text>
+    Material Design Light examples
+    </p>
+  <a #link.url href="/pages/docs/material-design-light/">
+    <span #link.title>Open</span>
+  </a>
+</div></div>
+<h2 class="mdl-color-text--primary">Blog</h2>
+<div layout="rows center-start">
+    <div view z-load="templates/mdl_card_image">
+  <h1 #title>About</h1>
+  <img #image src="https://picsum.photos/seed/blog-0/256/256" alt="Cover image" role="presentation">
+  <p #text>
+    My very first blog post description...
+    </p>
+  <a #link.url href="/pages/blog/my-first-post/">
+    <span #link.title>Open</span>
+  </a>
+</div></div>
 
             </div>
 
@@ -472,7 +433,7 @@ h1[z-field="alt_header"] {
         <div class="drawer-content" self="size-x1">
 <ul>
     
-    <li >
+    <li  aria-current="page">
         <a href="/zuix-web-starter/pages/home">
             <div layout="row center-lett">
                 <i class="material-icons">home</i>
@@ -515,7 +476,7 @@ h1[z-field="alt_header"] {
 <hr>
 
 <ul>
-    <li  aria-current="page">
+    <li >
         <a href="/zuix-web-starter/pages/search">
             <div layout="row center-left">
                 <i class="material-icons">search</i>

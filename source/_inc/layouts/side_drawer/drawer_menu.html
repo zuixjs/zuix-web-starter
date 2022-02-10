@@ -1,3 +1,15 @@
+<ul>
+    {% assign matching = page.url == '/pages/home/' %}
+    <li {% if matching %} aria-current="page"{% endif %}>
+        <a href="{{ '/pages/home' | url }}">
+            <div layout="row center-lett">
+                <i class="material-icons">home</i>
+                <span>Home</span>
+            </div>
+        </a>
+    </li>
+</ul>
+
 <label>Docs</label>
 <ul>
     {%- for post in collections.posts_docs -%}

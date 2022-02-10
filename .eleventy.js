@@ -66,9 +66,9 @@ module.exports = function(eleventyConfig) {
 
   // from https://github.com/kkgthb/web-site-11ty-03-netlify-function/blob/main/.eleventy.js
   // See if this helps with things that do not refresh
-  module.exports = function (eleventyConfig) {
-    eleventyConfig.setUseGitIgnore(false);
-  };
+  //module.exports = function (eleventyConfig) {
+  //  eleventyConfig.setUseGitIgnore(false);
+  //};
   // Make Liquid capable of rendering "partials"
   eleventyConfig.setLiquidOptions({
     cache: false,
@@ -189,6 +189,7 @@ module.exports = function(eleventyConfig) {
       rebuildAll = true;
       return;
     }
+    console.log(cf);
     changedFiles.push(...cf);
   });
   eleventyConfig.on('afterBuild', async function(args) {
