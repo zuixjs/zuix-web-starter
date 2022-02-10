@@ -112,7 +112,6 @@ Click Me
 {% layout 'rows center-spread' 'style="overflow-x:hidden"' %}
 
   {% zx 'card' 'The bridge' 'https://picsum.photos/id/392/256/256' '' '#link-to-somewhere' 'image' %}
-  y uioy ui yiuy 
   {% endzx %}
     
   {% zx 'card' 'Sweet mornings' 'https://picsum.photos/id/110/320/176' 'Take me there' '#link-to-somewhere' 'square' %}
@@ -122,7 +121,7 @@ Click Me
   
   {% zx 'card' 'Blind texts' 'https://picsum.photos/id/33/420/172' 'Show me' '#link-to-somewhere' %}
   Far far away, behind the word mountains, far from the countries
-  Vokalia and Consonantia, there live the blind texts. 
+  Vokalia and Consonantia, there live the blind texts.
   {% endzx %}
 
 {% endlayout %}
