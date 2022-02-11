@@ -1,25 +1,23 @@
 ---
 layout: side_drawer.html
-options: pico-css
-theme: dark
+options: mdl
+theme: indigo-pink
 title: Search page
 description: Brief document description
 ---
 
-<!--Inline list item template -->
-<div z-view="inline/result-item-view">
-    <a #ref><h3 #doc.title>Item title</h3></a>
-    <div #doc.description self="size-x1">Description</div>
-</div>
-<style media="#inline/result-item-view">
-    h3 { margin: 0; }
-    div { margin-bottom: 48px; }
-</style>
-
 <div z-load="default">
 
     <div class="field" layout="row center-left">
-        <input #search-input aria-label="Search" type="search" placeholder="Search this site">
+        <div>
+            <label class="mdl-button mdl-js-button mdl-button--icon" for="sample1">
+                <i class="material-icons">search</i>
+            </label>
+            <div class="mdl-textfield mdl-js-textfield">
+                <input #search-input aria-label="Search" type="search" class="mdl-textfield__input" id="sample1">
+                <label class="mdl-textfield__label" for="sample1">Search this site</label>
+            </div>
+        </div>
     </div>
     <ol #results></ol>
     <div #results-none style="display: none">
@@ -43,7 +41,7 @@ description: Brief document description
         })
       );
       // update results list on 'keyup'
-      $searchInput.on('keyup', (e, v) => {
+      $searchInput.on('search keyup', (e, v) => {
         if (!_resultsList) return;
         const term = $searchInput.value();
         const results = searchIndex.search(term, {
@@ -54,28 +52,40 @@ description: Brief document description
           return r;
         });
         _resultsList.clear();
-        _resultsList.model({
-          itemList: results,
-          getItem: function(index, item) {
-            // Return the item data. Each item could also be rendered with a different template,
-            // in this case all items are using the 'card-template' which is defined
-            // inline in the same page. For further information about ZUIX templates referer
-            // to the documentation http://genielabs.github.io/zuix/#/docs .
-            return {
-              itemId: index,
-              componentId: 'inline/result-item-view',
-              options: {
-                controller: zuix.controller(function(cp){}),
-                className: 'item',
-                model: item
-              }
-            };
-          }
-        });
+        if (results.length > 0) {
+          $resultsNone.hide();
+          _resultsList.model({
+            itemList: results,
+            getItem: function(index, item) {
+              return {
+                itemId: index,
+                componentId: 'inline/result-item-view',
+                options: {
+                  controller: zuix.controller(function(cp){}),
+                  className: 'item',
+                  model: item
+                }
+              };
+            }
+          });
+        } else if (term.length > 0) {
+          $resultsNone.show();
+        }
       });
     </script>
 
 </div>
+
+<!--Inline list item template -->
+<div z-view="inline/result-item-view">
+    <a #ref><h3 #doc.title>Item title</h3></a>
+    <div #doc.description self="size-x1">Description</div>
+</div>
+<style media="#inline/result-item-view">
+    :host { margin-left: 32px }
+    h3 { margin: 0; }
+    div { margin-bottom: 48px; }
+</style>
 
 <!--Only 5.7kb GZipped. You may want to bundle this with your application code. -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/elasticlunr/0.9.6/elasticlunr.min.js"></script>

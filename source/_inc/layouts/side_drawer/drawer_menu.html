@@ -1,12 +1,19 @@
 <ul>
-    {% assign matching = page.url == '/pages/home/' %}
-    <li {% if matching %} aria-current="page"{% endif %}>
+    <li {% if page.url == '/pages/home/' %} aria-current="page"{% endif %}>
         <a href="{{ '/pages/home' | url }}">
             <div layout="row center-lett">
                 <i class="material-icons">home</i>
                 <span>Home</span>
             </div>
         </a>
+    </li>
+    <li {% if page.url == '/pages/search/' %} aria-current="page"{% endif %}>
+    <a href="{{ '/pages/search' | url }}">
+        <div layout="row center-left">
+            <i class="material-icons">search</i>
+            <span>Search</span>
+        </div>
+    </a>
     </li>
 </ul>
 
@@ -38,17 +45,4 @@
         </a>
     </li>
     {%- endfor -%}
-</ul>
-
-<hr>
-
-<ul>
-    <li {% if page.url == '/pages/search/' %} aria-current="page"{% endif %}>
-        <a href="{{ '/pages/search' | url }}">
-            <div layout="row center-left">
-                <i class="material-icons">search</i>
-                <span>Search</span>
-            </div>
-        </a>
-    </li>
 </ul>

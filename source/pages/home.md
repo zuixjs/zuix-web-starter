@@ -1,7 +1,7 @@
 ---
 layout: side_drawer.html
 options: mdl
-theme: indigo-pink
+theme: green-pink
 order: 0
 icon: home
 title: Home
