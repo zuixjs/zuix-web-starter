@@ -12,7 +12,11 @@
 <script type="jscript" using="componentHandler">
   $.on('mouseover touchstart', () => $.addClass('mdl-shadow--4dp'));
   $.on('mouseout touchend', () => $.removeClass('mdl-shadow--4dp'));
-  $.css('background-image', 'url(' + model.image.src + '?random=' + Math.random() + ')');
+  $.css({
+    backgroundImage: 'url(' + model.image.src + '?random=' + Math.random() + ')',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat'
+  });
   // this is required for the MDL ripple effect
   componentHandler.upgradeElements($.get().firstElementChild);
 </script>

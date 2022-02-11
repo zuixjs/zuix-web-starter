@@ -1,5 +1,4 @@
 :host {
-    margin: 12px;
     font-family: "Roboto","Helvetica","Arial",sans-serif !important;
     transition: box-shadow 0.2s ease-in-out;
 }
@@ -7,7 +6,9 @@
 .mdl-card {
     width: 256px;
     height: 256px;                 /* 259 306 317 342 392 292 */
-    background: url('data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==') center / cover;
+    background: url('data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==');
+    background-repeat: no-repeat!important;
+    background-position: center!important;
 }
 .mdl-card__actions {
     height: 52px;

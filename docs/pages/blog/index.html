@@ -362,8 +362,9 @@ h1[z-field="alt_header"] {
             <h1 #alt_header>Blog section</h1>
             <div class="content">
 <p><label>Blog</label></p>
-<div layout="rows center-spread"><div view z-load="templates/mdl_card_image">
-  <h1 #title>About</h1>
+<div layout="rows center-spread"><div view z-load="templates/mdl_card_image" class="visible-on-ready"
+     style="min-height: 256px; max-width: 256px; margin: 12px;">
+  <h1 #title style="font-size: 150%!important; position: absolute; padding: 12px" class="mdl-color-text--primary-contrast">About</h1>
   <img #image src="https://picsum.photos/256/256" alt="Cover image" role="presentation">
   <p #text>
 My very first blog post description...

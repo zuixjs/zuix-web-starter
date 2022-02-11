@@ -1,6 +1,6 @@
 const template = `
 <div ctrl z-load="controllers/mdl_menu" z-lazy="false"
-     z-behavior="menuButtonBehavior" class="visible-on-ready">
+     z-behavior="menuButtonBehavior" class="visible-on-ready" style="min-height: 56px">
 
     <!-- the menu is defined as a simple UL list -->
     {{ content }}

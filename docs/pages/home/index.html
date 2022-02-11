@@ -363,8 +363,9 @@ h1[z-field="alt_header"] {
             <div class="content">
 <h2 class="mdl-color-text--primary">Docs</h2>
 <div layout="rows center-start">
-    <div view z-load="templates/mdl_card_image">
-  <h1 #title>Welcome!</h1>
+    <div view z-load="templates/mdl_card_image" class="visible-on-ready"
+     style="min-height: 256px; max-width: 256px; margin: 12px;">
+  <h1 #title style="font-size: 150%!important; position: absolute; padding: 12px" class="mdl-color-text--primary-contrast">Welcome!</h1>
   <img #image src="https://picsum.photos/seed/docs-0/256/256" alt="Cover image" role="presentation">
   <p #text>
     Welcome to zuix.js web starter
@@ -373,8 +374,9 @@ h1[z-field="alt_header"] {
     <span #link.title>Open</span>
   </a>
 </div>
-    <div view z-load="templates/mdl_card_image">
-  <h1 #title>MDL Examples</h1>
+    <div view z-load="templates/mdl_card_image" class="visible-on-ready"
+     style="min-height: 256px; max-width: 256px; margin: 12px;">
+  <h1 #title style="font-size: 150%!important; position: absolute; padding: 12px" class="mdl-color-text--primary-contrast">MDL Examples</h1>
   <img #image src="https://picsum.photos/seed/docs-1/256/256" alt="Cover image" role="presentation">
   <p #text>
     Material Design Light examples
@@ -385,8 +387,9 @@ h1[z-field="alt_header"] {
 </div></div>
 <h2 class="mdl-color-text--primary">Blog</h2>
 <div layout="rows center-start">
-    <div view z-load="templates/mdl_card_image">
-  <h1 #title>About</h1>
+    <div view z-load="templates/mdl_card_image" class="visible-on-ready"
+     style="min-height: 256px; max-width: 256px; margin: 12px;">
+  <h1 #title style="font-size: 150%!important; position: absolute; padding: 12px" class="mdl-color-text--primary-contrast">About</h1>
   <img #image src="https://picsum.photos/seed/blog-0/256/256" alt="Cover image" role="presentation">
   <p #text>
     My very first blog post description...

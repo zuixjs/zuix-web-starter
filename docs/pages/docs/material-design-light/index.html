@@ -367,7 +367,7 @@ h1[z-field="alt_header"] {
 <h2>Liquid tags</h2>
 <h3>Basic button</h3>
 <p><a ctrl z-load="controllers/mdl_button" z-options="{ type: '', class: '' }"
-     href="#test-link-1">
+     href="#test-link-1" class="visible-on-ready" style="min-height: 36px">
 Basic
 </a></p>
 <pre><code class="language-liquid">{% zx 'button' '#test-link-1' %}
@@ -376,7 +376,7 @@ Basic
 </code></pre>
 <h3>Colored button</h3>
 <p><a ctrl z-load="controllers/mdl_button" z-options="{ type: 'raised', class: 'colored' }"
-     href="#test-link-1">
+     href="#test-link-1" class="visible-on-ready" style="min-height: 36px">
 Colored
 </a></p>
 <pre><code class="language-liquid">{% zx 'button' '#test-link-1' 'raised' 'colored' %}
@@ -385,7 +385,7 @@ Colored
 </code></pre>
 <h3>Flat button</h3>
 <p><a ctrl z-load="controllers/mdl_button" z-options="{ type: 'flat', class: 'accent' }"
-     href="#test-link-2">
+     href="#test-link-2" class="visible-on-ready" style="min-height: 36px">
 Click Me
 </a></p>
 <pre><code class="language-liquid">{% zx 'button' '#test-link-2' 'flat' %}
@@ -394,7 +394,7 @@ Click Me
 </code></pre>
 <h3>Floating action buttons</h3>
 <p><a ctrl z-load="controllers/mdl_button" z-options="{ type: 'fab', class: 'accent' }"
-     href="#test-link-3">
+     href="#test-link-3" class="visible-on-ready" style="min-height: 56px">
 <i class="material-icons">mail</i>
 </a></p>
 <pre><code class="language-liquid">{% zx 'button' '#test-link-3' 'fab' 'accent' %}
@@ -402,7 +402,7 @@ Click Me
 {% endzx %}
 </code></pre>
 <p><a ctrl z-load="controllers/mdl_button" z-options="{ type: 'fab', class: 'mini-fab primary' }"
-     href="#test-link-3">
+     href="#test-link-3" class="visible-on-ready" style="min-height: 56px">
 <i class="material-icons">home</i>
 </a></p>
 <pre><code class="language-liquid">{% zx 'button' '#test-link-3' 'fab' 'mini-fab primary' %}
@@ -411,7 +411,7 @@ Click Me
 </code></pre>
 <h3>Menu button</h3>
 <div ctrl z-load="controllers/mdl_menu" z-lazy="false"
-     z-behavior="menuButtonBehavior" class="visible-on-ready">
+     z-behavior="menuButtonBehavior" class="visible-on-ready" style="min-height: 56px">
     <!-- the menu is defined as a simple UL list -->
     <ul>
 <li><a href="#test1">Option 1</a></li>
@@ -443,8 +443,9 @@ Click Me
 {% endzx %}
 </code></pre>
 <h3>Cards</h3>
-<div layout="rows center-spread" style="overflow-x:hidden"><div view z-load="templates/mdl_card_image">
-  <h1 #title>The bridge</h1>
+<div layout="rows center-spread" style="overflow-x:hidden"><div view z-load="templates/mdl_card_image" class="visible-on-ready"
+     style="min-height: 256px; max-width: 256px; margin: 12px;">
+  <h1 #title style="font-size: 150%!important; position: absolute; padding: 12px" class="mdl-color-text--primary-contrast">The bridge</h1>
   <img #image src="https://picsum.photos/id/392/256/256" alt="Cover image" role="presentation">
   <p #text>
   </p>
@@ -452,8 +453,9 @@ Click Me
     <span #link.title></span>
   </a>
 </div>
-  <div view z-load="templates/mdl_card_square">
-  <h1 #title>Sweet mornings</h1>
+  <div view z-load="templates/mdl_card_square" class="visible-on-ready"
+     style="min-height: 320px; max-width: 320px; margin: 12px;">
+  <h1 #title style="font-size: 150%!important; position: absolute; padding: 12px" class="mdl-color-text--primary-contrast">Sweet mornings</h1>
   <img #image src="https://picsum.photos/id/110/320/176" alt="Cover image" role="presentation">
   <p #text>
   A wonderful serenity has taken possession of my entire soul,
@@ -463,8 +465,9 @@ Click Me
     <span #link.title>Take me there</span>
   </a>
 </div>
-  <div view z-load="templates/mdl_card">
-  <h1 #title>Blind texts</h1>
+  <div view z-load="templates/mdl_card" class="visible-on-ready"
+     style="min-height: 356px; max-width: 450px; margin: 12px;">
+  <h1 #title style="font-size: 150%!important; position: absolute; padding: 12px" class="mdl-color-text--primary-contrast">Blind texts</h1>
   <img #image src="https://picsum.photos/id/33/420/172" alt="Cover image" role="presentation">
   <p #text>
   Far far away, behind the word mountains, far from the countries

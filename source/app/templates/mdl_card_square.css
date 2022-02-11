@@ -1,5 +1,4 @@
 :host {
-    margin: 12px;
     font-family: "Roboto","Helvetica","Arial",sans-serif !important;
     transition: box-shadow 0.2s ease-in-out;
 }
@@ -59,7 +58,8 @@ h1 {
     display: -webkit-box;
     max-width: 296px;
     max-height: 90px;
-    height: 56px;
+    height: 64px;
+    min-height: 64px;
     overflow: hidden !important;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;

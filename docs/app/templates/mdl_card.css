@@ -1,5 +1,4 @@
 :host {
-    margin: 12px;
     font-family: "Roboto","Helvetica","Arial",sans-serif !important;
     transition: box-shadow 0.2s ease-in-out;
 }
@@ -43,7 +42,7 @@
     display: block; text-overflow: ellipsis;
     max-lines: 3;
     display: -webkit-box;
-    max-width: 418px;
+    max-width: 394px;
     max-height: 106px;
     overflow: hidden !important;
     -webkit-line-clamp: 3;

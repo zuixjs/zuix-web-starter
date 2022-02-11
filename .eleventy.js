@@ -2,6 +2,7 @@ const path = require('path');
 const config = require('config');
 const util = require('util');
 const compress = require('compression');
+const chokidar = require('chokidar');
 
 // 11ty
 const { EleventyRenderPlugin } = require("@11ty/eleventy");
@@ -32,7 +33,7 @@ const lintConfig = require(process.cwd()+'/.eslintrc');
 
 // Minifier
 //const { minify } = require("terser");
-//const fs = require('fs');
+const fs = require('fs');
 
 // Keep track of changed files for zUIx.js post-processing
 const postProcessFiles = [];
@@ -78,29 +79,6 @@ module.exports = function(eleventyConfig) {
 
   // Add custom file types and handlers
   eleventyConfig.addTemplateFormats([ 'less', 'css', 'js' ]);
-  /*
-  eleventyConfig.addNunjucksAsyncFilter("jsmin", async function (
-      code,
-      callback
-  ) {
-    try {
-      const minified = await minify(code);
-      callback(null, minified.code);
-    } catch (err) {
-      console.error('Terser error: ', err);
-      // Fail gracefully.
-      callback(null, code);
-    }
-  });
-  eleventyConfig.addExtension('js', {
-    read: true,
-    outputFileExtension: 'js',
-    compile: (content, path) => async () => {
-      const output = await minify(content);
-      return output.code;
-    }
-  });
-   */
   eleventyConfig.addExtension('less', {
     read: true,
     outputFileExtension: 'css',
@@ -133,7 +111,9 @@ module.exports = function(eleventyConfig) {
   // Add any BrowserSync config option here
   eleventyConfig.setBrowserSyncConfig({
     //reloadDelay: 2000,
-    //files: [ path.resolve(sourceFolder, 'app') ],
+    files: [
+      path.resolve(path.join(buildFolder, zuixConfig.get('app.resourcePath')))
+    ],
     notify: false,
     cors: true,
     middleware: [compress()],
@@ -213,6 +193,25 @@ module.exports = function(eleventyConfig) {
     if (rebuildAll) {
       // revert back to incremental build mode
       rebuildAll = false;
+    }
+  });
+  // Watch zuix.js folders (`./templates` and `./source/app`) not watched by 11ty
+  eleventyConfig.addWatchTarget('./templates/tags/');
+  const watchFolder = path.resolve(path.join(sourceFolder, zuixConfig.get('app.resourcePath')));
+  const watchEvents = {add: true, change: true, unlink: true};
+  chokidar.watch(watchFolder).on('all', (event, file) => {
+    if (watchEvents[event] && fs.existsSync(file)) {
+      const outputFile = path.resolve(path.join(buildFolder, file.substring(path.resolve(sourceFolder).length)));
+      const outputFolder = path.dirname(outputFile);
+      if (!fs.existsSync(outputFolder)) {
+        fs.mkdirSync(outputFolder, { recursive: true })
+      }
+      fs.copyFileSync(file, outputFile);
+    } else {
+      // TODO: maybe remove file from output folder as well?
+    }
+    if (browserSync) {
+      browserSync.publicInstance.reload();
     }
   });
 

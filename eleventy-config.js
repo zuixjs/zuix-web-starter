@@ -12,11 +12,6 @@ const normalizeMarkup = (s) => s.trim().split('\n').filter((l) => {
 module.exports = function(eleventyConfig) {
   // TODO: add custom 11ty config here
 
-  // # Additional watch targets
-
-  eleventyConfig.addWatchTarget('./templates/tags/');
-  eleventyConfig.addWatchTarget('./source/app/');
-
   // # Add data collections
 
   eleventyConfig.addCollection('posts_blog', function(collection) {
