@@ -19,8 +19,9 @@ keywords:
 {%- for post in collections.posts_docs -%}
 
     {% assign imageUrl = 'https://picsum.photos/seed/docs-' | append: forloop.index0 | append: '/256/256' %}
-    
-    {% zx 'card' post.data.title imageUrl 'Open' post.url 'image' %}
+    {% assign postUrl = page.url | url %}
+
+    {% zx 'card' post.data.title imageUrl 'Open' postUrl 'image' %}
     {{ post.data.description }}
     {% endzx %}
 
@@ -37,8 +38,9 @@ keywords:
 {%- for post in collections.posts_blog -%}
 
     {% assign imageUrl = 'https://picsum.photos/seed/blog-' | append: forloop.index0 | append: '/256/256' %}
+    {% assign postUrl = page.url | url %}
 
-    {% zx 'card' post.data.title imageUrl 'Open' post.url 'image' %}
+    {% zx 'card' post.data.title imageUrl 'Open' postUrl 'image' %}
     {{ post.data.description }}
     {% endzx %}
     

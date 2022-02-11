@@ -48,7 +48,7 @@ description: Brief document description
           bool: 'OR',
           expand: true
         }).map((r) => {
-          r.ref = '{{ app.baseUrl}}' + r.ref.substring(1);
+          r.ref = '{{ app.baseUrl }}' + r.ref.substring(1);
           return r;
         });
         _resultsList.clear();

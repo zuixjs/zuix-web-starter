@@ -13,6 +13,5 @@ module.exports = (render, content, title, image, linkTitle, linkUrl, type) => {
   if (type) {
     type = '_' + type;
   }
-  console.log('\n\n' + type + '\n\n');
   return render(template, {content, title, image, linkTitle, linkUrl, type});
 };
