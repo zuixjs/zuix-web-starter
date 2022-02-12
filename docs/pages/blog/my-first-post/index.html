@@ -164,11 +164,18 @@ h1[z-field="alt_header"] {
     background: #24333e;
 }
 
+[z-load][z-ready=true].visible-on-ready,
+[z-include][z-ready=true].visible-on-ready
+{
+    transition-delay: 0.15s;
+    transition: opacity 0.15s linear;
+}
 [z-load]:not([z-ready=true]).visible-on-ready,
 [z-include]:not([z-ready=true]).visible-on-ready
 {
-    display: block;
+    opacity: 0;
     visibility: hidden;
+    transition: opacity 0ms linear;
 }
 
 .no-select {
