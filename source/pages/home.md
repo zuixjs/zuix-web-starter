@@ -15,7 +15,7 @@ keywords:
 {% unpre %}
 ```html
 <h2 class="mdl-color-text--primary">Docs</h2>
-<div layout="rows center-start">
+<div layout="rows center-center">
 {%- for post in collections.posts_docs -%}
 
     {% assign imageUrl = 'https://picsum.photos/seed/docs-' | append: forloop.index0 | append: '/256/256' %}
@@ -34,13 +34,13 @@ keywords:
 {% unpre %}
 ```html
 <h2 class="mdl-color-text--primary">Blog</h2>
-<div layout="rows center-start">
+<div layout="rows center-center">
 {%- for post in collections.posts_blog -%}
 
     {% assign imageUrl = 'https://picsum.photos/seed/blog-' | append: forloop.index0 | append: '/256/256' %}
     {% assign postUrl = post.url | url %}
 
-    {% zx 'card' post.data.title imageUrl 'Open' postUrl 'image' %}
+    {% zx 'card' post.data.title imageUrl 'Open' postUrl 'square' %}
     {{ post.data.description }}
     {% endzx %}
     

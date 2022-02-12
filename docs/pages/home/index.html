@@ -168,15 +168,15 @@ h1[z-field="alt_header"] {
 [z-load][z-ready=true].visible-on-ready,
 [z-include][z-ready=true].visible-on-ready
 {
-    transition-delay: 0.15s;
-    transition: opacity 0.15s linear;
+    opacity: 1;
+    transition-delay: 150ms;
+    transition-property: opacity;
 }
 [z-load]:not([z-ready=true]).visible-on-ready,
 [z-include]:not([z-ready=true]).visible-on-ready
 {
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0ms linear;
 }
 
 .no-select {
@@ -369,9 +369,8 @@ h1[z-field="alt_header"] {
             <h1 #alt_header>Home</h1>
             <div class="content">
 <h2 class="mdl-color-text--primary">Docs</h2>
-<div layout="rows center-start">
-    <div view z-load="templates/mdl_card_image" class="visible-on-ready"
-     style="min-height: 256px; max-width: 256px; margin: 12px;">
+<div layout="rows center-center">
+    <div view z-load="templates/mdl_card_image" class="visible-on-ready" style="margin: 12px;">
   <h1 #title style="font-size: 150%!important; position: absolute; padding: 12px" class="mdl-color-text--primary-contrast">Welcome!</h1>
   <img #image src="https://picsum.photos/seed/docs-0/256/256" alt="Cover image" role="presentation">
   <p #text>
@@ -381,8 +380,7 @@ h1[z-field="alt_header"] {
     <span #link.title>Open</span>
   </a>
 </div>
-    <div view z-load="templates/mdl_card_image" class="visible-on-ready"
-     style="min-height: 256px; max-width: 256px; margin: 12px;">
+    <div view z-load="templates/mdl_card_image" class="visible-on-ready" style="margin: 12px;">
   <h1 #title style="font-size: 150%!important; position: absolute; padding: 12px" class="mdl-color-text--primary-contrast">MDL Examples</h1>
   <img #image src="https://picsum.photos/seed/docs-1/256/256" alt="Cover image" role="presentation">
   <p #text>
@@ -393,9 +391,8 @@ h1[z-field="alt_header"] {
   </a>
 </div></div>
 <h2 class="mdl-color-text--primary">Blog</h2>
-<div layout="rows center-start">
-    <div view z-load="templates/mdl_card_image" class="visible-on-ready"
-     style="min-height: 256px; max-width: 256px; margin: 12px;">
+<div layout="rows center-center">
+    <div view z-load="templates/mdl_card_square" class="visible-on-ready" style="margin: 12px;">
   <h1 #title style="font-size: 150%!important; position: absolute; padding: 12px" class="mdl-color-text--primary-contrast">About</h1>
   <img #image src="https://picsum.photos/seed/blog-0/256/256" alt="Cover image" role="presentation">
   <p #text>
