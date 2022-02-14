@@ -27,9 +27,27 @@ h4 {
 }
 h5 {
     font-size: 150% !important;
+    opacity: 0.7;
 }
 h6 {
     font-size: 130% !important;
+    opacity: 0.6;
+}
+
+li {
+    margin-top: 18px;
+    margin-bottom: 18px;
+    font-size: 120%;
+}
+
+blockquote, small {
+    opacity: 0.6;
+}
+
+p {
+    font-size: 130%;
+    line-height: 160%;
+    margin-bottom: 24px;
 }
 
 hr {
@@ -40,15 +58,11 @@ hr {
 }
 
 pre {
-    padding-top: 12px!important;
-    padding-bottom: 24px!important;
+    margin-top: 32px!important;
+    margin-bottom: 32px!important;
 }
-pre[class*=language-]:after, pre[class*=language-]:before {
-    box-shadow: none!important;
-}
-pre[class*=language-]>code {
-    border-left: 1px solid #358ccb;
-    border-radius: 6px;
+code {
+    color: #0b4d2c;
 }
 
 /* prevents links dragging */
