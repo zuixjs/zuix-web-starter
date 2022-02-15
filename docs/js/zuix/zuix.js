@@ -1,4 +1,4 @@
-/* zUIx v1.0.15 22.02.12 02:23:07 */
+/* zUIx v1.0.17 22.02.15 02:05:11 */
 
 var zuix;
 /******/ (() => { // webpackBootstrap
@@ -1670,11 +1670,13 @@ ZxQueryStatic.wrapElement = function(containerTag, element) {
 };
 // TODO: undocumented
 ZxQueryStatic.wrapCss = function(wrapperRule, css, encapsulate) {
-  const wrapReX = /(([a-zA-Z0-9\240-\377=:-_- \n,.*@]+.\n*){[^}]*})/g;
+  const wrapReX = /(([a-zA-Z0-9\240-\377=:-_- \n,.*@]+.*){[^}]*})/g;
   let wrappedCss = '';
   let ruleMatch;
   // remove comments
   css = css.replace(/\/\*[\s\S]*?\*\/|([^:]|^)\/\/.*$/g, '');
+  // some more normalization to help parsing
+  css = css.replace(/(?:\r\n|\r|\n)/g, '').replace(/}/g, '}\n').replace(/\{/g, '{\n');
   do {
     ruleMatch = wrapReX.exec(css);
     if (ruleMatch && ruleMatch.length > 1) {
@@ -4254,7 +4256,7 @@ function loadInline(element, opts) {
   if (util.isNoU(options.view) && !v.isEmpty()) {
     options.view = element;
     options.viewDeferred = true;
-  } else if (util.isNoU(options.view) && util.isNoU(options.container) && v.isEmpty()) {
+  } else if (util.isNoU(options.view) && util.isNoU(options.container) && v.isEmpty() && v.attr(_optionAttributes.resourceType.controller) == null) {
     options.container = element;
   }
 

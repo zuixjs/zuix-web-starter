@@ -1,8 +1,11 @@
 /**
  * @param eleventyConfig
  */
+const path = require('path');
+const config = require('config');
 const fs = require('fs');
 const render = require('template-file').render;
+const zuixConfig = config.get('zuix');
 const normalizeMarkup = (s) => s.trim().split('\n').filter((l) => {
   if (l.trim().length > 0) {
     return l;
@@ -64,5 +67,18 @@ module.exports = function(eleventyConfig) {
   });
   eleventyConfig.addPairedShortcode('layout', function(content, ...args) {
     return `<div layout="${args[0]}" ${args[1]}>${normalizeMarkup(content)}</div>`;
+  });
+  eleventyConfig.addShortcode('rawFile', function(fileName) {
+    const inputPath = path.dirname(this.page.inputPath);
+    let rawFile = path.join(inputPath, this.page.fileSlug, fileName);
+    if (!fs.existsSync(rawFile)) {
+      rawFile = path.join(zuixConfig.build.input, zuixConfig.build.includesFolder, fileName);
+    }
+    if (!fs.existsSync(rawFile)) {
+      rawFile = path.join(zuixConfig.build.input, fileName);
+    }
+    if (fs.existsSync(rawFile)) {
+      return normalizeMarkup(fs.readFileSync(rawFile).toString('utf8'));
+    }
   });
 };
