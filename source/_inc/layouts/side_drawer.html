@@ -8,7 +8,7 @@ date: Last Modified
 {% include "head_close.html" %}
 
 <!-- scroll helper is used to show/hide the header when scrolling -->
-<body ctrl z-load="controllers/scroll_helper" z-lazy="scroll" data-theme="{{ theme }}"
+<body ctrl z-load="@lib/controllers/scroll-helper" z-lazy="scroll" data-theme="{{ theme }}"
       z-context="scroll-helper"
       z-options="scroll_opts"
       layout="column stretch-stretch">
@@ -25,19 +25,26 @@ date: Last Modified
     </nav>
 
     <!--
-    <div z-load="@lib/components/hamburger_icon"
+    <div z-load="@lib/components/hamburger-icon"
          z-context="menu_hamburger"
          z-options="menuButtonOptions"
          style="position:fixed;right:0;top:6px;z-index:1001"></div>
          -->
 
+
     <main class="animate__animated animate__fadeIn animate__faster">
         <div layout="column top-center">
 
+            {% unless options contains 'hide-title' %}
             <h1 #alt_header>{{ title }}</h1>
+            {% endunless %}
             <div class="content">
-{{ content | safe }}
+{{ content }}
             </div>
+
+            {% unless options contains 'hide-footer' %}
+            {% include "footer.html" %}
+            {% endunless %}
 
 {% include "page_navigation.html" %}
 
@@ -48,11 +55,12 @@ date: Last Modified
         </div>
     </main>
 
+
     <!-- Navigation Drawer -->
-    <div ctrl z-load="controllers/drawer_layout"
-         z-context="menu-drawer"
+    <div ctrl z-load="@lib/controllers/drawer-layout"
+         z-context="menu-drawer" z-lazy="false"
          z-options="drawer_opts"
-         class="drawer-layout no-select visible-on-ready"
+         class="drawer-layout no-select visible-on-ready animate__animated animate__faster"
          layout="column top-stretch">
         <!-- Navigation Drawer content -->
 
@@ -67,7 +75,7 @@ date: Last Modified
 
         <!-- Menu items and other content -->
         <div class="drawer-content" self="size-x1">
-{% include "layouts/side_drawer/drawer_menu.html" %}
+            {% include "layouts/side_drawer/drawer_menu.html" %}
         </div>
 
     </div>

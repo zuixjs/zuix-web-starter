@@ -18,6 +18,9 @@ window.drawer_opts = {
   },
   ready: function() {
     menuDrawer = this;
+    menuDrawer.$.animateCss(enterAnimation, {
+      duration: '0.2s'
+    });
   }
 };
 window.menuButtonOptions = {
@@ -109,4 +112,9 @@ zuix.hook('view:process', function(view) {
 });
 processExternalLinks(document);
 
-//html = css = js = (s) => s[0];
+// add presentation anim to the drawer
+const referrerLink = document.createElement('a');
+referrerLink.href = document.referrer;
+const enterAnimation =
+  (referrerLink.pathname === '{{ app.baseUrl }}') ?
+    'fadeInLeft' : 'fadeIn';

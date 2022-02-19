@@ -17,18 +17,21 @@ module.exports = function(eleventyConfig) {
 
   // # Add data collections
 
-  eleventyConfig.addCollection('posts_blog', function(collection) {
-    return collection.getFilteredByGlob('./source/pages/blog/*.md')
-        .slice().sort((a, b) => +a.data.order > +b.data.order ? 1 : -1);
-  });
-  eleventyConfig.addCollection('posts_docs', function(collection) {
-    return collection.getFilteredByGlob('./source/pages/docs/*.md')
-        .slice().sort((a, b) => +a.data.order > +b.data.order ? 1 : -1);
+  // get list of sub-folders inside the "pages" folder
+  const pageSections = fs.readdirSync(path.join(zuixConfig.build.input, 'pages'), {withFileTypes: true})
+      .filter((dirent) => dirent.isDirectory())
+      .map((dirent) => dirent.name);
+
+  pageSections.forEach((section) => {
+    eleventyConfig.addCollection(`posts_${section}`, function(collection) {
+      return collection.getFilteredByGlob(path.join(zuixConfig.build.input, `pages/${section}/*.md`))
+          .slice().sort((a, b) => +a.data.order > +b.data.order ? 1 : -1);
+    });
   });
 
   // this is used by the searchFilter
   eleventyConfig.addCollection('posts_searchIndex', (collection) => {
-    return [...collection.getFilteredByGlob('./source/pages/**/*.md')];
+    return [...collection.getFilteredByGlob(path.join(zuixConfig.build.input, 'pages/**/*.md'))];
   });
 
   // # Add custom data filters
@@ -79,6 +82,8 @@ module.exports = function(eleventyConfig) {
     }
     if (fs.existsSync(rawFile)) {
       return normalizeMarkup(fs.readFileSync(rawFile).toString('utf8'));
+    } else {
+      // TODO: report error
     }
   });
 };

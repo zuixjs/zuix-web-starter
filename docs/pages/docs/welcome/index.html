@@ -60,11 +60,15 @@
 
 
     <!-- zuix.js https://github.com/zuixjs/zuix -->
-    <script src="/zuix-web-starter/js/zuix/zuix.min.js"></script>
+    <script src="/zuix-web-starter/js/zuix/zuix.js"></script>
     <script src="/zuix-web-starter/config.js"></script>
-    <script src="/zuix-web-starter/js/zuix/animate_css.js"></script>
+    <script src="/zuix-web-starter/js/zuix/animate-css.js"></script>
 
 <style>
+:root {
+    --primary-color: rgb(63,81,181);
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -106,8 +110,17 @@ li {
     margin-bottom: 18px;
     font-size: 120%;
 }
+li small {
+    font-family: Helvetica, sans-serif;
+    font-size: 70%;
+    font-weight: 600;
+    margin-left: 6px;
+    text-transform: uppercase;
+    opacity: 0.5;
+}
 
-blockquote, small {
+blockquote {
+    font-size: 140%;
     opacity: 0.6;
 }
 
@@ -130,6 +143,8 @@ pre {
 }
 code {
     color: #0b4d2c;
+    overflow-wrap: break-word; /* for old browsers */
+    overflow-wrap: anywhere;
 }
 
 /* prevents links dragging */
@@ -145,6 +160,7 @@ main {
 main div.content {
     width: 100% !important;
     max-width: 960px !important;
+    padding-top: 24px;
     padding-left: 12px !important;
     padding-right: 12px !important;
 }
@@ -160,7 +176,8 @@ main h1 {
     height: 64px;
     padding-left: 8px;
     padding-right: 8px;
-    background: #f5f5f5;
+    background: #f1f1f1;
+    box-shadow: 0 1px rgba(100, 100, 100, 30%);
 }
 [data-theme="dark"] [z-field="header"] {
     background: black;
@@ -277,6 +294,9 @@ h1[z-field="alt_header"] {
     font-size: 120%;
     font-weight: 300;
 }
+.drawer-header .title code {
+    font-weight: bold;
+}
 .drawer-header .subtitle {
     margin-left: 4px;
     margin-right: 4px;
@@ -299,40 +319,43 @@ h1[z-field="alt_header"] {
     margin-top: 8px;
     /*font-size: 120%;*/
 }
-.drawer-content li:hover {
-    background: rgba(0,0,0,0.1);
+.drawer-content li:hover a {
+    /*box-shadow: 1px 0 rgb(0 0 0 / 15%);
+    background: rgba(160,160,160,0.1);*/
+    color: var(--primary-color);
 }
 .drawer-content li {
     margin: 0;
-    margin-bottom: 8px;
-    height: 56px;
+    margin-right: 10px;
+    border-radius: 0 24px 24px 0;
+    height: 48px;
     vertical-align: center;
     align-content: center;
     align-items: center;
-    border-top: solid 2px transparent;
-    border-bottom: solid 2px transparent;;
     list-style: none;
 }
 .drawer-content ul li[aria-current=page] {
-    background-color: rgba(127,167,127,0.1);
+    border: solid 1px rgba(0, 255, 0, 3%);
+    box-shadow: 1px 0 rgb(0 0 0 / 15%);
+    background-color: rgba(127, 127, 127, 5%);
 }
-.drawer-content ul li[aria-current=page] {
-    /*font-weight: bold;*/
+.drawer-content ul li[aria-current=page] i, .drawer-content ul li[aria-current=page] a {
+    color: var(--primary-color);
 }
 .drawer-content li a {
-    font-weight: 500;
+    font-weight: 400;
     font-size: 100%;
     position: relative;
     display: block;
-    padding: 10px 16px;
+    padding: 11px 16px;
     text-decoration: none;
 }
 .drawer-content li a i {
     width: 40px;
-    opacity: 0.7;
+    opacity: 0.65;
 }
 .drawer-content li a span {
-    margin-top: 4px;
+    padding-top: 2px;
 }
 .drawer-content ul li[aria-current=page] a {
     /*pointer-events: none;*/
@@ -372,7 +395,7 @@ color: #24333e;
 
 
 <!-- scroll helper is used to show/hide the header when scrolling -->
-<body ctrl z-load="controllers/scroll_helper" z-lazy="scroll" data-theme="indigo-pink"
+<body ctrl z-load="@lib/controllers/scroll-helper" z-lazy="scroll" data-theme="indigo-pink"
       z-context="scroll-helper"
       z-options="scroll_opts"
       layout="column stretch-stretch">
@@ -389,16 +412,19 @@ color: #24333e;
     </nav>
 
     <!--
-    <div z-load="@lib/components/hamburger_icon"
+    <div z-load="@lib/components/hamburger-icon"
          z-context="menu_hamburger"
          z-options="menuButtonOptions"
          style="position:fixed;right:0;top:6px;z-index:1001"></div>
          -->
 
+
     <main class="animate__animated animate__fadeIn animate__faster">
         <div layout="column top-center">
 
+            
             <h1 #alt_header>Welcome!</h1>
+            
             <div class="content">
 <p>This <a href="https://zuixjs.github.io/zuix-web-starter/">web starter</a> is based on <a href="https://zuixjs.org">zuix.js</a>, a library for component-based web development, and <a href="https://11ty.dev">Eleventy</a>,
 static site generator.</p>
@@ -443,6 +469,10 @@ use <a href="https://getmdl.io/components/index.html">Material Design Light</a> 
 use <a href="https://picocss.com/">Pico.css</a> styles.</li>
 <li><strong><code>highlight</code></strong><br>
 include Prims code highlighter.</li>
+<li><strong><code>hide-title</code></strong><br>
+hide page title</li>
+<li><strong><code>hide-footer</code></strong><br>
+hide the footer</li>
 </ul>
 <p>The styles <code>mdl</code> and <code>pico-css</code> are mutually exclusive.
 When using <code>mdl</code> style, also the <strong><code>theme</code></strong> variable can be added to the front matter for specifying the <a href="https://getmdl.io/customize/index.html">material theme</a> to be used
@@ -487,28 +517,26 @@ can be used to wrap the <code>HTML</code> code inside a preformatted block, so t
 editor will highlight the code correctly.</p>
 <p>// TODO: ...</p>
 <h2>Components</h2>
-<p>Generic use and framework-agnostic components with examples.... (drawer, context_menu, gesture helper...)
+<p>Generic use and framework-agnostic components with examples.... (drawer, context-menu, gesture helper...)
 // TODO: referencing components remotely (e.g. @lib) / creating a local copy</p>
 <h2>Compiling for production</h2>
 <p>// TODO: ... about <code>baseUrl</code> etc...</p>
 
             </div>
 
+            
+            <footer self="size-large" layout="columns center-center" style="min-height: 320px">
 
+    <div class="subtitle" layout="row center-center" style="padding: 48px; gap: 8px; opacity: 0.75">
+        with <i title="love" class='material-icons mdl-color-text--accent'>volunteer_activism</i>
+        and <a href="https://zuixjs.org"><strong>zuix.js</strong></a>
+        for you
+    </div>
 
+</footer>
 
-<div -self="size-x1" layout="row center-spread" style="margin-top: 96px; margin-bottom: 56px; padding-left: 8px; padding-right: 8px; font-size: 140%">
-    
-    
-    <a href="/zuix-web-starter/pages/docs/material-design-light/">
-        <label layout="row center-center">
-            <span style="padding-left: 24px">Next</span>
-            <i class="material-icons">arrow_right</i>&nbsp;
-        </label>
-        <small layout="row center-center">MDL Examples</small>
-    </a>
-    
-</div>
+            
+
 
 
 
@@ -516,11 +544,12 @@ editor will highlight the code correctly.</p>
         </div>
     </main>
 
+
     <!-- Navigation Drawer -->
-    <div ctrl z-load="controllers/drawer_layout"
-         z-context="menu-drawer"
+    <div ctrl z-load="@lib/controllers/drawer-layout"
+         z-context="menu-drawer" z-lazy="false"
          z-options="drawer_opts"
-         class="drawer-layout no-select visible-on-ready"
+         class="drawer-layout no-select visible-on-ready animate__animated animate__faster"
          layout="column top-stretch">
         <!-- Navigation Drawer content -->
 
@@ -535,14 +564,14 @@ editor will highlight the code correctly.</p>
 
         <!-- Menu items and other content -->
         <div class="drawer-content" self="size-x1">
-<ul>
+            <ul>
     <li >
-        <a href="/zuix-web-starter/pages/home">
-            <div layout="row center-lett">
-                <i class="material-icons">home</i>
-                <span>Home</span>
-            </div>
-        </a>
+    <a href="/zuix-web-starter/pages/home">
+        <div layout="row center-lett">
+            <i class="material-icons">home</i>
+            <span>Home</span>
+        </div>
+    </a>
     </li>
     <li >
     <a href="/zuix-web-starter/pages/search">
@@ -617,6 +646,9 @@ window.drawer_opts = {
   },
   ready: function() {
     menuDrawer = this;
+    menuDrawer.$.animateCss(enterAnimation, {
+      duration: '0.2s'
+    });
   }
 };
 window.menuButtonOptions = {
@@ -708,7 +740,12 @@ zuix.hook('view:process', function(view) {
 });
 processExternalLinks(document);
 
-//html = css = js = (s) => s[0];
+// add presentation anim to the drawer
+const referrerLink = document.createElement('a');
+referrerLink.href = document.referrer;
+const enterAnimation =
+  (referrerLink.pathname === '/zuix-web-starter/') ?
+    'fadeInLeft' : 'fadeIn';
 
 </script>
 

@@ -60,11 +60,15 @@
 
 
     <!-- zuix.js https://github.com/zuixjs/zuix -->
-    <script src="/zuix-web-starter/js/zuix/zuix.min.js"></script>
+    <script src="/zuix-web-starter/js/zuix/zuix.js"></script>
     <script src="/zuix-web-starter/config.js"></script>
-    <script src="/zuix-web-starter/js/zuix/animate_css.js"></script>
+    <script src="/zuix-web-starter/js/zuix/animate-css.js"></script>
 
 <style>
+:root {
+    --primary-color: rgb(63,81,181);
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -106,8 +110,17 @@ li {
     margin-bottom: 18px;
     font-size: 120%;
 }
+li small {
+    font-family: Helvetica, sans-serif;
+    font-size: 70%;
+    font-weight: 600;
+    margin-left: 6px;
+    text-transform: uppercase;
+    opacity: 0.5;
+}
 
-blockquote, small {
+blockquote {
+    font-size: 140%;
     opacity: 0.6;
 }
 
@@ -130,6 +143,8 @@ pre {
 }
 code {
     color: #0b4d2c;
+    overflow-wrap: break-word; /* for old browsers */
+    overflow-wrap: anywhere;
 }
 
 /* prevents links dragging */
@@ -145,6 +160,7 @@ main {
 main div.content {
     width: 100% !important;
     max-width: 960px !important;
+    padding-top: 24px;
     padding-left: 12px !important;
     padding-right: 12px !important;
 }
@@ -160,7 +176,8 @@ main h1 {
     height: 64px;
     padding-left: 8px;
     padding-right: 8px;
-    background: #f5f5f5;
+    background: #f1f1f1;
+    box-shadow: 0 1px rgba(100, 100, 100, 30%);
 }
 [data-theme="dark"] [z-field="header"] {
     background: black;
@@ -277,6 +294,9 @@ h1[z-field="alt_header"] {
     font-size: 120%;
     font-weight: 300;
 }
+.drawer-header .title code {
+    font-weight: bold;
+}
 .drawer-header .subtitle {
     margin-left: 4px;
     margin-right: 4px;
@@ -299,40 +319,43 @@ h1[z-field="alt_header"] {
     margin-top: 8px;
     /*font-size: 120%;*/
 }
-.drawer-content li:hover {
-    background: rgba(0,0,0,0.1);
+.drawer-content li:hover a {
+    /*box-shadow: 1px 0 rgb(0 0 0 / 15%);
+    background: rgba(160,160,160,0.1);*/
+    color: var(--primary-color);
 }
 .drawer-content li {
     margin: 0;
-    margin-bottom: 8px;
-    height: 56px;
+    margin-right: 10px;
+    border-radius: 0 24px 24px 0;
+    height: 48px;
     vertical-align: center;
     align-content: center;
     align-items: center;
-    border-top: solid 2px transparent;
-    border-bottom: solid 2px transparent;;
     list-style: none;
 }
 .drawer-content ul li[aria-current=page] {
-    background-color: rgba(127,167,127,0.1);
+    border: solid 1px rgba(0, 255, 0, 3%);
+    box-shadow: 1px 0 rgb(0 0 0 / 15%);
+    background-color: rgba(127, 127, 127, 5%);
 }
-.drawer-content ul li[aria-current=page] {
-    /*font-weight: bold;*/
+.drawer-content ul li[aria-current=page] i, .drawer-content ul li[aria-current=page] a {
+    color: var(--primary-color);
 }
 .drawer-content li a {
-    font-weight: 500;
+    font-weight: 400;
     font-size: 100%;
     position: relative;
     display: block;
-    padding: 10px 16px;
+    padding: 11px 16px;
     text-decoration: none;
 }
 .drawer-content li a i {
     width: 40px;
-    opacity: 0.7;
+    opacity: 0.65;
 }
 .drawer-content li a span {
-    margin-top: 4px;
+    padding-top: 2px;
 }
 .drawer-content ul li[aria-current=page] a {
     /*pointer-events: none;*/
@@ -372,7 +395,7 @@ color: #24333e;
 
 
 <!-- scroll helper is used to show/hide the header when scrolling -->
-<body ctrl z-load="controllers/scroll_helper" z-lazy="scroll" data-theme="indigo-pink"
+<body ctrl z-load="@lib/controllers/scroll-helper" z-lazy="scroll" data-theme="indigo-pink"
       z-context="scroll-helper"
       z-options="scroll_opts"
       layout="column stretch-stretch">
@@ -389,20 +412,23 @@ color: #24333e;
     </nav>
 
     <!--
-    <div z-load="@lib/components/hamburger_icon"
+    <div z-load="@lib/components/hamburger-icon"
          z-context="menu_hamburger"
          z-options="menuButtonOptions"
          style="position:fixed;right:0;top:6px;z-index:1001"></div>
          -->
 
+
     <main class="animate__animated animate__fadeIn animate__faster">
         <div layout="column top-center">
 
+            
             <h1 #alt_header>MDL Examples</h1>
+            
             <div class="content">
 <h2>Liquid tags</h2>
 <h3>Basic button</h3>
-<p><a ctrl z-load="controllers/mdl_button" z-options="{ type: '', class: '' }"
+<p><a ctrl z-load="@lib/controllers/mdl-button" z-options="{ type: '', class: '' }"
      href="#test-link-1" class="visible-on-ready">
 Basic
 </a></p>
@@ -411,7 +437,7 @@ Basic
 {% endzx %}
 </code></pre>
 <h3>Colored button</h3>
-<p><a ctrl z-load="controllers/mdl_button" z-options="{ type: 'raised', class: 'colored' }"
+<p><a ctrl z-load="@lib/controllers/mdl-button" z-options="{ type: 'raised', class: 'colored' }"
      href="#test-link-1" class="visible-on-ready">
 Colored
 </a></p>
@@ -420,7 +446,7 @@ Colored
 {% endzx %}
 </code></pre>
 <h3>Flat button</h3>
-<p><a ctrl z-load="controllers/mdl_button" z-options="{ type: 'flat', class: 'accent' }"
+<p><a ctrl z-load="@lib/controllers/mdl-button" z-options="{ type: 'flat', class: 'accent' }"
      href="#test-link-2" class="visible-on-ready">
 Click Me
 </a></p>
@@ -429,7 +455,7 @@ Click Me
 {% endzx %}
 </code></pre>
 <h3>Floating action buttons</h3>
-<p><a ctrl z-load="controllers/mdl_button" z-options="{ type: 'fab', class: 'accent' }"
+<p><a ctrl z-load="@lib/controllers/mdl-button" z-options="{ type: 'fab', class: 'accent' }"
      href="#test-link-3" class="visible-on-ready">
 <i class="material-icons">mail</i>
 </a></p>
@@ -437,7 +463,7 @@ Click Me
 &lt;i class=&quot;material-icons&quot;&gt;mail&lt;/i&gt;
 {% endzx %}
 </code></pre>
-<p><a ctrl z-load="controllers/mdl_button" z-options="{ type: 'fab', class: 'mini-fab primary' }"
+<p><a ctrl z-load="@lib/controllers/mdl-button" z-options="{ type: 'fab', class: 'mini-fab primary' }"
      href="#test-link-3" class="visible-on-ready">
 <i class="material-icons">home</i>
 </a></p>
@@ -446,7 +472,7 @@ Click Me
 {% endzx %}
 </code></pre>
 <h3>Menu button</h3>
-<div ctrl z-load="controllers/mdl_menu" z-lazy="false"
+<div ctrl z-load="@lib/controllers/mdl-menu" z-lazy="false"
      z-behavior="menuButtonBehavior" class="visible-on-ready" style="min-height: 56px">
     <!-- the menu is defined as a simple UL list -->
     <ul>
@@ -455,7 +481,7 @@ Click Me
 <li><a href="#test3">Option 3</a></li>
 </ul>
     <!-- the menu's FAB button -->
-    <a ctrl z-load="controllers/mdl_button"
+    <a ctrl z-load="@lib/controllers/mdl-button"
        z-options="{ type: 'icon', class: 'accent' }">
         <i class="material-icons">menu</i>
     </a>
@@ -479,7 +505,7 @@ Click Me
 {% endzx %}
 </code></pre>
 <h3>Cards</h3>
-<div layout="rows center-spread" style="overflow-x:hidden"><div view z-load="templates/mdl_card_image" class="visible-on-ready" style="margin: 12px;">
+<div layout="rows center-spread" style="overflow-x:hidden"><div view z-load="@lib/templates/mdl-card-image" class="visible-on-ready" style="margin: 12px;">
   <h1 #title style="font-size: 150%!important; position: absolute; padding: 12px" class="mdl-color-text--primary-contrast">The bridge</h1>
   <img #image src="https://picsum.photos/id/392/256/256" alt="Cover image" role="presentation">
   <p #text>
@@ -488,7 +514,7 @@ Click Me
     <span #link.title></span>
   </a>
 </div>
-  <div view z-load="templates/mdl_card_square" class="visible-on-ready" style="margin: 12px;">
+  <div view z-load="@lib/templates/mdl-card-square" class="visible-on-ready" style="margin: 12px;">
   <h1 #title style="font-size: 150%!important; position: absolute; padding: 12px" class="mdl-color-text--primary-contrast">Sweet mornings</h1>
   <img #image src="https://picsum.photos/id/110/320/176" alt="Cover image" role="presentation">
   <p #text>
@@ -499,7 +525,7 @@ Click Me
     <span #link.title>Take me there</span>
   </a>
 </div>
-  <div view z-load="templates/mdl_card" class="visible-on-ready" style="margin: 12px;">
+  <div view z-load="@lib/templates/mdl-card" class="visible-on-ready" style="margin: 12px;">
   <h1 #title style="font-size: 150%!important; position: absolute; padding: 12px" class="mdl-color-text--primary-contrast">Blind texts</h1>
   <img #image src="https://picsum.photos/id/33/420/172" alt="Cover image" role="presentation">
   <p #text>
@@ -529,28 +555,26 @@ Click Me
 </code></pre>
 <h2>Adding more tags</h2>
 <p>// TODO: ...</p>
-<div layout="column top-left" style="overflow-x:hidden"><label ctrl z-load="controllers/mdl_checkbox">
+<div layout="column top-left" style="overflow-x:hidden"><label ctrl z-load="controllers/mdl-checkbox">
     Hello world
     <input type="checkbox">
 </label></div>
 
             </div>
 
+            
+            <footer self="size-large" layout="columns center-center" style="min-height: 320px">
 
+    <div class="subtitle" layout="row center-center" style="padding: 48px; gap: 8px; opacity: 0.75">
+        with <i title="love" class='material-icons mdl-color-text--accent'>volunteer_activism</i>
+        and <a href="https://zuixjs.org"><strong>zuix.js</strong></a>
+        for you
+    </div>
 
+</footer>
 
-<div -self="size-x1" layout="row center-spread" style="margin-top: 96px; margin-bottom: 56px; padding-left: 8px; padding-right: 8px; font-size: 140%">
-    
-    <a href="/zuix-web-starter/pages/docs/welcome/">
-        <label layout="row center-center">
-            <i class="material-icons">arrow_left</i>&nbsp;
-            <span style="padding-right: 24px">Previous</span>
-        </label>
-        <small layout="row center-center">Welcome!</small>
-    </a>
-    
-    
-</div>
+            
+
 
 
 
@@ -558,11 +582,12 @@ Click Me
         </div>
     </main>
 
+
     <!-- Navigation Drawer -->
-    <div ctrl z-load="controllers/drawer_layout"
-         z-context="menu-drawer"
+    <div ctrl z-load="@lib/controllers/drawer-layout"
+         z-context="menu-drawer" z-lazy="false"
          z-options="drawer_opts"
-         class="drawer-layout no-select visible-on-ready"
+         class="drawer-layout no-select visible-on-ready animate__animated animate__faster"
          layout="column top-stretch">
         <!-- Navigation Drawer content -->
 
@@ -577,14 +602,14 @@ Click Me
 
         <!-- Menu items and other content -->
         <div class="drawer-content" self="size-x1">
-<ul>
+            <ul>
     <li >
-        <a href="/zuix-web-starter/pages/home">
-            <div layout="row center-lett">
-                <i class="material-icons">home</i>
-                <span>Home</span>
-            </div>
-        </a>
+    <a href="/zuix-web-starter/pages/home">
+        <div layout="row center-lett">
+            <i class="material-icons">home</i>
+            <span>Home</span>
+        </div>
+    </a>
     </li>
     <li >
     <a href="/zuix-web-starter/pages/search">
@@ -659,6 +684,9 @@ window.drawer_opts = {
   },
   ready: function() {
     menuDrawer = this;
+    menuDrawer.$.animateCss(enterAnimation, {
+      duration: '0.2s'
+    });
   }
 };
 window.menuButtonOptions = {
@@ -750,7 +778,12 @@ zuix.hook('view:process', function(view) {
 });
 processExternalLinks(document);
 
-//html = css = js = (s) => s[0];
+// add presentation anim to the drawer
+const referrerLink = document.createElement('a');
+referrerLink.href = document.referrer;
+const enterAnimation =
+  (referrerLink.pathname === '/zuix-web-starter/') ?
+    'fadeInLeft' : 'fadeIn';
 
 </script>
 

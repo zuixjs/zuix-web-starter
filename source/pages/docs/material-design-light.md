@@ -158,7 +158,7 @@ Click Me
 {% unpre %}
 ```html
 
-<label ctrl z-load="controllers/mdl_checkbox">
+<label ctrl z-load="controllers/mdl-checkbox">
     Hello world
     <input type="checkbox">
 </label>

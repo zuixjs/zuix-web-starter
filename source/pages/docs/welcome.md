@@ -60,11 +60,15 @@ a page with a responsive *Navigation Drawer* layout, like the one used by this v
 ### `options`
 
 - **`mdl`**  
-use [Material Design Light](https://getmdl.io/components/index.html) styles.
+  use [Material Design Light](https://getmdl.io/components/index.html) styles.
 - **`pico-css`**  
-use [Pico.css](https://picocss.com/) styles.
+  use [Pico.css](https://picocss.com/) styles.
 - **`highlight`**  
-include Prims code highlighter.
+  include Prims code highlighter.
+- **`hide-title`**  
+  hide page title
+- **`hide-footer`**  
+  hide the footer
 
 The styles `mdl` and `pico-css` are mutually exclusive.
 When using `mdl` style, also the **`theme`** variable can be added to the front matter for specifying the [material theme](https://getmdl.io/customize/index.html) to be used
@@ -137,7 +141,7 @@ editor will highlight the code correctly.
 
 ## Components
 
-Generic use and framework-agnostic components with examples.... (drawer, context_menu, gesture helper...)
+Generic use and framework-agnostic components with examples.... (drawer, context-menu, gesture helper...)
 // TODO: referencing components remotely (e.g. @lib) / creating a local copy
 
 

@@ -15,7 +15,8 @@
       ],
       "ignore": [
         "_filters",
-        "app"
+        "app",
+        "lib"
       ],
       "dataFolder": "_data",
       "includesFolder": "_inc",
@@ -47,14 +48,14 @@
       "baseUrl": "/zuix-web-starter/",
       "resourcePath": "/app/",
       "libraryPath": {
-        "@lib": "https://zuixjs.github.io/zkit/lib/",
+        "@lib": "https://zuixjs.github.io/zkit/lib/1.1/",
         "@hgui": "https://genielabs.github.io/homegenie-web-ui/app/",
         "@cdnjs": "https://cdnjs.cloudflare.com/ajax/libs/"
       },
       "zuixjs.github.io": {
         "resourcePath": "/zuix-web-starter/app/",
         "libraryPath": {
-          "@lib": "https://zuixjs.github.io/zkit/lib/",
+          "@lib": "https://zuixjs.github.io/zkit/lib/1.1/",
           "@hgui": "https://genielabs.github.io/homegenie-web-ui/app/",
           "@cdnjs": "https://cdnjs.cloudflare.com/ajax/libs/"
         }

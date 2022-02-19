@@ -1,4 +1,4 @@
-/* zUIx v1.0.17 22.02.15 02:05:11 */
+/* zUIx v1.0.20 22.02.19 01:51:53 */
 
 var zuix;
 /******/ (() => { // webpackBootstrap
@@ -1670,12 +1670,12 @@ ZxQueryStatic.wrapElement = function(containerTag, element) {
 };
 // TODO: undocumented
 ZxQueryStatic.wrapCss = function(wrapperRule, css, encapsulate) {
-  const wrapReX = /(([a-zA-Z0-9\240-\377=:-_- \n,.*@]+.*){[^}]*})/g;
+  const wrapReX = /(([a-zA-Z0-9\240-\377=:-_- \n,.@]+.*){([^{}]|((.*){([^}]+)[}]))*})/g;
   let wrappedCss = '';
   let ruleMatch;
   // remove comments
   css = css.replace(/\/\*[\s\S]*?\*\/|([^:]|^)\/\/.*$/g, '');
-  // some more normalization to help parsing
+  // some more normalization to help with parsing
   css = css.replace(/(?:\r\n|\r|\n)/g, '').replace(/}/g, '}\n').replace(/\{/g, '{\n');
   do {
     ruleMatch = wrapReX.exec(css);
@@ -1702,13 +1702,15 @@ ZxQueryStatic.wrapCss = function(wrapperRule, css, encapsulate) {
             v.split(/\s+/).forEach(function(attr) {
               attr = attr.trim();
               if (attr.lastIndexOf('.') > 0) {
-                attr.split('.').forEach(function(attr2) {
+                attr.replace(/(?=[.])/gi, ',').split(',').forEach(function(attr2) {
                   if (attr2 !== '') {
-                    wrappedCss += '.' + attr2 + wrapperRule;
+                    wrappedCss += '\n' + attr2 + wrapperRule;
                   }
                 });
-              } else if (attr !== '') {
+              } else if (attr !== '' && attr !== '>' && attr !== '*') {
                 wrappedCss += '\n' + attr + wrapperRule + ' ';
+              } else {
+                wrappedCss += attr + ' ';
               }
             });
           } else {
@@ -5291,7 +5293,7 @@ function Zuix() {
       'baseUrl': '/',
       'resourcePath': '/app/',
       'libraryPath': {
-        '@lib': 'https://zuixjs.github.io/zkit/lib/',
+        '@lib': 'https://zuixjs.github.io/zkit/lib/1.1/',
         '@hgui': 'https://genielabs.github.io/homegenie-web-ui/app/',
         '@cdnjs': 'https://cdnjs.cloudflare.com/ajax/libs/'
       },
@@ -5299,7 +5301,7 @@ function Zuix() {
       'zuixjs.github.io': {
         'resourcePath': '/zuixjs/app',
         'libraryPath': {
-          '@lib': 'https://zuixjs.github.io/zkit/lib/',
+          '@lib': 'https://zuixjs.github.io/zkit/lib/1.1/',
           '@hgui': 'https://genielabs.github.io/homegenie-web-ui/app/',
           '@cdnjs': 'https://cdnjs.cloudflare.com/ajax/libs/'
         }
@@ -5580,7 +5582,6 @@ function loadResources(ctx, options) {
       /*
         TODO: CSS caching, to be tested.
       */
-      /*
       if (options.css !== false && typeof options.css !== 'string') {
         options.css = false;
         if (!cachedComponent.css_applied) {
@@ -5589,7 +5590,6 @@ function loadResources(ctx, options) {
           _log.t(ctx.componentId + ':css', 'component:cached:css');
         }
       }
-      */
     }
 
     // if not able to inherit the view from the base cachedComponent
