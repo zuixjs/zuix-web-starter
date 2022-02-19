@@ -157,12 +157,10 @@ Click Me
 {% layout 'column top-left' 'style="overflow-x:hidden"' %}
 {% unpre %}
 ```html
-
-<label ctrl z-load="controllers/mdl-checkbox">
+<label ctrl z-load="@lib/controllers/mdl-checkbox">
     Hello world
     <input type="checkbox">
 </label>
-
 ```
 {% endunpre %}
 {% endlayout %}
