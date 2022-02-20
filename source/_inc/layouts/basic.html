@@ -17,11 +17,18 @@ date: Last Modified
     </div>
 </header>
 
+{% unless options contains 'no-title' %}
+<h1 #alt_header>{{ title }}</h1>
+{% endunless %}
 <main self="size-large center" class="main-content animated fadeIn" layout="column top-stretch">
 
 {{ content | safe }}
 
 </main>
+
+{% unless options contains 'no-footer' %}
+{% include "footer.html" %}
+{% endunless %}
 
 {% include "body_end.html" %}
 

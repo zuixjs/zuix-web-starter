@@ -41,25 +41,35 @@
     <link rel="canonical" href="https://www.example.com/">
     -->
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css" />
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 
     
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.indigo-pink.min.css">
+    <link rel="preload" as="script" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.min.js">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.indigo-pink.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.min.js"></script>
 
 
 
+    <link rel="preload" as="script" href="/zuix-web-starter/js/prism/prism.js">
+    <link rel="preload" as="style" href="/zuix-web-starter/js/prism/prism.css" />
     <script src="/zuix-web-starter/js/prism/prism.js"></script>
     <link rel="stylesheet" href="/zuix-web-starter/js/prism/prism.css" />
 
 
 
     <!-- zuix.js https://github.com/zuixjs/zuix -->
+    <link rel="preload" as="script" href="/zuix-web-starter/js/zuix/zuix.min.js">
+    <link rel="preload" as="script" href="/zuix-web-starter/config.js">
+    <link rel="preload" as="script" href="/zuix-web-starter/js/zuix/animate-css.js">
     <script src="/zuix-web-starter/js/zuix/zuix.min.js"></script>
     <script src="/zuix-web-starter/config.js"></script>
     <script src="/zuix-web-starter/js/zuix/animate-css.js"></script>
@@ -167,6 +177,16 @@ main div.content {
 
 main h1 {
     margin-top: 10px!important;
+}
+main h2:first-child  {
+    margin-top: 0!important;
+}
+main h2:not(:first-child)  {
+    margin-top: 64px;
+}
+main h3 {
+    margin-top: 56px;
+    margin-bottom: 16px;
 }
 
 [z-field="header"] {
@@ -422,9 +442,9 @@ color: #24333e;
     <main class="animate__animated animate__fadeIn animate__faster">
         <div layout="column top-center">
 
-            
+
             <h1 #alt_header>Welcome!</h1>
-            
+
             <div class="content">
 <p>This <a href="https://zuixjs.github.io/zuix-web-starter/">web starter</a> is based on <a href="https://zuixjs.org">zuix.js</a>, a library for component-based web development, and <a href="https://11ty.dev">Eleventy</a>,
 static site generator.</p>
@@ -460,7 +480,41 @@ a basic page layout.</li>
 a page with a responsive <em>Navigation Drawer</em> layout, like the one used by this very page.</li>
 </ul>
 <h4>Adding a custom layout</h4>
-<h5>TODO: .....</h5>
+<p>Layouts are located in the <code>./source/_inc/layouts</code> folder. A layout consist of an <code>.html</code> file and, when required, also
+a folder with the same base name of the template file, containing any additional files required for the layout implementation.</p>
+<p>To add a new layout, simple add a <code>&lt;layout_name&gt;.html</code> file to the <em>layouts</em> folder, it can be then selected like the other
+layout templates, by using the <code>&lt;layout_name&gt;</code> in the <code>layout</code> field in the front matter of you pages.</p>
+<p>The <code>./source/_inc</code> folder, also contains other bits that are usually included in an HTML document:</p>
+<ul>
+<li><code>head_open.html</code><br>
+This file contains the initial part of the <code>HTML</code> document with <code>head</code> section and styles/scripts inclusion.</li>
+<li><code>head_close.html</code><br>
+This file just contains the <code>&lt;/head&gt;</code> closing tag, any custom code can be added to the <code>head</code> section in the layout<br>
+template before this closing tag</li>
+<li><code>footer.html</code><br>
+The common footer placed at the end of the page's content.</li>
+<li><code>body_end.html</code><br>
+This file can be used to place any common content or script before the end of the <code>body</code></li>
+<li><code>html_close.html</code><br>
+This file contains just the <code>&lt;/html&gt;</code> closing tag.</li>
+</ul>
+<p><strong>Example of a minimal layout template:</strong><br>
+<code>./source/_inc/layouts/my-new-layout.html</code></p>
+<pre><code class="language-html">
+{% include &quot;head_open.html&quot; %}
+&lt;style&gt;
+{% include &quot;layouts/my-new-layout/style.css&quot; %}
+&lt;/style&gt;
+{% include &quot;head_close.html&quot; %}
+&lt;body&gt;
+
+{{ content | safe }}
+
+{% include &quot;body_end.html&quot; %}
+&lt;/body&gt;
+{% include &quot;html_close.html&quot; %}
+
+</code></pre>
 <h3><code>options</code></h3>
 <ul>
 <li><strong><code>mdl</code></strong><br>
@@ -469,16 +523,16 @@ use <a href="https://getmdl.io/components/index.html">Material Design Light</a> 
 use <a href="https://picocss.com/">Pico.css</a> styles.</li>
 <li><strong><code>highlight</code></strong><br>
 include Prims code highlighter.</li>
-<li><strong><code>hide-title</code></strong><br>
-hide page title</li>
-<li><strong><code>hide-footer</code></strong><br>
-hide the footer</li>
+<li><strong><code>no-title</code></strong><br>
+do not include page title</li>
+<li><strong><code>no-footer</code></strong><br>
+do not include common footer</li>
 </ul>
-<p>The styles <code>mdl</code> and <code>pico-css</code> are mutually exclusive.
+<p>The styles <code>mdl</code> and <code>pico-css</code> are mutually exclusive.<br>
 When using <code>mdl</code> style, also the <strong><code>theme</code></strong> variable can be added to the front matter for specifying the <a href="https://getmdl.io/customize/index.html">material theme</a> to be used
 (e.g. <code>indigo-pink</code>, <code>amber-green</code>, etc...).<br>
 When using <code>pico-css</code> the <strong><code>theme</code></strong> variable can be either <code>dark</code> or <code>light</code>.</p>
-<p>These options are used in the template <code>./source/_inc/head_open.html</code> which includes all required stylesheets and scripts.
+<p>These options are used in the include file <code>./source/_inc/head_open.html</code>, which hosts all stylesheets and scripts required by the page.
 Custom options can also be implemented in this file to toggle other frameworks and utilities.</p>
 <h4>Adding custom options</h4>
 <p>For example, <code>bootstrap</code> option can be added with the following code:</p>
@@ -488,9 +542,9 @@ Custom options can also be implemented in this file to toggle other frameworks a
 {% endif %}
 </code></pre>
 <h3><code>order</code></h3>
-<p>Set pages listing order, used mainly for navigation links and content's menu.</p>
+<p>Set pages listing order, that is mainly used for rendering navigation links and content listing menu.</p>
 <h3><code>icon</code></h3>
-<p>Icon associated to the page. This icon will be shown next to the item in the side drawer menu.</p>
+<p>Icon associated to the page. This icon is currently shown next to the page name in the side drawer's menu of the <code>side_drawer</code> layout.</p>
 <h3><code>title</code></h3>
 <p>The page title.</p>
 <h3><code>description</code></h3>
@@ -498,6 +552,12 @@ Custom options can also be implemented in this file to toggle other frameworks a
 <h3><code>keywords</code></h3>
 <p>A list of keywords that identify this page. Keywords are used by internal search and are also added to page's metadata
 for search engines as some of them might still use meta keywords for indexing.</p>
+<hr>
+<hr>
+<pre><code class="language-html">// TODO: this documentation is a work in progress, to be completed soon.... stay tuned! =) 
+</code></pre>
+<hr>
+<hr>
 <h2>Adding a new page</h2>
 <ul>
 <li>manually</li>
@@ -524,8 +584,8 @@ editor will highlight the code correctly.</p>
 
             </div>
 
-            
-            <footer self="size-large" layout="columns center-center" style="min-height: 320px">
+
+<footer self="size-large" layout="columns center-center" style="min-height: 320px">
 
     <div class="subtitle" layout="row center-center" style="padding: 48px; gap: 8px; opacity: 0.75">
         with <i title="love" class='material-icons mdl-color-text--accent'>volunteer_activism</i>
@@ -535,7 +595,7 @@ editor will highlight the code correctly.</p>
 
 </footer>
 
-            
+
 
 
 

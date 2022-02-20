@@ -41,20 +41,27 @@
     <link rel="canonical" href="https://www.example.com/">
     -->
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css" />
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 
 
+    <link rel="preload" as="style" href="https://unpkg.com/@picocss/pico@latest/css/pico.classless.min.css">
     <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.classless.min.css">
 
 
 
 
     <!-- zuix.js https://github.com/zuixjs/zuix -->
+    <link rel="preload" as="script" href="/zuix-web-starter/js/zuix/zuix.min.js">
+    <link rel="preload" as="script" href="/zuix-web-starter/config.js">
+    <link rel="preload" as="script" href="/zuix-web-starter/js/zuix/animate-css.js">
     <script src="/zuix-web-starter/js/zuix/zuix.min.js"></script>
     <script src="/zuix-web-starter/config.js"></script>
     <script src="/zuix-web-starter/js/zuix/animate-css.js"></script>
@@ -162,6 +169,16 @@ main div.content {
 
 main h1 {
     margin-top: 10px!important;
+}
+main h2:first-child  {
+    margin-top: 0!important;
+}
+main h2:not(:first-child)  {
+    margin-top: 64px;
+}
+main h3 {
+    margin-top: 56px;
+    margin-bottom: 16px;
 }
 
 [z-field="header"] {
@@ -417,9 +434,9 @@ color: #dfdfdf;
     <main class="animate__animated animate__fadeIn animate__faster">
         <div layout="column top-center">
 
-            
+
             <h1 #alt_header>About</h1>
-            
+
             <div class="content">
 <h2>Title</h2>
 <p>Sint sit cillum pariatur eiusmod nulla pariatur ipsum. Sit laborum anim qui mollit tempor pariatur nisi minim dolor.
@@ -485,8 +502,8 @@ func main() {
 
             </div>
 
-            
-            <footer self="size-large" layout="columns center-center" style="min-height: 320px">
+
+<footer self="size-large" layout="columns center-center" style="min-height: 320px">
 
     <div class="subtitle" layout="row center-center" style="padding: 48px; gap: 8px; opacity: 0.75">
         with <i title="love" class='material-icons mdl-color-text--accent'>volunteer_activism</i>
@@ -496,7 +513,7 @@ func main() {
 
 </footer>
 
-            
+
 
 
 
