@@ -196,3 +196,8 @@ Generic use and framework-agnostic components with examples.... (drawer, context
 ## Compiling for production
 
 // TODO: ... about `baseUrl` etc...
+
+
+## About Sitemap and internal search
+
+// TODO: ...

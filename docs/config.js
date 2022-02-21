@@ -4,17 +4,18 @@
     "title": "<code>zuix.js</code> Web Starter",
     "subtitle": "Simple, yet powerful!",
     "googleSiteId": "UA-123-456",
+    "siteMapUrl": "https://zuixjs.github.io/zuix-web-starter",
     "baseUrl": "/zuix-web-starter/",
     "resourcePath": "/app/",
     "libraryPath": {
-      "@lib": "https://zuixjs.github.io/zkit/lib/1.1/",
+      "@lib": "https://zuixjs.github.io/zuix-web-starter/lib/1.1/",
       "@hgui": "https://genielabs.github.io/homegenie-web-ui/app/",
       "@cdnjs": "https://cdnjs.cloudflare.com/ajax/libs/"
     },
     "zuixjs.github.io": {
       "resourcePath": "/zuix-web-starter/app/",
       "libraryPath": {
-        "@lib": "https://zuixjs.github.io/zkit/lib/1.1/",
+        "@lib": "https://zuixjs.github.io/zuix-web-starter/lib/1.1/",
         "@hgui": "https://genielabs.github.io/homegenie-web-ui/app/",
         "@cdnjs": "https://cdnjs.cloudflare.com/ajax/libs/"
       }
