@@ -149,7 +149,7 @@ module.exports = function(eleventyConfig) {
       let file = path.resolve(outputPath);
       const baseFolder = path.resolve(zuixConfig.build.output);
       if (file.startsWith(baseFolder)) {
-        file = file.substr(baseFolder.length + 1);
+        file = file.substring(baseFolder.length + 1);
       }
       postProcessFiles.push({file, baseFolder: zuixConfig.build.output});
     }
@@ -190,7 +190,7 @@ module.exports = function(eleventyConfig) {
       console.log();
     }
     if (rebuildAll) {
-      // revert back to incremental build mode
+      // reverts to incremental build mode
       rebuildAll = false;
     }
   });
