@@ -77,10 +77,10 @@ header .material-icons {
 }
 footer {
     width: 100%;
-    color: #FFF59D;
+/*    color: #FFF59D; */
 }
 footer a {
-    color: white;
+/*    color: white; */
     font-size:110%;
 }
 .header-cover {

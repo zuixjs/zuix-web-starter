@@ -477,6 +477,16 @@ color: #24333e;
   <a #link.url href="/zuix-web-starter/pages/blog/my-first-post/">
     <span #link.title>Open</span>
   </a>
+</div>
+        <div view z-load="@lib/templates/mdl-card-square" class="visible-on-ready" style="margin: 12px;">
+  <h1 #title style="font-size: 150%!important; position: absolute; padding: 12px" class="mdl-color-text--primary-contrast">Just a test</h1>
+  <img #image src="https://picsum.photos/seed/blog-1/256/256" alt="Cover image" role="presentation">
+  <p #text>
+        My second blog post...
+        </p>
+  <a #link.url href="/zuix-web-starter/pages/blog/another-post/">
+    <span #link.title>Open</span>
+  </a>
 </div></div>
 </div>
 
@@ -581,6 +591,14 @@ color: #24333e;
             <div layout="row center-left">
                 <i class="material-icons">pages</i>
                 <span>About</span>
+            </div>
+        </a>
+    </li>
+    <li >
+        <a href="/zuix-web-starter/pages/blog/another-post/">
+            <div layout="row center-left">
+                <i class="material-icons">pages</i>
+                <span>Just a test</span>
             </div>
         </a>
     </li></ul>

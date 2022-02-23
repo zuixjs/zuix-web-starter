@@ -21,6 +21,10 @@ const template = `
 </div>
 <script>
 toggleButton = { type: 'fab', class: 'primary', lazyLoad: false };
+function navigateTo(anchor) {
+  const target = zuix.$.find('a[name="' + anchor + '"]');
+  scrollHelper.scrollTo(target, 300);
+}
 </script>
 `;
 
@@ -41,7 +45,15 @@ module.exports = (render, content) => {
   <i class="material-icons">${icon.textContent}</i>
 </button>`;
     }
-    content += `    <div>${item.innerHTML}${icon}</div>
+    const link = item.querySelector('a');
+    let href;
+    if (link) {
+      href = link.getAttribute('href');
+      if (href && href.trim()[0] === '#') {
+        href = `javascript:navigateTo('${href.trim().substring(1)}')`;
+      }
+    }
+    content += `    <a href="${href}">${link.innerHTML}${icon}</a>
 `;
   });
   content = `<div #items>${content}</div>`;
