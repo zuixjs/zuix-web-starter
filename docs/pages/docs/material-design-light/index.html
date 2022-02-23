@@ -348,7 +348,7 @@ h1[z-field="alt_header"] {
     margin: 0;
     margin-right: 10px;
     border-radius: 0 24px 24px 0;
-    height: 48px;
+    min-height: 48px;
     vertical-align: center;
     align-content: center;
     align-items: center;
@@ -580,38 +580,37 @@ Click Me
 {% endlayout %}
 </code></pre>
 <h3>Menu overlay</h3>
-<div z-load="@lib/components/menu-overlay" -z-lazy="false">
-<div #items>    <a href="javascript:navigateTo('Basic_button')">Basic button
-<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" style="margin-right: 8px">
+<div z-load="@lib/components/menu-overlay" -z-lazy="false" class="visible-on-ready">
+<div #items>    <a href="javascript:navigateTo('Basic_button')" style="height:40px;display:inline-block;">Basic button
+<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" style="margin-right: 8px; margin-left: 8px">
   <i class="material-icons"> home</i>
 </button></a>
-    <a href="javascript:navigateTo('Colored_button')">Colored button
-<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" style="margin-right: 8px">
+    <a href="javascript:navigateTo('Colored_button')" style="height:40px;display:inline-block;">Colored button
+<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" style="margin-right: 8px; margin-left: 8px">
   <i class="material-icons"> wb_sunny</i>
 </button></a>
-    <a href="javascript:navigateTo('Flat_button')">Flat button
-<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" style="margin-right: 8px">
+    <a href="javascript:navigateTo('Flat_button')" style="height:40px;display:inline-block;">Flat button
+<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" style="margin-right: 8px; margin-left: 8px">
   <i class="material-icons"> add</i>
 </button></a>
-    <a href="javascript:navigateTo('Floating_action_buttons')">Floating action buttons
-<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" style="margin-right: 8px">
+    <a href="javascript:navigateTo('Floating_action_buttons')" style="height:40px;display:inline-block;">Floating action buttons
+<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" style="margin-right: 8px; margin-left: 8px">
   <i class="material-icons"> smart_button</i>
 </button></a>
 </div>
   <!-- custom open/close menu button -->
   <div #menu_button>
-    <a ctrl z-load="@lib/controllers/mdl-button" z-options="toggleButton">
+    <a ctrl z-load="@lib/controllers/mdl-button" z-options="{ type: 'fab', class: 'accent', lazyLoad: false }">
       <i class="material-icons">toc</i>
     </a>
   </div>
   <div #menu_button_close>
-    <a ctrl z-load="@lib/controllers/mdl-button" z-options="toggleButton">
+    <a ctrl z-load="@lib/controllers/mdl-button" z-options="{ type: 'fab', class: 'primary', lazyLoad: false }">
       <i class="material-icons">close</i>
     </a>
   </div>
 </div>
 <script>
-toggleButton = { type: 'fab', class: 'primary', lazyLoad: false };
 function navigateTo(anchor) {
   const target = zuix.$.find('a[name="' + anchor + '"]');
   scrollHelper.scrollTo(target, 300);

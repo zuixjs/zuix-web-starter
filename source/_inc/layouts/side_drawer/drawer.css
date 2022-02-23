@@ -62,7 +62,7 @@
     margin: 0;
     margin-right: 10px;
     border-radius: 0 24px 24px 0;
-    height: 48px;
+    min-height: 48px;
     vertical-align: center;
     align-content: center;
     align-items: center;

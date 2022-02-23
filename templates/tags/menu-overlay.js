@@ -1,26 +1,25 @@
 const {JSDOM} = require('jsdom');
 
 const template = `
-<div z-load="@lib/components/menu-overlay" -z-lazy="false">
+<div z-load="@lib/components/menu-overlay" -z-lazy="false" class="visible-on-ready">
 
 {{ content }}
 
   <!-- custom open/close menu button -->
   <div #menu_button>
-    <a ctrl z-load="@lib/controllers/mdl-button" z-options="toggleButton">
+    <a ctrl z-load="@lib/controllers/mdl-button" z-options="{ type: 'fab', class: 'accent', lazyLoad: false }">
       <i class="material-icons">toc</i>
     </a>
   </div>
 
   <div #menu_button_close>
-    <a ctrl z-load="@lib/controllers/mdl-button" z-options="toggleButton">
+    <a ctrl z-load="@lib/controllers/mdl-button" z-options="{ type: 'fab', class: 'primary', lazyLoad: false }">
       <i class="material-icons">close</i>
     </a>
   </div>
 
 </div>
 <script>
-toggleButton = { type: 'fab', class: 'primary', lazyLoad: false };
 function navigateTo(anchor) {
   const target = zuix.$.find('a[name="' + anchor + '"]');
   scrollHelper.scrollTo(target, 300);
@@ -41,7 +40,7 @@ module.exports = (render, content) => {
       icon = item.childNodes.item(item.childNodes.length - 1);
       item.removeChild(icon);
       icon = `
-<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" style="margin-right: 8px">
+<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" style="margin-right: 8px; margin-left: 8px">
   <i class="material-icons">${icon.textContent}</i>
 </button>`;
     }
@@ -53,7 +52,7 @@ module.exports = (render, content) => {
         href = `javascript:navigateTo('${href.trim().substring(1)}')`;
       }
     }
-    content += `    <a href="${href}">${link.innerHTML}${icon}</a>
+    content += `    <a href="${href}" style="height:40px;display:inline-block;">${link.innerHTML}${icon}</a>
 `;
   });
   content = `<div #items>${content}</div>`;
