@@ -108,8 +108,8 @@ function MenuOverlay() {
     menuButtonShowing = false;
     menuButton.animateCss('fadeOutDown', {duration: '0.3s'}, function() {
       this.hide();
+      cp.trigger('hide');
     });
-    cp.trigger('hide');
   }
 
   function showButton() {

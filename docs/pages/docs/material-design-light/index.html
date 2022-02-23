@@ -447,6 +447,7 @@ color: #24333e;
 
             <div class="content">
 <h2>Liquid tags</h2>
+<p><a name="Basic_button"></a></p>
 <h3>Basic button</h3>
 <p><a ctrl z-load="@lib/controllers/mdl-button" z-options="{ type: '', class: '' }"
      href="#test-link-1" class="visible-on-ready">
@@ -456,6 +457,7 @@ Basic
 Basic
 {% endzx %}
 </code></pre>
+<p><a name="Colored_button"></a></p>
 <h3>Colored button</h3>
 <p><a ctrl z-load="@lib/controllers/mdl-button" z-options="{ type: 'raised', class: 'colored' }"
      href="#test-link-1" class="visible-on-ready">
@@ -465,6 +467,7 @@ Colored
 Colored
 {% endzx %}
 </code></pre>
+<p><a name="Flat_button"></a></p>
 <h3>Flat button</h3>
 <p><a ctrl z-load="@lib/controllers/mdl-button" z-options="{ type: 'flat', class: 'accent' }"
      href="#test-link-2" class="visible-on-ready">
@@ -474,6 +477,7 @@ Click Me
 Click Me
 {% endzx %}
 </code></pre>
+<p><a name="Floating_action_buttons"></a></p>
 <h3>Floating action buttons</h3>
 <p><a ctrl z-load="@lib/controllers/mdl-button" z-options="{ type: 'fab', class: 'accent' }"
      href="#test-link-3" class="visible-on-ready">
@@ -491,6 +495,7 @@ Click Me
 &lt;i class=&quot;material-icons&quot;&gt;home&lt;/i&gt;
 {% endzx %}
 </code></pre>
+<p><a name="Menu_button"></a></p>
 <h3>Menu button</h3>
 <div ctrl z-load="@lib/controllers/mdl-menu" z-lazy="false"
      z-behavior="menuButtonBehavior" class="visible-on-ready" style="min-height: 56px">
@@ -524,6 +529,7 @@ Click Me
 - [Option 3](#test3)
 {% endzx %}
 </code></pre>
+<p><a name="Cards"></a></p>
 <h3>Cards</h3>
 <div layout="rows center-spread" style="overflow-x:hidden"><div view z-load="@lib/templates/mdl-card-image" class="visible-on-ready" style="margin: 12px;">
   <h1 #title style="font-size: 150%!important; position: absolute; padding: 12px" class="mdl-color-text--primary-contrast">The bridge</h1>
@@ -573,6 +579,47 @@ Click Me
 
 {% endlayout %}
 </code></pre>
+<h3>Menu overlay</h3>
+<div z-load="@lib/components/menu-overlay" -z-lazy="false">
+<div #items>    <div><a href="#Basic_button">Basic button</a>
+<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" style="margin-right: 8px">
+  <i class="material-icons"> home</i>
+</button></div>
+    <div><a href="#Colored_button">Colored button</a>
+<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" style="margin-right: 8px">
+  <i class="material-icons"> wb_sunny</i>
+</button></div>
+    <div><a href="#Flat_button">Flat button</a>
+<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" style="margin-right: 8px">
+  <i class="material-icons"> add</i>
+</button></div>
+    <div><a href="#Floating_action_buttons">Floating action buttons</a>
+<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" style="margin-right: 8px">
+  <i class="material-icons"> smart_button</i>
+</button></div>
+</div>
+  <!-- custom open/close menu button -->
+  <div #menu_button>
+    <a ctrl z-load="@lib/controllers/mdl-button" z-options="toggleButton">
+      <i class="material-icons">toc</i>
+    </a>
+  </div>
+  <div #menu_button_close>
+    <a ctrl z-load="@lib/controllers/mdl-button" z-options="toggleButton">
+      <i class="material-icons">close</i>
+    </a>
+  </div>
+</div>
+<script>
+toggleButton = { type: 'fab', class: 'primary', lazyLoad: false };
+</script>
+<pre><code class="language-liquid">{% zx 'menu-overlay' %}
+- [Basic button](#Basic_button) home
+- [Colored button](#Colored_button) wb_sunny 
+- [Flat button](#Flat_button) add
+- [Floating action buttons](#Floating_action_buttons) smart_button
+{% endzx %}
+</code></pre>
 <hr>
 <hr>
 <pre><code class="language-html">// TODO: this documentation is a work in progress, to be completed soon.... stay tuned! =) 
@@ -589,6 +636,26 @@ Click Me
             </div>
 
 
+
+
+<div -self="size-x1" layout="row center-spread" style="margin-top: 96px; margin-bottom: 56px; padding-left: 8px; padding-right: 8px; font-size: 140%">
+
+    
+    <a href="/zuix-web-starter/pages/docs/welcome/">
+        <label layout="row center-center">
+            <i class="material-icons">arrow_left</i>&nbsp;
+            <span style="padding-right: 24px">Previous</span>
+        </label>
+        <small layout="row center-center">Welcome!</small>
+    </a>
+    
+
+    
+
+</div>
+
+
+
 <footer self="size-large" layout="columns center-center" style="min-height: 320px">
 
     <div class="subtitle" self="size-large" layout="rows center-justify" style="padding: 48px; gap: 8px; opacity: 0.75">
@@ -602,8 +669,6 @@ Click Me
     </div>
 
 </footer>
-
-
 
 
 

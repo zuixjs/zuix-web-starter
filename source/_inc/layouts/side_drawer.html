@@ -42,11 +42,11 @@ date: Last Modified
 {{ content }}
             </div>
 
+{% include "page_navigation.html" %}
+
 {% unless options contains 'no-footer' %}
 {% include "footer.html" %}
 {% endunless %}
-
-{% include "page_navigation.html" %}
 
 {% if pubDate %}
             <p>Published on: {{ pubDate | dateFormat }}</p>
