@@ -722,11 +722,6 @@
   </url>
 
   <url>
-    <loc>https://zuixjs.github.io/zuix-web-starter/pages/templates/news-blog/</loc>
-    <lastmod>2022-02-25</lastmod>
-  </url>
-
-  <url>
     <loc>https://zuixjs.github.io/zuix-web-starter/pages/docs/material-design-light/</loc>
     <lastmod>2022-02-25</lastmod>
   </url>
@@ -743,6 +738,11 @@
 
   <url>
     <loc>https://zuixjs.github.io/zuix-web-starter/pages/home/</loc>
+    <lastmod>2022-02-25</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zuix-web-starter/pages/templates/news-blog/</loc>
     <lastmod>2022-02-25</lastmod>
   </url>
 

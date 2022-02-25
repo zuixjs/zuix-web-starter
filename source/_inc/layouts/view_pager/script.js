@@ -4,6 +4,7 @@ let drawerLayout;
 let viewPager;
 let pageIndicator;
 let pageButtons;
+let contextMenu;
 
 //__zuix__debug = true;
 zuix.lazyLoad(true, 48);
@@ -84,7 +85,9 @@ options = {
   },
 
   contextMenu: {
-    ready: function(ctx) {}
+    ready: function(ctx) {
+      contextMenu = ctx;
+    }
   },
 
   content: {
@@ -109,6 +112,7 @@ function initialize() {
       showPage(i);
     });
   });
+  showPage(0);
 }
 
 function syncPageIndicator(page) {
@@ -136,4 +140,14 @@ function showPage(i) {
   if (viewPager) {
     viewPager.layout();
   }
+}
+
+function onItemClicked(e, $el) {
+  if ($el.attr('data-url')) {
+    location.href = $el.attr('data-url');
+  }
+}
+function onItemShowMenu(e, $el) {
+  contextMenu.show();
+  e.cancelBubble = true;
 }

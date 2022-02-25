@@ -20,9 +20,8 @@ date: Last Modified
 {{ content }}
 </main>
 
-<!--
 <div z-load="@lib/components/context-menu" class="visible-on-ready" z-lazy="false"
-     z-context="news-options-menu" z-options="contextMenu">
+     z-context="news-options-menu" z-options="options.contextMenu">
     <div z-field="menu">
         <button layout="row center-left">
             <i class="material-icons">bookmark_border</i>
@@ -50,7 +49,6 @@ date: Last Modified
         </button>
     </div>
 </div>
--->
 
 <!-- The DrawerLayout for side menu panel -->
 <div ctrl z-load="@lib/controllers/drawer-layout"

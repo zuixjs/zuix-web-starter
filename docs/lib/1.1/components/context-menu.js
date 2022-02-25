@@ -64,7 +64,7 @@ function ContextMenu() {
       menu.css('bottom', 0)
           .get().focus();
       cp.trigger('open');
-    }, 100);
+    }, 10);
   }
 
   function hideMenu() {
