@@ -1,9 +1,10 @@
 ---
-layout: side_drawer.html
+layout: basic.html
 options: none
-icon: pages
+icon: news
 order: 1
 tags: news_top
+link: https://www.cnn.com/2022/02/14/africa/elephant-ivory-trafficking-dna-scn/index.html
 title: "Tracing DNA of related elephants reveals illegal ivory trafficking networks"
 description: "African elephants have drastically dwindled as targets of the illegal ivory trade, but the DNA contained within their tusks is pointing to the very criminal networks that poached them."
 imagePreview: https://cdn.cnn.com/cnnnext/dam/assets/220214114652-african-elephant-stock-video-synd-2.jpg

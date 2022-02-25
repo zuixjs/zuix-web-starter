@@ -1,9 +1,10 @@
 ---
-layout: side_drawer.html
+layout: basic.html
 options: none
-icon: pages
+icon: news
 order: 1
 tags: news_top
+link: https://www.cnn.com/2022/02/14/investing/coinbase-qr-code-app/index.html
 title: "Coinbase's strange QR-code Super Bowl ad briefly crashes app"
 description: "The app for Coinbase, a cryptocurrency exchange, briefly crashed Sunday after a bizarre Super Bowl ad sparked a surge in traffic."
 imagePreview: https://cdn.cnn.com/cnnnext/dam/assets/220214090625-coinbase-app-stock-video-synd-2.jpeg

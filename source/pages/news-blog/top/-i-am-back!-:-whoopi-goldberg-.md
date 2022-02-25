@@ -1,9 +1,12 @@
 ---
-layout: side_drawer.html
+layout: basic.html
 options: none
-icon: pages
+icon: news
 order: 1
 tags: news_top
+link: 
+                https://www.cnn.com/videos/business/2022/02/14/whoopi-goldberg-return-to-the-view-ht-orig.cnn-business
+            
 title: "'I am back!': Whoopi Goldberg returned to 'The View'"
 description: "Whoopi Goldberg returned to \"The View\" after her two-week suspension because of her controversial comments on the Holocaust."
 imagePreview: https://cdn.cnn.com/cnnnext/dam/assets/220214152521-whoopi-goldberg-return-to-the-view-video-synd-2.jpg

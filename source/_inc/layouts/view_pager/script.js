@@ -144,7 +144,8 @@ function showPage(i) {
 
 function onItemClicked(e, $el) {
   if ($el.attr('data-url')) {
-    location.href = $el.attr('data-url');
+    //location.href = $el.attr('data-url');
+    window.open($el.attr('data-url'));
   }
 }
 function onItemShowMenu(e, $el) {

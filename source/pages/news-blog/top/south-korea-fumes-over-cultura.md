@@ -1,9 +1,10 @@
 ---
-layout: side_drawer.html
+layout: basic.html
 options: none
-icon: pages
+icon: news
 order: 1
 tags: news_top
+link: https://www.cnn.com/2022/02/14/sport/south-korea-china-beijing-2022-spt-intl/index.html
 title: "South Korea fumes over cultural appropriation and 'biased judgments' at Beijing 2022"
 description: "South Korea may have clinched its first gold medal at Beijing 2022 last week, but the success came amid tensions with China over alleged cultural appropriation and \"biased judgments\" during the Winter Olympics."
 imagePreview: https://cdn.cnn.com/cnnnext/dam/assets/220210091936-china-olympics-winter-hwang-dae-heon-video-synd-2.jpg

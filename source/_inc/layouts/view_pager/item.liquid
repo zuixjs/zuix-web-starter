@@ -1,5 +1,5 @@
 <div z-load="default" class="card-wrapper default watchable" self="{{ selfLayout }}" layout="column stretch-center">
-    <div class="card" layout="column top-center" @on:click="onItemClicked" data-url="{{ post.url | url }}">
+    <div class="card" layout="column top-center" @on:click="onItemClicked" data-url="{{ post.data.link | url }}">
 
         <div class="cover-wrapper" style="background-image: url({{ post.data.imagePreview }})">
             <div class="summary">

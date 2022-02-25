@@ -1,9 +1,10 @@
 ---
-layout: side_drawer.html
+layout: basic.html
 options: none
-icon: pages
+icon: news
 order: 1
 tags: news_top
+link: https://www.cnn.com/2022/02/15/politics/white-house-manufacturing-emissions/index.html
 title: "White House to unveil multi-pronged approach to reduce emissions in the manufacturing sector"
 description: "The White House will unveil new efforts to reduce emissions in the manufacturing sector Tuesday, including nearly $10 billion in Department of Energy funding from President Joe Biden's signature infrastructure law aimed at \"clean hydrogen\" manufacturing."
 imagePreview: https://cdn.cnn.com/cnnnext/dam/assets/220208153628-01-biden-ev-remarks-0208-video-synd-2.jpg
