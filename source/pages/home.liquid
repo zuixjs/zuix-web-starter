@@ -11,12 +11,13 @@ keywords:
 - web starter
 - home
 ---
-
-{%- for section in collections.sections -%}
+{% assign sections = collections.sections | sort: 'data.order' %}
+{%- for section in sections -%}
 <div layout="column center-center" style="margin-bottom: 56px">
     <h2 class="mdl-color-text--primary">{{ section.data.title }}</h2>
     <div layout="rows center-center">
-    {%- for post in collections[section.data.group] -%}
+    {% assign posts = collections[section.data.group] | sort: 'data.order' %}
+    {%- for post in posts -%}
 
         {% assign imageUrl = 'https://picsum.photos/seed/' | append: post.data.tags | append: '-' | append: forloop.index0 | append: '/256/256' %}
         {% assign postUrl = post.url | url %}

@@ -37,36 +37,6 @@
   </url>
 
   <url>
-    <loc>https://zuixjs.github.io/zuix-web-starter/pages/docs/welcome/</loc>
-    <lastmod>2022-02-25</lastmod>
-  </url>
-
-  <url>
-    <loc>https://zuixjs.github.io/zuix-web-starter/pages/templates/my-first-post/</loc>
-    <lastmod>2022-02-25</lastmod>
-  </url>
-
-  <url>
-    <loc>https://zuixjs.github.io/zuix-web-starter/pages/docs/material-design-light/</loc>
-    <lastmod>2022-02-25</lastmod>
-  </url>
-
-  <url>
-    <loc>https://zuixjs.github.io/zuix-web-starter/pages/templates/another-post/</loc>
-    <lastmod>2022-02-25</lastmod>
-  </url>
-
-  <url>
-    <loc>https://zuixjs.github.io/zuix-web-starter/pages/templates/</loc>
-    <lastmod>2022-02-25</lastmod>
-  </url>
-
-  <url>
-    <loc>https://zuixjs.github.io/zuix-web-starter/pages/home/</loc>
-    <lastmod>2022-02-25</lastmod>
-  </url>
-
-  <url>
     <loc>https://zuixjs.github.io/zuix-web-starter/pages/news-blog/top/-dramatic-acceleration--of-rus/</loc>
     <lastmod>2022-02-25</lastmod>
   </url>
@@ -742,7 +712,37 @@
   </url>
 
   <url>
+    <loc>https://zuixjs.github.io/zuix-web-starter/pages/docs/welcome/</loc>
+    <lastmod>2022-02-25</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zuix-web-starter/pages/docs/material-design-light/</loc>
+    <lastmod>2022-02-25</lastmod>
+  </url>
+
+  <url>
     <loc>https://zuixjs.github.io/zuix-web-starter/pages/templates/news-blog/</loc>
+    <lastmod>2022-02-25</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zuix-web-starter/pages/templates/my-first-post/</loc>
+    <lastmod>2022-02-25</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zuix-web-starter/pages/templates/another-post/</loc>
+    <lastmod>2022-02-25</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zuix-web-starter/pages/home/</loc>
+    <lastmod>2022-02-25</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zuix-web-starter/pages/templates/</loc>
     <lastmod>2022-02-25</lastmod>
   </url>
 

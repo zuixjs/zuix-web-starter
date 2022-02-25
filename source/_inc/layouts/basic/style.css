@@ -8,7 +8,6 @@ body {
 }
 main {
     width: 100%;
-    min-height: 100vh;
 }
 a {
     text-decoration: none!important;
@@ -22,13 +21,10 @@ p {
     margin-bottom: 8px;
 }
 li {
-    font-family: serif;
-    font-size: 170%;
     line-height: 160%;
     margin-bottom: 8px;
 }
 li pre {
-    font-size: 80%;
     line-height: 100%;
 }
 h1,h2 {

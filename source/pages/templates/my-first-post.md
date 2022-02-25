@@ -1,9 +1,10 @@
 ---
 layout: side_drawer.html
 tags: templates
-options: pico-css
+group: templates
+options: pico-css highlight
 icon: pages
-order: 1
+order: 2
 theme: dark
 title: pico.css
 description: My very first blog post description...

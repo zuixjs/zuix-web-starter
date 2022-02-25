@@ -1,7 +1,7 @@
-{% if nav_group %}
+{% if group %}
 
-{% assign prevPost = collections[nav_group] | getPreviousCollectionItem: page %}
-{% assign nextPost = collections[nav_group]  | getNextCollectionItem: page %}
+{% assign prevPost = collections[group] | sort: 'data.order' | getPreviousCollectionItem: page %}
+{% assign nextPost = collections[group] | sort: 'data.order' | getNextCollectionItem: page %}
 
 <div layout="row center-spread" style="margin-top: 96px; margin-bottom: 56px; padding-left: 8px; padding-right: 8px; font-size: 140%">
 
