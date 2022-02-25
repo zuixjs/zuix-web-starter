@@ -1,5 +1,5 @@
 ---
-layout: side_drawer.html
+layout: side_drawer.liquid
 tags: templates
 group: templates
 options: pico-css highlight

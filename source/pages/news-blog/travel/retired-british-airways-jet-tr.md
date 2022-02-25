@@ -1,5 +1,5 @@
 ---
-layout: basic.html
+layout: basic.liquid
 options: none
 icon: news
 order: 1

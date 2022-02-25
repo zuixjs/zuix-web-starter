@@ -1,7 +1,7 @@
 ---
 date: Last Modified
 ---
-{% include "head_open.html" %}
+{% include "head_open.liquid" %}
 <style>
 {% include "layouts/side_drawer/style.css" %}
 </style>
@@ -44,13 +44,9 @@ date: Last Modified
 
 {% include "page_navigation.liquid" %}
 
-{% unless options contains 'no-footer' %}
-{% include "footer.html" %}
-{% endunless %}
+{% include "footer.liquid" %}
 
-{% if pubDate %}
-            <p>Published on: {{ pubDate | dateFormat }}</p>
-{% endif %}
+{% include "published_date.liquid" %}
 
         </div>
     </main>

@@ -1,5 +1,5 @@
 ---
-layout: side_drawer.html
+layout: side_drawer.liquid
 tags: docs
 group: docs
 options: mdl highlight

@@ -1,5 +1,5 @@
 ---
-layout: side_drawer.html
+layout: side_drawer.liquid
 tags: docs
 group: docs
 options: mdl highlight
@@ -69,7 +69,7 @@ The `./source/_inc` folder, also contains other bits that are usually included i
 - `head_close.html`  
   This file just contains the `</head>` closing tag, any custom code can be added to the `head` section in the layout  
   template before this closing tag 
-- `footer.html`  
+- `footer.liquid`  
   The common footer placed at the end of the page's content.
 - `body_end.html`  
   This file can be used to place any common content or script before the end of the `body`  

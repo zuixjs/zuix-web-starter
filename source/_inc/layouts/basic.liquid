@@ -1,0 +1,34 @@
+---
+date: Last Modified
+---
+{% include "head_open.liquid" %}
+<style>
+{% include "layouts/basic/style.css" %}
+</style>
+{% include "head_close.html" %}
+
+<!-- scroll helper is used to show/hide the header when scrolling -->
+<body layout="column top-center" data-theme="{{ theme }}">
+
+<header class="header-cover animate__animated animate__fadeIn">
+    <div self="size-large center" layout="row center-left">
+        <div><h1 z-field="page_title" class="title animate__animated animate__fadeInLeft">{{title}}</h1></div>
+        <div self="center-right"><a href="{{app.baseUrl}}"><i class="material-icons animate__animated animate__fadeInRight">menu</i></a></div>
+    </div>
+</header>
+
+<main self="size-large center" class="main-content animate__animated animate__fadeIn" layout="column top-stretch">
+
+    {{ content | safe }}
+
+    {% include "published_date.liquid" %}
+</main>
+
+{% include "page_navigation.liquid" %}
+
+{% include "footer.liquid" %}
+
+{% include "body_end.html" %}
+
+</body>
+{% include "html_close.html" %}

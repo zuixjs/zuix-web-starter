@@ -1,5 +1,5 @@
 ---
-layout: basic.html
+layout: basic.liquid
 tags: templates
 group: templates
 options: highlight

@@ -1,7 +1,7 @@
 body {
     min-height: 100vh;
     margin: 0;
-    font-size: 18px;
+    font-size: 14px;
     font-family: Helvetica, sans-serif;
     background: #E8F5E9;
     overflow-x: hidden;
@@ -138,6 +138,13 @@ ul.list li {
     margin: 0;
 }
 
+.title {
+    max-width: calc(100vw - 72px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 /* overlay menu styles */
 
 .mo-title-mdl {
@@ -182,10 +189,7 @@ ul.list li {
 
 @media only screen and (max-width: 640px) {
     body {
-        font-size: 105%;
-    }
-    li {
-        font-size: 140%;
+        font-size: 16px;
     }
     .padding-48-8 {
         padding: 8px;
