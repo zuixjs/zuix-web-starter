@@ -15,7 +15,7 @@ keywords:
 <label>{{ title }}</label>
 
 <div layout="rows center-spread">
-{%- for post in collections[section] -%}
+{%- for post in collections[group] -%}
 
 {% assign imageUrl = 'https://picsum.photos/seed/docs-' | append: forloop.index0 | append: '/256/256' %}
 

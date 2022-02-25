@@ -32,11 +32,6 @@
   </url>
 
   <url>
-    <loc>https://zuixjs.github.io/zuix-web-starter/pages/docs/</loc>
-    <lastmod>2022-02-25</lastmod>
-  </url>
-
-  <url>
     <loc>https://zuixjs.github.io/zuix-web-starter/pages/news-blog/top/-dramatic-acceleration--of-rus/</loc>
     <lastmod>2022-02-25</lastmod>
   </url>
@@ -738,6 +733,11 @@
 
   <url>
     <loc>https://zuixjs.github.io/zuix-web-starter/pages/home/</loc>
+    <lastmod>2022-02-25</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zuix-web-starter/pages/docs/</loc>
     <lastmod>2022-02-25</lastmod>
   </url>
 

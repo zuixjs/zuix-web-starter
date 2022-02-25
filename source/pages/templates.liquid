@@ -16,7 +16,7 @@ keywords:
 <label>{{ title }}</label>
 
 <div layout="rows center-spread">
-{%- for post in collections[section] -%}
+{%- for post in collections[group] -%}
 
 {% zx 'card' post.data.title 'https://picsum.photos/256/256' 'Open' '#link-to-somewhere' 'image' %}
 {{ post.data.description }}
