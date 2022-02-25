@@ -1,0 +1,41 @@
+---
+layout: view_pager.liquid
+tags: templates
+options: none
+icon: newspaper
+order: 2
+theme: none
+title: News Blog
+description: A news blog template inspired by G.News
+keywords:
+- blog
+- lifestyle
+---
+
+<section>
+    <div ctrl z-load="@lib/controllers/view-pager"
+         z-options="options.viewPager" z-lazy="true"
+         class="feed-pager visible-on-ready"
+         draggable="false">
+
+{% assign sectionList = collections.news_section | sort: 'data.order' %}
+{% for section in sectionList %}
+    <section class="content visible-on-ready" ctrl z-load="@lib/controllers/header-auto-hide" z-lazy="true" z-options="options.autoHidingBars">
+        <div view z-load="..{{ section.url }}index" z-options="{css: false, lazyLoad: true}"
+                z-field="list" self="size-xxlarge center" layout="rows stretch-center" class="list">
+        </div>
+    </section>
+{% endfor %}
+
+    </div>
+</section>
+<!--
+ SEARCH
+<section view z-load="pages/view-pager/search" z-lazy="true" class="visible-on-ready"></section>
+
+ NOTIFICATIONS
+<section view z-load="pages/view-pager/notifications" z-lazy="true" class="visible-on-ready"></section>
+
+ ABOUT
+<section view z-load="pages/view-pager/about" z-lazy="true" layout="column top-center" class="visible-on-ready"></section>
+-->

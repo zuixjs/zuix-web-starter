@@ -1,5 +1,6 @@
 ---
 layout: side_drawer.html
+tags: docs
 options: mdl highlight
 theme: indigo-pink
 order: 20

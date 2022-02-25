@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="{{description}}">
+    <meta name="description" content="{{description | slugify}}">
     {% if keywords != null %}<meta name="keywords" content="{{ keywords }}" />{% endif %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}}</title>
@@ -75,9 +75,13 @@
 {% endif %}
 
     <!-- zuix.js https://github.com/zuixjs/zuix -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preload" as="script" href="{{ '/js/zuix/zuix.min.js' | url }}">
     <link rel="preload" as="script" href="{{ '/config.js' | url }}">
     <link rel="preload" as="script" href="{{ '/js/zuix/animate-css.js' | url }}">
-    <script src="{{ '/js/zuix/zuix.min.js' | url }}"></script>
+    <script src="{{ '/js/zuix/zuix.js' | url }}"></script>
     <script src="{{ '/config.js' | url }}"></script>
     <script src="{{ '/js/zuix/animate-css.js' | url }}"></script>
+    <style>
+{% include "layouts/zuix.css" %}
+    </style>

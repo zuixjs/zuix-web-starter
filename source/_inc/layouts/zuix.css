@@ -1,0 +1,13 @@
+    [z-load][z-ready=true].visible-on-ready,
+    [z-include][z-ready=true].visible-on-ready
+    {
+        opacity: 1;
+        transition-delay: 150ms;
+        transition-property: opacity;
+    }
+    [z-load]:not([z-ready=true]).visible-on-ready,
+    [z-include]:not([z-ready=true]).visible-on-ready
+    {
+        opacity: 0;
+        visibility: hidden;
+    }

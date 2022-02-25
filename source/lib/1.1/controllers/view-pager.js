@@ -661,10 +661,6 @@ function ViewPager() {
       transition = 'none';
     }
     el.css({
-      '-webkit-transition': transition,
-      '-moz-transition': transition,
-      '-ms-transition': transition,
-      '-o-transition': transition,
       'transition': transition
     });
   }

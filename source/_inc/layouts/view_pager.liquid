@@ -1,0 +1,81 @@
+---
+date: Last Modified
+---
+{% include "head_open.html" %}
+<style>
+    {% include "layouts/view_pager/style.css" %}
+</style>
+<script>
+    {% include "layouts/view_pager/script.js" %}
+</script>
+{% include "head_close.html" %}
+
+<!-- load the 'header_auto_hide' on the body -->
+<body>
+
+<!-- The header with profile icon button for opening the drawer layout (side menu panel) -->
+{% include './view_pager/header-bar.liquid' %}
+
+<main z-field="pages">
+{{ content }}
+</main>
+
+<!--
+<div z-load="@lib/components/context-menu" class="visible-on-ready" z-lazy="false"
+     z-context="news-options-menu" z-options="contextMenu">
+    <div z-field="menu">
+        <button layout="row center-left">
+            <i class="material-icons">bookmark_border</i>
+            <span>Save for later</span>
+        </button>
+        <button layout="row center-left">
+            <i class="material-icons">share</i>
+            <span>Share</span>
+        </button>
+        <button layout="row center-left">
+            <i class="material-icons">open_in_new</i>
+            <span>Open link</span>
+        </button>
+        <button layout="row center-left">
+            <i class="material-icons">not_interested</i>
+            <span>Hide items from this source</span>
+        </button>
+        <button layout="row center-left">
+            <i class="material-icons">thumb_up</i>
+            <span>More like this</span>
+        </button>
+        <button layout="row center-left">
+            <i class="material-icons">thumb_down</i>
+            <span>Less like this</span>
+        </button>
+    </div>
+</div>
+-->
+
+<!-- The DrawerLayout for side menu panel -->
+<div ctrl z-load="@lib/controllers/drawer-layout"
+     z-options="options.drawerLayout" z-lazy="false"
+     class="drawer visible-on-ready"
+     draggable="false">
+
+    {% include './view_pager/drawer-menu.liquid' %}
+
+</div>
+
+<!-- The footer with toolbar buttons -->
+{% include './view_pager/footer-bar.liquid' %}
+
+<noscript>
+    Turn on JavaScript to access this site content.
+</noscript>
+
+{% include "body_end.html" %}
+
+</body>
+
+<!-- page script -->
+<script>
+  {% include "layouts/side_drawer/script.js" %}
+</script>
+
+{% include "html_close.html" %}

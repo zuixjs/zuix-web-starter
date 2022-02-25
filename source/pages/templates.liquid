@@ -1,0 +1,26 @@
+---
+layout: side_drawer.html
+tags: sections
+group: templates
+section: templates
+options: mdl
+theme: indigo-pink
+order: 1
+icon: home
+title: Templates
+description: Example blog section
+keywords:
+- Blog
+---
+
+<label>{{ title }}</label>
+
+<div layout="rows center-spread">
+{%- for post in collections[section] -%}
+
+{% zx 'card' post.data.title 'https://picsum.photos/256/256' 'Open' '#link-to-somewhere' 'image' %}
+{{ post.data.description }}
+{% endzx %}
+
+{%- endfor -%}
+</div>

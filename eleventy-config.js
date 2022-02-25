@@ -15,27 +15,15 @@ const normalizeMarkup = (s) => s.trim().split('\n').filter((l) => {
 
 module.exports = function(eleventyConfig) {
   // TODO: add custom 11ty config here
-
+  eleventyConfig.setDataDeepMerge(true);
   // # Add data collections
-
-  // get list of sub-folders inside the "pages" folder
-  const pageSections = fs.readdirSync(path.join(zuixConfig.build.input, 'pages'), {withFileTypes: true})
-      .filter((dirent) => dirent.isDirectory())
-      .map((dirent) => dirent.name);
-
-  pageSections.forEach((section) => {
-    eleventyConfig.addCollection(`posts_${section}`, function(collection) {
-      return collection.getFilteredByGlob(path.join(zuixConfig.build.input, `pages/${section}/*.md`))
-          .slice().sort((a, b) => +a.data.order > +b.data.order ? 1 : -1);
-    });
-  });
 
   // this is used by the searchFilter
   eleventyConfig.addCollection('posts_searchIndex', (collection) => {
     return [...collection.getFilteredByGlob(path.join(zuixConfig.build.input, 'pages/**/*.md'))];
   });
 
-  // # Add custom data filters
+  // # Add custom data filters // TODO: maybe scan folder and add automatically
 
   eleventyConfig.addFilter(
       'search',

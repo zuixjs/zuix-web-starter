@@ -1,0 +1,35 @@
+<ul>
+    <li {% if page.url == '/pages/home/' %} aria-current="page"{% endif %}>
+    <a href="{{ '/pages/home' | url }}">
+        <div layout="row center-lett">
+            <i class="material-icons">home</i>
+            <span>Home</span>
+        </div>
+    </a>
+    </li>
+    <li {% if page.url == '/pages/search/' %} aria-current="page"{% endif %}>
+    <a href="{{ '/pages/search' | url }}">
+        <div layout="row center-left">
+            <i class="material-icons">search</i>
+            <span>Search</span>
+        </div>
+    </a>
+    </li>
+</ul>
+
+{%- for section in collections.sections -%}
+<label>{{ section.data.title }}</label>
+<ul>
+    {%- for post in collections[section.data.group] -%}
+    {% assign match = page.url | split:post.url %}
+    <li {% if match[0] == blank %} aria-current="page"{% endif %}>
+        <a href="{{ post.url | url }}">
+            <div layout="row center-lett">
+                <i class="material-icons">{{ post.data.icon }}</i>
+                <span>{{ post.data.title }}</span>
+            </div>
+        </a>
+    </li>
+    {%- endfor -%}
+</ul>
+{% endfor %}

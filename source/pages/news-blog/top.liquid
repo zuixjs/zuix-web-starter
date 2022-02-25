@@ -1,0 +1,8 @@
+---
+title: Top Stories
+folder: news_top
+tags: news_section
+order: 0
+---
+{% assign itemsList = collections[folder] %}
+{% include 'layouts/view_pager/items-list' %}

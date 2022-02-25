@@ -275,18 +275,10 @@ function DrawerLayout() {
       const transition = 'ease .15s';
       drawerLayout.css({
         'transition-property': 'left',
-        '-webkit-transition': transition,
-        '-moz-transition': transition,
-        '-ms-transition': transition,
-        '-o-transition': transition,
         'transition': transition
       });
       overlay.css({
         'transition-property': 'opacity',
-        '-webkit-transition': transition,
-        '-moz-transition': transition,
-        '-ms-transition': transition,
-        '-o-transition': transition,
         'transition': transition
       });
     }
@@ -297,17 +289,9 @@ function DrawerLayout() {
       isTransitionOn = false;
       const transition = 'none';
       drawerLayout.css({
-        '-webkit-transition': transition,
-        '-moz-transition': transition,
-        '-ms-transition': transition,
-        '-o-transition': transition,
         'transition': transition
       });
       overlay.css({
-        '-webkit-transition': transition,
-        '-moz-transition': transition,
-        '-ms-transition': transition,
-        '-o-transition': transition,
         'transition': transition
       });
     }

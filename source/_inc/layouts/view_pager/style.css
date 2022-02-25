@@ -1,0 +1,220 @@
+/* CSS files add styling rules to your content */
+
+body {
+    font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
+    font-size: 16px;
+    margin: 0; padding: 0;
+    background: white;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    overscroll-behavior-y: contain;
+}
+
+.drawer {
+    background: white;
+}
+
+.content {
+    font-family: serif;
+    font-size: 110%;
+    width: 100vw;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.feed-pager {
+    height: 100vh;
+    z-index: 0;
+}
+
+.list {
+    margin-top: 96px;
+    margin-bottom: 206px;
+}
+
+.card-wrapper {
+    position: relative;
+    margin: 0;
+    padding: 8px;
+    max-width: 100%;
+    /* min-height: 100px; this is causing strange behavior on mobile, like delayed loading?!? */
+    overflow: hidden;
+    font-family: Helvetica, sans-serif !important;
+}
+
+.info {
+    margin-left:4px;
+    margin-right:4px;
+}
+
+.card {
+    width: 100%;
+    position: relative;
+    max-width: 640px;
+    min-height: 200px;
+    padding: 12px;
+    padding-bottom: 24px;
+}
+.card i {
+    color: gray;
+    font-size: 200%;
+}
+.cover-wrapper {
+    cursor: pointer;
+    width: 100%;
+    border-radius: 12px;
+    padding-top: 75%;
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background: #f2f2f2 no-repeat center center;
+}
+.cover-wrapper:not(.scroll-helper-visible) {
+    background-image: none!important;
+}
+
+.summary {
+    width: 100%;
+}
+.options {
+    color: dimgrey;
+}
+.options span {
+    font-size: 80%;
+}
+.options button {
+    width: 48px;
+    height: 48px;
+    padding-top: 4px;
+    background: rgba(50,50,50,0.01);
+    border: none;
+    border-radius: 24px;
+}
+.options button:hover {
+    background: rgba(0,0,0,0.1);
+}
+
+
+.card-wrapper.default h1 {
+    font-size: 140%;
+    font-weight: 500;
+    margin: 0 4px;
+}
+
+.card-wrapper.default .summary {
+    position: absolute;
+    padding: 4px;
+    left:0; bottom:8px; right: 0;
+}
+.card-wrapper.default .summary {
+    color: white;
+    background-color: rgba(0,0,0,0.6);
+}
+.card-wrapper.default [self*="size-1of3"]  h1 {
+    font-size: 120% !important;
+}
+
+
+.card-wrapper.mini .card h1 {
+    font-size: 120%;
+    font-weight: 500;
+    margin: 0;
+}
+
+.card-wrapper.mini .card .cover-wrapper {
+    margin: 4px;
+    padding-top: 56.25%;
+}
+
+.card-wrapper.mini .card .summary {
+    cursor: pointer;
+    margin-top: 16px;
+}
+
+
+
+
+
+/* Drawer menu content */
+.drawer-menu {
+    font-family: "Trebuchet MS", sans-serif;
+    overflow-x: hidden;
+}
+
+.drawer-menu a {
+    text-decoration: none;
+    color: black;
+}
+
+.drawer-menu hr {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    opacity: 0.2;
+}
+
+.drawer-menu .profile {
+    margin-top: 16px;
+    margin-left: 16px;
+    width: 64px;
+    height: 64px;
+    background: #f5f8fa;
+    border-radius: 50%;
+    border: solid 1px #00aced;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.drawer-menu .profile img {
+    margin-left: -4px;
+    width: 68px;
+    height: 68px;
+}
+
+.drawer-menu .info {
+    margin-top: 8px;
+    margin-left: 16px;
+    font-size: 120%;
+}
+
+.drawer-menu .nick {
+    font-weight: bold;
+}
+.drawer-menu .name {
+    font-size: 90%;
+    color: gray;
+}
+.drawer-menu .summary {
+    color: darkgray;
+    font-size: 80%;
+    margin-top: 8px;
+}
+.drawer-menu .summary strong {
+    color: gray;
+}
+
+.drawer-menu .options button {
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 110%;
+    width: 100%;
+    height:56px;
+    border: 0;
+    margin: 0;
+    padding: 0 0 0 16px;
+    background: transparent;
+    color: black;
+    vertical-align: middle;
+    align-items: center;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+.drawer-menu .options button i {
+    font-size: 200%;
+    color: darkgray;
+}
+.drawer-menu .options button span {
+    margin-left: 8px;
+}

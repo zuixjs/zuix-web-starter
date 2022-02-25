@@ -1,0 +1,24 @@
+. {
+    color: black;
+    padding: 24px;
+    margin-top: 64px;
+    margin-bottom: 64px;
+}
+
+h1,h2,h3 {
+    color: grey;
+}
+
+h2 {
+    font-size: 130%;
+}
+
+a, a:visited, a:hover {
+    font-weight: 700;
+    color: darkorange;
+    text-decoration: none;
+}
+
+.small {
+    font-size: 90%;
+}

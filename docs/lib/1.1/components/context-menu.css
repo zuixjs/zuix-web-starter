@@ -8,10 +8,6 @@
     touch-action: none;
     background: rgba(0,0,0,0.5);
     z-index: 200;
-    -webkit-transition: opacity 0.25s ease-in-out;
-    -moz-transition: opacity 0.25s ease-in-out;
-    -ms-transition: opacity 0.25s ease-in-out;
-    -o-transition: opacity 0.25s ease-in-out;
     transition: opacity 0.25s ease-in-out;
 }
 .menu {
@@ -27,11 +23,7 @@
     border: solid 1px rgba(0,0,0,0.1);
     border-radius: 16px 16px 0 0;
     box-shadow: 0 -5px 5px -5px #333;
-    -webkit-transition: bottom 0.25s ease-in-out;
-    -moz-transition: bottom 0.25s ease-in-out;
-    -ms-transition: bottom 0.25s ease-in-out;
-    -o-transition: bottom 0.25s ease-in-out;
-    transition: bottom 0.25s ease-in-out;
+    transition: bottom 0.5s ease-in-out;
 }
 button {
     width: 100%;
@@ -54,9 +46,5 @@ button:hover {
     background: rgba(0,0,0,0.1);
 }
 .no-transition {
-    -webkit-transition: none;
-    -moz-transition: none;
-    -ms-transition: none;
-    -o-transition: none;
     transition: none;
 }

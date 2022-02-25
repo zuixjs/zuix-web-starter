@@ -1,0 +1,31 @@
+---
+layout: side_drawer.html
+options: mdl
+theme: green-pink
+order: 0
+icon: home
+title: Home
+description: zuix.js web starter home page
+keywords:
+- zuix
+- web starter
+- home
+---
+
+{%- for section in collections.sections -%}
+<div layout="column center-center" style="margin-bottom: 56px">
+    <h2 class="mdl-color-text--primary">{{ section.data.title }}</h2>
+    <div layout="rows center-center">
+    {%- for post in collections[section.data.group] -%}
+
+        {% assign imageUrl = 'https://picsum.photos/seed/' | append: post.data.tags | append: '-' | append: forloop.index0 | append: '/256/256' %}
+        {% assign postUrl = post.url | url %}
+
+        {% zx 'card' post.data.title imageUrl 'Open' postUrl 'image' %}
+        {{ post.data.description }}
+        {% endzx %}
+
+    {%- endfor -%}
+    </div>
+</div>
+{% endfor %}
