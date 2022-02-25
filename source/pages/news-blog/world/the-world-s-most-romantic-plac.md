@@ -1,9 +1,10 @@
 ---
-layout: side_drawer.html
+layout: basic.html
 options: none
-icon: pages
+icon: news
 order: 1
 tags: news_world
+link: https://www.cnn.com/travel/article/romantic-places/index.html
 title: "The world's most romantic places"
 description: "Maybe you'd choose the white sands and turquoise waters of a deserted tropical beach. Perhaps it's the lure of iconic cultural cities such as Paris, Venice or Istanbul. Then again, the call of the wild from a safari is a pretty special way to spend time with your beloved."
 imagePreview: https://cdn.cnn.com/cnnnext/dam/assets/190207160049-21-romantic-places-buenos-aires-video-synd-2.jpg

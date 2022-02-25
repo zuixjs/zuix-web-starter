@@ -1,9 +1,10 @@
 ---
-layout: side_drawer.html
+layout: basic.html
 options: none
-icon: pages
+icon: news
 order: 1
 tags: news_world
+link: https://www.cnn.com/travel/article/breakfast-food-around-the-world/index.html
 title: "Breakfast around the world: How different places start the day"
 description: "When it comes to breakfast foods around the world, there are as many ways to enjoy the first meal of the day as there are to say \"good morning.\""
 imagePreview: https://cdn.cnn.com/cnnnext/dam/assets/190515173104-03-breakfast-around-the-world-avacado-toast-video-synd-2.jpg

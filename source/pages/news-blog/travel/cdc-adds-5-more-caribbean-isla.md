@@ -1,9 +1,10 @@
 ---
-layout: side_drawer.html
+layout: basic.html
 options: none
-icon: pages
+icon: news
 order: 1
 tags: news_travel
+link: https://www.cnn.com/travel/article/cdc-very-high-risk-travel-destinations-january-24/index.html
 title: "CDC adds 5 more Caribbean island destinations to its highest level of travel risk"
 description: "The US Centers for Disease Control and Prevention moved five Caribbean island destinations into its highest-risk travel category for Covid-19 on Monday."
 imagePreview: https://cdn.cnn.com/cnnnext/dam/assets/220124144330-dominican-republic-punta-cana-january-2022-video-synd-2.jpg

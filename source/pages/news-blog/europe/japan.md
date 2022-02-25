@@ -1,11 +1,12 @@
 ---
-layout: side_drawer.html
+layout: basic.html
 options: none
-icon: pages
+icon: news
 order: 1
 tags: news_europe
+link: https://www.cnn.com/specials/asia/japan
 title: "Japan"
-imagePreview: https://cdn.cnn.com/cnnnext/dam/assets/150325082152-social-gfx-cnn-logo-video-synd-2.jpg
 description: "View the latest Japan news and videos, including politics, travel and style headlines."
+imagePreview: https://cdn.cnn.com/cnnnext/dam/assets/150325082152-social-gfx-cnn-logo-video-synd-2.jpg
 pubDate: Thu, 10 Feb 2022 02:55:31 GMT
 ---

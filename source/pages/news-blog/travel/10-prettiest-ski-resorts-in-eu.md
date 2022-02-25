@@ -1,9 +1,10 @@
 ---
-layout: side_drawer.html
+layout: basic.html
 options: none
-icon: pages
+icon: news
 order: 1
 tags: news_travel
+link: https://www.cnn.com/travel/article/alpine-ski-resorts/index.html
 title: "10 prettiest ski resorts in Europe for alpine fans"
 description: "Choosing the most beautiful ski resort in the Alps is like picking the prettiest diamond."
 imagePreview: https://cdn.cnn.com/cnnnext/dam/assets/160105164129-05-ski-resorts-zermatt-video-synd-2.jpg
