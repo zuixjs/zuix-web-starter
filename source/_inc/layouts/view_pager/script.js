@@ -34,7 +34,7 @@ options = {
           if (currentPage) {
             // load the 'header-auto-hide' component that is loaded on each page
             zuix.context(currentPage, (headerAutoHide) => {
-              headerAutoHide.show();
+              headerAutoHide.show && headerAutoHide.show();
             });
           }
         }
