@@ -20,10 +20,14 @@ keywords:
 
 {% assign sectionList = collections.news_section | sort: 'data.order' %}
 {% for section in sectionList %}
-    <section class="content visible-on-ready" ctrl z-load="@lib/controllers/header-auto-hide" z-lazy="true" z-options="options.autoHidingBars">
+    <section class="content visible-on-ready" ctrl z-load="@lib/controllers/header-auto-hide" z-lazy="true" z-options="options.autoHidingBars" layout="column top-center">
         <div view z-load="..{{ section.url }}index" z-options="{css: false, lazyLoad: true}"
                 z-field="list" self="size-xxlarge center" layout="rows stretch-center" class="list">
         </div>
+
+        {% unless options contains 'no-footer' %}
+            {% include "footer.html" %}
+        {% endunless %}
     </section>
 {% endfor %}
 

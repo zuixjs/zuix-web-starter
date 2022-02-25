@@ -30,10 +30,11 @@ options = {
         syncPageIndicator(page);
         // show header/footer
         if (viewPager) {
-          const p = viewPager.get(page.in);
-          if (p) {
-            zuix.context(p, (ctx) => {
-              if (ctx.show) ctx.show();
+          const currentPage = viewPager.get(page.in);
+          if (currentPage) {
+            // load the 'header-auto-hide' component that is loaded on each page
+            zuix.context(currentPage, (headerAutoHide) => {
+              headerAutoHide.show();
             });
           }
         }

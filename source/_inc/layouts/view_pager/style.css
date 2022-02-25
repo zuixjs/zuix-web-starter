@@ -1,4 +1,7 @@
 /* CSS files add styling rules to your content */
+:root {
+    --primary-color: #00aced;
+}
 
 body {
     font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
@@ -31,7 +34,7 @@ body {
 
 .list {
     margin-top: 96px;
-    margin-bottom: 206px;
+    margin-bottom: 24px;
 }
 
 .card-wrapper {
@@ -58,7 +61,8 @@ body {
     padding-bottom: 24px;
 }
 .card i {
-    color: gray;
+    margin-top: 2px;
+    color: var(--primary-color);
     font-size: 200%;
 }
 .cover-wrapper {
@@ -87,6 +91,7 @@ body {
 .options button {
     width: 48px;
     height: 48px;
+    margin-top: 2px;
     padding-top: 4px;
     background: rgba(50,50,50,0.01);
     border: none;
@@ -161,7 +166,7 @@ body {
     height: 64px;
     background: #f5f8fa;
     border-radius: 50%;
-    border: solid 1px #00aced;
+    border: solid 1px var(--primary-color);
     overflow: hidden;
     cursor: pointer;
 }
