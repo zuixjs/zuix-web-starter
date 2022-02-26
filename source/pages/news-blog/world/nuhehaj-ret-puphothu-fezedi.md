@@ -1,7 +1,7 @@
 ---
 layout: basic.liquid
 headerButtonIcon: close
-headerButtonUrl: javascript:window.parent.closeContentFrame()
+headerButtonUrl: javascript:closeContent()
 options: mdl
 tags: [ "news", "blog", "demo", "news_world" ]
 group: news
