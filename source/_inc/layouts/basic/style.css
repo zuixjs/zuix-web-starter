@@ -150,7 +150,8 @@ ul.list li {
     white-space: nowrap;
 }
 .image-cover {
-    width: 960px;
+    width: 100%;
+    max-width: 960px;
     margin-top: 48px;
     border-radius: 64px;
     box-shadow: 0 8px 12px #a7a7a7;
