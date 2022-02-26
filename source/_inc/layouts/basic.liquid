@@ -11,9 +11,11 @@ date: Last Modified
 {% if headerButtonUrl == null %}{% assign headerButtonUrl = '#' %}{% endif %}
 
 <!-- scroll helper is used to show/hide the header when scrolling -->
-<body layout="column top-center" data-theme="{{ theme }}">
+<body layout="column top-center" data-theme="{{ theme }}"
+      ctrl z-load="@lib/controllers/header-auto-hide"
+      data-o-header="header-bar">
 
-<header class="header-cover animate__animated animate__fadeIn">
+<header #header-bar class="header-cover animate__animated animate__fadeIn">
     <div self="size-large center" layout="row center-left">
         <div><h1 z-field="page_title" class="title animate__animated animate__fadeInLeft">{{title}}</h1></div>
         <div self="center-right"><a href="{{headerButtonUrl}}"><i class="material-icons animate__animated animate__fadeInRight">{{ headerButtonIcon }}</i></a></div>

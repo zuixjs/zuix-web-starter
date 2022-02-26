@@ -7,6 +7,7 @@ body {
     overflow-x: hidden;
 }
 main {
+    overflow-x: hidden;
     width: 100%;
 }
 a {
@@ -152,7 +153,7 @@ ul.list li {
 .image-cover {
     width: 100%;
     max-width: 960px;
-    margin-top: 48px;
+    margin-top: 112px;
     border-radius: 64px;
     box-shadow: 0 8px 12px #a7a7a7;
 }
@@ -202,6 +203,10 @@ ul.list li {
 @media only screen and (max-width: 640px) {
     body {
         font-size: 16px;
+    }
+    .image-cover {
+        margin-top: 64px;
+        border-radius: 0;
     }
     .padding-48-8 {
         padding: 8px;

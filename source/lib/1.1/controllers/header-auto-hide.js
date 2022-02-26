@@ -26,10 +26,12 @@ zuix.controller(function(cp) {
     const header = cp.options().header || cp.view().attr('data-o-header');
     if (header != null) {
       headerBar = zuix.field(header);
+      headerBar.css({position: 'fixed', zIndex: 1});
     }
     const footer = cp.options().footer || cp.view().attr('data-o-footer');
     if (footer != null) {
       footerBar = zuix.field(footer);
+      footerBar.css({position: 'fixed', zIndex: 1});
     }
     const height = cp.options().height || cp.view().attr('data-o-height');
     if (height != null && !isNaN(height)) {
