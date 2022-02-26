@@ -3,28 +3,49 @@
 {% assign prevPost = collections[group] | sort: 'data.order' | getPreviousCollectionItem: page %}
 {% assign nextPost = collections[group] | sort: 'data.order' | getNextCollectionItem: page %}
 
-<div layout="row center-spread" style="margin-top: 96px; margin-bottom: 56px; padding-left: 8px; padding-right: 8px; font-size: 140%">
+<div layout="row center-spread" style="margin-top: 56px; margin-bottom: 56px; padding-left: 8px; padding-right: 8px; font-size: 140%">
 
     {% if prevPost %}
-    <a href="{{ prevPost.url |  url }}">
-        <label layout="row center-center">
+    <a href="{{ prevPost.url |  url }}" style="text-align: center">
+        {% if prevPost.data.imagePreviewMini -%}
+            <img src="{{ prevPost.data.imagePreviewMini }}" class="navigation-image" width="128" height="72">
+        {% endif -%}
+        <div class="navigation-title">{{ prevPost.data.title }}</div>
+        <div layout="row center-center">
             <i class="material-icons">arrow_left</i>&nbsp;
             <span style="padding-right: 24px">Previous</span>
-        </label>
-        <small layout="row center-center">{{ prevPost.data.title }}</small>
+        </div>
     </a>
     {% endif %}
 
     {% if nextPost %}
-    <a href="{{ nextPost.url |  url }}">
-        <label layout="row center-center">
+    <a href="{{ nextPost.url |  url }}" style="text-align: center">
+        {% if nextPost.data.imagePreviewMini -%}
+            <img src="{{ nextPost.data.imagePreviewMini }}" class="navigation-image" width="128" height="72">
+        {% endif -%}
+        <div class="navigation-title">{{ nextPost.data.title }}</div>
+        <div layout="row center-center">
             <span style="padding-left: 24px">Next</span>
             <i class="material-icons">arrow_right</i>&nbsp;
-        </label>
-        <small layout="row center-center">{{ nextPost.data.title }}</small>
+        </div>
     </a>
     {% endif %}
 
 </div>
-
+<style>
+    .navigation-image {
+        border-radius: 32px;
+        border-color: rgba(100,200,200,0.5);
+    }
+    .navigation-title {
+        margin: 8px;
+        opacity: 0.6;
+        color: darkgreen;
+        font-size: 80%;
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+</style>
 {% endif %}

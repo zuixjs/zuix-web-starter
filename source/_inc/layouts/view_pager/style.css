@@ -72,8 +72,10 @@ body {
     padding-top: 75%;
     position: relative;
     overflow: hidden;
-    background-size: cover;
-    background: #f2f2f2 no-repeat center center;
+    background-size: cover!important;
+    background-color: #f2f2f2;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 .cover-wrapper:not(.scroll-helper-visible) {
     background-image: none!important;

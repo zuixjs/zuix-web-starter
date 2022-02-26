@@ -51,6 +51,11 @@ h5 {
     margin-bottom: 8px;
     color:gray;
 }
+
+blockquote {
+    opacity: 50%;
+}
+
 header {
     width: 100%;
     color: #FFF59D;
@@ -143,6 +148,12 @@ ul.list li {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+.image-cover {
+    width: 960px;
+    margin-top: 48px;
+    border-radius: 64px;
+    box-shadow: 0 8px 12px #a7a7a7;
 }
 
 /* overlay menu styles */
