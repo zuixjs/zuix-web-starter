@@ -146,10 +146,21 @@ function showPage(i) {
 function onItemClicked(e, $el) {
   if ($el.attr('data-url')) {
     //location.href = $el.attr('data-url');
-    window.open($el.attr('data-url'));
+    //window.open($el.attr('data-url'));
+    openContentFrame($el.attr('data-url'));
   }
 }
 function onItemShowMenu(e, $el) {
   contextMenu.show();
   e.cancelBubble = true;
+}
+
+function openContentFrame(url) {
+  const contentFrame = zuix.field('content-frame');
+  contentFrame.get().src = url;
+  contentFrame.animateCss('zoomIn', {duration: '500ms'}).show();
+}
+function closeContentFrame() {
+  const contentFrame = zuix.field('content-frame');
+  contentFrame.animateCss('zoomOut', {duration: '200ms'}, ()=> contentFrame.hide());
 }

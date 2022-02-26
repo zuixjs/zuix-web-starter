@@ -1,7 +1,7 @@
 ---
 layout: basic.liquid
 headerButtonIcon: close
-headerButtonUrl: javascript:window.close()
+headerButtonUrl: javascript:window.parent.closeContentFrame()
 options: mdl
 tags: [ "news", "blog", "demo", "news_top" ]
 group: news
@@ -9,9 +9,9 @@ icon: news
 order: 1
 title: "Teac tospepip hif afu."
 description: "Ake mafcuc aluwec aluvub nofus cope bogec zok hiokhi tilgi."
-imageCover: https://picsum.photos/seed/top00/960/640
-imagePreview: https://picsum.photos/seed/top00/640/560
-imagePreviewMini: https://picsum.photos/seed/top00/320/240
+imageCover: https://picsum.photos/seed/top10/960/640
+imagePreview: https://picsum.photos/seed/top10/640/560
+imagePreviewMini: https://picsum.photos/seed/top10/320/240
 pubDate: 2022-03-15T03:08:32.015Z
 ---
 
