@@ -4,7 +4,6 @@
 const path = require('path');
 const config = require('config');
 const fs = require('fs');
-const moment = require('moment');
 const render = require('template-file').render;
 const zuixConfig = config.get('zuix');
 const normalizeMarkup = (s) => s.trim().split('\n').filter((l) => {
@@ -30,20 +29,8 @@ module.exports = function(eleventyConfig) {
       require('./source/_filters/searchFilter')
   );
   eleventyConfig.addFilter(
-      'startsWith',
-      require('./source/_filters/startsWith')
-  );
-  eleventyConfig.addFilter(
-      'dateFormat',
-      require('./source/_filters/dateFormat')
-  );
-  eleventyConfig.addFilter(
-      'getCollection',
-      require('./source/_filters/getCollection')
-  );
-  eleventyConfig.addFilter(
       'date',
-      (date, format) => moment(date).format(format || 'YYYY-MM-DD')
+      require('./source/_filters/dateFilter')
   );
 
   // TODO: describe the following
