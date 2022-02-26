@@ -1,7 +1,7 @@
 {% if group %}
 
-{% assign prevPost = collections[group] | sort: 'data.order' | getPreviousCollectionItem: page %}
-{% assign nextPost = collections[group] | sort: 'data.order' | getNextCollectionItem: page %}
+{% assign prevPost = collections[group] | sort: 'data.order' | sort: 'data.pubDate' | reverse | getPreviousCollectionItem: page %}
+{% assign nextPost = collections[group] | sort: 'data.order' | sort: 'data.pubDate' | reverse | getNextCollectionItem: page %}
 
 <div layout="row center-spread" style="margin-top: 56px; margin-bottom: 56px; padding-left: 8px; padding-right: 8px; font-size: 140%">
 
@@ -16,6 +16,8 @@
             <span style="padding-right: 24px">Previous</span>
         </div>
     </a>
+    {% else %}
+        <div>&nbsp;</div>
     {% endif %}
 
     {% if nextPost %}
@@ -29,6 +31,8 @@
             <i class="material-icons">arrow_right</i>&nbsp;
         </div>
     </a>
+    {% else %}
+    <div>&nbsp;</div>
     {% endif %}
 
 </div>
