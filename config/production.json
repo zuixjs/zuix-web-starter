@@ -43,23 +43,15 @@
     "app": {
       "title": "<code>zuix.js</code> Web Starter",
       "subtitle": "Simple, yet powerful!",
-      "googleSiteId": "UA-123-456",
-      "siteMapUrl": "https://zuixjs.github.io/zuix-web-starter",
       "baseUrl": "/zuix-web-starter/",
-      "resourcePath": "/app/",
+      "resourcePath": "{{ app.baseUrl }}app/",
       "libraryPath": {
-        "@lib": "https://zuixjs.github.io/zuix-web-starter/lib/1.1/",
+        "@lib": "{{ app.baseUrl }}lib/1.1/",
         "@hgui": "https://genielabs.github.io/homegenie-web-ui/app/",
         "@cdnjs": "https://cdnjs.cloudflare.com/ajax/libs/"
       },
-      "zuixjs.github.io": {
-        "resourcePath": "/zuix-web-starter/app/",
-        "libraryPath": {
-          "@lib": "https://zuixjs.github.io/zuix-web-starter/lib/1.1/",
-          "@hgui": "https://genielabs.github.io/homegenie-web-ui/app/",
-          "@cdnjs": "https://cdnjs.cloudflare.com/ajax/libs/"
-        }
-      }
+      "siteMapUrl": "https://zuixjs.github.io{{ app.baseUrl }}",
+      "googleSiteId": "UA-123-456"
     }
   }
 }

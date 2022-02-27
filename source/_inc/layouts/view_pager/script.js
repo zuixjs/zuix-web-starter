@@ -162,5 +162,8 @@ function openContentFrame(url) {
 }
 function closeContentFrame() {
   const contentFrame = zuix.field('content-frame');
-  contentFrame.animateCss('zoomOut', {duration: '300ms'}, ()=> contentFrame.hide());
+  contentFrame.animateCss('zoomOut', {duration: '300ms'}, ()=> {
+    contentFrame.hide();
+    contentFrame.get().src = 'about:blank';
+  });
 }

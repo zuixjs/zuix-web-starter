@@ -1,3 +1,6 @@
+    /* the following styles will keep host element
+       hidden while a component is loading, and it will
+       fade in quickly once it has been loaded */
     [z-load][z-ready=true].visible-on-ready,
     [z-include][z-ready=true].visible-on-ready
     {

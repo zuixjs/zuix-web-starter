@@ -71,7 +71,7 @@ The `./source/_inc` folder, also contains other bits that are usually included i
   template before this closing tag 
 - `footer.liquid`  
   The common footer placed at the end of the page's content.
-- `body_end.html`  
+- `body_end.liquid`  
   This file can be used to place any common content or script before the end of the `body`  
 - `html_close.html`  
   This file contains just the `</html>` closing tag.
@@ -90,7 +90,7 @@ The `./source/_inc` folder, also contains other bits that are usually included i
 
 {{ content | safe }}
 
-{% include "body_end.html" %}
+{% include "body_end.liquid" %}
 </body>
 {% include "html_close.html" %}
 {% endraw %}

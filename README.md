@@ -2,6 +2,7 @@
 
 Starter project for component oriented web development with [zuix.js](https://zuixjs.github.io/zuixjs.org) and [Eleventy](https://www.11ty.dev).
 
+
 ## Featuring
 
 - zuix.js web components
@@ -11,12 +12,12 @@ Starter project for component oriented web development with [zuix.js](https://zu
     * Front matter and external data files
 - LESS to CSS compiling
 - Minifier
-- Progressive Web App (PWA)
+- Progressive Web App (PWA) scoring up to 99/100/100/100 in Lighthouse
 
 
 ## Prerequisites
 
-This project requires [Node.js/npm](https://www.npmjs.com/get-npm) &gt;= v10 to be installed.
+This project requires [Node.js/npm](https://www.npmjs.com/get-npm) &gt;= v12 to be installed.
 
 
 ## Installation
@@ -30,6 +31,7 @@ Install development dependencies
 
     npm install
 
+
 ## Usage
 
 Start local web server and watch for file changes
@@ -37,13 +39,14 @@ Start local web server and watch for file changes
     npm start
 
 website source files are located in the `./source` folder and are
-generated in the `./build` folder.
+generated in the `./docs` folder.  
 This can also be done by issuing `Eleventy` command directly:
 ```
-npx @11ty/eleventy --incremental --serve
+npx @11ty/eleventy --serve
 ```
 
 See [Eleventy](https://11ty.dev) static site generator website for complete documentation.
+
 
 ### Configuration options
 
@@ -56,10 +59,8 @@ The default configuration is read from `config/default.json`:
       "input": "./source",
       "output": "./build",
       "copy": [
-        "app",
         "css",
         "images",
-        "js",
         ".nojekyll",
         "browserconfig.xml",
         "manifest.json",
@@ -68,16 +69,17 @@ The default configuration is read from `config/default.json`:
         "robots.txt"
       ],
       "ignore": [
-        "_filters",
-        "app"
+        "_filters"
       ],
       "dataFolder": "_data",
       "includesFolder": "_inc",
+      "componentsFolders": [ "app", "lib" ],
       "bundle": {
         "js": false,
         "css": false,
         "zuix": false
       },
+      "serviceWorker": false,
       "minify": {
         "disable": true,
         "collapseWhitespace": true,
@@ -95,12 +97,15 @@ The default configuration is read from `config/default.json`:
     },
     "app": {
       "title": "zUIx Web Starter application.",
-      "resourcePath": "/app/",
+      "subtitle": "Simple, yet powerful!",
+      "baseUrl": "/",
+      "resourcePath": "{{ app.baseUrl }}app/",
       "libraryPath": {
-        "@lib": "https://zuixjs.github.io/zkit/lib/",
+        "@lib": "https://zuixjs.github.io/zkit/lib/1.1/",
         "@hgui": "https://genielabs.github.io/homegenie-web-ui/app/",
         "@cdnjs": "https://cdnjs.cloudflare.com/ajax/libs/"
       },
+      "siteMapUrl": "https://zuixjs.github.io/zuix-web-starter/",
       "googleSiteId": "UA-123-456"
     }
   }
@@ -111,6 +116,7 @@ to use a different configuration file (eg. `config/production.json`):
 
     export NODE_ENV=production
     npm start
+
 
 ### zuix.build
 
@@ -129,14 +135,33 @@ Output folder: where to copy/generate site files.
 List of folders and files to copy as-is, from input to output folder,
 with no further processing.
 
+###### `dataFolder`
+
+Folder where to lookup for data files/script.
+
 ###### `includesFolder`
 
 Folder where to lookup for template/layout includes.
 
+###### `componentsFolder`
+
+Folders where *zuix.js* components are located. These files cannot include any template language code, but just standard
+*html*, *js* and *css* files should be placed here.
+
+###### `bundle`
+
+Whether to bundle scripts, styles and zuix.js components inside the generated page. External scripts and styles
+will also be downloaded and embedded inside the generated page.
+
+###### `serviceWorkder`
+
+Whether to generate service worker for this project. This should only be enabled in *production* configuration. 
+
 ###### `minify`
 
-To enable minification set `minify.enable` to `true`. See all available options
-from [html-minifier](https://github.com/kangax/html-minifier) repository.
+To enable minification set `minify.enable` to `true`. See all available options from [html-minifier](https://github.com/kangax/html-minifier)
+repository. This should be only enabled in *production* configuration.
+
 
 ### zuix.app
 
@@ -195,7 +220,7 @@ the body of all pages:
 
 
 ```html
-{% include "_inc/head_open.html" %}
+{% include "_inc/head_open.liquid" %}
     <link rel="stylesheet" href="index.css">
     <!-- put any custom content that goes inside `<head>` here -->
 {% include "_inc/head_close.html" %}
@@ -214,13 +239,12 @@ the body of all pages:
     </footer>
 
     <script src="index.js"></script>
-{% include "_inc/body_end.html" %}
+{% include "_inc/body_end.liquid" %}
 </body>
 {% include "_inc/html_close.html" %}
 ```
 
-Find out all other *Eleventy* commands and functionality from its
-[documentation page](https://11ty.dev/docs).
+Find out all other *Eleventy* commands and templates functionality from its [documentation page](https://11ty.dev/docs).
 
 The **app** folder is reserved for **zuix.js** components and templates that
 are loaded using the `z-load` attribute.
@@ -252,4 +276,5 @@ of the following files/folder:
 ## Resources and Docs
 
 - **zuix.js** https://zuixjs.org
-- **Eleventy** https://11ty.dev
+- **11ty** https://11ty.dev
+- **zKit** https://zuixjs.github.io/zkit/
