@@ -17,11 +17,11 @@
     </li>
 </ul>
 
-{% assign sections = collections.sections | sort: 'data.order' %}
+{% assign sections = collections.sections | sort: 'data.pubDate' | reverse | sort: 'data.order' %}
 {%- for section in sections -%}
 <label>{{ section.data.title }}</label>
 <ul>
-    {% assign posts = collections[section.data.group] | sort: 'data.order' %}
+    {% assign posts = collections[section.data.group] | sort: 'data.pubDate' | reverse | sort: 'data.order' %}
     {%- for post in posts -%}
     {% assign match = page.url | split:post.url %}
     <li {% if match[0] == blank %} aria-current="page"{% endif %}>

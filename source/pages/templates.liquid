@@ -13,14 +13,15 @@ keywords:
 - Blog
 ---
 
-<label>{{ title }}</label>
-
 <div layout="rows center-spread">
-{%- for post in collections[group] -%}
+    {%- for post in collections[group] -%}
 
-{% zx 'card' post.data.title 'https://picsum.photos/256/256' 'Open' '#link-to-somewhere' 'image' %}
-{{ post.data.description }}
-{% endzx %}
+        {% assign postUrl = post.url | url %}
+        {% assign imageUrl = 'https://picsum.photos/seed/templates-' | append: forloop.index0 | append: '/256/256' %}
 
-{%- endfor -%}
+        {% zx 'card' post.data.title imageUrl 'Open' postUrl 'image' %}
+        {{ post.data.description }}
+        {% endzx %}
+
+    {%- endfor -%}
 </div>

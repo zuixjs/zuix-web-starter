@@ -1,3 +1,3 @@
 # app
 
-Place website components and content includes here.
+Place `zuix.js` components and content includes here.

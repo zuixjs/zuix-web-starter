@@ -53,6 +53,8 @@ a simple splash screen used for the main page (`./source/index.html`).
 a basic page layout.
 - **`side_drawer`**  
 a page with a responsive *Navigation Drawer* layout, like the one used by this very page.
+- **`news_blog`**  
+view pager layout inspired by G-News, suitable both for desktop and mobile applications.
 
 #### Adding a custom layout
 
@@ -81,7 +83,7 @@ The `./source/_inc` folder, also contains other bits that are usually included i
 `./source/_inc/layouts/my-new-layout.html` 
 ```html
 {% raw %}
-{% include "head_open.html" %}
+{% include "head_open.liquid" %}
 <style>
 {% include "layouts/my-new-layout/style.css" %}
 </style>
@@ -101,8 +103,6 @@ The `./source/_inc` folder, also contains other bits that are usually included i
 
 - **`mdl`**  
   use [Material Design Light](https://getmdl.io/components/index.html) styles.
-- **`pico-css`**  
-  use [Pico.css](https://picocss.com/) styles.
 - **`highlight`**  
   include Prims code highlighter.
 - **`no-title`**  
@@ -110,10 +110,8 @@ The `./source/_inc` folder, also contains other bits that are usually included i
 - **`no-footer`**  
   do not include common footer
 
-The styles `mdl` and `pico-css` are mutually exclusive.  
 When using `mdl` style, also the **`theme`** variable can be added to the front matter for specifying the [material theme](https://getmdl.io/customize/index.html) to be used
-(e.g. `indigo-pink`, `amber-green`, etc...).  
-When using `pico-css` the **`theme`** variable can be either `dark` or `light`.  
+(e.g. `indigo-pink`, `amber-green`, etc...).
 
 These options are used in the include file `./source/_inc/head_open.html`, which hosts all stylesheets and scripts required by the page.
 Custom options can also be implemented in this file to toggle other frameworks and utilities.
@@ -166,6 +164,19 @@ for search engines as some of them might still use meta keywords for indexing.
 
 - manually
 - using `zx` CLI
+
+```js
+// TODO: example, how to add a menu section and then an article inside it
+```
+
+```bash
+zx add -l side_drawer -n docs/my-first-page \
+  -fm "options: mdl highlight" \
+  -fm "theme: green-blue" \
+  -fm "tags: docs" \
+  -fm "group: docs" \
+  -fm "icon: favorite"
+```
 
 // TODO: ...
 

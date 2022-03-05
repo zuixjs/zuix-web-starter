@@ -1,19 +1,19 @@
 const {JSDOM} = require('jsdom');
 
 const template = `
-<div z-load="@lib/components/menu-overlay" -z-lazy="false" class="visible-on-ready">
+<div z-load="@lib/components/menu-overlay" z-context="{{ contextId }}" -z-lazy="false" class="visible-on-ready">
 
 {{ content }}
 
   <!-- custom open/close menu button -->
   <div #menu_button>
-    <a ctrl z-load="@lib/controllers/mdl-button" z-options="{ type: 'fab', class: 'accent', lazyLoad: false }">
+    <a class="circle-button">
       <i class="material-icons">toc</i>
     </a>
   </div>
 
   <div #menu_button_close>
-    <a ctrl z-load="@lib/controllers/mdl-button" z-options="{ type: 'fab', class: 'primary', lazyLoad: false }">
+    <a class="circle-button">
       <i class="material-icons">close</i>
     </a>
   </div>
@@ -28,7 +28,7 @@ function navigateTo(anchor) {
 `;
 
 const markdownIt = require('markdown-it')();
-module.exports = (render, content) => {
+module.exports = (render, content, contextId) => {
   // convert markdown list to HTML
   content = markdownIt.render(content, {});
   const itemsList = new JSDOM(content).window.document.querySelectorAll('li');
@@ -39,10 +39,7 @@ module.exports = (render, content) => {
     if (elements.length > 1) {
       icon = item.childNodes.item(item.childNodes.length - 1);
       item.removeChild(icon);
-      icon = `
-<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" style="margin-right: 8px; margin-left: 8px">
-  <i class="material-icons">${icon.textContent}</i>
-</button>`;
+      icon = `<i class="material-icons">${icon.textContent}</i>`;
     }
     const link = item.querySelector('a');
     let href;
@@ -51,13 +48,13 @@ module.exports = (render, content) => {
       if (href && href.trim()[0] === '#') {
         href = `javascript:navigateTo('${href.trim().substring(1)}')`;
       }
-    }
-    content += `    <a href="${href}" style="height:40px;display:inline-block;">${link.innerHTML}${icon}</a>
+      content += `    <button onclick="${href}" style="height:42px;"><span>${link.innerHTML}</span>${icon}</button>
 `;
+    }
   });
   content = `<div #items>${content}</div>`;
 //  console.log(content)
 //      .replace('<ul>', '<ul #items>')
 //      .replaceAll('li>', 'div>');
-  return render(template, {content});
+  return render(template, {content, contextId});
 };

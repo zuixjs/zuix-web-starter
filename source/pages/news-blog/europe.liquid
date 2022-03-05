@@ -1,8 +1,0 @@
----
-title: Europe
-folder: news_europe
-tags: news_section
-order: 1
----
-{% assign itemsList = collections[folder] | sort: 'data.pubDate' | reverse %}
-{% include 'layouts/view_pager/items-list' %}

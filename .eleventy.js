@@ -216,7 +216,7 @@ module.exports = function(eleventyConfig) {
 
   // integrate custom user config with a dedicated
   // `eleventy-config.js` module file
-  require('./eleventy-config')(eleventyConfig);
+  require('./.eleventy-zuix')(eleventyConfig);
 
 
   // Return 11ty configuration options:

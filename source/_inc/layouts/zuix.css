@@ -5,8 +5,7 @@
     [z-include][z-ready=true].visible-on-ready
     {
         opacity: 1;
-        transition-delay: 150ms;
-        transition-property: opacity;
+        transition: opacity 150ms ease-in-out;
     }
     [z-load]:not([z-ready=true]).visible-on-ready,
     [z-include]:not([z-ready=true]).visible-on-ready
