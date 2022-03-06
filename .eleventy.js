@@ -1,3 +1,31 @@
+/*
+ * Copyright 2020-2022 G-Labs. All Rights Reserved.
+ *         https://zuixjs.github.io/zuix
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
+ *
+ *  This file is part of
+ *  zUIx, Javascript library for component-based development.
+ *        https://zuixjs.github.io/zuix
+ *
+ * @author Generoso Martello <generoso@martello.com>
+ * @version 1.0
+ *
+ */
+
 const path = require('path');
 const config = require('config');
 const util = require('util');
@@ -5,7 +33,7 @@ const compress = require('compression');
 const chokidar = require('chokidar');
 
 // 11ty
-const { EleventyRenderPlugin } = require("@11ty/eleventy");
+const {EleventyRenderPlugin} = require("@11ty/eleventy");
 
 // zuix.js CLI utils
 const zuixCompile = require('zuix-cli/commands/compile-page');
@@ -14,7 +42,7 @@ const zuixUtils = require('zuix-cli/common/utils');
 // Read configuration either from './config/{default}.json'
 // or './config/production.json' based on current `NODE_ENV'
 // environment variable value
-const zuixConfig = config.get('zuix');
+let zuixConfig = config.get('zuix');
 const sourceFolder = zuixConfig.get('build.input');
 const buildFolder = zuixConfig.get('build.output');
 const dataFolder = zuixConfig.get('build.dataFolder');
@@ -25,16 +53,17 @@ const componentsFolders = zuixConfig.get('build.componentsFolders');
 
 // LESS CSS compiler
 const less = require('less');
-const lessConfig = require(process.cwd()+'/.lessrc');
+const lessConfig = require(process.cwd() + '/.lessrc');
 
 // Linter (ESLint)
 const Linter = require('eslint').Linter;
 const linter = new Linter();
-const lintConfig = require(process.cwd()+'/.eslintrc');
+const lintConfig = require(process.cwd() + '/.eslintrc');
 
 // Minifier
 //const { minify } = require("terser");
 const fs = require('fs');
+const {render} = require('template-file');
 
 // Keep track of changed files for zUIx.js post-processing
 const postProcessFiles = [];
@@ -47,7 +76,8 @@ zuixUtils.copyFolder(util.format('%s/node_modules/zuix-dist/js', process.cwd()),
 });
 // - auto-generated config.js
 zuixUtils.generateAppConfig(zuixConfig);
-
+// replace {{variables}} used in the config
+zuixConfig = JSON.parse(render(JSON.stringify(zuixConfig), zuixConfig));
 
 module.exports = function(eleventyConfig) {
   eleventyConfig.setWatchJavaScriptDependencies(false);

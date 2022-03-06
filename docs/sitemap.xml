@@ -2,32 +2,32 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://zuixjs.github.io{{ app.baseUrl }}/</loc>
+    <loc>https://zuixjs.github.io/zuix-web-starter//</loc>
     <lastmod>2022-03-06</lastmod>
   </url>
 
   <url>
-    <loc>https://zuixjs.github.io{{ app.baseUrl }}/pages/docs/</loc>
+    <loc>https://zuixjs.github.io/zuix-web-starter//pages/docs/</loc>
     <lastmod>2022-03-06</lastmod>
   </url>
 
   <url>
-    <loc>https://zuixjs.github.io{{ app.baseUrl }}/search/</loc>
+    <loc>https://zuixjs.github.io/zuix-web-starter//search/</loc>
     <lastmod>2022-03-06</lastmod>
   </url>
 
   <url>
-    <loc>https://zuixjs.github.io{{ app.baseUrl }}/home/</loc>
+    <loc>https://zuixjs.github.io/zuix-web-starter//home/</loc>
     <lastmod>2022-03-06</lastmod>
   </url>
 
   <url>
-    <loc>https://zuixjs.github.io{{ app.baseUrl }}/pages/docs/material-design-tags/</loc>
+    <loc>https://zuixjs.github.io/zuix-web-starter//pages/docs/material-design-tags/</loc>
     <lastmod>2022-03-06</lastmod>
   </url>
 
   <url>
-    <loc>https://zuixjs.github.io{{ app.baseUrl }}/pages/docs/start/</loc>
+    <loc>https://zuixjs.github.io/zuix-web-starter//pages/docs/start/</loc>
     <lastmod>2022-03-06</lastmod>
   </url>
 

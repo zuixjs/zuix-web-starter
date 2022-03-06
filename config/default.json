@@ -59,7 +59,7 @@
           "@cdnjs": "https://cdnjs.cloudflare.com/ajax/libs/"
         }
       },
-      "siteMapUrl": "https://zuixjs.github.io/zuix-web-starter/",
+      "siteMapUrl": "https://zuixjs.github.io{{ app.baseUrl }}",
       "googleSiteId": "UA-123-456"
     }
   }
