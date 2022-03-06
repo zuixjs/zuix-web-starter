@@ -2,43 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://zuixjs.github.io{{ app.baseUrl }}/pages/search/</loc>
-    <lastmod>2022-02-25</lastmod>
-  </url>
-
-  <url>
-    <loc>https://zuixjs.github.io{{ app.baseUrl }}/pages/docs/material-design-light/</loc>
-    <lastmod>2022-02-25</lastmod>
-  </url>
-
-  <url>
-    <loc>https://zuixjs.github.io{{ app.baseUrl }}/pages/home/</loc>
-    <lastmod>2022-02-26</lastmod>
-  </url>
-
-  <url>
-    <loc>https://zuixjs.github.io{{ app.baseUrl }}/pages/docs/welcome/</loc>
-    <lastmod>2022-02-28</lastmod>
+    <loc>https://zuixjs.github.io{{ app.baseUrl }}/</loc>
+    <lastmod>2022-03-06</lastmod>
   </url>
 
   <url>
     <loc>https://zuixjs.github.io{{ app.baseUrl }}/pages/docs/</loc>
-    <lastmod>2022-03-01</lastmod>
+    <lastmod>2022-03-06</lastmod>
   </url>
 
   <url>
-    <loc>https://zuixjs.github.io{{ app.baseUrl }}/pages/templates/</loc>
-    <lastmod>2022-03-01</lastmod>
+    <loc>https://zuixjs.github.io{{ app.baseUrl }}/search/</loc>
+    <lastmod>2022-03-06</lastmod>
   </url>
 
   <url>
-    <loc>https://zuixjs.github.io{{ app.baseUrl }}/pages/templates/side-drawer/</loc>
-    <lastmod>2022-03-05</lastmod>
+    <loc>https://zuixjs.github.io{{ app.baseUrl }}/home/</loc>
+    <lastmod>2022-03-06</lastmod>
   </url>
 
   <url>
-    <loc>https://zuixjs.github.io{{ app.baseUrl }}/</loc>
-    <lastmod>2022-03-05</lastmod>
+    <loc>https://zuixjs.github.io{{ app.baseUrl }}/pages/docs/material-design-tags/</loc>
+    <lastmod>2022-03-06</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io{{ app.baseUrl }}/pages/docs/start/</loc>
+    <lastmod>2022-03-06</lastmod>
   </url>
 
 </urlset>

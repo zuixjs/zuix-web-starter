@@ -1,0 +1,10 @@
+---
+layout: side_drawer.liquid
+tags: sections
+{{ frontMatter }}
+options: mdl
+order: 1
+icon: topic
+---
+{% assign itemsList = collections[group] | sort: 'data.pubDate' | reverse | sort: 'data.order' -%}
+{% include 'layouts/side_drawer/items-list.liquid' %}

@@ -41,7 +41,7 @@ description: Brief document description
         })
       );
       // update results list on 'keyup'
-      $searchInput.on('search keyup', (e, v) => {
+      $searchInput.on('search', (e, v) => {
         if (!_resultsList) return;
         const term = $searchInput.value();
         const results = searchIndex.search(term, {

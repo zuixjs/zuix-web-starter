@@ -1,0 +1,33 @@
+---
+layout: side_drawer.liquid
+options: mdl
+theme: green-pink
+order: 0
+icon: home
+title: Home
+description: zuix.js web starter home page
+keywords:
+- zuix
+- web starter
+- home
+---
+
+
+{% renderTemplate "md" %}
+
+This [web starter](https://zuixjs.github.io/zuix-web-starter/) is based on [zuix.js](https://zuixjs.org), a library for component-based web development, and [Eleventy](https://11ty.dev),
+static site generator.
+
+{% endrenderTemplate %}
+
+
+{% assign sections = collections.sections | sort: 'data.order' %}
+{%- for section in sections -%}
+<div layout="column top-left" style="margin-bottom: 56px">
+    <h2 class="mdl-color-text--primary">{{ section.data.title }}</h2>
+
+    {% assign itemsList = collections[section.data.group] | sort: 'data.pubDate' | reverse | sort: 'data.order' -%}
+    {% include "layouts/side_drawer/items-list.liquid" %}
+
+</div>
+{% endfor %}

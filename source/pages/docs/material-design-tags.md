@@ -4,10 +4,10 @@ tags: docs
 group: docs
 options: mdl highlight
 theme: indigo-pink
-order: 20
+order: 30
+title: Material Design tags
+description: Material Design Light liquid tags
 icon: auto_stories
-title: MDL Examples
-description: Material Design Light examples
 keywords:
 - Material
 - Design
@@ -16,6 +16,10 @@ keywords:
 ---
 
 ## Liquid tags
+
+As an example, this web starter template includes [Material Design Lite](https://getmdl.io/components/) controls, implemented as *zuix.js* components that
+can be rendered using the following liquid [Liquid](https://shopify.dev/api/liquid) tags.   
+
 
 <a name="Basic_button"></a>
 ### Basic button

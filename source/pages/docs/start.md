@@ -4,20 +4,16 @@ tags: docs
 group: docs
 options: mdl highlight
 theme: indigo-pink
-order: 10
-icon: mood
-title: Welcome!
+order: 20
+title: Getting started
 description: Welcome to zuix.js web starter
+icon: mood
 keywords:
 - Material
 - Design
 - Light
 - MDL
 ---
-
-This [web starter](https://zuixjs.github.io/zuix-web-starter/) is based on [zuix.js](https://zuixjs.org), a library for component-based web development, and [Eleventy](https://11ty.dev),
-static site generator.
-
 
 ## Pages and Layouts
 
@@ -66,7 +62,7 @@ layout templates, by using the `<layout_name>` in the `layout` field in the fron
 
 
 The `./source/_inc` folder, also contains other bits that are usually included in an HTML document:
-- `head_open.html`  
+- `head_open.liquid`  
   This file contains the initial part of the `HTML` document with `head` section and styles/scripts inclusion. 
 - `head_close.html`  
   This file just contains the `</head>` closing tag, any custom code can be added to the `head` section in the layout  
@@ -113,7 +109,7 @@ The `./source/_inc` folder, also contains other bits that are usually included i
 When using `mdl` style, also the **`theme`** variable can be added to the front matter for specifying the [material theme](https://getmdl.io/customize/index.html) to be used
 (e.g. `indigo-pink`, `amber-green`, etc...).
 
-These options are used in the include file `./source/_inc/head_open.html`, which hosts all stylesheets and scripts required by the page.
+These options are used in the include file `./source/_inc/head_open.liquid`, which hosts all stylesheets and scripts required by the page.
 Custom options can also be implemented in this file to toggle other frameworks and utilities.
 
 #### Adding custom options
@@ -142,6 +138,10 @@ The page title.
 ### `description`
 
 The page description that will also be added to the page's metadata.
+
+### `pubDate`
+
+The date to show as publishing date.
 
 ### `keywords`
 
