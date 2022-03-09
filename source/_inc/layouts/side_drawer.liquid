@@ -15,12 +15,10 @@ date: Last Modified
 
     <nav #header layout="row center-start">
         <div self="stretch" layout="row center-start">
-            <div>
-                <img src="{{app.baseUrl}}images/menu_open_black_48dp.svg" onclick="menuDrawer.open()" class="header-menu-button">
-            </div>
-            <div self="size-x1" layout="row center-center">
-                <h1 style="margin:0;margin-left: -48px">{{ title }}</h1>
-            </div>
+            <button onclick="menuDrawer.open()" class="header-menu-button mdl-button mdl-button--icon">
+                <i class="material-icons">menu_open</i>
+            </button>
+            <h1 self="size-x1" class="title">{{ title }}</h1>
         </div>
     </nav>
 
@@ -32,21 +30,19 @@ date: Last Modified
          -->
 
 
-    <main class="animate__animated animate__fadeIn animate__faster">
-        <div layout="column top-center">
+    <main class="animate__animated animate__fadeIn animate__faster" layout="column top-center">
 
-{% unless options contains 'no-title' %}
-            <h1 #alt_header>{{ title }}</h1>
-{% endunless %}
-            <div class="content">
-{{ content }}
-            </div>
+        {% unless options contains 'no-title' %}
+            <h1 #alt_header class="title">{{ title }}</h1>
+        {% endunless %}
 
-{% include "./side_drawer/page_navigation.liquid" %}
-
-{% include "footer.liquid" %}
-
+        <div self="size-x1" class="content">
+            {{ content }}
+            {% include "./side_drawer/page_navigation.liquid" %}
         </div>
+
+        {% include "footer.liquid" %}
+
     </main>
 
 
@@ -60,8 +56,8 @@ date: Last Modified
 
         <!-- Header -->
         <div class="drawer-header" layout="column justify-stretch">
-            <a href="{{ '/' | url }}">
-                <img src="{{app.baseUrl}}images/profile-icon.png" class="logo">
+            <a href="{{ '/' | url }}" title="Home">
+                <img src="{{app.baseUrl}}images/profile-icon.png" class="logo" alt="Logo">
             </a>
             <div class="title">{{ app.title }}</div>
             <div class="subtitle">{{ app.subtitle }}</div>

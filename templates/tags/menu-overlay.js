@@ -7,13 +7,13 @@ const template = `
 
   <!-- custom open/close menu button -->
   <div #menu_button>
-    <a class="circle-button">
+    <a class="circle-button" href="javascript:;" title="Open menu" >
       <i class="material-icons">toc</i>
     </a>
   </div>
 
   <div #menu_button_close>
-    <a class="circle-button">
+    <a class="circle-button" href="javascript:;" title="Close menu" >
       <i class="material-icons">close</i>
     </a>
   </div>

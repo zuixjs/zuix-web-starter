@@ -1,8 +1,8 @@
-<div layout="rows top-left">
+<div layout="rows top-spread">
     {%- for post in itemsList -%}
 
         {% assign postUrl = post.url | url %}
-        {% assign imageUrl = 'https://picsum.photos/seed/docs-' | append: forloop.index0 | append: '/256/256' %}
+        {% assign imageUrl = post.data.imagePreviewMini | url %}
 
         {% zx 'card' post.data.title imageUrl 'Open' postUrl 'image' %}
         {{ post.data.description }}

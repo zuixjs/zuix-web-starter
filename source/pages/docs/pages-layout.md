@@ -1,13 +1,16 @@
 ---
 layout: side_drawer.liquid
-tags: docs
-group: docs
+tags: documentation
+group: documentation
 options: mdl highlight
-theme: indigo-pink
+theme: indigo-deep_purple
 order: 20
-title: Getting started
-description: Welcome to zuix.js web starter
+title: Pages layout and options
+description:
 icon: mood
+imageCover: https://picsum.photos/seed/docs!02/960/640
+imagePreview: https://picsum.photos/seed/docs!02/640/560
+imagePreviewMini: https://picsum.photos/seed/docs!02/256/256
 keywords:
 - Material
 - Design
@@ -15,19 +18,22 @@ keywords:
 - MDL
 ---
 
-## Pages and Layouts
-
-All pages are placed in the `./source/pages` folder. Pages can be implemented either as `.html` or `.md` files.
-In both cases the [front matter](https://www.11ty.dev/docs/data-frontmatter/) data is used to select the page layout and other options.
+All pages are placed in the `./source/pages` folder, and are implemented as `.md` ([Markdown](https://www.markdownguide.org/getting-started/)) files, though any of
+the [supported template engines](https://www.11ty.dev/docs/languages/) can be used.  
+In any case, the [front matter](https://www.11ty.dev/docs/data-frontmatter/) data is used to select the page layout and other options,
+as shown in the example below:
 
 ```yaml
 ---
 layout: side_drawer
+tags: blog
+group: blog
 options: mdl highlight
 order: 2
 icon: star_outline
 title: My page title
 description: My page description (used for page metadata)
+pubDate: 2022-02-12 12:22
 keywords:
 - Blog
 - Lifestyle
@@ -40,28 +46,27 @@ Welcome to my blog about...
 
 ```
 
+## Front matter data
+
 ### `layout`
 
 The following page layouts are available at this time:
 - **`landing_page`**  
 a simple splash screen used for the main page (`./source/index.html`). 
-- **`basic`**  
-a basic page layout.
 - **`side_drawer`**  
 a page with a responsive *Navigation Drawer* layout, like the one used by this very page.
-- **`news_blog`**  
-view pager layout inspired by G-News, suitable both for desktop and mobile applications.
 
 #### Adding a custom layout
 
-Layouts are located in the `./source/_inc/layouts` folder. A layout consist of an `.html` file and, when required, also
+Layouts are located in the `./source/_inc/layouts` folder. A layout consist of an `.liquid` file and, when required, also
 a folder with the same base name of the template file, containing any additional files required for the layout implementation.
 
-To add a new layout, simple add a `<layout_name>.html` file to the *layouts* folder, it can be then selected like the other
-layout templates, by using the `<layout_name>` in the `layout` field in the front matter of you pages.  
+To add a new layout, simple add a `<layout_name>.liquid` file to the *layouts* folder, it can be then selected like the other
+layout templates, by specifying its name in the `layout` field of page's front matter.  
 
 
-The `./source/_inc` folder, also contains other bits that are usually included in an HTML document:
+The `./source/_inc` folder, is instead used to place common page's bits that can be used across different layouts or pages:
+ 
 - `head_open.liquid`  
   This file contains the initial part of the `HTML` document with `head` section and styles/scripts inclusion. 
 - `head_close.html`  
@@ -75,9 +80,10 @@ The `./source/_inc` folder, also contains other bits that are usually included i
   This file contains just the `</html>` closing tag.
 
 
-**Example of a minimal layout template:**  
-`./source/_inc/layouts/my-new-layout.html` 
-```html
+**Example of a minimal layout template:**
+
+`./source/_inc/layouts/my-new-layout.liquid`
+```liquid
 {% raw %}
 {% include "head_open.liquid" %}
 <style>
@@ -94,6 +100,13 @@ The `./source/_inc` folder, also contains other bits that are usually included i
 {% endraw %}
 ```
 
+### `tags`
+
+// TODO: ...
+
+### `group`
+
+// TODO: ...
 
 ### `options`
 
@@ -109,7 +122,8 @@ The `./source/_inc` folder, also contains other bits that are usually included i
 When using `mdl` style, also the **`theme`** variable can be added to the front matter for specifying the [material theme](https://getmdl.io/customize/index.html) to be used
 (e.g. `indigo-pink`, `amber-green`, etc...).
 
-These options are used in the include file `./source/_inc/head_open.liquid`, which hosts all stylesheets and scripts required by the page.
+These options are implemented in the include file `./source/_inc/head_open.liquid`, which hosts all stylesheets and scripts
+required by the page.  
 Custom options can also be implemented in this file to toggle other frameworks and utilities.
 
 #### Adding custom options
@@ -125,11 +139,16 @@ For example, `bootstrap` option can be added with the following code: {% raw %}
 
 ### `order`
 
-Set pages listing order, that is mainly used for rendering navigation links and content listing menu. 
+Set pages listing order, that is mainly used for rendering navigation links and content listing menus, like the one in the
+side drawer menu of this page.
 
 ### `icon`
 
 Icon associated to the page. This icon is currently shown next to the page name in the side drawer's menu of the `side_drawer` layout.
+
+### `imagePreviewMini`
+
+The 256x256 preview image to be used in cards list, like the ones used [here](../../../home).
 
 ### `title`
 
@@ -141,7 +160,7 @@ The page description that will also be added to the page's metadata.
 
 ### `pubDate`
 
-The date to show as publishing date.
+The date to show as publishing date. This field has the precedence over `order` field when sorting pages collections.
 
 ### `keywords`
 
@@ -149,68 +168,15 @@ A list of keywords that identify this page. Keywords are used by internal search
 for search engines as some of them might still use meta keywords for indexing.
 
 
----
----
-
-```html
-// TODO: this documentation is a work in progress, to be completed soon.... stay tuned! =) 
-```
-
----
----
-
-
-## Adding a new page
-
-- manually
-- using `zx` CLI
-
-```js
-// TODO: example, how to add a menu section and then an article inside it
-```
-
-```bash
-zx add -l side_drawer -n docs/my-first-page \
-  -fm "options: mdl highlight" \
-  -fm "theme: green-blue" \
-  -fm "tags: docs" \
-  -fm "group: docs" \
-  -fm "icon: favorite"
-```
-
-// TODO: ...
-
-
-## Creating a component
-
-- manually
-- using `zx` CLI
-
-// TODO: ...
-
-
 ## Custom `liquid` tags
 
-About {% raw %}`{% unpre %}` / `{% endunpre %}`{% endraw %} tags.
+About {% raw %}`{% unpre %}` / `{% endunpre %}`{% endraw %} tag.
 
 Sometimes it will happen to use `HTML` code in a markdown `.md` file, in which case the liquid tags {% raw %}`{% unpre %}` / `{% endunpre %}`{% endraw %}
 can be used to wrap the `HTML` code inside a preformatted block, so that it will be actually recognized as HTML and the
 editor will highlight the code correctly.
 
-// TODO: ...
-
-
-## Components
-
-Generic use and framework-agnostic components with examples.... (drawer, context-menu, gesture helper...)
-// TODO: referencing components remotely (e.g. @lib) / creating a local copy
-
-
-## Compiling for production
-
-// TODO: ... about `baseUrl` etc...
-
-
-## About Sitemap and internal search
+About {% raw %}`{% layout %}`{% endraw %} tag for implementing flex containers.
 
 // TODO: ...
+

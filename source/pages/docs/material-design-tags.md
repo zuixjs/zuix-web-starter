@@ -1,13 +1,16 @@
 ---
 layout: side_drawer.liquid
-tags: docs
-group: docs
+tags: documentation
+group: documentation
 options: mdl highlight
-theme: indigo-pink
+theme: indigo-deep_purple
 order: 30
 title: Material Design tags
 description: Material Design Light liquid tags
 icon: auto_stories
+imageCover: https://picsum.photos/seed/docs!03/960/640
+imagePreview: https://picsum.photos/seed/docs!03/640/560
+imagePreviewMini: https://picsum.photos/seed/docs!03/256/256
 keywords:
 - Material
 - Design
@@ -15,11 +18,11 @@ keywords:
 - MDL
 ---
 
+As an example, this web starter template includes [Material Design Lite](https://getmdl.io/components/) controls, implemented as
+*zuix.js* [components](https://zuixjs.org/pages/documentation/component), that can be rendered using the following liquid [Liquid](https://shopify.dev/api/liquid) tags.   
+
+
 ## Liquid tags
-
-As an example, this web starter template includes [Material Design Lite](https://getmdl.io/components/) controls, implemented as *zuix.js* components that
-can be rendered using the following liquid [Liquid](https://shopify.dev/api/liquid) tags.   
-
 
 <a name="Basic_button"></a>
 ### Basic button
@@ -174,18 +177,6 @@ Click Me
 {% endzx %}
 ```
 {% endraw %}
-
-
----
----
-
-```html
-// TODO: this documentation is a work in progress, to be completed soon.... stay tuned! =) 
-```
-
----
----
-
 
 
 ## Adding more tags

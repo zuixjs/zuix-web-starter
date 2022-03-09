@@ -1,7 +1,7 @@
 ---
 layout: side_drawer.liquid
-options: mdl
-theme: green-pink
+options: mdl highlight
+theme: indigo-deep_purple
 order: 0
 icon: home
 title: Home
@@ -15,16 +15,24 @@ keywords:
 
 {% renderTemplate "md" %}
 
-This [web starter](https://zuixjs.github.io/zuix-web-starter/) is based on [zuix.js](https://zuixjs.org), a library for component-based web development, and [Eleventy](https://11ty.dev),
+This web starter is based on [zuix.js](https://zuixjs.org), a library for component-based web development, and [Eleventy](https://11ty.dev),
 static site generator.
 
 {% endrenderTemplate %}
 
 
+<a href="https://github.com/zuixjs/zuix-web-starter" layout="row center-left" style="gap: 12px; font-size: 140%; padding: 24px">
+    <img src="{{ '/images/github-mark.png' | url }}" width="32" height="32" alt="GitHub logo">
+    <span>source code</span>
+</a>
+
+
+<!-- sections and articles list -->
+
 {% assign sections = collections.sections | sort: 'data.order' %}
 {%- for section in sections -%}
-<div layout="column top-left" style="margin-bottom: 56px">
-    <h2 class="mdl-color-text--primary">{{ section.data.title }}</h2>
+<div layout="column top-left">
+    <h2 style="margin-top: 48px!important;">{{ section.data.title }}</h2>
 
     {% assign itemsList = collections[section.data.group] | sort: 'data.pubDate' | reverse | sort: 'data.order' -%}
     {% include "layouts/side_drawer/items-list.liquid" %}

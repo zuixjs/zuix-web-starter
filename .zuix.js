@@ -11,6 +11,9 @@ const zuixConfig = config.get('zuix');
 const sourceFolder = zuixConfig.get('build.input');
 const buildFolder = zuixConfig.get('build.output');
 
+const contentSourceFolder = path.join(sourceFolder, destinationFolder);
+const contentBuildFolder = path.join(buildFolder, destinationFolder)
+
 function addPage(args) {
   const pageTemplatesPath = './templates/pages/';
   const template = args.layout;
@@ -75,31 +78,23 @@ function addPage(args) {
   }
 }
 
-async function clean() {
-
-  const ok = await yesno({
+async function wipeContent() {
+  const confirm = await yesno({
     question: 'All content in ... will be deleted.\nThis action cannot be undone!\nAre you sure to proceed?'
   });
-  if (ok) {
-    console.log('Cleaning data.');
-  } else {
-    console.log('Aborted.');
+  if (confirm) {
+    if (fs.existsSync(contentSourceFolder)) {
+      console.log(chalk.cyanBright('*') + ' Removing', chalk.green.bold(contentSourceFolder));
+      fs.rmSync(contentSourceFolder, {recursive: true});
+    }
+    if (fs.existsSync(contentBuildFolder)) {
+      console.log(chalk.cyanBright('*') + ' Removing', chalk.green.bold(contentBuildFolder));
+      fs.rmSync(contentBuildFolder, {recursive: true});
+    }
+    // "touch" index file to force reload
+    const filename = path.join(sourceFolder, 'index.liquid');
+    touch(filename);
   }
-
-  process.exit(0);
-  const demoSourceFolder = path.join(sourceFolder, destinationFolder);
-  const demoBuildFolder = path.join(buildFolder, destinationFolder)
-  if (fs.existsSync(demoSourceFolder)) {
-    console.log(chalk.cyanBright('*') + ' Removing', chalk.green.bold(demoSourceFolder));
-    fs.rmSync(demoSourceFolder, {recursive: true});
-  }
-  if (fs.existsSync(demoBuildFolder)) {
-    console.log(chalk.cyanBright('*') + ' Removing', chalk.green.bold(demoBuildFolder));
-    fs.rmSync(demoBuildFolder, {recursive: true});
-  }
-  // "touch" index file to force reload
-  const filename = path.join(sourceFolder, 'index.liquid');
-  touch(filename);
 }
 
 function touch(filename) {
@@ -126,7 +121,8 @@ module.exports = (program) => {
     .option('-fm, --front-matter "<field>: <value>"', 'Set a front matter field value', collect, [])
     .action(addPage);
   program
-      .command('wipe-all')
-      .description('Delete all content in "./source/pages" folder.')
-      .action(clean);
+      .command('wipe-content')
+      .alias('wc')
+      .description(`Delete all content in "${contentSourceFolder}" and "${contentBuildFolder}" folders.`)
+      .action(wipeContent);
 };
