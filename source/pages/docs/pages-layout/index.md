@@ -18,14 +18,14 @@ keywords:
 - MDL
 ---
 
-All pages are placed in the `./source/pages` folder, and are implemented as `.md` ([Markdown](https://www.markdownguide.org/getting-started/)) files, though any of
-the [supported template engines](https://www.11ty.dev/docs/languages/) can be used.  
-In any case, the [front matter](https://www.11ty.dev/docs/data-frontmatter/) data is used to select the page layout and other options,
-as shown in the example below:
+As described in the previous chapter, pages content is placed in the `./source/pages` folder, and it's implemented as `.md` files, though any of
+the [supported template language](https://www.11ty.dev/docs/languages/) can be used.  
+In any case, the [front matter](https://www.11ty.dev/docs/data-frontmatter/) data is used to select the page layout that will wrap the content,
+and other options as shown in the example below:
 
 ```yaml
 ---
-layout: side_drawer
+layout: side_drawer.liquid
 tags: blog
 group: blog
 options: mdl highlight
@@ -52,20 +52,20 @@ Welcome to my blog about...
 
 The following page layouts are available at this time:
 - **`landing_page`**  
-a simple splash screen used for the main page (`./source/index.html`). 
+a simple splash screen used for the main page (`./source/index.liquid`). 
 - **`side_drawer`**  
 a page with a responsive *Navigation Drawer* layout, like the one used by this very page.
 
 #### Adding a custom layout
 
 Layouts are located in the `./source/_inc/layouts` folder. A layout consist of an `.liquid` file and, when required, also
-a folder with the same base name of the template file, containing any additional files required for the layout implementation.
+a folder with the same base name of the layout template file, containing any additional files required for the layout implementation.
 
 To add a new layout, simple add a `<layout_name>.liquid` file to the *layouts* folder, it can be then selected like the other
 layout templates, by specifying its name in the `layout` field of page's front matter.  
 
 
-The `./source/_inc` folder, is instead used to place common page's bits that can be used across different layouts or pages:
+The `./source/_inc` folder, is instead used to place common page's bits that can be reused across different layout implementations:
  
 - `head_open.liquid`  
   This file contains the initial part of the `HTML` document with `head` section and styles/scripts inclusion. 
@@ -87,7 +87,7 @@ The `./source/_inc` folder, is instead used to place common page's bits that can
 {% raw %}
 {% include "head_open.liquid" %}
 <style>
-{% include "layouts/my-new-layout/style.css" %}
+{% include "./my-new-layout/style.css" %}
 </style>
 {% include "head_close.html" %}
 <body>
