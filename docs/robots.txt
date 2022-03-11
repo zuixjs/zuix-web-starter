@@ -3,4 +3,4 @@
 # Allow crawling of all content
 User-agent: *
 Disallow:
-Sitemap: https://zuixjs.github.io/zuix-web-starter//sitemap.xml
+Sitemap: https://zuixjs.github.io{{ app.baseUrl }}/sitemap.xml
