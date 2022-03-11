@@ -126,6 +126,10 @@ See [zuix.js](https://zuixjs.org/pages/documentation/cli/) website for info abou
 
 ## Compiling for production
 
+```shell
+NODE_ENV=production zx build
+```
+
 // TODO: ... about `baseUrl` etc...
 
 

@@ -32,6 +32,7 @@ const {chalk, render, mkdirp, highlight, classNameFromHyphens} = require('zuix-c
 const config = require('config');
 const moment = require('moment');
 const yesno = require('yesno');
+const child_process = require('child_process');
 
 const destinationFolder = 'pages';
 
@@ -160,6 +161,16 @@ function collect(value, previous) {
 }
 
 module.exports = (program) => {
+  program
+    .command('build')
+    .alias('b')
+    .description('Build web application')
+    .action(() => {
+      // todo: should check if it's a zuix.js project
+      child_process.execSync('npm run build',{
+        stdio:[0, 1, 2]
+      });
+    });
   program
     .command('add')
     .alias('a')

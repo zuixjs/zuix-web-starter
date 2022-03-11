@@ -42,7 +42,7 @@ const util = require('util');
 // Read configuration either from './config/{default}.json'
 // or './config/production.json' based on current `NODE_ENV'
 // environment variable value
-const zuixConfig = config.get('zuix');
+let zuixConfig = config.get('zuix');
 const sourceFolder = zuixConfig.get('build.input');
 const buildFolder = zuixConfig.get('build.output');
 const copyFiles = zuixConfig.get('build.copy');
@@ -53,6 +53,8 @@ const includesFolder = zuixConfig.get('build.includesFolder');
 // this file is a temporary file create to trigger 11ty build
 const triggerFile = path.join(sourceFolder, '.zuix.build.md');
 const triggerFileOut = path.join(buildFolder, '.zuix.build.tmp');
+// replace {{variables}}
+zuixConfig = JSON.parse(render(JSON.stringify(zuixConfig), zuixConfig));
 
 const normalizeMarkup = (s) => s.trim().split('\n').filter((l) => {
   if (l.trim().length > 0) {
