@@ -1,8 +1,344 @@
 <!doctype html><html lang="en"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="description" content="zuix-js-web-starter-home-page"><meta name="keywords" content="zuix,web starter,home"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Home</title><!-- Disable tap highlight on IE --><meta name="msapplication-tap-highlight" content="no"><!-- Progressive Web App --><meta name="theme-color" content="white"><link rel="manifest" href="/zuix-web-starter/manifest.json"><!-- Add to homescreen for Chrome on Android --><meta name="mobile-web-app-capable" content="yes"><link rel="icon" sizes="192x192" href="/zuix-web-starter/images/icons/desktop/android-chrome-192x192.png"><link rel="icon" sizes="512x512" href="/zuix-web-starter/images/icons/desktop/android-chrome-512x512.png"><!-- Add to homescreen for Safari on iOS --><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="apple-mobile-web-app-title" content="A zUIx website"><link rel="apple-touch-icon-precomposed" href="/zuix-web-starter/images/icons/desktop/apple-touch-icon.png"><link rel="mask-icon" href="/zuix-web-starter/images/icons/desktop/safari-pinned-tab.svg" color="#5bbad5"><!-- Tile color for Windows --><meta name="msapplication-TileImage" content="/zuix-web-starter/images/icons/desktop/mstile-150x150.png"><meta name="msapplication-TileColor" content="#ffc40d"><!-- Place favicon.ico in the root directory --><link rel="icon" type="image/png" sizes="32x32" href="/zuix-web-starter/images/icons/desktop/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/zuix-web-starter/images/icons/desktop/favicon-16x16.png"><!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones --><!--
     <link rel="canonical" href="https://www.example.com/">
-    --><link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css"><link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"><link href="https://fonts.gstatic.com" rel="preconnect" crossorigin=""><link rel="preload" as="style" href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap"><link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.indigo-deep_purple.min.css"><link rel="preload" as="script" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.min.js"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.indigo-deep_purple.min.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.min.js"></script><link rel="preload" as="script" href="/zuix-web-starter/js/prism/prism.js"><link rel="preload" as="style" href="/zuix-web-starter/js/prism/prism.css"><script src="/zuix-web-starter/js/prism/prism.js"></script><link rel="stylesheet" href="/zuix-web-starter/js/prism/prism.css"><!-- zuix.js https://github.com/zuixjs/zuix --><link rel="preconnect" href="https://cdnjs.cloudflare.com"><link rel="preload" as="script" href="/zuix-web-starter/js/zuix/zuix.min.js"><link rel="preload" as="script" href="/zuix-web-starter/config.js"><link rel="preload" as="script" href="/zuix-web-starter/js/zuix/animate-css.js"><script src="/zuix-web-starter/js/zuix/zuix.min.js"></script><script src="/zuix-web-starter/config.js"></script><script src="/zuix-web-starter/js/zuix/animate-css.js"></script><style>[z-include][z-ready=true].visible-on-ready,[z-load][z-ready=true].visible-on-ready{opacity:1;transition:opacity 150ms ease-in-out}[z-include]:not([z-ready=true]).visible-on-ready,[z-load]:not([z-ready=true]).visible-on-ready{opacity:0;visibility:hidden}</style><style>:root{--primary-color:rgb(63,81,181);--accent-color:rgb(124,77,255);--background-color:unset}body{margin:0;padding:0;font-size:14px;position:relative;min-height:100vh;background:var(--background-color)}a{text-decoration:none}h1{font-size:230%!important;font-weight:500}h1.title{margin:0;padding-right:48px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center}h2{font-size:220%!important;font-weight:550;color:var(--primary-color)}h3{font-size:190%!important;opacity:.9}h4{font-size:160%!important;opacity:.8}h5{font-size:150%!important;opacity:.7}h6{font-size:130%!important;opacity:.6}li{margin-top:18px;margin-bottom:18px;font-size:120%}li small{font-family:Helvetica,sans-serif;font-size:70%;font-weight:600;margin-left:6px;text-transform:uppercase;opacity:.5}blockquote{font-size:140%;opacity:.6}p{font-size:130%;line-height:160%;margin-bottom:24px}hr{margin-bottom:30px}pre{margin-top:32px!important;margin-bottom:32px!important}code{color:#0b4d2c;overflow-wrap:break-word;overflow-wrap:anywhere}a,a::after,a::before{-webkit-user-drag:none;-webkit-app-region:no-drag}main{width:100%!important;padding:0!important}main div.content{width:100%!important;max-width:960px!important;padding-top:24px;padding-left:12px!important;padding-right:12px!important}main h2:first-child{margin-top:0!important}main h2:not(:first-child){margin-top:64px}main h3{margin-top:56px;margin-bottom:16px}[z-field=header]{position:fixed;z-index:1;top:0;left:0;right:0;bottom:0;height:64px;padding-left:8px;padding-right:8px;background:#f1f1f1;box-shadow:0 1px rgba(100,100%,100%,30%)}h1[z-field=alt_header]{text-align:center;display:block;padding:10px 48px 24px!important}.header-menu-button{cursor:pointer;height:48px!important;width:48px!important}.header-menu-button i{color:#000;font-size:32px!important;left:20px!important}.no-select{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}@media screen and (min-width:1280px){main{padding-top:0!important;padding-left:304px!important;padding-right:24px!important}[z-field=header]{padding-left:316px;display:none}h1[z-field=alt_header]{margin-top:32px;margin-bottom:48px;margin-left:-28px;visibility:visible}.header-menu-button{display:none}}.not-ready{opacity:.5;-webkit-animation:pulse .5s infinite ease-in-out;-o-animation:pulse .5s infinite ease-in-out;-ms-animation:pulse .5s infinite ease-in-out;-moz-animation:pulse .5s infinite ease-in-out;animation:pulse .5s infinite ease-in-out}@-webkit-keyframes pulse{0%{opacity:.2}50%{opacity:.4}100%{opacity:.2}}@keyframes pulse{0%{opacity:.2}50%{opacity:.4}100%{opacity:.2}}.drawer-header{color:#fff;height:164px;padding:12px;background:#159957;background:-webkit-linear-gradient(to right,#155799,#159957);background:linear-gradient(to right,#155799,#159957)}.drawer-header img.logo{width:84px;height:84px;border:none;border-radius:56px;background:0 0}[data-theme=dark] .drawer-header img.logo{background:#000}.drawer-header .text-logo{font-size:180%;font-weight:400;margin-right:48px}.drawer-header .title{margin-left:4px;margin-right:4px;font-size:120%;font-weight:300}.drawer-header .title code{font-weight:700}.drawer-header .subtitle{margin-left:4px;margin-right:4px;font-size:100%;opacity:.75}.drawer-header code{color:#ff0}.drawer-content{background:#fff}[data-theme=dark] .drawer-content{background:#24333e}.drawer-content ul{padding:0;margin-top:8px}.drawer-content li:hover a{color:var(--primary-color)}.drawer-content li{border-radius:0 24px 24px 0;margin:0 10px 0 0;min-height:48px;vertical-align:center;align-content:center;align-items:center;list-style:none}.drawer-content ul li[aria-current=page]{border:solid 1px rgba(0,255%,0%,3%);box-shadow:1px 0 rgb(0 0 0 / 15%);background-color:rgba(127,127%,127%,10%)}.drawer-content ul li[aria-current=page] a,.drawer-content ul li[aria-current=page] i{color:var(--primary-color)}.drawer-content li a{font-weight:400;font-size:100%;position:relative;display:block;padding:11px 16px;text-decoration:none}.drawer-content li a span.mdl-button__ripple-container{border-radius:0 24px 24px 0}.drawer-content li a i{width:40px;opacity:.65}.drawer-content li a span.title{padding-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.drawer-content ul li a div.summary{font-size:95%;line-height:150%;margin-top:4px;margin-right:32px;font-style:italic;font-weight:400!important;font-family:'Helvetica Neue',Helvetica,sans-serif;color:#778899}.drawer-content label{display:block;margin-top:16px;margin-bottom:16px;margin-left:12px;font-weight:700;color:#7f7f7f}.drawer-content a{color:#24333e}[z-context=menu-drawer]:focus{outline:0}</style></head><!-- scroll helper is used to show/hide the header when scrolling --><body ctrl z-load="@lib/controllers/scroll-helper" z-lazy="scroll" data-theme="indigo-deep_purple" z-context="scroll-helper" z-options="scroll_opts" layout="column stretch-stretch"><nav #header layout="row center-start"><div self="stretch" layout="row center-start"><button onclick="menuDrawer.open()" class="header-menu-button mdl-button mdl-button--icon"><i class="material-icons">menu_open</i></button><h1 self="size-x1" class="title">Home</h1></div></nav><!--
+    --><link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css"><link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"><link href="https://fonts.gstatic.com" rel="preconnect" crossorigin=""><link rel="preload" as="style" href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap"><link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.indigo-deep_purple.min.css"><link rel="preload" as="script" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.min.js"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.indigo-deep_purple.min.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.3.0/material.min.js"></script><link rel="preload" as="script" href="/zuix-web-starter/js/prism/prism.js"><link rel="preload" as="style" href="/zuix-web-starter/js/prism/prism.css"><script src="/zuix-web-starter/js/prism/prism.js"></script><link rel="stylesheet" href="/zuix-web-starter/js/prism/prism.css"><!-- zuix.js https://github.com/zuixjs/zuix --><link rel="preconnect" href="https://cdnjs.cloudflare.com"><link rel="preload" as="script" href="/zuix-web-starter/js/zuix/zuix.min.js"><link rel="preload" as="script" href="/zuix-web-starter/config.js"><link rel="preload" as="script" href="/zuix-web-starter/js/zuix/animate-css.js"><script src="/zuix-web-starter/js/zuix/zuix.min.js"></script><script src="/zuix-web-starter/config.js"></script><script src="/zuix-web-starter/js/zuix/animate-css.js"></script><style>/* the following styles will keep host element
+       hidden while a component is loading, and it will
+       fade in quickly once it has been loaded */
+    [z-load][z-ready=true].visible-on-ready,
+    [z-include][z-ready=true].visible-on-ready
+    {
+        opacity: 1;
+        transition: opacity 150ms ease-in-out;
+    }
+    [z-load]:not([z-ready=true]).visible-on-ready,
+    [z-include]:not([z-ready=true]).visible-on-ready
+    {
+        opacity: 0;
+        visibility: hidden;
+    }</style><style>:root {
+        --primary-color: rgb(63,81,181);
+        --accent-color: rgb(124,77,255);
+        --background-color: unset;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-size: 14px;
+        position: relative;
+        min-height: 100vh;
+        background: var(--background-color);
+    }
+
+    a {
+        text-decoration: none;
+    }
+    h1 {
+        font-size: 230% !important;
+        font-weight: 500;
+    }
+    h1.title {
+        margin:0;
+        padding-right: 48px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center;
+    }
+    h2 {
+        font-size: 220% !important;
+        font-weight: 550;
+        color: var(--primary-color);
+    }
+    h3 {
+        font-size: 190% !important;
+        opacity: 0.9;
+    }
+    h4 {
+        font-size: 160% !important;
+        opacity: 0.8;
+    }
+    h5 {
+        font-size: 150% !important;
+        opacity: 0.7;
+    }
+    h6 {
+        font-size: 130% !important;
+        opacity: 0.6;
+    }
+
+    li {
+        margin-top: 18px;
+        margin-bottom: 18px;
+        font-size: 120%;
+    }
+    li small {
+        font-family: Helvetica, sans-serif;
+        font-size: 70%;
+        font-weight: 600;
+        margin-left: 6px;
+        text-transform: uppercase;
+        opacity: 0.5;
+    }
+
+    blockquote {
+        font-size: 140%;
+        opacity: 0.6;
+    }
+
+    p {
+        font-size: 130%;
+        line-height: 160%;
+        margin-bottom: 24px;
+    }
+
+    hr {
+        margin-bottom: 30px;
+    }
+
+    pre {
+        margin-top: 32px!important;
+        margin-bottom: 32px!important;
+    }
+    code {
+        color: #0b4d2c;
+        overflow-wrap: break-word; /* for old browsers */
+        overflow-wrap: anywhere;
+    }
+
+    /* prevents links dragging */
+    a, a::after, a::before {
+        -webkit-user-drag: none;
+        -webkit-app-region: no-drag;
+    }
+
+    main {
+        width: 100% !important;
+        padding: 0 !important;
+    }
+    main div.content {
+        width: 100% !important;
+        max-width: 960px !important;
+        padding-top: 24px;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    main h2:first-child  {
+        margin-top: 0!important;
+    }
+    main h2:not(:first-child)  {
+        margin-top: 64px;
+    }
+    main h3 {
+        margin-top: 56px;
+        margin-bottom: 16px;
+    }
+
+    [z-field="header"] {
+        position: fixed;
+        z-index: 1;
+        top:0; left: 0; right: 0; bottom: 0;
+        height: 64px;
+        padding-left: 8px;
+        padding-right: 8px;
+        background: #f1f1f1;
+        box-shadow: 0 1px rgba(100, 100, 100, 30%);
+    }
+    h1[z-field="alt_header"] {
+        text-align: center;
+        display: block;
+        padding: 10px 48px 24px !important;
+    }
+
+    .header-menu-button {
+        cursor: pointer;
+        height: 48px!important;
+        width: 48px!important;
+    }
+    .header-menu-button i {
+        color: black;
+        font-size: 32px!important;
+        left: 20px!important;
+    }
+
+    .no-select {
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none; /* Non-prefixed version, currently
+                                      supported by Chrome, Edge, Opera and Firefox */
+    }
+    @media screen and (min-width: 1280px) {
+        main {
+            padding-top: 0 !important;
+            padding-left: 304px !important;
+            padding-right: 24px !important;
+        }
+        [z-field="header"] {
+            padding-left: 316px;
+            display: none;
+        }
+        h1[z-field="alt_header"] {
+            margin-top: 32px;
+            margin-bottom: 48px;
+            margin-left: -28px;
+            visibility: visible;
+        }
+        .header-menu-button {
+            display: none;
+        }
+    }
+
+    /* UI state classes */
+    .not-ready {
+        opacity: 0.5;
+        -webkit-animation: pulse .5s infinite ease-in-out;
+        -o-animation: pulse .5s infinite ease-in-out;
+        -ms-animation: pulse .5s infinite ease-in-out;
+        -moz-animation: pulse .5s infinite ease-in-out;
+        animation: pulse .5s infinite ease-in-out;
+    }
+    @-webkit-keyframes pulse {
+        0% { opacity: 0.2; }
+        50% { opacity: 0.4; }
+        100% { opacity: 0.2; }
+    }
+    @keyframes pulse {
+        0% { opacity: 0.2; }
+        50% { opacity: 0.4; }
+        100% { opacity: 0.2; }
+    }
+
+    .drawer-header {
+    color:white;
+    height: 164px;
+    padding: 12px;
+    background: #159957;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #155799, #159957);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #155799, #159957); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.drawer-header img.logo {
+    width: 84px;
+    height: 84px;
+    border: none;
+    border-radius: 56px;
+    background: transparent;
+}
+[data-theme="dark"] .drawer-header img.logo {
+    background: #000;
+}
+
+.drawer-header .text-logo {
+    font-size: 180%;
+    font-weight: 400;
+    margin-right: 48px;
+}
+.drawer-header .title {
+    margin-left: 4px;
+    margin-right: 4px;
+    font-size: 120%;
+    font-weight: 300;
+}
+.drawer-header .title code {
+    font-weight: bold;
+}
+.drawer-header .subtitle {
+    margin-left: 4px;
+    margin-right: 4px;
+    font-size: 100%;
+    opacity: 0.75;
+}
+.drawer-header code {
+    color: yellow;
+}
+
+.drawer-content {
+    background: white;
+}
+[data-theme="dark"] .drawer-content {
+    background: #24333e;
+}
+
+.drawer-content ul {
+    padding: 0;
+    margin-top: 8px;
+    /*font-size: 120%;*/
+}
+.drawer-content li:hover a {
+    /*box-shadow: 1px 0 rgb(0 0 0 / 15%);
+    background: rgba(160,160,160,0.1);*/
+    color: var(--primary-color);
+}
+.drawer-content li {
+    border-radius: 0 24px 24px 0;
+    margin: 0 10px 0 0;
+    min-height: 48px;
+    vertical-align: center;
+    align-content: center;
+    align-items: center;
+    list-style: none;
+}
+.drawer-content ul li[aria-current=page] {
+    border: solid 1px rgba(0, 255, 0, 3%);
+    box-shadow: 1px 0 rgb(0 0 0 / 15%);
+    background-color: rgba(127, 127, 127, 10%);
+}
+.drawer-content ul li[aria-current=page] i, .drawer-content ul li[aria-current=page] a {
+    color: var(--primary-color);
+}
+.drawer-content li a {
+    font-weight: 400;
+    font-size: 100%;
+    position: relative;
+    display: block;
+    padding: 11px 16px;
+    text-decoration: none;
+}
+.drawer-content li a span.mdl-button__ripple-container {
+    border-radius: 0 24px 24px 0;
+}
+.drawer-content li a i {
+    width: 40px;
+    opacity: 0.65;
+}
+.drawer-content li a span.title {
+    padding-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.drawer-content ul li[aria-current=page] a {
+    /*pointer-events: none;
+    font-weight: bold;*/
+}
+.drawer-content ul li a div.summary {
+    font-size: 95%;
+    line-height: 150%;
+    margin-top: 4px;
+    margin-right: 32px;
+    font-style: italic;
+    font-weight: 400!important;
+    font-family: 'Helvetica Neue', Helvetica, sans-serif;
+    color: lightslategray;
+}
+.drawer-content label {
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    margin-left: 12px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+.drawer-content a {
+   color: #24333e;
+}
+[z-context="menu-drawer"]:focus {
+    outline: none;
+}</style></head><!-- scroll helper is used to show/hide the header when scrolling --><body ctrl z-load="@lib/controllers/scroll-helper" z-lazy="scroll" data-theme="indigo-deep_purple" z-context="scroll-helper" z-options="scroll_opts" layout="column stretch-stretch"><nav #header layout="row center-start"><div self="stretch" layout="row center-start"><button onclick="menuDrawer.open()" class="header-menu-button mdl-button mdl-button--icon"><i class="material-icons">menu_open</i></button><h1 self="size-x1" class="title">Home</h1></div></nav><!--
     <div z-load="@lib/components/hamburger-icon"
          z-context="menu_hamburger"
          z-options="menuButtonOptions"
          style="position:fixed;right:0;top:6px;z-index:1001"></div>
-         --><main class="animate__animated animate__fadeIn animate__faster" layout="column top-center"><h1 #alt_header class="title">Home</h1><div self="size-x1" class="content"><p>This web starter is based on <a href="https://zuixjs.org">zuix.js</a>, a library for component-based web development, and <a href="https://11ty.dev">Eleventy</a>, static site generator.</p><a href="https://github.com/zuixjs/zuix-web-starter" style="gap:12px;font-size:140%;padding:12px;display:inline-block"><img src="/zuix-web-starter/images/github-mark.png" width="32" height="32" alt="GitHub logo"> <span>source code</span> </a><!-- sections and articles list --><div layout="column top-left"><h2 style="margin-top:48px!important">Documentation</h2><div layout="rows top-spread"><div view z-load="@lib/templates/mdl-card-image" class="visible-on-ready" style="margin:12px"><h1 #title style="font-size:150%!important;position:absolute;padding:12px" class="mdl-color-text--primary-contrast">Quick Start</h1><img #image src="https://picsum.photos/seed/docs!01/256/256" alt="Cover image" role="presentation"><p #text>Welcome to zuix.js web starter</p><a #link.url href="/zuix-web-starter/pages/docs/quick-start/"><span #link.title>Open</span></a></div><div view z-load="@lib/templates/mdl-card-image" class="visible-on-ready" style="margin:12px"><h1 #title style="font-size:150%!important;position:absolute;padding:12px" class="mdl-color-text--primary-contrast">Pages layout and options</h1><img #image src="https://picsum.photos/seed/docs!02/256/256" alt="Cover image" role="presentation"><p #text></p><a #link.url href="/zuix-web-starter/pages/docs/pages-layout/"><span #link.title>Open</span></a></div><div view z-load="@lib/templates/mdl-card-image" class="visible-on-ready" style="margin:12px"><h1 #title style="font-size:150%!important;position:absolute;padding:12px" class="mdl-color-text--primary-contrast">Material Design tags</h1><img #image src="https://picsum.photos/seed/docs!03/256/256" alt="Cover image" role="presentation"><p #text>Material Design Light liquid tags</p><a #link.url href="/zuix-web-starter/pages/docs/material-design-tags/"><span #link.title>Open</span></a></div></div></div></div><footer self="size-large" layout="columns bottom-center" style="min-height:200px"><div self="size-large" layout="rows center-justify" style="padding:24px"><a href="https://pagespeed.web.dev/report?url=https://zuixjs.github.io{{ app.baseUrl }}/home/"><div layout="row center-center" style="gap:8px"><img width="24" height="24" alt="PageSpeed Insight logo" src="/zuix-web-starter/images/page-speed-insight-icon.png"> <span>PageSpeed Insight</span></div></a><div>powered by <a href="https://zuixjs.org"><strong>zuix.js</strong></a></div></div></footer></main><!-- Navigation Drawer --><div ctrl z-load="@lib/controllers/drawer-layout" z-context="menu-drawer" z-lazy="false" z-options="drawer_opts" class="drawer-layout no-select visible-on-ready animate__animated animate__faster" layout="column top-stretch"><!-- Navigation Drawer content --><!-- Header --><div class="drawer-header" layout="column justify-stretch"><a href="/zuix-web-starter/" title="Home"><img src="/zuix-web-starter/images/profile-icon.png" class="logo" alt="Logo"></a><div class="title"><code>zuix.js</code> Web Starter</div><div class="subtitle">Simple, yet powerful!</div></div><!-- Menu items and other content --><div class="drawer-content" self="size-x1"><ul><li aria-current="page"><a href="/zuix-web-starter/home" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">home</i> <span>Home</span></div><span class="mdl-button__ripple-container" draggable="false"><span class="mdl-ripple"></span></span></a><li><a href="/zuix-web-starter/search" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">search</i> <span>Search</span></div><span class="mdl-button__ripple-container" draggable="false"><span class="mdl-ripple"></span></span></a></ul><label>Documentation</label><ul><li><a href="/zuix-web-starter/pages/docs/quick-start/" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">read_more</i> <span class="title">Quick Start</span></div><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a><li><a href="/zuix-web-starter/pages/docs/pages-layout/" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">mood</i> <span class="title">Pages layout and options</span></div><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a><li><a href="/zuix-web-starter/pages/docs/material-design-tags/" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">auto_stories</i> <span class="title">Material Design tags</span></div><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a></ul></div></div><!-- Built with love using zUIx Web Starter --></body><!-- page script --><script>let menuDrawer,menuButton;window.drawer_opts={autoHideWidth:1280,on:{"drawer:open":function(){},"drawer:close":function(){}},ready:function(){menuDrawer=this,menuDrawer.$.animateCss(enterAnimation,{duration:"0.2s"})}},window.menuButtonOptions={on:{"menu:open":function(){},"menu:close":function(){}},ready:function(){menuButton=this}};let scrollHelper;function enableScrollHelper(){scrollHelper.on("scroll:change",function(e,n){switch(n.event){case"hit-top":showHeader();break;case"scroll":(0<n.info.shift.y?showHeader:hideHeader)();break;case"hit-bottom":showHeader()}}),setTimeout(function(){location.hash&&scrollbarVisible(document.body)&&hideHeader()},500)}function scrollbarVisible(e){e=e.getBoundingClientRect();return e.bottom!==e.height}window.scroll_opts={ready:e=>{scrollHelper=e,setTimeout(enableScrollHelper,500)}};let headerVisible=!0;function showHeader(){headerVisible||(headerVisible=!0,zuix.field("header").animateCss("fadeInDown").show())}function hideHeader(){headerVisible&&!zuix.field("header").hasClass("animate__animated")&&(headerVisible=!1,zuix.field("header").animateCss("fadeOutUp",function(){this.hide()}))}function processExternalLinks(e){zuix.$(e).find('a[href*="://"]').attr("target","_blank").attr("rel","noreferrer")}zuix.hook("view:process",function(e){processExternalLinks(e)}),processExternalLinks(document);const referrerLink=document.createElement("a"),enterAnimation=(referrerLink.href=document.referrer,"/zuix-web-starter/"===referrerLink.pathname?"fadeInLeft":"fadeIn")</script>
+         --><main class="animate__animated animate__fadeIn animate__faster" layout="column top-center"><h1 #alt_header class="title">Home</h1><div self="size-x1" class="content"><p>This web starter is based on <a href="https://zuixjs.org">zuix.js</a>, a library for component-based web development, and <a href="https://11ty.dev">Eleventy</a>, static site generator.</p><a href="https://github.com/zuixjs/zuix-web-starter" style="gap: 12px; font-size: 140%; padding: 12px;display: inline-block"><img src="/zuix-web-starter/images/github-mark.png" width="32" height="32" alt="GitHub logo"> <span>source code</span> </a><!-- sections and articles list --><div layout="column top-left"><h2 style="margin-top: 48px!important;">Documentation</h2><div layout="rows top-spread"><div view z-load="@lib/templates/mdl-card-image" class="visible-on-ready" style="margin: 12px;"><h1 #title style="font-size: 150%!important; position: absolute; padding: 12px" class="mdl-color-text--primary-contrast">Quick Start</h1><img #image src="https://picsum.photos/seed/docs!01/256/256" alt="Cover image" role="presentation"><p #text>Welcome to zuix.js web starter</p><a #link.url href="/zuix-web-starter/pages/docs/quick-start/"><span #link.title>Open</span></a></div><div view z-load="@lib/templates/mdl-card-image" class="visible-on-ready" style="margin: 12px;"><h1 #title style="font-size: 150%!important; position: absolute; padding: 12px" class="mdl-color-text--primary-contrast">Pages layout and options</h1><img #image src="https://picsum.photos/seed/docs!02/256/256" alt="Cover image" role="presentation"><p #text></p><a #link.url href="/zuix-web-starter/pages/docs/pages-layout/"><span #link.title>Open</span></a></div><div view z-load="@lib/templates/mdl-card-image" class="visible-on-ready" style="margin: 12px;"><h1 #title style="font-size: 150%!important; position: absolute; padding: 12px" class="mdl-color-text--primary-contrast">Material Design tags</h1><img #image src="https://picsum.photos/seed/docs!03/256/256" alt="Cover image" role="presentation"><p #text>Material Design Light liquid tags</p><a #link.url href="/zuix-web-starter/pages/docs/material-design-tags/"><span #link.title>Open</span></a></div></div></div></div><footer self="size-large" layout="columns bottom-center" style="min-height: 200px"><div self="size-large" layout="rows center-justify" style="padding: 24px;"><a href="https://pagespeed.web.dev/report?url=https://zuixjs.github.io{{ app.baseUrl }}/home/"><div layout="row center-center" style="gap: 8px"><img width="24" height="24" alt="PageSpeed Insight logo" src="/zuix-web-starter/images/page-speed-insight-icon.png"> <span>PageSpeed Insight</span></div></a><div>powered by <a href="https://zuixjs.org"><strong>zuix.js</strong></a></div></div></footer></main><!-- Navigation Drawer --><div ctrl z-load="@lib/controllers/drawer-layout" z-context="menu-drawer" z-lazy="false" z-options="drawer_opts" class="drawer-layout no-select visible-on-ready animate__animated animate__faster" layout="column top-stretch"><!-- Navigation Drawer content --><!-- Header --><div class="drawer-header" layout="column justify-stretch"><a href="/zuix-web-starter/" title="Home"><img src="/zuix-web-starter/images/profile-icon.png" class="logo" alt="Logo"></a><div class="title"><code>zuix.js</code> Web Starter</div><div class="subtitle">Simple, yet powerful!</div></div><!-- Menu items and other content --><div class="drawer-content" self="size-x1"><ul><li aria-current="page"><a href="/zuix-web-starter/home" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">home</i> <span>Home</span></div><span class="mdl-button__ripple-container" draggable="false"><span class="mdl-ripple"></span></span></a><li><a href="/zuix-web-starter/search" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">search</i> <span>Search</span></div><span class="mdl-button__ripple-container" draggable="false"><span class="mdl-ripple"></span></span></a></ul><label>Documentation</label><ul><li><a href="/zuix-web-starter/pages/docs/quick-start/" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">read_more</i> <span class="title">Quick Start</span></div><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a><li><a href="/zuix-web-starter/pages/docs/pages-layout/" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">mood</i> <span class="title">Pages layout and options</span></div><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a><li><a href="/zuix-web-starter/pages/docs/material-design-tags/" class="mdl-js-ripple-effect"><div layout="row center-left"><i class="material-icons">auto_stories</i> <span class="title">Material Design tags</span></div><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a></ul></div></div><!-- Built with love using zUIx Web Starter --></body><!-- page script --><script>let menuDrawer,menuButton;window.drawer_opts={autoHideWidth:1280,on:{"drawer:open":function(){},"drawer:close":function(){}},ready:function(){menuDrawer=this,menuDrawer.$.animateCss(enterAnimation,{duration:"0.2s"})}},window.menuButtonOptions={on:{"menu:open":function(){},"menu:close":function(){}},ready:function(){menuButton=this}};let scrollHelper;function enableScrollHelper(){scrollHelper.on("scroll:change",function(e,n){switch(n.event){case"hit-top":showHeader();break;case"scroll":(0<n.info.shift.y?showHeader:hideHeader)();break;case"hit-bottom":showHeader()}}),setTimeout(function(){location.hash&&scrollbarVisible(document.body)&&hideHeader()},500)}function scrollbarVisible(e){e=e.getBoundingClientRect();return e.bottom!==e.height}window.scroll_opts={ready:e=>{scrollHelper=e,setTimeout(enableScrollHelper,500)}};let headerVisible=!0;function showHeader(){headerVisible||(headerVisible=!0,zuix.field("header").animateCss("fadeInDown").show())}function hideHeader(){headerVisible&&!zuix.field("header").hasClass("animate__animated")&&(headerVisible=!1,zuix.field("header").animateCss("fadeOutUp",function(){this.hide()}))}function processExternalLinks(e){zuix.$(e).find('a[href*="://"]').attr("target","_blank").attr("rel","noreferrer")}zuix.hook("view:process",function(e){processExternalLinks(e)}),processExternalLinks(document);const referrerLink=document.createElement("a"),enterAnimation=(referrerLink.href=document.referrer,"/zuix-web-starter/"===referrerLink.pathname?"fadeInLeft":"fadeIn")</script>

@@ -42,7 +42,7 @@
         "collapseBooleanAttributes": true,
         "removeAttributeQuotes": false,
         "removeEmptyAttributes": true,
-        "minifyCSS": true,
+        "minifyCSS": false,
         "minifyJS": true
       }
     },

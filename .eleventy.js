@@ -115,7 +115,10 @@ module.exports = function(eleventyConfig) {
     files: [ ...zuixConfig.componentsFolders ],
     notify: false,
     cors: true,
-    middleware: [compress()],
+    middleware: [compress(), function(req, res, next) {
+      res.setHeader('Set-Cookie', 'SameSite=Lax; Secure');
+      next();
+    }],
     callbacks: {
       ready: function(err, bs) {
         // store a local reference of BrowserSync object
