@@ -34,7 +34,7 @@ const {EleventyRenderPlugin} = require("@11ty/eleventy");
 
 // zuix.js
 const zuix11ty = require('./.eleventy-zuix');
-const zuixConfig = zuix11ty.getConfig();
+const zuixConfig = zuix11ty.getZuixConfig();
 
 // LESS CSS compiler
 const less = require('less');
@@ -124,7 +124,7 @@ module.exports = function(eleventyConfig) {
         // store a local reference of BrowserSync object
         browserSync = bs;
         // setup zuix-11ty watcher
-        zuix11ty.setupWatcher(eleventyConfig, browserSync.publicInstance);
+        zuix11ty.startWatcher(eleventyConfig, browserSync.publicInstance);
       }
     },
     /*

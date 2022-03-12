@@ -1,5 +1,5 @@
     :root {
-        --primary-color: rgb(63,81,181);
+        --primary-color: #1d68a8; /* rgb(63,81,181) */
         --accent-color: rgb(124,77,255);
         --background-color: unset;
     }
@@ -129,9 +129,13 @@
         box-shadow: 0 1px rgba(100, 100, 100, 30%);
     }
     h1[z-field="alt_header"] {
+        max-width: 100%;
         text-align: center;
         display: block;
-        padding: 10px 48px 24px !important;
+        padding: 10px 56px 24px !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .header-menu-button {

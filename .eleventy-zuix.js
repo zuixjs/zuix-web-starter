@@ -53,7 +53,7 @@ const includesFolder = zuixConfig.get('build.includesFolder');
 // this file is a temporary file create to trigger 11ty build
 const triggerFile = path.join(sourceFolder, '.zuix.build.md');
 const triggerFileOut = path.join(buildFolder, '.zuix.build.tmp');
-// replace {{variables}}
+// replace {{variables}} eventually employed in the config
 zuixConfig = JSON.parse(render(JSON.stringify(zuixConfig), zuixConfig));
 
 const normalizeMarkup = (s) => s.trim().split('\n').filter((l) => {
@@ -62,7 +62,7 @@ const normalizeMarkup = (s) => s.trim().split('\n').filter((l) => {
   }
 }).join('\n');
 
-function getConfig() {
+function getZuixConfig() {
   return {
     sourceFolder,
     buildFolder,
@@ -76,7 +76,7 @@ function getConfig() {
   }
 }
 
-function setupWatcher(eleventyConfig, browserSync) {
+function startWatcher(eleventyConfig, browserSync) {
   // Watch zuix.js folders and files (`./source/lib`, `./source/app`, zuixConfig.copy), ignored by 11ty
   const watchEvents = {add: true, change: true, unlink: true};
   const watchFiles = [];
@@ -113,7 +113,7 @@ Temporary file to trigger 11ty build`);
   });
 }
 
-function setup11tyHooks(eleventyConfig) {
+function initEleventyZuix(eleventyConfig) {
   const postProcessFiles = [];
   const changedFiles = [];
   let rebuildAll = true;
@@ -203,7 +203,7 @@ function setup11tyHooks(eleventyConfig) {
 }
 
 function configure(eleventyConfig) {
-  setup11tyHooks(eleventyConfig);
+  initEleventyZuix(eleventyConfig);
 
   // TODO: add custom 11ty config here
   eleventyConfig.setDataDeepMerge(true);
@@ -261,5 +261,5 @@ function configure(eleventyConfig) {
 }
 
 module.exports = {
-  setupWatcher, configure, getConfig
+  startWatcher, configure, getZuixConfig
 }
