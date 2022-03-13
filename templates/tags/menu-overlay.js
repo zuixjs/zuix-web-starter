@@ -53,8 +53,5 @@ module.exports = (render, content, contextId) => {
     }
   });
   content = `<div #items>${content}</div>`;
-//  console.log(content)
-//      .replace('<ul>', '<ul #items>')
-//      .replaceAll('li>', 'div>');
   return render(template, {content, contextId});
 };

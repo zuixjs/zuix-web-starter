@@ -200,21 +200,26 @@ function initEleventyZuix(eleventyConfig) {
       eleventyConfig.addPassthroughCopy(f);
     });
   }
+  eleventyConfig.setDataDeepMerge(true);
 }
 
 function configure(eleventyConfig) {
   initEleventyZuix(eleventyConfig);
 
-  // TODO: add custom 11ty config here
-  eleventyConfig.setDataDeepMerge(true);
-  // # Add data collections
+  /*
+  || Add data collections
+  */
 
   // this is used by the searchFilter
   eleventyConfig.addCollection('posts_searchIndex', (collection) => {
     return [...collection.getFilteredByGlob(path.join(zuixConfig.build.input, 'pages/**/*.md'))];
   });
 
-  // # Add custom data filters // TODO: maybe scan folder and add automatically
+  /*
+  || Add custom data filters
+  */
+
+  // TODO: maybe scan folder and add automatically
   const filtersPath = path.resolve(sourceFolder, '_filters');
   eleventyConfig.addFilter(
       'search',
@@ -225,24 +230,10 @@ function configure(eleventyConfig) {
       require(path.join(filtersPath, 'dateFilter'))
   );
 
-  // TODO: describe the following
-  eleventyConfig.addPairedShortcode('unpre', function(content) {
-    content = content.substring(content.indexOf('```') + 3);
-    content = content.substring(content.indexOf('\n') + 1);
-    content = content.substring(0, content.lastIndexOf('```'));
-    return normalizeMarkup(content);
-  });
-  eleventyConfig.addPairedShortcode('zx', function(content, template, ...args) {
-    const p = `./templates/tags/${template}.js`;
-    if (fs.existsSync(p)) {
-      delete require.cache[require.resolve(p)];
-      return normalizeMarkup(require(p)(render, content, ...args));
-    }
-    return ''; // 'Not implemented! (' + content + ') [' + args + ']';
-  });
-  eleventyConfig.addPairedShortcode('layout', function(content, ...args) {
-    return `<div layout="${args[0]}" ${args[1]}>${normalizeMarkup(content)}</div>`;
-  });
+  /*
+  || Add short codes
+  */
+
   eleventyConfig.addShortcode('rawFile', function(fileName) {
     const inputPath = path.dirname(this.page.inputPath);
     let rawFile = path.join(inputPath, this.page.fileSlug, fileName);
@@ -257,6 +248,26 @@ function configure(eleventyConfig) {
     } else {
       // TODO: report error
     }
+  });
+
+  eleventyConfig.addPairedShortcode('unpre', function(content) {
+    content = content.substring(content.indexOf('```') + 3);
+    content = content.substring(content.indexOf('\n') + 1);
+    content = content.substring(0, content.lastIndexOf('```'));
+    return normalizeMarkup(content);
+  });
+
+  eleventyConfig.addPairedShortcode('layout', function(content, ...args) {
+    return `<div layout="${args[0]}" ${args[1]}>${normalizeMarkup(content)}</div>`;
+  });
+
+  eleventyConfig.addPairedShortcode('zx', function(content, template, ...args) {
+    const p = `./templates/tags/${template}.js`;
+    if (fs.existsSync(p)) {
+      delete require.cache[require.resolve(p)];
+      return normalizeMarkup(require(p)(render, content, ...args));
+    }
+    return ''; // 'Not implemented! (' + content + ') [' + args + ']';
   });
 }
 

@@ -6,14 +6,24 @@ options: mdl highlight
 theme: indigo-deep_purple
 order: 1
 title: Quick Start
-description: Welcome to zuix.js web starter
+description: Getting started with this web starter
 icon: read_more
 imageCover: https://picsum.photos/seed/docs!01/960/640
 imagePreview: https://picsum.photos/seed/docs!01/640/560
 imagePreviewMini: https://picsum.photos/seed/docs!01/256/256
 pubDate: 2022-03-07 09:34:14
 keywords:
-- QuickStart
+- Quick
+- Start
+- Getting started
+- zx
+- CLI
+- Install
+- Server
+- Build
+- Publish
+- Production
+- Default
 ---
 
 The only required knowledge to use this *web-starter*, is about basic use of the *Shell* and a simple text editor.

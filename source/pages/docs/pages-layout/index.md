@@ -6,16 +6,17 @@ options: mdl highlight
 theme: indigo-deep_purple
 order: 20
 title: Page layout and options
-description:
-icon: mood
+description: Page front matter, layout and options
+icon: dashboard
 imageCover: https://picsum.photos/seed/docs!02/960/640
 imagePreview: https://picsum.photos/seed/docs!02/640/560
 imagePreviewMini: https://picsum.photos/seed/docs!02/256/256
 keywords:
-- Material
-- Design
-- Light
-- MDL
+- Front
+- Matter
+- Options
+- Layout
+- Page
 ---
 
 Every page file contains [front matter](https://www.11ty.dev/docs/data-frontmatter/) data that is used to select the page layout that will wrap the content,

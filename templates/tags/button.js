@@ -5,5 +5,8 @@ const template = `
 module.exports = (render, content, linkUrl, buttonType, buttonClass) => {
   // buttonType :==  'flat' | 'raised' | 'fab' | 'icon'
   // buttonClass :==  'mini-fab' | 'accent' | 'colored' | 'primary'
+  if (buttonType === 'fab') {
+    content = `<i class="material-icons">${content}</i>`;
+  }
   return render(template, {content, linkUrl, buttonType, buttonClass});
 };

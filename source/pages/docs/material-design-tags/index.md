@@ -4,25 +4,29 @@ tags: documentation
 group: documentation
 options: mdl highlight
 theme: indigo-deep_purple
-order: 30
+order: 40
 title: Material Design tags
-description: Material Design Light liquid tags
-icon: auto_stories
-imageCover: https://picsum.photos/seed/docs!03/960/640
-imagePreview: https://picsum.photos/seed/docs!03/640/560
-imagePreviewMini: https://picsum.photos/seed/docs!03/256/256
+description: Material Design Light short codes
+icon: smart_button
+imageCover: https://picsum.photos/seed/docs!04/960/640
+imagePreview: https://picsum.photos/seed/docs!04/640/560
+imagePreviewMini: https://picsum.photos/seed/docs!04/256/256
 keywords:
 - Material
 - Design
 - Light
 - MDL
+- Short
+- Codes
+- Liquid
+- Tags
 ---
 
-As an example, this web starter template includes [Material Design Lite](https://getmdl.io/components/) controls, implemented as
-*zuix.js* [components](https://zuixjs.org/pages/documentation/component), that can be rendered using the following liquid [Liquid](https://shopify.dev/api/liquid) tags.   
+As an example this web starter template includes [Material Design Lite](https://getmdl.io/components/) components, implemented using
+*zuix.js*, and that can be rendered using the following short codes.   
 
 
-## Liquid tags
+## Short codes
 
 <a name="Basic_button"></a>
 ### Basic button
@@ -73,25 +77,25 @@ Click Me
 ### Floating action buttons
 
 {% zx 'button' '#test-link-3' 'fab' 'accent' %}
-<i class="material-icons">mail</i>
+mail
 {% endzx %}
 
 {% raw %}
 ```liquid
 {% zx 'button' '#test-link-3' 'fab' 'accent' %}
-<i class="material-icons">mail</i>
+mail
 {% endzx %}
 ```
 {% endraw %}
 
 {% zx 'button' '#test-link-3' 'fab' 'mini-fab primary' %}
-<i class="material-icons">home</i>
+home
 {% endzx %}
 
 {% raw %}
 ```liquid
 {% zx 'button' '#test-link-3' 'fab' 'mini-fab primary' %}
-<i class="material-icons">home</i>
+home
 {% endzx %}
 ```
 {% endraw %}
@@ -157,55 +161,29 @@ Click Me
 ```
 {% endraw %}
 
-
+<a name="Menu_overlay"></a>
 ### Menu overlay
 
 {% zx 'menu-overlay' %}
-- [Basic button](#Basic_button) home
-- [Colored button](#Colored_button) wb_sunny 
-- [Flat button](#Flat_button) add
-- [Floating action buttons](#Floating_action_buttons) smart_button
+- [Basic button](#Basic_button) smart_button
+- [Colored button](#Colored_button) smart_button 
+- [Flat button](#Flat_button) smart_button
+- [Floating action buttons](#Floating_action_buttons) add_circle_outline
+- [Menu button](#Menu_button) menu
+- [Cards](#Cards) dashboard
+- [Menu Overlay](#Menu_overlay) list
 {% endzx %}
 
 {% raw %}
 ```liquid
 {% zx 'menu-overlay' %}
-- [Basic button](#Basic_button) home
-- [Colored button](#Colored_button) wb_sunny 
-- [Flat button](#Flat_button) add
-- [Floating action buttons](#Floating_action_buttons) smart_button
+- [Basic button](#Basic_button) smart_button
+- [Colored button](#Colored_button) smart_button 
+- [Flat button](#Flat_button) smart_button
+- [Floating action buttons](#Floating_action_buttons) add_circle_outline
+- [Menu button](#Menu_button) menu
+- [Cards](#Cards) dashboard
+- [Menu Overlay](#Menu_overlay) list
 {% endzx %}
 ```
 {% endraw %}
-
-
-## Adding more tags
-
-
-// TODO: ...
-
-
-{% layout 'column top-left' 'style="overflow-x:hidden"' %}
-{% unpre %}
-```html
-<label ctrl z-load="@lib/controllers/mdl-checkbox">
-    Hello world
-    <input type="checkbox">
-</label>
-```
-{% endunpre %}
-{% endlayout %}
-
-
-## Custom `liquid` tags
-
-About {% raw %}`{% unpre %}` / `{% endunpre %}`{% endraw %} tag.
-
-Sometimes it will happen to use `HTML` code in a markdown `.md` file, in which case the liquid tags {% raw %}`{% unpre %}` / `{% endunpre %}`{% endraw %}
-can be used to wrap the `HTML` code inside a preformatted block, so that it will be actually recognized as HTML and the
-editor will highlight the code correctly.
-
-About {% raw %}`{% layout %}`{% endraw %} tag for implementing flex containers.
-
-// TODO: ...
-
