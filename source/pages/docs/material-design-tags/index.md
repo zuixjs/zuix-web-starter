@@ -5,8 +5,8 @@ group: documentation
 options: mdl highlight
 theme: indigo-deep_purple
 order: 40
-title: Material Design tags
-description: Material Design Light short codes
+title: Material Design components
+description: MDL short codes
 icon: smart_button
 imageCover: https://picsum.photos/seed/docs!04/960/640
 imagePreview: https://picsum.photos/seed/docs!04/640/560
