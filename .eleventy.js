@@ -149,7 +149,7 @@ module.exports = function(eleventyConfig) {
       output: zuixConfig.buildFolder,
       data: zuixConfig.dataFolder,
       includes: zuixConfig.includesFolder,
-      layouts: "_inc/layouts"
+      layouts: path.join(zuixConfig.includesFolder, "layouts")
     },
     //htmlTemplateEngine: false, // 'liquid'
     markdownTemplateEngine: 'liquid',

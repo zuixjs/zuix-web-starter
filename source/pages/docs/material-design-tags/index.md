@@ -195,3 +195,17 @@ Click Me
 ```
 {% endunpre %}
 {% endlayout %}
+
+
+## Custom `liquid` tags
+
+About {% raw %}`{% unpre %}` / `{% endunpre %}`{% endraw %} tag.
+
+Sometimes it will happen to use `HTML` code in a markdown `.md` file, in which case the liquid tags {% raw %}`{% unpre %}` / `{% endunpre %}`{% endraw %}
+can be used to wrap the `HTML` code inside a preformatted block, so that it will be actually recognized as HTML and the
+editor will highlight the code correctly.
+
+About {% raw %}`{% layout %}`{% endraw %} tag for implementing flex containers.
+
+// TODO: ...
+

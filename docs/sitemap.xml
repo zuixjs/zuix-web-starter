@@ -7,11 +7,6 @@
   </url>
 
   <url>
-    <loc>https://zuixjs.github.io/zuix-web-starter//pages/docs/material-design-tags/</loc>
-    <lastmod>2022-03-10</lastmod>
-  </url>
-
-  <url>
     <loc>https://zuixjs.github.io/zuix-web-starter//home/</loc>
     <lastmod>2022-03-10</lastmod>
   </url>
@@ -27,12 +22,17 @@
   </url>
 
   <url>
-    <loc>https://zuixjs.github.io/zuix-web-starter//pages/docs/pages-layout/</loc>
-    <lastmod>2022-03-11</lastmod>
+    <loc>https://zuixjs.github.io/zuix-web-starter//pages/docs/quick-start/</loc>
+    <lastmod>2022-03-13</lastmod>
   </url>
 
   <url>
-    <loc>https://zuixjs.github.io/zuix-web-starter//pages/docs/quick-start/</loc>
+    <loc>https://zuixjs.github.io/zuix-web-starter//pages/docs/material-design-tags/</loc>
+    <lastmod>2022-03-13</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zuix-web-starter//pages/docs/pages-layout/</loc>
     <lastmod>2022-03-13</lastmod>
   </url>
 
