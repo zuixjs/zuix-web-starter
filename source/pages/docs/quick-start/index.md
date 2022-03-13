@@ -150,7 +150,7 @@ Template engine folders:
 ./source/lib  # copy of zKit components
 ```
 
-Asset files and folders:
+Global asset files and folders:
 ```
 ./source/images
 ./source/js
@@ -178,13 +178,90 @@ Content pages:
 ./source/pages
 ```
 
+it's a good practice to have each content page implemented with its own folder and a `index.md` file in it.
+In the same folder can be placed other sub-folders for page-local assets, such as images.
+
+{% include "./_inc/marks.liquid" %}
+{{ good_mark }}
+
+```
+./source/pages/travel/my-first-cruise/images/picture1.png
+./source/pages/travel/my-first-cruise/index.md
+```
+
+{{ bad_mark }}
+
+```
+./source/pages/travel/my-first-cruise/images/picture1.png
+./source/pages/travel/my-first-cruise.md
+```
+
+{{ bad_mark }}
+
+```
+./source/pages/travel/images/picture1.png
+./source/pages/travel/my-first-cruise.md
+```
+
+same applies also if a different format is used for the `index` file that will then have a different extension (`.liquid`, `.njk`, `.11ty.js`, `.html`, ...).  
+The special sub-folder `_inc` can be used for page-local includes.
 
 
-## Compiling for production
+## Building for production
+
+The build process will read the default configuration of the web application, from the JSON file `./config/default.json`.  
+This file contains, among the other options, the base url of the application that by default is `/`:  
+
+./config/**default.json**
+```json
+{
+  "zuix": {
+    ...
+    ...
+    "app": {
+      "title": "My web application",
+      "baseUrl": "/",
+      ...
+    }
+  }
+}
+```
+
+Depending on the hosting service where the application will be published, the base url might not be the root of the website,
+like it happens for *GitHub* hosted pages, where the base url is the name of the project, unless custom domain is used:
+```
+https://<account_name>.github.io/<project_name>/
+```
+For this purpose, when building for production, a different configuration file is used with the proper base url set:
+
+./config/**production.json**
+```json
+{
+  "zuix": {
+    ...
+    ...
+    "app": {
+      "title": "My web application",
+      "baseUrl": "/my-web-app/",
+      ...
+    }
+  }
+}
+```
+
+also, the `{% raw %}{{ app.baseUrl }}{% endraw %}` variable, if used in templates, will be replaced with the proper value depending on the selected
+configuration.
+
+So, to select the *production* configuration when building the web application, the environment variable `NODE_ENV` must be set to `production`:
 
 ```shell
 NODE_ENV=production zx build
 ```
 
-// TODO: about `./config/default.json` / `./config/production.json` and `baseUrl` etc...
+it's also possible to simulate the production hosting when running the development server:
 
+```shell
+NODE_ENV=production zx start
+```
+
+in which case, the application will be served at the url specified by `baseUrl` in the production configuration file.

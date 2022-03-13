@@ -95,7 +95,7 @@
         margin-bottom: 30px;
     }
 
-    pre {
+    pre[class*="language-"]{
         margin-top: 32px!important;
         margin-bottom: 32px!important;
     }
@@ -364,7 +364,7 @@
 ./source/_inc      # includes and layouts
 </code></pre><p><em>zuix.js</em> components folders:<pre><code>./source/app  # user-defined components
 ./source/lib  # copy of zKit components
-</code></pre><p>Asset files and folders:<pre><code>./source/images
+</code></pre><p>Global asset files and folders:<pre><code>./source/images
 ./source/js
 ./browserconfig.xml
 ./favico.ico
@@ -376,8 +376,38 @@
 </code></pre><p>Main pages:<pre><code>./source/home.liquid   # home page
 ./source/index.liquid  # landing page
 </code></pre><p>Content pages:<pre><code>./source/pages
-</code></pre><h2>Compiling for production</h2><pre><code class="language-shell">NODE_ENV=production zx build
-</code></pre><p>// TODO: about <code>./config/default.json</code> / <code>./config/production.json</code> and <code>baseUrl</code> etc...<div layout="row center-spread" style="margin-top: 56px; margin-bottom: 56px; padding-left: 8px; padding-right: 8px; font-size: 140%"><div>&nbsp;</div><a href="/zuix-web-starter/pages/docs/pages-layout/" style="text-align: center"><div layout="row center-center"><span style="padding-left: 24px">Next</span> <i class="material-icons">arrow_right</i>&nbsp;</div><div class="navigation-title">Pages layout and options</div></a></div><style>.navigation-image {
+</code></pre><p>it's a good practice to have each content page implemented with its own folder and a <code>index.md</code> file in it. In the same folder can be placed other sub-folders for page-local assets, such as images.<div layout="row center-left"><i class="material-icons" style="color: green">done</i> <span>Good</span></div><pre><code>./source/pages/travel/my-first-cruise/images/picture1.png
+./source/pages/travel/my-first-cruise/index.md
+</code></pre><div layout="row center-left" style="margin-top: 32px"><i class="material-icons" style="color: red">clear</i> <span>Bad</span></div><pre><code>./source/pages/travel/my-first-cruise/images/picture1.png
+./source/pages/travel/my-first-cruise.md
+</code></pre><div layout="row center-left" style="margin-top: 32px"><i class="material-icons" style="color: red">clear</i> <span>Bad</span></div><pre><code>./source/pages/travel/images/picture1.png
+./source/pages/travel/my-first-cruise.md
+</code></pre><p>same applies also if a different format is used for the <code>index</code> file that will then have a different extension (<code>.liquid</code>, <code>.njk</code>, <code>.11ty.js</code>, <code>.html</code>, ...).<br>The special sub-folder <code>_inc</code> can be used for page-local includes.<h2>Building for production</h2><p>The build process will read the default configuration of the web application, from the JSON file <code>./config/default.json</code>.<br>This file contains, among the other options, the base url of the application that by default is <code>/</code>:<p>./config/<strong>default.json</strong><pre><code class="language-json">{
+  &quot;zuix&quot;: {
+    ...
+    ...
+    &quot;app&quot;: {
+      &quot;title&quot;: &quot;My web application&quot;,
+      &quot;baseUrl&quot;: &quot;/&quot;,
+      ...
+    }
+  }
+}
+</code></pre><p>Depending on the hosting service where the application will be published, the base url might not be the root of the website, like it happens for <em>GitHub</em> hosted pages, where the base url is the name of the project, unless custom domain is used:<pre><code>https://&lt;account_name&gt;.github.io/&lt;project_name&gt;/
+</code></pre><p>For this purpose, when building for production, a different configuration file is used with the proper base url set:<p>./config/<strong>production.json</strong><pre><code class="language-json">{
+  &quot;zuix&quot;: {
+    ...
+    ...
+    &quot;app&quot;: {
+      &quot;title&quot;: &quot;My web application&quot;,
+      &quot;baseUrl&quot;: &quot;/my-web-app/&quot;,
+      ...
+    }
+  }
+}
+</code></pre><p>also, the <code>{{ app.baseUrl }}</code> variable, if used in templates, will be replaced with the proper value depending on the selected configuration.<p>So, to select the <em>production</em> configuration when building the web application, the environment variable <code>NODE_ENV</code> must be set to <code>production</code>:<pre><code class="language-shell">NODE_ENV=production zx build
+</code></pre><p>it's also possible to simulate the production hosting when running the development server:<pre><code class="language-shell">NODE_ENV=production zx start
+</code></pre><p>in which case, the application will be served at the url specified by <code>baseUrl</code> in the production configuration file.<div layout="row center-spread" style="margin-top: 112px; margin-bottom: 32px; padding-left: 8px; padding-right: 8px; font-size: 140%"><div>&nbsp;</div><a href="/zuix-web-starter/pages/docs/pages-layout/" style="text-align: center"><div layout="row center-center"><span style="padding-left: 24px">Next</span> <i class="material-icons">arrow_right</i>&nbsp;</div><div class="navigation-title">Pages layout and options</div></a></div><style>.navigation-image {
             border-radius: 32px;
             border-color: rgba(100,200,200,0.5);
         }

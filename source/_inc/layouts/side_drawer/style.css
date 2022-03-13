@@ -79,7 +79,7 @@
         margin-bottom: 30px;
     }
 
-    pre {
+    pre[class*="language-"]{
         margin-top: 32px!important;
         margin-bottom: 32px!important;
     }

@@ -20,7 +20,8 @@
         "pages/**/*.json"
       ],
       "ignore": [
-        "_filters"
+        "_filters",
+        "pages/**/_inc/*"
       ],
       "dataFolder": "_data",
       "includesFolder": "_inc",
