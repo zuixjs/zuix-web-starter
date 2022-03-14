@@ -164,7 +164,7 @@ home
 <a name="Menu_overlay"></a>
 ### Menu overlay
 
-This tag allow creating a Floating Button menu visible on the right lower corner of the page and that automatically
+This tag allows creating a Floating Button menu visible on the right lower corner of the page and that automatically
 shows/hides when the page is scrolled. It's not an MDL component and it will work even without loading MDL library.
 
 {% zx 'menu-overlay' %}

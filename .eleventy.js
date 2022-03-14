@@ -110,7 +110,8 @@ module.exports = function(eleventyConfig) {
     }
   });
   // Add any BrowserSync config option here
-  eleventyConfig.setBrowserSyncConfig({
+  eleventyConfig.setServerOptions({
+    module: "@11ty/eleventy-server-browsersync",
     //reloadDelay: 2000,
     files: [ ...zuixConfig.componentsFolders ],
     notify: false,
