@@ -13,7 +13,7 @@ const template = `
 
 module.exports = (render, content, title, image, linkTitle, linkUrl, type) => {
   let minHeight = 330;
-  let minWidth = 426;
+  let minWidth = 340;
   if (type) {
     if (type === 'square') {
       minHeight = 320;
