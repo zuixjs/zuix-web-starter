@@ -104,6 +104,7 @@
     main {
         width: 100% !important;
         padding: 0 !important;
+        transition: padding-left 150ms ease-in-out;
     }
     main div.content {
         width: 100% !important;
@@ -203,6 +204,12 @@
         0% { opacity: 0.2; }
         50% { opacity: 0.4; }
         100% { opacity: 0.2; }
+    }
+
+    [z-load="@lib/templates/mdl-card-image"] {
+        position: relative;
+        width: 256px;
+        height: 256px;
     }
 
     {% include 'layouts/side_drawer/drawer.css' %}

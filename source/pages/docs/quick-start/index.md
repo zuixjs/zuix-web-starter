@@ -77,8 +77,8 @@ Once started you can open the web browser and load the website using the access 
 [Browsersync] Watching files...
 ```
 
-The main project folder is the `./source` folder, where all website source files are located. In particular, the
-`./source/pages` folder, contains all website pages that are implemented as text files that use [**Markdown**](https://www.markdownguide.org/getting-started/) syntax,
+The main project folder is the `./source` folder, where all website files are located. In particular, the `./source/pages` folder,
+contains all website pages content that are implemented as text files using [**Markdown**](https://www.markdownguide.org/getting-started/) syntax,
 and that will contain just the main content of the page. All other structural and layout parts of the page will be compiled
 automatically by the development server.
 
@@ -97,7 +97,7 @@ The documentation is anyway available online on this web-starter [demo site](htt
 
 ### Adding a new page
 
-Pages are organized into sections. For example these documentation pages, are grouped under the "Documentation" section,
+Pages are organized into sections. For example these pages, are grouped under the "Documentation" section,
 as shown on the left side drawer.
 
 ![Side Drawer](./images/side_drawer.png)
@@ -114,7 +114,7 @@ Both name must be *file-name* friendly, the [kebab-case](https://en.wikipedia.or
 convention is adopted here.
 Optionally it's also possible to specify [front matter data](../pages-layout) using the `-fm` option.
 
-For example, the following code will add a new page in a section called "blog":
+For example, the following command will add a new page in a section called "blog" also enabling Material Design styles (mdl) and code highlighter:
 
 ```shell
 zx add -s blog -n my-first-blog-post -fm "options: mdl highlight"
@@ -130,7 +130,7 @@ and that can be used to customize the title and the display order in the homepag
 ## Components
 
 This web-starter is a component based web application that takes advantages of [zuix.js](https://zuixjs.org) library, a very versatile and 
-fast library to create components.
+fast library for creating components.
 
 The following components are used:
 - **Side Drawer** with adaptive layout, that works both on mobile and desktop devices, supporting touch gestures
@@ -259,7 +259,7 @@ For this purpose, when building for production, a different configuration file i
 }
 ```
 
-also, the `{% raw %}{{ app.baseUrl }}{% endraw %}` variable, if used in templates, will be replaced with the proper value depending on the selected
+also, the `{% raw %}{{ app.baseUrl }}{% endraw %}` variable, if used in a template, will be replaced with the proper value depending on the selected
 configuration.
 
 So, to select the *production* configuration when building the web application, the environment variable `NODE_ENV` must be set to `production`:
