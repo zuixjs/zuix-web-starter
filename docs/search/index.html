@@ -81,6 +81,9 @@
         margin-bottom: 30px;
     }
 
+    code[class*=language-], pre[class*=language-] {
+        font-size: 115%;
+    }
     pre:not([class*="language-"]) {
         width: 100%;
         max-width: 100%;
@@ -344,7 +347,7 @@
          z-context="menu_hamburger"
          z-options="menuButtonOptions"
          style="position:fixed;right:0;top:6px;z-index:1001"></div>
-         --><main class="animate__animated animate__fadeIn animate__faster" layout="column top-center"><h1 #alt_header class="title">Search</h1><div self="size-x1" class="content"><div z-load="default"><div class="field" layout="row center-left"><div><label class="mdl-button mdl-js-button mdl-button--icon" for="sample1"><i class="material-icons">search</i></label><div class="mdl-textfield mdl-js-textfield"><input #search-input aria-label="Search" type="search" class="mdl-textfield__input" id="sample1"> <label class="mdl-textfield__label" for="sample1">Enter search terms</label></div></div></div><ol #results></ol><div #results-none style="display: none"><p>No results found.</div><!-- zUIx list_view component --><div #results-list z-load="@lib/controllers/list_view"><!-- Place holder is mandatory for JS-only compoments.. --> Loading listview...</div><script type="jscript">// get the search index
+         --><main class="animate__animated animate__fadeIn animate__faster" layout="column top-center"><h1 #alt_header class="title">Search</h1><div self="size-x1" class="content"><div z-load="default"><div class="field" layout="row center-left"><div><label class="mdl-button mdl-js-button mdl-button--icon" for="sample1"><i class="material-icons">search</i></label><div class="mdl-textfield mdl-js-textfield"><input #search-input aria-label="Search" type="search" class="mdl-textfield__input" id="sample1"> <label class="mdl-textfield__label" for="sample1">Enter search terms</label></div></div></div><ol #results></ol><div #results-none style="display: none"><p>No results found.</div><!-- zUIx list-view component --><div #results-list z-load="@lib/controllers/list-view"><!-- Place holder is mandatory for JS-only compoments.. --> Loading listview...</div><script type="jscript">// get the search index
       let searchIndex = null;
       /** @type {elasticlunr.Index} searchIndex */
       fetch('/zuix-web-starter/search-index.json').then((response) =>

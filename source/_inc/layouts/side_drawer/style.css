@@ -79,6 +79,9 @@
         margin-bottom: 30px;
     }
 
+    code[class*=language-], pre[class*=language-] {
+        font-size: 115%;
+    }
     pre:not([class*="language-"]) {
         width: 100%;
         max-width: 100%;

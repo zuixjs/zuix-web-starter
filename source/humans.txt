@@ -11,7 +11,7 @@
 
 # TECHNOLOGY COLOPHON
 
-  HTML5, CSS, JavaScript
+  HTML5, CSS3, JavaScript
   zuix.js  - https://zuixjs.org
   Eleventy - https://11ty.dev
   Node.js  - https://nodejs.org
