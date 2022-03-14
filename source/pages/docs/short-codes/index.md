@@ -84,24 +84,41 @@ It's mainly intended wrap and format `zx` shortcode output.
 
 ## zx
 
-// TODO: ...
+The `zx` shortcode is used to render HTML fragments or components based on dynamically loaded tag templates.
+Tag templates are loaded from the `./templates/tags` folder, and they consist of simple and small JavaScript code that
+renders the requested tag.
 
+{% raw %}
+```liquid
+{% zx '<tag_name>' ['<tag_option_1>' ... <tag_option_n>] %}
+(optional content)
+{% endzx %}
+``` 
+{% endraw %}
 
+In the previous example the tag `button` is loaded from `./templates/tags/button.js`. The first option for this button tag
+is the anchor name / URL link to be opened when the button is clicked (`#test-link-1` in this case). 
 
-### Adding more tags
+### Adding custom zx tags
 
+Any custom tag can be implemented by just adding a `./templates/tags/<custom_tag_name>.js` file. For example, this is the
+code of **./templates/tags/button.js** used in the previous example:
 
-// TODO: ...
+```js
+{% raw %}
+const template = `<a ctrl z-load="@lib/controllers/mdl-button"
+     z-options="{ type: '{{ buttonType }}', class: '{{ buttonClass }}' }"
+     href="{{ linkUrl }}">{{content}}</a>`;
 
-
-{% layout 'column top-left' 'style="overflow-x:hidden"' %}
-{% unpre %}
-```html
-<label ctrl z-load="@lib/controllers/mdl-checkbox">
-    Hello world
-    <input type="checkbox">
-</label>
+module.exports = (render, content, linkUrl, buttonType, buttonClass) => {
+  // buttonType :==  'flat' | 'raised' | 'fab' | 'icon'
+  // buttonClass :==  'mini-fab' | 'accent' | 'colored' | 'primary'
+  if (buttonType === 'fab') {
+    content = `<i class="material-icons">${content}</i>`;
+  }
+  return render(template, {content, linkUrl, buttonType, buttonClass});
+};
+{% endraw %}
 ```
-{% endunpre %}
-{% endlayout %}
 
+It just renders the required HTML markup to make *zuix.js* load the `mdl-button` component.
