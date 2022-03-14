@@ -1,5 +1,5 @@
 const template = `
-<div view z-load="@lib/templates/mdl-card{{ type }}" class="visible-on-ready" style="margin: 12px;">
+<div view z-load="@lib/templates/mdl-card{{ type }}" class="visible-on-ready" style="margin: 12px;min-width: {{ minWidth }}px; min-height: {{ minHeight }}px; display: inline-block">
   <h1 #title style="font-size: 150%!important; position: absolute; padding: 12px" class="mdl-color-text--primary-contrast">{{ title }}</h1>
   <img #image src="{{ image }}" alt="Cover image" role="presentation">
   <div style="position: absolute; bottom: 0; width: 100%; background: #ffffffAA">
@@ -12,8 +12,17 @@ const template = `
 `;
 
 module.exports = (render, content, title, image, linkTitle, linkUrl, type) => {
+  let minHeight = 330;
+  let minWidth = 426;
   if (type) {
+    if (type === 'square') {
+      minHeight = 320;
+      minWidth = 320;
+    } else {
+      minHeight = 256;
+      minWidth = 256;
+    }
     type = '-' + type;
   }
-  return render(template, {content, title, image, linkTitle, linkUrl, type});
+  return render(template, {content, title, image, linkTitle, linkUrl, type, minWidth, minHeight});
 };

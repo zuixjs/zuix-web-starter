@@ -214,5 +214,7 @@
         width: 256px;
         height: 256px;
     }
-
+    [z-include][z-ready=true].visible-on-ready, [z-load][z-ready=true].visible-on-ready {
+        transition: opacity 500ms ease-in-out;
+    }
     {% include 'layouts/side_drawer/drawer.css' %}
