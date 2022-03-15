@@ -34,6 +34,7 @@ const config = require('config');
 const fs = require('fs');
 const chokidar = require('chokidar');
 const render = require('template-file').render;
+const moment = require('moment');
 
 const zuixCompile = require('zuix-cli/commands/compile-page');
 const zuixUtils = require('zuix-cli/common/utils');
@@ -117,14 +118,7 @@ function initEleventyZuix(eleventyConfig) {
   const postProcessFiles = [];
   const changedFiles = [];
   let rebuildAll = true;
-
-  // - copy last zUIx release
-  zuixUtils.copyFolder(util.format('%s/node_modules/zuix-dist/js', process.cwd()), util.format('%s/js/zuix', buildFolder), (err) => {
-    if (err) console.log(err);
-  });
-  // - auto-generated config.js
-  zuixUtils.generateAppConfig(zuixConfig);
-
+  copyDependencies();
   // zUIx.js specific code and life-cycle hooks
   eleventyConfig.addGlobalData("app", zuixConfig.app);
   eleventyConfig.addWatchTarget('./templates/tags/');
@@ -203,6 +197,26 @@ function initEleventyZuix(eleventyConfig) {
   eleventyConfig.setDataDeepMerge(true);
 }
 
+function copyDependencies() {
+  // Copy last zUIx release
+  zuixUtils.copyFolder(`${process.cwd()}/node_modules/zuix-dist/js`, `${buildFolder}/js/zuix`, (err) => {
+    if (err) console.log(err);
+  });
+  // Auto-generated config.js
+  zuixUtils.generateAppConfig(zuixConfig);
+  // Copy other dependencies
+  // - elasticlurn search engine
+  zuixUtils.copyFolder(`${process.cwd()}/node_modules/elasticlunr/release`, `${buildFolder}/js/elasticlunr`, (err) => {
+    if (err) console.log(err);
+  });
+  // - Flex Layout Attribute
+  zuixUtils.copyFolder(`${process.cwd()}/node_modules/flex-layout-attribute/css`, `${buildFolder}/css/fla`, (err) => {
+    if (err) console.log(err);
+  });
+  // - Animate.CSS
+  fs.copyFileSync(`${process.cwd()}/node_modules/animate.css/animate.min.css`, `${buildFolder}/css/animate.min.css`);
+}
+
 function configure(eleventyConfig) {
   initEleventyZuix(eleventyConfig);
 
@@ -226,8 +240,8 @@ function configure(eleventyConfig) {
       require(path.join(filtersPath, 'searchFilter'))
   );
   eleventyConfig.addFilter(
-      'date',
-      require(path.join(filtersPath, 'dateFilter'))
+    'date',
+    (date, format) => moment(date).format(format || 'YYYY-MM-DD')
   );
 
   /*
@@ -236,17 +250,21 @@ function configure(eleventyConfig) {
 
   eleventyConfig.addShortcode('rawFile', function(fileName) {
     const inputPath = path.dirname(this.page.inputPath);
-    let rawFile = path.join(inputPath, this.page.fileSlug, fileName);
+    let rawFile = path.join(inputPath, fileName);
     if (!fs.existsSync(rawFile)) {
-      rawFile = path.join(zuixConfig.build.input, zuixConfig.build.includesFolder, fileName);
+      rawFile = path.join(inputPath, this.page.fileSlug, fileName);
     }
     if (!fs.existsSync(rawFile)) {
       rawFile = path.join(zuixConfig.build.input, fileName);
+    }
+    if (!fs.existsSync(rawFile)) {
+      rawFile = path.join(zuixConfig.build.input, zuixConfig.build.includesFolder, fileName);
     }
     if (fs.existsSync(rawFile)) {
       return normalizeMarkup(fs.readFileSync(rawFile).toString('utf8'));
     } else {
       // TODO: report error
+      throw new Error('File not found');
     }
   });
 
