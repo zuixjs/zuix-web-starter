@@ -108,7 +108,8 @@ function addPage(args) {
 }
 
 async function wipeDocs() {
-  const docsFolder = path.join(contentSourceFolder, 'docs');
+  const target = 'docs';
+  const docsFolder = path.join(contentSourceFolder, target);
   const confirm = await yesno({
     question: `All content in "${docsFolder}" will be deleted.\nThis action cannot be undone!\nAre you sure to proceed?`
   });
@@ -117,7 +118,7 @@ async function wipeDocs() {
       console.log(chalk.cyanBright('*') + ' Removing', chalk.green.bold(docsFolder));
       fs.rmSync(docsFolder, {recursive: true});
     }
-    const docsBuildFolder = path.join(contentBuildFolder, 'docs');
+    const docsBuildFolder = path.join(contentBuildFolder, target);
     if (fs.existsSync(docsBuildFolder)) {
       console.log(chalk.cyanBright('*') + ' Removing', chalk.green.bold(docsBuildFolder));
       fs.rmSync(docsBuildFolder, {recursive: true});
@@ -187,7 +188,6 @@ module.exports = (program) => {
       .action(wipeContent);
   program
     .command('wipe-docs')
-    .alias('wc')
     .description(`Delete all content in "${contentSourceFolder}/docs" and "${contentBuildFolder}/docs" folders.`)
     .action(wipeDocs);
 };
