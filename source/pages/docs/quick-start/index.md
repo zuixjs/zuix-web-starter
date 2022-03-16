@@ -41,7 +41,9 @@ npm i -g zuix-cli
 If you don't want to install *zuix-cli* as a global tool, clone or download [zuix-web-starter](https://github.com/zuixjs/zuix-web-starter) repository and then from its folder enter:
 ```shell
 npm i
+alias zx='npx zx'
 ```
+
 
 ## Creating a new project
 
