@@ -16,7 +16,7 @@ keywords:
 - Quick
 - Start
 - Getting started
-- zx
+- zuix
 - CLI
 - Install
 - Server
@@ -33,15 +33,9 @@ If you have already some experience in programming, of course, a better choice w
 ## Prerequisites
 
 - [Install Node.js](https://nodejs.org/en/download/) version 12 or higher
-- Install `zuix-cli`, command-line tool:  
+- Install `zuix`, command-line tool:  
 ```shell
-npm i -g zuix-cli
-```
-
-If you don't want to install *zuix-cli* as a global tool, clone or download [zuix-web-starter](https://github.com/zuixjs/zuix-web-starter) repository and then from its folder enter:
-```shell
-npm i
-alias zx='npx zx'
+npx zuix
 ```
 
 
@@ -50,7 +44,7 @@ alias zx='npx zx'
 To create a new web-starter project enter the following command:
 
 ```shell
-zx new my-webapp
+npx zuix new my-webapp
 ```
 
 the new project structure will be created in the folder *my-webapp*.
@@ -68,7 +62,7 @@ It will also watch for file changes in the `./source` folder and build them as r
 page.
 
 ```shell
-zx start
+npx zuix start
 ```
 
 Once started you can open the web browser and load the website using the access URLs given in the console output.
@@ -92,10 +86,10 @@ automatically by the development server.
 ## Managing content
 
 Included with this web starter you will also find these documentation pages that can be removed by *deleting* the
-`./source/pages/docs` folder. This can be done also using the `zx` CLI:
+`./source/pages/docs` folder. This can be done also using the `zuix` CLI:
 
 ```shell
-zx wipe-docs
+npx zuix wipe-docs
 ```
 
 The documentation is anyway available online on this web-starter [demo site](https://zuixjs.github.io/zuix-web-starter/).
@@ -111,7 +105,7 @@ as shown on the left side drawer.
 Sections and pages can be easily added with the following command:
 
 ```shell
-zx add -s <section_name> -n <page_name> -fm "<field>: <value>"
+npx zuix add -s <section_name> -n <page_name> -fm "<field>: <value>"
 ```
 
 Where the `-s` option is used to specify the name of the section under with the new page will be grouped, while the `-n`
@@ -123,7 +117,7 @@ Optionally it's also possible to specify [front matter data](../pages-layout) us
 For example, the following command will add a new page in a section called "blog" also enabling Material Design styles (mdl) and code highlighter:
 
 ```shell
-zx add -s blog -n my-first-blog-post -fm "options: mdl highlight"
+npx zuix add -s blog -n my-first-blog-post -fm "options: mdl highlight"
 ```
 
 ![Side Drawer](./images/side_drawer_section.png)
@@ -271,13 +265,13 @@ configuration.
 So, to select the *production* configuration when building the web application, the environment variable `NODE_ENV` must be set to `production`:
 
 ```shell
-NODE_ENV=production zx build
+NODE_ENV=production npx zuix build
 ```
 
 it's also possible to simulate the production hosting when running the development server:
 
 ```shell
-NODE_ENV=production zx start
+NODE_ENV=production npx zuix start
 ```
 
 in which case, the application will be served at the url specified by `baseUrl` in the production configuration file.
