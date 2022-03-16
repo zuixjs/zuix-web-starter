@@ -4,7 +4,7 @@ const template = `
   <img #image src="{{ image }}" alt="Cover image" role="presentation" width="100%">
   <div style="position: absolute; bottom: 0; background: #ffffffAA">
     <p #text>{{ content | safe }}</p>
-    <a #link.url href="{{ linkUrl }}">
+    <a #link.url href="{{ linkUrl | safe }}">
       <span #link.title>{{ linkTitle }}</span>
     </a>
   </div>
