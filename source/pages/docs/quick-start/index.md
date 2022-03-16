@@ -35,9 +35,13 @@ If you have already some experience in programming, of course, a better choice w
 - [Install Node.js](https://nodejs.org/en/download/) version 12 or higher
 - Install `zuix-cli`, command-line tool:  
 ```shell
-npm install -g zuix-cli
+npm i -g zuix-cli
 ```
 
+If you don't want to install *zuix-cli* as a global tool, clone or download [zuix-web-starter](https://github.com/zuixjs/zuix-web-starter) repository and then from its folder enter:
+```shell
+npm i
+```
 
 ## Creating a new project
 

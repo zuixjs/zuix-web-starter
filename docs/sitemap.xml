@@ -17,11 +17,6 @@
   </url>
 
   <url>
-    <loc>https://zuixjs.github.io/zuix-web-starter//pages/docs/quick-start/</loc>
-    <lastmod>2022-03-14</lastmod>
-  </url>
-
-  <url>
     <loc>https://zuixjs.github.io/zuix-web-starter//pages/docs/short-codes/</loc>
     <lastmod>2022-03-14</lastmod>
   </url>
@@ -38,7 +33,12 @@
 
   <url>
     <loc>https://zuixjs.github.io/zuix-web-starter//search/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/zuix-web-starter//pages/docs/quick-start/</loc>
+    <lastmod>2022-03-16</lastmod>
   </url>
 
 </urlset>

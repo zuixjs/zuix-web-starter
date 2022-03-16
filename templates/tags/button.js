@@ -1,6 +1,6 @@
 const template = `
 <a ctrl z-load="@lib/controllers/mdl-button" z-options="{ type: '{{ buttonType }}', class: '{{ buttonClass }}' }"
-     href="{{ linkUrl }}" class="visible-on-ready" style="min-height: {{ height }}px;display: inline-block">{{content}}</a>`;
+     href="{{ linkUrl }}" class="visible-on-ready" style="min-height: {{ height }}px;display: inline-block">{{ content | safe }}</a>`;
 
 module.exports = (render, content, linkUrl, buttonType, buttonClass) => {
   // buttonType :==  'flat' | 'raised' | 'fab' | 'icon'
@@ -17,5 +17,7 @@ module.exports = (render, content, linkUrl, buttonType, buttonClass) => {
   if (buttonType === 'fab') {
     content = `<i class="material-icons">${content}</i>`;
   }
-  return render(template, {content, linkUrl, buttonType, buttonClass, height});
+  const output = render(template, {content, linkUrl, buttonType, buttonClass, height});
+  console.log(output);
+  return output;
 };

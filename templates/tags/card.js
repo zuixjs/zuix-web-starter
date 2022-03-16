@@ -3,7 +3,7 @@ const template = `
   <h1 #title style="font-size: 150%!important; position: absolute; padding: 12px" class="mdl-color-text--primary-contrast">{{ title }}</h1>
   <img #image src="{{ image }}" alt="Cover image" role="presentation" width="100%">
   <div style="position: absolute; bottom: 0; background: #ffffffAA">
-    <p #text>{{ content }}</p>
+    <p #text>{{ content | safe }}</p>
     <a #link.url href="{{ linkUrl }}">
       <span #link.title>{{ linkTitle }}</span>
     </a>
