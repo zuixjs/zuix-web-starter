@@ -18,6 +18,5 @@ module.exports = (render, content, linkUrl, buttonType, buttonClass) => {
     content = `<i class="material-icons">${content}</i>`;
   }
   const output = render(template, {content, linkUrl, buttonType, buttonClass, height});
-  console.log(output);
   return output;
 };
