@@ -44,7 +44,7 @@ if the editor is not highlighting the HTML markup.
 
 **Example:**
 {% raw %}
-```html
+```liquid
 {% unpre %}
 '''html
 <div style="color: purple">Hello World!</div>
@@ -108,7 +108,7 @@ code of **./templates/tags/button.js** used in the previous example:
 {% raw %}
 const template = `<a ctrl z-load="@lib/controllers/mdl-button"
      z-options="{ type: '{{ buttonType }}', class: '{{ buttonClass }}' }"
-     href="{{ linkUrl }}">{{content}}</a>`;
+     href="{{ linkUrl | safe }}">{{ content | safe }}</a>`;
 
 module.exports = (render, content, linkUrl, buttonType, buttonClass) => {
   // buttonType :==  'flat' | 'raised' | 'fab' | 'icon'

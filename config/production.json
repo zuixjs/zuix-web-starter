@@ -27,9 +27,9 @@
       "includesFolder": "_inc",
       "componentsFolders": [ "app", "lib" ],
       "bundle": {
-        "js": false,
-        "css": false,
-        "zuix": false
+        "js": true,
+        "css": true,
+        "zuix": true
       },
       "serviceWorker": true,
       "minify": {

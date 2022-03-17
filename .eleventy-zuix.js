@@ -169,9 +169,9 @@ function initEleventyZuix(eleventyConfig) {
     });
     postProcessFiles.length = 0;
     if (zuixConfig.build.serviceWorker) {
-      console.log('\nUpdating Service Worker... ');
+      console.log('Updating Service Worker... ');
       await generateServiceWorker().then(function () {
-        console.log('... Service Worker updated.');
+        console.log('... done.');
       });
     } else {
       console.log();
