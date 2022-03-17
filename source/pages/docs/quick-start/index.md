@@ -32,7 +32,7 @@ If you have already some experience in programming, of course, a better choice w
 
 ## Prerequisites
 
-- [Install Node.js](https://nodejs.org/en/download/) version 12 or higher
+- [Install Node.js](https://nodejs.org/en/download/) version 14 or higher
 - Install `zuix`, command-line tool:  
 ```shell
 npx zuix
