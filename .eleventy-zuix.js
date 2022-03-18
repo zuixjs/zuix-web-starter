@@ -21,7 +21,7 @@
  *  zUIx, Javascript library for component-based development.
  *        https://zuixjs.github.io/zuix
  *
- * @author Generoso Martello - https://github.com/genielabs
+ * @author Generoso Martello - https://github.com/genemars
  * @version 1.0
  *
  */
@@ -40,7 +40,9 @@ const {
   compilePage,
   copyFolder,
   generateServiceWorker,
-  generateAppConfig
+  generateAppConfig,
+  wrapDom,
+  wrapCss
 } = require('zuix');
 
 // Read configuration either from './config/{default}.json'
@@ -220,6 +222,26 @@ function copyDependencies() {
   fs.copyFileSync(`${process.cwd()}/node_modules/animate.css/animate.min.css`, `${buildFolder}/css/animate.min.css`);
 }
 
+function rawFileInclude(page, fileName) {
+  const inputPath = path.dirname(page.inputPath);
+  let rawFile = path.join(inputPath, fileName);
+  if (!fs.existsSync(rawFile)) {
+    rawFile = path.join(inputPath, page.fileSlug, fileName);
+  }
+  if (!fs.existsSync(rawFile)) {
+    rawFile = path.join(zuixConfig.build.input, fileName);
+  }
+  if (!fs.existsSync(rawFile)) {
+    rawFile = path.join(zuixConfig.build.input, zuixConfig.build.includesFolder, fileName);
+  }
+  if (fs.existsSync(rawFile)) {
+    return normalizeMarkup(fs.readFileSync(rawFile).toString('utf8'));
+  } else {
+    // TODO: report error
+    throw new Error('File not found');
+  }
+}
+
 function configure(eleventyConfig) {
   initEleventyZuix(eleventyConfig);
 
@@ -252,23 +274,7 @@ function configure(eleventyConfig) {
   */
 
   eleventyConfig.addShortcode('rawFile', function(fileName) {
-    const inputPath = path.dirname(this.page.inputPath);
-    let rawFile = path.join(inputPath, fileName);
-    if (!fs.existsSync(rawFile)) {
-      rawFile = path.join(inputPath, this.page.fileSlug, fileName);
-    }
-    if (!fs.existsSync(rawFile)) {
-      rawFile = path.join(zuixConfig.build.input, fileName);
-    }
-    if (!fs.existsSync(rawFile)) {
-      rawFile = path.join(zuixConfig.build.input, zuixConfig.build.includesFolder, fileName);
-    }
-    if (fs.existsSync(rawFile)) {
-      return normalizeMarkup(fs.readFileSync(rawFile).toString('utf8'));
-    } else {
-      // TODO: report error
-      throw new Error('File not found');
-    }
+    return rawFileInclude(this.page, fileName);
   });
 
   eleventyConfig.addPairedShortcode('unpre', function(content) {
@@ -289,6 +295,13 @@ function configure(eleventyConfig) {
       return normalizeMarkup(require(p)(nunjucks.renderString, content, ...args));
     }
     return ''; // 'Not implemented! (' + content + ') [' + args + ']';
+  });
+
+  eleventyConfig.addPairedShortcode('wrapDom', function(content, cssId) {
+    return wrapDom(content, cssId);
+  });
+  eleventyConfig.addPairedShortcode('wrapCss', function(content, cssId, encapsulate) {
+    return wrapCss(`[${cssId}]`, content, encapsulate);
   });
 }
 

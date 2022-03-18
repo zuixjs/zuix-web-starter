@@ -81,6 +81,58 @@ It's mainly intended wrap and format `zx` shortcode output.
     {% zx 'button' '#test-link-2' %}Button 2{% endzx %}
 {% endlayout %}
 
+## wrapDom / wrapCss
+
+These two tags adds to a CSS style and HTML fragment, the required attributes so that the CSS style will be only applied
+to the given HTML fragment only (scoped CSS).  
+Can also be used together with the `include` shortcode to load the style and the HTML fragment from external files.
+
+{% raw %}
+```liquid
+{% wrapDom '<fragment_id>' %}
+... HTML fragment ...
+{% endwrapDom %}
+{% wrapCss '<fragment_id>' <encapsulate> %}
+... CSS styles ...
+{% endwrapCss %}
+```
+{% endraw %}
+
+**Example:**
+{% raw %}
+```liquid
+<h3>Global scope H3</h3>
+
+{% wrapDom 'test-fragment' %}
+<div>
+    <h3>Fragment scope H3</h3>
+</div>
+{% endwrapDom %}
+
+<style>
+{% wrapCss 'test-fragment' %}
+:host {
+    text-align: center;
+}
+h3 {
+    color: blue
+}
+{% endwrapCss %}
+</style>
+```
+{% endraw %}
+<h3>Global scope H3</h3>
+{% wrapDom 'test-fragment' %}
+<div>
+    <h3>Fragment scope H3</h3>
+</div>
+{% endwrapDom %}
+<style>
+{% wrapCss 'test-fragment' %}
+:host { text-align: center; }
+h3 { color: blue }
+{% endwrapCss %}
+ </style>
 
 ## zx
 
