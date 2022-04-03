@@ -1,6 +1,7 @@
 # zUIx Web Starter
 .idea
 .zuix
+.cache
 
 # Logs
 logs

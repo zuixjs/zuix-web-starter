@@ -2,43 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://zuixjs.github.io/zuix-web-starter//home/</loc>
+    <loc>https://zuixjs.github.io/web-app//pages/docs/</loc>
     <lastmod>2022-03-10</lastmod>
   </url>
 
   <url>
-    <loc>https://zuixjs.github.io/zuix-web-starter//pages/docs/</loc>
-    <lastmod>2022-03-10</lastmod>
-  </url>
-
-  <url>
-    <loc>https://zuixjs.github.io/zuix-web-starter//pages/docs/pages-layout/</loc>
-    <lastmod>2022-03-13</lastmod>
-  </url>
-
-  <url>
-    <loc>https://zuixjs.github.io/zuix-web-starter//pages/docs/material-design-tags/</loc>
-    <lastmod>2022-03-14</lastmod>
-  </url>
-
-  <url>
-    <loc>https://zuixjs.github.io/zuix-web-starter//</loc>
-    <lastmod>2022-03-15</lastmod>
-  </url>
-
-  <url>
-    <loc>https://zuixjs.github.io/zuix-web-starter//search/</loc>
+    <loc>https://zuixjs.github.io/web-app//search/</loc>
     <lastmod>2022-03-16</lastmod>
   </url>
 
   <url>
-    <loc>https://zuixjs.github.io/zuix-web-starter//pages/docs/quick-start/</loc>
-    <lastmod>2022-03-17</lastmod>
+    <loc>https://zuixjs.github.io/web-app/false</loc>
+    <lastmod>2022-04-03</lastmod>
   </url>
 
   <url>
-    <loc>https://zuixjs.github.io/zuix-web-starter//pages/docs/short-codes/</loc>
-    <lastmod>2022-03-18</lastmod>
+    <loc>https://zuixjs.github.io/web-app//pages/docs/page-options/</loc>
+    <lastmod>2022-04-03</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/web-app//pages/docs/material-design-tags/</loc>
+    <lastmod>2022-04-03</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/web-app//</loc>
+    <lastmod>2022-04-03</lastmod>
+  </url>
+
+  <url>
+    <loc>https://zuixjs.github.io/web-app//home/</loc>
+    <lastmod>2022-04-03</lastmod>
   </url>
 
 </urlset>

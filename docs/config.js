@@ -1,32 +1,23 @@
 /* eslint-disable quotes */
 (function() {
   zuix.store('config', {
-    "title": "<code>zuix.js</code> Web Starter",
+    "title": "Web App Template",
     "subtitle": "Simple, yet powerful!",
-    "baseUrl": "/zuix-web-starter/",
-    "resourcePath": "/zuix-web-starter/app/",
+    "baseUrl": "/web-app/",
+    "resourcePath": "/web-app/app/",
     "libraryPath": {
-      "@lib": "/zuix-web-starter/lib/1.1/",
+      "@lib": "/web-app/lib/1.1/",
       "@hgui": "https://genielabs.github.io/homegenie-web-ui/app/",
       "@cdnjs": "https://cdnjs.cloudflare.com/ajax/libs/"
     },
-    "zuixjs.github.io": {
-      "baseUrl": "/zuix-web-starter/",
-      "resourcePath": "/zuix-web-starter/app/",
-      "libraryPath": {
-        "@lib": "/zuix-web-starter/lib/1.1/",
-        "@hgui": "https://genielabs.github.io/homegenie-web-ui/app/",
-        "@cdnjs": "https://cdnjs.cloudflare.com/ajax/libs/"
-      }
-    },
-    "siteMapUrl": "https://zuixjs.github.io/zuix-web-starter/",
-    "googleSiteId": "UA-123-456"
+    "googleSiteId": "UA-123-456",
+    "siteMapUrl": "https://zuixjs.github.io/web-app/"
   });
   // Check that service workers are registered
   if ('serviceWorker' in navigator) {
     // Use the window load event to keep the page load performant
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/zuix-web-starter/service-worker.js');
+      navigator.serviceWorker.register('/web-app/service-worker.js');
     });
   }
 })();

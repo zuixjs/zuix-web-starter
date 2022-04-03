@@ -2,17 +2,8 @@
  * Copyright 2020-2022 G-Labs. All Rights Reserved.
  *         https://zuixjs.github.io/zuix
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the MIT license. See LICENSE file.
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
 
 /*
@@ -94,7 +85,7 @@ function startWatcher(eleventyConfig, browserSync) {
     f = path.resolve(path.join(sourceFolder, f));
     watchFiles.push(f);
   });
-  const copyFilesWatcher = chokidar.watch(watchFiles).on('all', (event, file) => {
+  const copyFilesWatcher = chokidar.watch(watchFiles).on('all', (event, file, stats) => {
     if (watchEvents[event] && fs.existsSync(file)) {
       const outputFile = path.resolve(path.join(buildFolder, file.substring(path.resolve(sourceFolder).length)));
       const outputFolder = path.dirname(outputFile);
@@ -109,14 +100,21 @@ function startWatcher(eleventyConfig, browserSync) {
       browserSync.reload();
     }
   });
-  const unlinkFilesWatcher = chokidar.watch([sourceFolder]).on('all', (event, file) => {
+  const includes = path.join(sourceFolder, includesFolder);
+  const allFilesWatcher = chokidar.watch([sourceFolder]).on('all', (event, file, stats) => {
     if (event.startsWith('unlink') && file !== triggerFile) {
-      fs.writeFileSync(triggerFile, `---
+      forceRebuild();
+    } else if (!file.startsWith(includes) && file.indexOf(path.join('/', '_inc', '/')) !== -1) {
+      forceRebuild();
+    }
+  });
+}
+
+function forceRebuild() {
+  fs.writeFileSync(triggerFile, `---
 permalink: .zuix.build.tmp
 ---
 Temporary file to trigger 11ty build`);
-    }
-  });
 }
 
 function initEleventyZuix(eleventyConfig) {
@@ -246,6 +244,12 @@ function configure(eleventyConfig) {
   initEleventyZuix(eleventyConfig);
 
   /*
+  || Eleventy plugins
+  */
+  const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
+  eleventyConfig.addPlugin(syntaxHighlight);
+
+  /*
   || Add data collections
   */
 
@@ -261,8 +265,8 @@ function configure(eleventyConfig) {
   // TODO: maybe scan folder and add automatically
   const filtersPath = path.resolve(sourceFolder, '_filters');
   eleventyConfig.addFilter(
-      'search',
-      require(path.join(filtersPath, 'searchFilter'))
+    'search',
+    require(path.join(filtersPath, 'searchFilter'))
   );
   eleventyConfig.addFilter(
     'date',

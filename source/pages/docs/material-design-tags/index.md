@@ -1,16 +1,14 @@
 ---
 layout: side_drawer.liquid
+options: mdl highlight ext-links
+theme: indigo-deep_purple
 tags: documentation
 group: documentation
-options: mdl highlight
-theme: indigo-deep_purple
 order: 40
 title: Material Design components
 description: MDL short codes
 icon: smart_button
-imageCover: https://picsum.photos/seed/docs!04/960/640
-imagePreview: https://picsum.photos/seed/docs!04/640/560
-imagePreviewMini: https://picsum.photos/seed/docs!04/256/256
+imagePreviewMini: https://picsum.photos/seed/docs=74/256/256
 keywords:
 - Material
 - Design
@@ -22,7 +20,7 @@ keywords:
 - Tags
 ---
 
-As an example this web starter template includes [Material Design Lite](https://getmdl.io/components/) components, implemented using
+This web starter template includes [Material Design Lite](https://getmdl.io/components/) components, implemented using
 *zuix.js*, and that can be rendered using the following short codes.   
 
 

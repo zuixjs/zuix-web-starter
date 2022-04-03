@@ -31,6 +31,7 @@
         "css": false,
         "zuix": false
       },
+      "mirror": "",
       "serviceWorker": false,
       "minify": {
         "disable": true,
@@ -48,7 +49,7 @@
       }
     },
     "app": {
-      "title": "<code>zuix.js</code> Web Starter",
+      "title": "Web App Template",
       "subtitle": "Simple, yet powerful!",
       "baseUrl": "/",
       "resourcePath": "{{ app.baseUrl }}app/",
@@ -57,16 +58,6 @@
         "@hgui": "https://genielabs.github.io/homegenie-web-ui/app/",
         "@cdnjs": "https://cdnjs.cloudflare.com/ajax/libs/"
       },
-      "zuixjs.github.io": {
-        "baseUrl": "/zuix-web-starter/",
-        "resourcePath": "{{ app['zuixjs.github.io'].baseUrl }}app/",
-        "libraryPath": {
-          "@lib": "{{ app['zuixjs.github.io'].baseUrl }}lib/1.1/",
-          "@hgui": "https://genielabs.github.io/homegenie-web-ui/app/",
-          "@cdnjs": "https://cdnjs.cloudflare.com/ajax/libs/"
-        }
-      },
-      "siteMapUrl": "https://zuixjs.github.io{{ app.baseUrl }}",
       "googleSiteId": "UA-123-456"
     }
   }

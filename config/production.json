@@ -31,6 +31,7 @@
         "css": true,
         "zuix": true
       },
+      "mirror": "",
       "serviceWorker": true,
       "minify": {
         "disable": false,
@@ -48,9 +49,9 @@
       }
     },
     "app": {
-      "title": "<code>zuix.js</code> Web Starter",
+      "title": "Web App Template",
       "subtitle": "Simple, yet powerful!",
-      "baseUrl": "/zuix-web-starter/",
+      "baseUrl": "/web-app/",
       "resourcePath": "{{ app.baseUrl }}app/",
       "libraryPath": {
         "@lib": "{{ app.baseUrl }}lib/1.1/",

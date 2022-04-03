@@ -9,7 +9,7 @@
  * @constructor
  * @this {ContextController}
  */
-function MenuOverlay() {
+function MenuOverlay(cp) {
   let menuOverlayShowing = false;
   let menuButtonShowing = false;
   let menuButton;
@@ -19,34 +19,40 @@ function MenuOverlay() {
   let menuItems;
   let scroller = null;
   let currentOffset = 0;
-  const cp = this;
+  let menuPosition = 'right';
 
   cp.create = function() {
-    menuButton = cp.field('menu_button').hide()
+    menuPosition = cp.options().position || cp.view().attr('data-o-position') || menuPosition;
+    menuButton = cp.field('menu_button')
+        .addClass(menuPosition).hide()
         .on('click', toggleMenu);
-    menuButtonClose = cp.field('menu_button_close').hide()
+    menuButtonClose = cp.field('menu_button_close')
+        .addClass(menuPosition).hide()
         .on('click', toggleMenu);
-    menuOverlay = cp.field('menu_overlay').visibility('hidden')
+    menuOverlay = cp.field('menu_overlay')
+        .addClass(menuPosition)
+        .visibility('hidden')
         .on('click', toggleMenu);
-    itemsWrapper = cp.field('items_wrapper');
+    itemsWrapper = cp.field('items_wrapper')
+        .addClass(menuPosition);
 
     const items = zuix.$(cp.model().items).children();
     items.each(function(i, el) {
       const wrapperDiv = zuix.$(document.createElement('div'))
           .addClass('menu-item')
-          .attr('data-ui-transition-delay', (.3/(items.length()-i))+'s')
           .append(el.observableTarget || el);
       itemsWrapper.append(wrapperDiv.get());
     });
-    menuItems = itemsWrapper.find('div[class*="menu-item"]');
+    menuItems = itemsWrapper
+        .find('div[class*="menu-item"]');
 
     // apply custom color to menu button
     const $view = cp.view();
     if ($view.attr('data-o-button-color') != null) {
-      $view.find('.circle-button').css('background', $view.attr('data-o-button-color'));
+      $view.css('background', $view.attr('data-o-button-color'));
     }
     if ($view.attr('data-o-icon-color') != null) {
-      $view.find('.circle-button').css('fill', $view.attr('data-o-icon-color'));
+      $view.css('fill', $view.attr('data-o-icon-color'));
     }
 
     const scrollerName = $view.attr('data-o-scroller');
@@ -56,15 +62,27 @@ function MenuOverlay() {
       scroller = zuix.$(window);
     }
     if (scroller != null) {
+      let beforeElement = $view.attr('data-o-before') || cp.options().before; // eg. footer
+      if (beforeElement) {
+        beforeElement = zuix.field(beforeElement).get();
+      }
+      let afterElement = $view.attr('data-o-after') || cp.options().after; // eg. header
+      if (afterElement) {
+        afterElement = zuix.field(afterElement).get();
+      }
       scroller.on('scroll', function(e) {
         const scrollTop = scroller.get() === window ? (document.documentElement.scrollTop || document.body.scrollTop) : scroller.get().scrollTop;
         if (menuButtonShowing) {
           if ((currentOffset - scrollTop) < -2) {
-            hideButton();
+            if (afterElement == null || (scrollTop > afterElement.offsetTop + afterElement.offsetHeight - 56)) {
+              setTimeout(hideButton, 100);
+            }
           }
         } else if (!menuButtonShowing) {
           if ((currentOffset - scrollTop) > 2) {
-            showButton();
+            if (beforeElement == null || (scrollTop + window.innerHeight < beforeElement.offsetTop + 56)) {
+              showButton();
+            }
           }
         }
         currentOffset = scrollTop;
@@ -74,16 +92,6 @@ function MenuOverlay() {
       });
     }
 
-    // Animate CSS extension
-    zuix.using('component', '@lib/extensions/animate-css', function(res, ctx) {
-      // show floating action button
-      setTimeout(function() {
-        if (!menuButtonShowing) {
-          showButton();
-        }
-      }, 1000);
-    });
-
     cp.expose('show', function() {
       $view.show();
     });
@@ -91,13 +99,20 @@ function MenuOverlay() {
       $view.hide();
     });
     document.body.addEventListener('keyup', function(evt) {
-      if (evt.key === 'Escape' && menuButtonShowing) {
+      if (evt.defaultPrevented) {
+        return;
+      }
+      if (evt.key === 'Escape') {
         evt.cancelBubble = true;
         evt.preventDefault();
         setTimeout(function() {
-          hideButton();
           if (menuOverlayShowing) {
+            hideButton();
             toggleMenu();
+          } else if (!menuButtonShowing) {
+            showButton();
+          } else {
+            hideButton();
           }
         }, 100);
       }
@@ -108,6 +123,13 @@ function MenuOverlay() {
     cp.expose('showing', function() {
       return menuButtonShowing;
     });
+    initializeAnimations();
+    // show floating action button
+    setTimeout(function() {
+      if (!menuButtonShowing) {
+        showButton();
+      }
+    }, 1000);
   };
 
   function toggleButton() {
@@ -119,63 +141,146 @@ function MenuOverlay() {
   }
 
   function hideButton() {
-    menuButtonShowing = false;
-    menuButton.animateCss('fadeOutDown', {duration: '0.3s'}, function() {
-      this.hide();
-      cp.trigger('hide');
-    });
+    if (!menuButton.isPlaying()) {
+      menuButtonShowing = false;
+      menuButton.playTransition({
+        classes: 'fadeIn fadeOutDown',
+        onEnd: function() {
+          this.hide();
+          cp.trigger('hide');
+        }
+      });
+    }
   }
 
   function showButton() {
-    menuButtonShowing = true;
-    menuButton.animateCss('fadeInUp').show();
-    cp.trigger('show');
+    if (!menuButton.isPlaying()) {
+      menuButtonShowing = true;
+      menuButton.playTransition('fadeOutDown fadeIn');
+      menuButton.show();
+      cp.trigger('show');
+    }
   }
 
   function toggleMenu() {
-    if (!menuOverlayShowing && !menuButton.hasClass('animate__animated') && !menuButtonClose.hasClass('animate__animated')) {
+    if (menuOverlay.isPlaying()) {
+      return;
+    }
+    const itemsRevealAnimation = 'fadeIn';
+    let itemsHideAnimation = 'fadeOutDown';
+    if (menuPosition === 'right') {
+      itemsHideAnimation = 'fadeOutRight';
+    } else if (menuPosition === 'left') {
+      itemsHideAnimation = 'fadeOutLeft';
+    }
+    let speedFactor = 200 / menuItems.length();
+    if (!menuOverlayShowing) {
       menuOverlayShowing = true;
       cp.trigger('open');
-      menuButton.animateCss('rotateOut', {duration: '0.3s'});
-      menuButtonClose.animateCss('rotateIn', {duration: '0.5s'}, function() {
-        menuButton.hide();
-      }).show();
-      menuOverlay.animateCss('fadeIn', {duration: '0.5s'}).visibility('');
-      menuItems.each(function(p, el) {
-        let transitionDelay = '0';
-        if (this.attr('data-ui-transition-delay') != null) {
-          transitionDelay = this.attr('data-ui-transition-delay');
-        }
-        this.animateCss('bounceInRight', {duration: '0.5s', delay: transitionDelay})
-            .show();
+      menuButton.playTransition({
+        classes: 'rotateIn rotateOutRight',
+        onEnd: menuButton.hide
+      });
+      menuButtonClose.playTransition('rotateOutLeft rotateIn').show();
+      let transitionDelay = 0;
+      if (menuPosition === 'left' || menuPosition === 'right') {
+        transitionDelay = speedFactor * menuItems.length();
+        speedFactor *= -1;
+      }
+      menuOverlay.playTransition('fadeOut fadeIn').visibility('');
+      menuItems.each(function(i, el) {
+        transitionDelay += speedFactor;
+        this.playTransition({
+          classes: [itemsHideAnimation, itemsRevealAnimation],
+          options: {
+            duration: '200ms',
+            delay: transitionDelay + 'ms'
+          }
+        }).show();
       });
     } else if (menuOverlayShowing) {
       menuOverlayShowing = false;
       cp.trigger('close');
       if (menuButtonShowing) {
-        menuButtonClose.animateCss('rotateOut', {duration: '0.3s'}, function() {
-          this.hide();
+        menuButtonClose.playTransition({
+          classes: 'rotateIn rotateOutLeft',
+          onEnd: menuButtonClose.hide
         });
-        menuButton.animateCss('rotateIn', {duration: '0.5s'});
+        menuButton.playTransition('rotateOutRight rotateIn');
       } else {
-        menuButtonClose.animateCss('fadeOutDown', {duration: '0.3s'}, function() {
-          this.hide();
+        menuButtonClose.playTransition({
+          classes: 'fadeIn fadeOutDown',
+          onEnd: menuButtonClose.hide
         });
       }
-      menuOverlay.animateCss('fadeOut', {duration: '0.5s', delay: '0.2s'}, function() {
-        this.visibility('hidden');
-      });
-      menuItems.each(function(p, el) {
-        let transitionDelay = '0';
-        if (this.attr('data-ui-transition-delay') != null) {
-          transitionDelay = this.attr('data-ui-transition-delay');
+      menuOverlay.playTransition({
+        classes: 'fadeIn fadeOut',
+        holdState: true,
+        onEnd: function() {
+          this.visibility('hidden');
         }
-        this.animateCss('fadeOutRight', {duration: '0.5s', delay: transitionDelay}, function() {
-          this.hide();
-        });
+      });
+      let transitionDelay = speedFactor * menuItems.length();
+      if (menuPosition === 'left' || menuPosition === 'right') {
+        transitionDelay = 0;
+        speedFactor *= -1;
+      }
+      menuItems.each(function(i, item, $item) {
+        transitionDelay -= speedFactor;
+        $item.playTransition({
+          classes: [itemsRevealAnimation, itemsHideAnimation],
+          options: {
+            duration: '200ms',
+            delay: transitionDelay + 'ms'
+          },
+          onEnd: $item.hide
+        }).show();
       });
       menuButton.show();
     }
+  }
+
+  function initializeAnimations() {
+    const commonOptions = {
+      duration: '0.25s',
+      timingFunction: 'ease-in-out'
+    };
+    cp.addTransition( 'fadeIn', {
+      transform: 'translateXY(0,0)',
+      opacity: '1'
+    }, commonOptions);
+    cp.addTransition( 'fadeOut', {
+      transform: 'translateXY(0,0)',
+      opacity: '0'
+    }, commonOptions);
+    cp.addTransition( 'fadeOutUp', {
+      transform: 'translateY(-200px)',
+      opacity: '0'
+    }, commonOptions);
+    cp.addTransition( 'fadeOutDown', {
+      transform: 'translateY(200px)',
+      opacity: '0'
+    }, commonOptions);
+    cp.addTransition('fadeOutLeft', {
+      transform: 'translateX(-200px)',
+      opacity: 0
+    }, commonOptions);
+    cp.addTransition('fadeOutRight', {
+      transform: 'translateX(200px)',
+      opacity: 0
+    }, commonOptions);
+    cp.addTransition('rotateIn', {
+      transform: 'rotate(0)',
+      opacity: 1
+    }, commonOptions);
+    cp.addTransition('rotateOutRight', {
+      transform: 'rotate(+135deg)',
+      opacity: 0
+    }, commonOptions);
+    cp.addTransition('rotateOutLeft', {
+      transform: 'rotate(-135deg)',
+      opacity: 0
+    }, commonOptions);
   }
 }
 

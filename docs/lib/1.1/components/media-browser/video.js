@@ -4,142 +4,107 @@
  * VideoItem class.
  *
  * @author Gene
- * @version 1.0.0 (2018-02-12)
+ * @version 1.0.0 (2022-03-30)
  *
  * @constructor
  * @this {ContextController}
  */
-function VideoItem() {
+function VideoItem(cp) {
   let mediaBrowser;
   let player;
-  let isPlaying = false;
-  let controlToggleTimeout;
-  const cp = this;
+  let controlsHideTimeout;
+  let pageIndex = -1;
 
   cp.create = function() {
-    cp.field('overlay').on('click', function(e) {
-      if (!e.cancelBubble && mediaBrowser.current() == cp.view().attr('data-index')) {
-        if (controlToggleTimeout !== null) {
-          clearTimeout(controlToggleTimeout);
-        }
-        mediaBrowser.toggleControls();
-      }
-    });
-    cp.field('play').on('click', function(e) {
-      e.cancelBubble = true;
-      playVideo();
-    }).hide();
-    cp.field('pause').on('click', function(e) {
-      e.cancelBubble = true;
-      pauseVideo();
-    }).hide();
-    cp.field('controls').hide();
+    pageIndex = +cp.view().attr('data-index');
+    // expose public methods
     cp.expose('host', setHost);
+    cp.expose('play', play);
+    cp.expose('pause', pause);
+    // set initial controls state
+    cp.field('nav-pause').hide();
+    // get reference to the video player instance
+    player = cp.view('video').get();
+    player.src = cp.field('video').get().textContent;
+    player.poster = cp.field('preview').get().textContent;
+    zuix.$(player).on('pause playing', playerStateChanged);
   };
 
   function setHost(view) {
+    const controls = cp.field('player-controls');
     mediaBrowser = zuix.context(view);
-    mediaBrowser.youtubeApi(youtubeReadyCallback);
-    view.on('page:change', pageChanged)
-        .on('open', function() {
-          if (mediaBrowser.current() == cp.view().attr('data-index')) {
-            playVideo();
-          }
-        })
-        .on('close', function() {
-          pauseVideo();
-        })
-        .on('controls:show', function() {
-          cp.field('player-controls').animateCss('fadeInDown').show();
-        })
-        .on('controls:hide', function() {
-          cp.field('player-controls').animateCss('fadeOutUp', function() {
-            this.hide();
-          });
-        });
+    mediaBrowser.on({
+      'open': function() {
+        if (isActive()) {
+          play();
+        }
+      },
+      'close': pause,
+      'controls:show': function() {
+        controls.playTransition({classes: 'fadeOutUp fadeIn', holdState: true});
+      },
+      'controls:hide': function() {
+        controls.playTransition({classes: 'fadeIn fadeOutUp', holdState: true});
+      },
+      'page:change': pageChanged,
+      'refresh:inactive': function() {
+        if (mediaBrowser.ui.inlineMode && isActive() && !player.paused) {
+          pause();
+        }
+      },
+      'refresh:active': function() {
+        if (mediaBrowser.ui.inlineMode && isActive() && player.paused) {
+          play();
+        }
+      }
+    });
+    player.onplaying = playerStateChanged;
+    if (mediaBrowser.current() === pageIndex) {
+      play();
+    }
+  }
+
+  function isActive() {
+    return mediaBrowser && mediaBrowser.current() === pageIndex;
   }
 
   function pageChanged(e) {
     const page = e.detail;
-    if (page.out == cp.view().attr('data-index')) {
-      pauseVideo();
-    } else if (page.in == cp.view().attr('data-index')) {
-      playVideo();
+    if (+page.out === pageIndex) {
+      pause();
+    } else if (+page.in === pageIndex) {
+      play();
     }
   }
 
-  // YouTube Player API
-
-  function youtubeReadyCallback() {
-    player = new YT.Player(cp.field('player').get(), {
-      height: '100%',
-      width: '100%',
-      playerVars: {controls: 1, disablekb: 1, fs: 0, modestbranding: 0, rel: 0, showinfo: 0, ecver: 2},
-      videoId: cp.field('video').html(),
-      events: {
-        'onReady': onPlayerReady,
-        'onStateChange': onPlayerStateChange
-      }
-    });
-  }
-
-  function togglePlay() {
-    if (!isPlaying) {
-      playVideo();
-    } else {
-      isPlaying = false;
-      pauseVideo();
+  function playerStateChanged(e) {
+    if (controlsHideTimeout !== null) {
+      clearTimeout(controlsHideTimeout);
     }
-  }
-
-  function onPlayerReady(event) {
-    if (mediaBrowser.current() == cp.view().attr('data-index')) {
-      togglePlay();
-    }
-  }
-  function onPlayerStateChange(event) {
-    /** Yourube API
-        -1 (unstarted)
-         0 (ended)
-         1 (playing)
-         2 (paused)
-         3 (buffering)
-         5 (video cued)
-        **/
-    if (controlToggleTimeout !== null) {
-      clearTimeout(controlToggleTimeout);
-    }
-    if (event.data === 0) {
-      mediaBrowser.showControls();
-    } else if (event.data === 1) {
-      cp.field('play').hide();
-      cp.field('pause').show();
-      controlToggleTimeout = setTimeout(function() {
+    if (e.type === 'playing') {
+      cp.field('nav-play').hide();
+      cp.field('nav-pause').show();
+      controlsHideTimeout = setTimeout(function() {
         mediaBrowser.hideControls();
       }, 2500);
-    } else if (event.data === 2) {
-      cp.field('play').show();
-      cp.field('pause').hide();
+    } else if (e.type === 'pause') {
+      cp.field('nav-play').show();
+      cp.field('nav-pause').hide();
     }
   }
 
-  function playVideo() {
-    if (player && player.playVideo) {
-      player.playVideo();
-      isPlaying = true;
+  function play() {
+    try {
+      player.play();
+    } catch (e) {
+      console.log(e);
     }
   }
-  function stopVideo() {
-    if (player && player.stopVideo) {
-      player.stopVideo();
-    }
-    isPlaying = false;
+  function pause() {
+    player.pause();
   }
-  function pauseVideo() {
-    if (player && player.pauseVideo) {
-      player.pauseVideo();
-    }
-    mediaBrowser.showControls();
+  function stop() {
+    player.stop();
   }
 }
 

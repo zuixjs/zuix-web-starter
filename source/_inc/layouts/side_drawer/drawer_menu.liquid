@@ -27,6 +27,7 @@
         <ul>
             {% assign posts = collections[section.data.group] | sort: 'data.pubDate' | reverse | sort: 'data.order' %}
             {%- for post in posts -%}
+            {%- if post.url -%}
             {% assign match = page.url | split:post.url %}
             <li {% if match[0] == blank %} aria-current="page"{% endif %}>
                 <a href="{{ post.url | url }}" class="mdl-js-ripple-effect">
@@ -37,6 +38,7 @@
                     <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span>
                 </a>
             </li>
+            {%- endif -%}
             {%- endfor -%}
         </ul>
 

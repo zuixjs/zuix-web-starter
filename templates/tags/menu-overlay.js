@@ -1,5 +1,3 @@
-const {JSDOM} = require('jsdom');
-
 const template = `
 <div z-load="@lib/components/menu-overlay" z-context="{{ contextId }}" z-lazy="false" class="visible-on-ready">
 
@@ -22,12 +20,14 @@ const template = `
 <script>
 function navigateTo(anchor) {
   const target = zuix.$.find('a[name="' + anchor + '"]');
-  scrollHelper.scrollTo(target, 300);
+  zuix.context(document.body).scroll.scrollTo(target, 300);
 }
 </script>
 `;
 
 const markdownIt = require('markdown-it')();
+const {JSDOM} = require('jsdom');
+
 module.exports = (render, content, contextId) => {
   // convert markdown list to HTML
   content = markdownIt.render(content, {});
