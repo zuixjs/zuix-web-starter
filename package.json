@@ -1,8 +1,8 @@
 {
-  "name": "zuix-web-starter",
+  "name": "zuix-min-starter",
   "version": "1.0.0",
   "private": true,
-  "description": "Starter project for component oriented web development with zuix.js and Eleventy.",
+  "description": "Minimal starter project for component oriented web development with zuix.js and Eleventy.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx @11ty/eleventy --serve",
@@ -29,14 +29,14 @@
   "homepage": "https://github.com/zuixjs",
   "repository": {
     "type": "git",
-    "url": "git://github.com/zuixjs/zuix-web-starter.git"
+    "url": "git://github.com/zuixjs/zuix-min-starter.git"
   },
-  "bugs": "https://github.com/zuixjs/zuix-web-starter/issues",
+  "bugs": "https://github.com/zuixjs/zuix-min-starter/issues",
   "dependencies": {
     "animate.css": "^4.1.1",
     "elasticlunr": "^0.9.5",
     "flex-layout-attribute": "^1.0.3",
-    "zuix-dist": "^1.0.29"
+    "zuix-dist": "^1.0.30"
   },
   "devDependencies": {
     "@11ty/eleventy": "^2.0.0-canary.4",

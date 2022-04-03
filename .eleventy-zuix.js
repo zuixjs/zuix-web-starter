@@ -265,8 +265,8 @@ function configure(eleventyConfig) {
   // TODO: maybe scan folder and add automatically
   const filtersPath = path.resolve(sourceFolder, '_filters');
   eleventyConfig.addFilter(
-    'search',
-    require(path.join(filtersPath, 'searchFilter'))
+      'search',
+      require(path.join(filtersPath, 'searchFilter'))
   );
   eleventyConfig.addFilter(
     'date',

@@ -1,0 +1,35 @@
+---
+layout: basic.liquid
+logo: images/icons/desktop/favicon-32x32.png
+title: Just a test
+description: Testing components...
+keywords:
+- zuix
+- web starter
+- home
+---
+<div z-load="@lib/components/media-browser" data-o-inline="true"
+     z-context="media-browser" data-o-slide="10000" style="border-radius: 4px" class="visible-on-ready">
+    <!-- List of images/videos (#media container) -->
+    <div #media>
+        <!-- Example image item -->
+        <article>
+            <h1 #title>Title</h1>
+            <h2 #description>Description of the image.</h2>
+            <!-- Image thumbnail url -->
+            <img #preview src="https://picsum.photos/seed/73-02-12/400/225">
+            <!-- Full-size image url -->
+            <a #full href="https://picsum.photos/seed/73-02-12/1600/900">Full Size</a>
+        </article>
+       {% for i in (1..10) -%}
+            <article>
+                <h1 #title>Title</h1>
+                <h2 #description>Description of the image.</h2>
+                <!-- Image thumbnail url -->
+                <img #preview src="https://picsum.photos/seed/g{{i}}/400/225">
+                <!-- Full-size image url -->
+                <a #full href="https://picsum.photos/seed/g{{i}}/1600/900">Full Size</a>
+            </article>
+        {%- endfor %}
+    </div> <!-- end of #media container -->
+</div>

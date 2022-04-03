@@ -165,8 +165,8 @@ module.exports = (program) => {
     .option('-fm, --front-matter "<field>: <value>"', 'Set a front matter field value', collect, [])
     .action(addPage);
   program
-    .command('wipe-content')
-    .alias('wc')
-    .description(`Delete all content in "${contentSourceFolder}" and "${contentBuildFolder}" folders.`)
-    .action(wipeContent);
+      .command('wipe-content')
+      .alias('wc')
+      .description(`Delete all content in "${contentSourceFolder}" and "${contentBuildFolder}" folders.`)
+      .action(wipeContent);
 };

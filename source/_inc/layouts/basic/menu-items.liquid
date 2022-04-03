@@ -1,0 +1,6 @@
+<code>-~=(topics)=~-</code>
+{% assign docs = collections['docs'] | sort: 'data.order' %}
+{% for item in docs %}
+    <a href="{{ item.url | url }}">{{ item.data.title }}</a>
+{% endfor %}
+<div></div>

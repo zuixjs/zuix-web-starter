@@ -1,0 +1,52 @@
+{% include "head_open.liquid" %}
+<style>
+{% include "./basic/style.css" %}
+{% include "./common/theme.css.liquid" %}
+</style>
+{% include "head_close.html" %}
+{% if layout_size == blank %}
+    {% assign layout_size = "large" %}
+{% endif %}
+<body layout="column stretch-center"
+      ctrl z-load="@lib/controllers/header-auto-hide"
+      data-o-header="header-bar" z-lazy="scroll">
+
+<nav layout="row top-center" #header-bar>
+    <div self="size-{{ layout_size }} stretch" layout="row center-center" style="gap: 8px">
+        <a class="icon-button" aria-label="Home" href="{{ '/' |  url }}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40px" height="40px" viewBox="0 0 24 24">
+                <path d="M0 0h24v24H0V0z" fill="none"/>
+                <path d="M12 5.69l5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/>
+            </svg>
+        </a>
+        <h1 self="size-x1">{{ app.title }}</h1>
+        <div style="padding-top: 4px; padding-right: 4px">
+            <input class="theme-toggle" type="checkbox" aria-label="Toggle theme" checked>
+        </div>
+    </div>
+</nav>
+
+<main self="size-{{ layout_size }}">
+{{ content | safe }}
+</main>
+
+{% include "./basic/page-navigation.liquid" %}
+{% include "footer.liquid" %}
+
+
+<div z-load="@lib/components/menu-overlay" z-context="menu-overlay"
+     data-o-position="center" data-o-before="footer">
+
+    <div #items>
+    {% include './basic/menu-items.liquid' %}
+    </div>
+
+</div>
+
+
+{% include "body_end.liquid" %}
+<script>
+{% include "./basic/script.js.liquid" %}
+</script>
+</body>
+{% include "html_close.html" %}

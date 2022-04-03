@@ -1,18 +1,15 @@
 ---
-layout: side_drawer.liquid
-theme: indigo-pink
+layout: basic.liquid
 <$- frontMatter -$>tags: <$ section $>
 group: <$ section $>
-order: 1
+order: 0
 title: <$ title $>
 description: Page description
-icon: read_more
-imagePreviewMini: https://picsum.photos/seed/<$ section $>!<$ name $>/256/256
 pubDate: <$ date $>
 keywords:
 - <$ title $>
 ---
 
-# <$ title $>
+# {{ title }}
 
 It works! =)

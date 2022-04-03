@@ -1,0 +1,112 @@
+:root {
+    --lite-color: #fff;
+    --lite-color-text: #000;
+    --lite-nav-color: #007ca7;
+    --lite-nav-color-text: #fff;
+    --lite-color--accent: #e10c57;
+    --lite-color--primary: #3954be;
+    --lite-color--code: #005000;
+    --lite-font--weigth: 400;
+
+    --dark-color: #141414;
+    --dark-color-text: #d2d2d2;
+    --dark-nav-color: #741f3b; /* #014b76; */ /* #60142d; */
+    --dark-nav-color-text: #ccc;
+    --dark-color--accent: #beaa5a;
+    --dark-color--primary: #6ba64d;
+    --dark-color--code: #8fc563;
+    --dark-font--weigth: 400;
+}
+
+{%- assign themes = 'lite dark' | split: ' ' %}
+{% for theme in themes -%}
+{% if forloop.first == false -%}
+{% assign tc = '.theme-' | concat: theme |  concat: ' ' -%}
+{% endif %}
+/*========================*\
+      Theme '{{ theme }}'
+\*========================*/
+
+body{{ tc -}} {
+    background-color: var(--{{ theme }}-color);
+    color: var(--{{ theme }}-color-text);
+    font-weight: var(--{{ theme }}-font--weigth);
+    transition: color 300ms ease-in, background-color 300ms ease-in;
+}
+{{ tc -}}
+nav, {{ tc -}} footer {
+    background-color: var(--{{ theme }}-nav-color);
+    color: var(--{{ theme }}-nav-color-text);
+    fill: var(--{{ theme }}-nav-color-text);
+    box-shadow: 0 4px 6px 0 rgb(0 0 0 / 20%), 0 -4px 12px 0 rgb(0 0 0 / 20%);
+}
+{{ tc -}}
+nav svg  {
+    fill:var(--{{ theme }}-nav-color-text);
+}
+{{ tc -}}
+nav a, {{ tc -}} footer a {
+    color: var(--{{ theme }}-nav-color-text);
+}
+{{ tc -}}
+a {
+    color: var(--{{ theme }}-color--accent);
+    text-decoration: none;
+}
+{{ tc -}} main h1, {{ tc -}} main h2, {{ tc -}} main h3 {
+    color: var(--{{ theme }}-color--primary);
+}
+{{ tc -}} code:not([class*=language-]), {{ tc -}} pre:not([class*=language-]) {
+    color: var(--{{ theme }}-color--code);
+}
+{% endfor %}
+/*
+---------------------------------
+ */
+
+.theme-toggle {
+    margin: 0;
+    --size: 32px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+    cursor: pointer;
+    width: var(--size);
+    height: var(--size);
+    box-shadow: inset calc(var(--size) * 0.33) calc(var(--size) * -0.25) 0;
+    border-radius: var(--size);
+    transition: all 500ms;
+    color: var(--lite-nav-color-text);
+}
+.theme-toggle:checked {
+    --ray-size: calc(var(--size) * -0.4);
+    --offset-orthogonal: calc(var(--size) * 0.65);
+    --offset-diagonal: calc(var(--size) * 0.45);
+    transform: scale(0.75);
+    box-shadow: inset 0 0 0 var(--size),
+        calc(var(--offset-orthogonal) * -1) 0 0 var(--ray-size),
+        var(--offset-orthogonal) 0 0 var(--ray-size),
+        0 calc(var(--offset-orthogonal) * -1) 0 var(--ray-size),
+        0 var(--offset-orthogonal) 0 var(--ray-size),
+        calc(var(--offset-diagonal) * -1) calc(var(--offset-diagonal) * -1) 0 var(--ray-size),
+        var(--offset-diagonal) var(--offset-diagonal) 0 var(--ray-size),
+        calc(var(--offset-diagonal) * -1) var(--offset-diagonal) 0 var(--ray-size),
+        var(--offset-diagonal) calc(var(--offset-diagonal) * -1) 0 var(--ray-size);
+    color: var(--dark-nav-color-text);
+}
+
+/* ----- MENU OVERLAY COMPONENT ----- */
+[z-context="menu-overlay"] .circle-button {
+    border: solid 1px var(--lite-color);
+    background-color: var(--lite-nav-color)!important;
+    fill: var(--lite-nav-color-text)!important;
+}
+.theme-dark [z-context="menu-overlay"] .circle-button {
+    border: solid 1px var(--dark-color);
+    background-color: var(--dark-nav-color)!important;
+    fill: var(--dark-nav-color-text)!important;
+}
+.theme-dark [z-context="menu-overlay"] div[z-field="menu_overlay"] {
+    background: radial-gradient(circle at bottom, black, #000000dd, #00000077, transparent)!important;
+}

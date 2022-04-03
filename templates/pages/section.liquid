@@ -1,9 +1,9 @@
 ---
-layout: side_drawer.liquid
-options: mdl
-<$- frontMatter -$>tags: sections
+layout: basic.liquid
+tags: sections
 order: 1
-icon: topic
----
-{% assign itemsList = collections[group] | sort: 'data.pubDate' | reverse | sort: 'data.order' -%}
-{% include 'layouts/side_drawer/items-list.liquid' %}
+<$- frontMatter -$>---
+{% assign section = '<$ section $>' %}
+{% for post in collections[section] %}
+- [{{ post.title }}]({{ post.url }})
+{% endfor %}
