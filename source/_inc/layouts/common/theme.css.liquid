@@ -59,6 +59,11 @@ a {
 {{ tc -}} code:not([class*=language-]), {{ tc -}} pre:not([class*=language-]) {
     color: var(--{{ theme }}-color--code);
 }
+{{ tc -}}
+.button {
+    color:  var(--{{ theme }}-nav-color-text);
+    background-color: var(--{{ theme }}-nav-color);
+}
 {% endfor %}
 /*
 ---------------------------------

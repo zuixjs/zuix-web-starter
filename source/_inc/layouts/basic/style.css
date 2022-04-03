@@ -100,3 +100,20 @@ footer {
 .icon-button:active svg {
     transform: scale(97%);
 }
+
+.button {
+    display: flex;
+    padding: 6px;
+    height: 48px;
+    align-items: center;
+    border: solid 1px;
+    border-radius: 6px;
+    transition: box-shadow 200ms ease-in-out;
+}
+.button:hover {
+    box-shadow: 0 0 2px 2px;
+    transition: box-shadow 200ms ease-in-out;
+}
+.button:active {
+    box-shadow: 0 0 1px 1px;
+}

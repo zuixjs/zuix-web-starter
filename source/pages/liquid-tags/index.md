@@ -79,6 +79,41 @@ It's mainly intended wrap and format `zx` shortcode output.
 {% zx 'button' '#test-link-2' %}Button 2{% endzx %}
 {% endlayout %}
 
+
+## zx
+
+The `zx` shortcode is used to render HTML fragments or components based on dynamically loaded tag templates.
+Tag templates are loaded from the `./templates/tags` folder, and they consist of simple and small JavaScript code that
+renders the requested tag.
+
+{% raw %}
+```liquid
+{% zx '<tag_name>' ['<tag_option_1>' ... <tag_option_n>] %}
+(optional content)
+{% endzx %}
+```
+{% endraw %}
+
+In the previous example the tag `button` is loaded from `./templates/tags/button.js`. The first option for this button tag
+is the anchor name / URL link to be opened when the button is clicked (`#test-link-1` in this case).
+
+### Adding custom zx tags
+
+Any custom tag can be implemented by just adding a `./templates/tags/<custom_tag_name>.js` file. For example, this is the
+code of **./templates/tags/button.js** used in the previous example:
+
+```js
+{% raw %}
+const template = `
+<a class="button" href="{{ linkUrl | safe }}">{{ content | safe }}</a>`;
+
+module.exports = (render, content, linkUrl) => {
+  return render(template, {content, linkUrl});
+};
+{% endraw %}
+```
+
+
 ## wrapDom / wrapCss
 
 These two tags adds to a CSS style and HTML fragment, the required attributes so that the CSS style will be only applied
@@ -113,7 +148,7 @@ Can also be used together with the `include` shortcode to load the style and the
     text-align: center;
 }
 h3 {
-    color: blue
+    color: deeppink;
 }
 {% endwrapCss %}
 </style>
@@ -128,47 +163,6 @@ h3 {
 <style>
 {% wrapCss 'test-fragment' %}
 :host { text-align: center; }
-h3 { color: blue }
+h3 { color: deeppink }
 {% endwrapCss %}
  </style>
-
-## zx
-
-The `zx` shortcode is used to render HTML fragments or components based on dynamically loaded tag templates.
-Tag templates are loaded from the `./templates/tags` folder, and they consist of simple and small JavaScript code that
-renders the requested tag.
-
-{% raw %}
-```liquid
-{% zx '<tag_name>' ['<tag_option_1>' ... <tag_option_n>] %}
-(optional content)
-{% endzx %}
-```
-{% endraw %}
-
-In the previous example the tag `button` is loaded from `./templates/tags/button.js`. The first option for this button tag
-is the anchor name / URL link to be opened when the button is clicked (`#test-link-1` in this case).
-
-### Adding custom zx tags
-
-Any custom tag can be implemented by just adding a `./templates/tags/<custom_tag_name>.js` file. For example, this is the
-code of **./templates/tags/button.js** used in the previous example:
-
-```js
-{% raw %}
-const template = `<a ctrl z-load="@lib/controllers/mdl-button"
-     z-options="{ type: '{{ buttonType }}', class: '{{ buttonClass }}' }"
-     href="{{ linkUrl | safe }}">{{ content | safe }}</a>`;
-
-module.exports = (render, content, linkUrl, buttonType, buttonClass) => {
-  // buttonType :==  'flat' | 'raised' | 'fab' | 'icon'
-  // buttonClass :==  'mini-fab' | 'accent' | 'colored' | 'primary'
-  if (buttonType === 'fab') {
-    content = `<i class="material-icons">${content}</i>`;
-  }
-  return render(template, {content, linkUrl, buttonType, buttonClass});
-};
-{% endraw %}
-```
-
-It just renders the required HTML markup to make *zuix.js* load the `mdl-button` component.

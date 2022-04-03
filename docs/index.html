@@ -121,6 +121,23 @@ footer {
     transform: scale(97%);
 }
 
+.button {
+    display: flex;
+    padding: 6px;
+    height: 48px;
+    align-items: center;
+    border: solid 1px;
+    border-radius: 6px;
+    transition: box-shadow 200ms ease-in-out;
+}
+.button:hover {
+    box-shadow: 0 0 2px 2px;
+    transition: box-shadow 200ms ease-in-out;
+}
+.button:active {
+    box-shadow: 0 0 1px 1px;
+}
+
 :root {
     --lite-color: #fff;
     --lite-color-text: #000;
@@ -173,6 +190,10 @@ main h1, main h2, main h3 {
 code:not([class*=language-]), pre:not([class*=language-]) {
     color: var(--lite-color--code);
 }
+.button {
+    color:  var(--lite-nav-color-text);
+    background-color: var(--lite-nav-color);
+}
 
 /*========================*\
       Theme 'dark'
@@ -205,6 +226,10 @@ body.theme-dark {
 }
 .theme-dark code:not([class*=language-]), .theme-dark pre:not([class*=language-]) {
     color: var(--dark-color--code);
+}
+.theme-dark .button {
+    color:  var(--dark-nav-color-text);
+    background-color: var(--dark-nav-color);
 }
 
 /*
