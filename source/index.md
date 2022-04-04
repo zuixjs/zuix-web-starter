@@ -178,7 +178,7 @@ Main page:
 
 ### Content folders
 
-The main content folder is `./source/pages`. It's a good practice to have each content page implemented with its own
+The main content folder is `./source/pages`. It's a good practice to have each page implemented with its own
 folder and a `index.md` file in it. In the same folder can be placed other sub-folders for page-local assets, such as images.
 
 ```

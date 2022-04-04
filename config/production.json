@@ -49,7 +49,7 @@
       }
     },
     "app": {
-      "title": "zuix.js Web Starter",
+      "title": "Web Starter",
       "subtitle": "Simple, yet powerful!",
       "baseUrl": "/zuix-web-starter/",
       "resourcePath": "{{ app.baseUrl }}app/",

@@ -15,8 +15,8 @@ keywords:
 
 # Page editing
 
-Content pages are simple text files implemented using [Markdown](https://www.markdownguide.org/) syntax, and that have front matter data,
-used to select the page layout and other options.
+Content pages are simple text files implemented using [Markdown](https://www.markdownguide.org/) syntax, and that have front matter data
+that is used to specify the page layout and other options.
 
 **Example:** `index.md`
 
@@ -42,24 +42,23 @@ Welcome to my blog about...
 
 ```
 
-The `.md` files, are then compiled into a fully working web page by the site generator.
-
 
 ## Front matter data
 
 ### `layout`
 
-Different page layouts are available depending on the site template that is being used. The `zuix-web-starter` template
+Different page layouts are available depending on the site template that is being used. The base `zuix-web-starter` template
 includes only one kind of page layout: `basic.liquid`.
 
 
 #### Adding a custom layout
 
-Layouts are located in the `./source/_inc/layouts` folder. A layout consist of a `.liquid` file and, when required, also
-a folder with the same base name of the layout file, eventually containing additional files required for the layout implementation.
+Layouts are located in the `./source/_inc/layouts` folder. A layout consists of a [`.liquid`](https://shopify.dev/api/liquid) file and, when required, also
+a folder with the same base name of the layout file, and that eventually contains additional files required for the
+implementation.
 
-A new layout can be implemented by adding a `<layout_name>.liquid` file into the *layouts* folder, it can be then selected, like the other
-layout templates, by specifying its name in the `layout` field of page's front matter.
+So, a new layout can be implemented by creating a `<layout_name>.liquid` file into the *layouts* folder. It can be then selected,
+like the other layout templates, by specifying its name in the `layout` field of page's front matter.
 
 
 The `./source/_inc` folder, is also used to place common page's bits that can be reused across different layout implementations:
@@ -104,9 +103,9 @@ Tags are keywords used to create collections of pages that can then be enumerate
 ### `group`
 
 The group indicates to which content section the page belongs to. For example, pages under the *documentation*
-section (like this one), will have `documentation` value set both on the `group` and `tags` field. While the `tags` field
+section (like this one), will have `docs` value set both on the `group` and `tags` fields. While the `tags` field
 can contain multiple values, the `group` field can only contain one value.
-This value is used also to implement navigation between pages belonging to the same content section.
+This value is used, for instance, to implement navigation between pages belonging to the same content section.
 
 ### `options`
 
@@ -138,8 +137,8 @@ The `bootstrap` option can then be used to select *Bootstrap CSS framework* for 
 
 ### `order`
 
-Set the listing order of the page, that is mainly used for rendering navigation links and content listing menus, like the one in the
-side drawer menu of this page.
+Set the listing order of the page, that is mainly used for rendering navigation links and content listing menus, like
+the one in the footer of this page.
 
 ### `title`
 

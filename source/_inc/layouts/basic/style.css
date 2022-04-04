@@ -55,11 +55,27 @@ pre:not([class*=language-]) {
     overflow-x: auto;
 }
 code:not([class*=language-]) {
+    word-break: break-word;
     line-height: 140%;
 }
 
 footer {
     font-size: 90%;
+}
+
+.title {
+    font-size: 110%;
+    max-width: calc(100vw - 104px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.subtitle {
+    font-size: 95%;
+    max-width: calc(100vw - 104px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .icon-button {

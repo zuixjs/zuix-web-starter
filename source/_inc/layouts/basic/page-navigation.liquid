@@ -3,7 +3,7 @@
     {% assign prevPost = collections[group] | sort: 'data.pubDate' | reverse | sort: 'data.order' | getPreviousCollectionItem: page %}
     {% assign nextPost = collections[group] | sort: 'data.pubDate' | reverse | sort: 'data.order' | getNextCollectionItem: page %}
 
-    <div layout="rows center-spread" class="page-navigation">
+    <div self="size-large" layout="rows center-spread" class="page-navigation">
 
         {% if prevPost %}
             <a href="{{ prevPost.url |  url }}" style="text-align: center;">
