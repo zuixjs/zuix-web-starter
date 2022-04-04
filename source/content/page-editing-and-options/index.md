@@ -15,8 +15,9 @@ keywords:
 
 # Page editing
 
-Content pages are simple text files implemented using [Markdown](https://www.markdownguide.org/) syntax, and that have front matter data
-that is used to specify the page layout and other options.
+As described in the previous chapter, content pages are simple text files implemented using [Markdown](https://www.markdownguide.org/) syntax,
+and that have front matter data where is possible to specify the page layout to be used, metadata and other options for
+the current content.
 
 **Example:** `index.md`
 
@@ -45,10 +46,19 @@ Welcome to my blog about...
 
 ## Front matter data
 
+As shown in the example above, front matter data is enclosed in a block delimited by the sequence: `---`. Inside this
+block data can be specified in the form `<field_name>: <value>`, more specifically using the [YAML syntax](https://docs.fileformat.com/programming/yaml/).
+
+The following is a list of fields that can be used in the front matter.
+
 ### `layout`
 
-Different page layouts are available depending on the site template that is being used. The base `zuix-web-starter` template
-includes only one kind of page layout: `basic.liquid`.
+Sets the page layout to be used for the current content. Different page layouts are available depending on the starter
+template that is being used. The base `zuix-web-starter` includes only one kind of page layout:
+- `basic.liquid` <small>(the one used for this page)</small>
+
+To see layouts from other starter templates, referrer to the documentation included in the [online demos](/#creating_new_project)
+of each template. 
 
 
 #### Adding a custom layout
@@ -156,3 +166,12 @@ The date to show as publishing date. This field has the precedence over `order` 
 
 A list of keywords that identify this page. Keywords are used by internal search and are also added to page's metadata
 for search engines as some of them might still use meta keywords for indexing.
+
+
+## For advanced users
+
+Beside the default settings and configuration described in these pages, it is possible to take advantage of all advanced
+features provided by the site generator behind these *web starters*, which is *Eleventy*, *&laquo;a simpler
+static site generator&raquo;*.  
+For further insights about the *11ty* site generator and component-based web development with *zuix.js*, see the **Links**
+section in the footer.

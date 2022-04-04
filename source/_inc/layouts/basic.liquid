@@ -37,18 +37,17 @@
 </main>
 
 {% include "./basic/page-navigation.liquid" %}
-{% include "footer.liquid" %}
-
 
 <div z-load="@lib/components/menu-overlay" z-context="menu-overlay"
      data-o-position="center" data-o-before="footer">
 
     <div #items>
-    {% include './basic/menu-items.liquid' %}
+        {% include './basic/menu-items.liquid' %}
     </div>
 
 </div>
 
+{% include "footer.liquid" %}
 
 {% include "body_end.liquid" %}
 <script>

@@ -36,6 +36,8 @@ const {
   wrapCss
 } = require('zuix');
 
+const contentFolder = 'content';
+
 // Read configuration either from './config/{default}.json'
 // or './config/production.json' based on current `NODE_ENV'
 // environment variable value
@@ -255,7 +257,7 @@ function configure(eleventyConfig) {
 
   // this is used by the searchFilter
   eleventyConfig.addCollection('posts_searchIndex', (collection) => {
-    return [...collection.getFilteredByGlob(path.join(zuixConfig.build.input, 'pages/**/*.md'))];
+    return [...collection.getFilteredByGlob(path.join(zuixConfig.build.input, contentFolder, '**/*.md'))];
   });
 
   /*
@@ -265,8 +267,8 @@ function configure(eleventyConfig) {
   // TODO: maybe scan folder and add automatically
   const filtersPath = path.resolve(sourceFolder, '_filters');
   eleventyConfig.addFilter(
-      'search',
-      require(path.join(filtersPath, 'searchFilter'))
+    'search',
+    require(path.join(filtersPath, 'searchFilter'))
   );
   eleventyConfig.addFilter(
     'date',

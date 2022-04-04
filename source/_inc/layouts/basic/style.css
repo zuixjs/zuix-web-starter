@@ -19,11 +19,14 @@ main {
     min-height: calc(100vh - 64px - 200px); /* viewport height - header height - footer height */
     padding-bottom:56px;
 }
-main h1, main h2, main h3, main p {
+main h1, main h2, main h3, main h4, main h5, main h6, main p {
     font-weight: 400;
     padding-left: 8px;
     padding-right: 8px;
     margin-top: 1.5em;
+}
+main h4 {
+    font-weight: bold;
 }
 main p {
     font-family: 'Helvetica Neue', Helvetica, sans-serif;
