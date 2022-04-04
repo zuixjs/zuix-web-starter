@@ -32,7 +32,7 @@ const child_process = require('child_process');
 const zuixConfig = config.get('zuix');
 const sourceFolder = zuixConfig.get('build.input');
 const buildFolder = zuixConfig.get('build.output');
-const contentFolder = zuixConfig.get('build.contentFolder');
+const contentFolder = zuixConfig.get('build.contentFolder', 'content');
 
 const contentSourceFolder = path.join(sourceFolder, contentFolder);
 const contentBuildFolder = path.join(buildFolder, contentFolder)
