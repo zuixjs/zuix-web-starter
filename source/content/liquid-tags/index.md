@@ -235,7 +235,7 @@ if the editor is not highlighting the HTML markup.
 ### wrapDom / wrapCss
 
 These two tags adds to a CSS style and HTML fragment, the required attributes so that the CSS style will be only applied
-to the given HTML fragment only (scoped CSS).
+to the given HTML fragment (scoped CSS).
 Can also be used together with the `include` shortcode to load the style and the HTML fragment from external files.
 
 {% raw %}
@@ -243,9 +243,11 @@ Can also be used together with the `include` shortcode to load the style and the
 {% wrapDom '<fragment_id>' %}
 ... HTML fragment ...
 {% endwrapDom %}
+<style>
 {% wrapCss '<fragment_id>' [<encapsulate>] %}
 ... CSS styles ...
 {% endwrapCss %}
+</style>
 ```
 {% endraw %}
 
