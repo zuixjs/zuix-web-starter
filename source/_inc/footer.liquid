@@ -5,7 +5,7 @@
         <section layout="column top-left" style="padding:32px">
             <div><strong>Content</strong></div>
             <ul>
-                {% assign docs = collections['docs'] | sort: 'data.order' %}
+                {% assign docs = collections[group] | sort: 'data.order' %}
                 {% for item in docs %}
                     <li><a href="{{ item.url | url }}">{{ item.data.title }}</a></li>
                 {% endfor %}

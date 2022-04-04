@@ -47,6 +47,9 @@ It's mainly intended wrap and format `zx` shortcode output.
 {% endlayout %}
 ```
 {% endraw %}
+
+##
+
 {% layout 'row center-center' 'style="gap: 12px"' %}
 {% zx 'button' '#test-link-1' %}Button 1{% endzx %}
 {% zx 'button' '#test-link-2' %}Button 2{% endzx %}
@@ -67,10 +70,10 @@ renders the requested tag.
 ```
 {% endraw %}
 
-In the previous example the tag `button` is loaded from `./templates/tags/button.js`. The first option for this button tag
-is the anchor name / URL link to be opened when the button is clicked (`#test-link-1` in this case).
+In the previous example the tag `button` is loaded from [`./templates/tags/button.js`](https://github.com/zuixjs/zuix-web-starter/blob/master/templates/tags/button.js). The first option for this button tag
+is the anchor name or URL to be opened when the button is clicked (`#test-link-1` in this case).
 
-For instance, consider the following code:
+In this other example a media browser component is entirely configured using just simple text (YAML formatted configuration):
 
 ```liquid
 {%- raw -%}
@@ -123,8 +126,12 @@ options:
 {% endraw -%}
 ```
 
-That will output the [zKit media-browser](https://zuixjs.github.io/zkit/pages/components/media-browser/) component
-configure with the provided media list:
+##
+
+The above code will output the [zKit media-browser](https://zuixjs.github.io/zkit/pages/components/media-browser/) component
+configured with the provided media list:
+
+##
 
 {% zx 'media-browser' %}
 media:
@@ -148,7 +155,7 @@ media:
   url: https://picsum.photos/seed/docs-1/1600/900
 - type: video-yt
   preview: https://img.youtube.com/vi/IdtM6OPdaio/2.jpg
-  url: IdtM6OPdaio
+  url: https://youtu.be/IdtM6OPdaio
   interval: 15000
 - type: image
   title: Yet another title

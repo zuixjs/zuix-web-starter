@@ -69,9 +69,6 @@ small {
     opacity: 0.8;
 }
 
-pre {
-    border-radius: 6px;
-}
 pre:not([class*=language-]) {
     width: 100%;
     max-width: 100%;
@@ -145,16 +142,22 @@ footer {
     padding: 6px;
     height: 48px;
     align-items: center;
-    border: solid 1px;
     border-radius: 6px;
+    box-shadow: 0 0 4px 1px var(--lite-color-text);
     transition: box-shadow 200ms ease-in-out;
 }
 .button:hover {
-    box-shadow: 0 0 2px 2px;
+    box-shadow: 0 0 6px 2px var(--lite-color-text);
     transition: box-shadow 200ms ease-in-out;
 }
+.theme-dark .button:hover {
+    box-shadow: 0 0 6px 2px var(--dark-color-text);
+}
 .button:active {
-    box-shadow: 0 0 1px 1px;
+    box-shadow: 0 0 4px 1px var(--lite-color-text);
+}
+.theme-dark .button:active {
+    box-shadow: 0 0 4px 1px var(--dark-color-text);
 }
 
 :root {
