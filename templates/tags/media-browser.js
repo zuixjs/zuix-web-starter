@@ -6,10 +6,10 @@ const template = `
     <div #media>
     {%- for media in config['media'] %}
       <article data-type="{{ media.type }}" slide-interval="{{ media.interval }}">
-        <h1 #title>{{ media.title }}</h1>
-        <h2 #description>{{ media.description }}</h2>
-        <img #preview src="{{ media.preview | safe }}"><br>
-        <a #url href="{{ media.url | safe }}">Open media</a>
+        <h1 #title>{{ media.title | striptags }}</h1>
+        <h2 #description>{{ media.description | striptags }}</h2>
+        <img #preview src="{{ media.preview }}"><br>
+        <a #url href="{{ media.url }}">Open media</a>
       </article>
     {%- endfor %}
     </div>
