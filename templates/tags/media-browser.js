@@ -1,7 +1,10 @@
 const template = `
-<div z-load="@lib/components/media-browser" class="visible-on-ready" z-lazy="true"
-     {% for o in config['options'] -%}
-     data-o-{{ o.option }}="{{ o.value }}"
+<div z-load="@lib/components/media-browser" class="visible-on-ready"
+     {% for s in config.settings -%}
+     z-{{ s.name }}="{{ s.value }}"
+     {%- endfor -%}
+     {% for o in config.options -%}
+     data-o-{{ o.name }}="{{ o.value }}"
      {%- endfor -%}>
     <div #media>
     {%- for media in config['media'] %}

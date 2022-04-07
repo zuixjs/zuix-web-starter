@@ -58,7 +58,7 @@ It's mainly intended wrap and format `zx` shortcode output.
 
 ### zx
 
-The `zx` shortcode is used to render HTML fragments or components based on dynamically loaded tag templates.
+The `zx` short code is used to render HTML fragments or components based on dynamically loaded tag templates.
 Tag templates are loaded from the `./templates/tags` folder, and they consist of simple and small JavaScript code that
 renders the requested tag.
 
@@ -73,101 +73,10 @@ renders the requested tag.
 In the previous example the tag `button` is loaded from [`./templates/tags/button.js`](https://github.com/zuixjs/zuix-web-starter/blob/master/templates/tags/button.js). The first option for this button tag
 is the anchor name or URL to be opened when the button is clicked (`#test-link-1` in this case).
 
-In this other example a media browser component is entirely configured using just simple text (YAML formatted configuration):
+For more `zx` tags examples see also:
 
-```liquid
-{%- raw -%}
-{% zx 'media-browser' %}
-
-media:
-
-- type: image
-  title: Some title
-  description: Description of this image
-  preview: https://picsum.photos/seed/docs-4/533/300
-  url: https://picsum.photos/seed/docs-4/1600/900
-  interval: 8000
-
-- type: image
-  title: Another title
-  description: Second image description
-  preview: https://picsum.photos/seed/docs-3/533/300
-  url: https://picsum.photos/seed/docs-3/1600/900
-
-- type: video
-  preview: https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg
-  url: https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4
-  interval: 15000
-
-- type: image
-  preview: https://picsum.photos/seed/docs-1/533/300
-  url: https://picsum.photos/seed/docs-1/1600/900
-
-- type: video-yt
-  preview: https://img.youtube.com/vi/IdtM6OPdaio/2.jpg
-  url: IdtM6OPdaio
-  interval: 15000
-
-- type: image
-  title: Yet another title
-  description: One more image description 😇
-  preview: https://picsum.photos/seed/docs-2/533/300
-  url: https://picsum.photos/seed/docs-2/1600/900
-
-options:
-
-- option: slide
-  value: 5000
-
-- option: inline
-  value: true
-
-{% endzx %}
-{% endraw -%}
-```
-
-##
-
-The above code will output the [zKit media-browser](https://zuixjs.github.io/zkit/content/components/media-browser/) component
-configured with the provided media list:
-
-##
-
-{% zx 'media-browser' %}
-media:
-- type: image
-  title: Some title
-  description: Description of this image
-  preview: https://picsum.photos/seed/docs-4/533/300
-  url: https://picsum.photos/seed/docs-4/1600/900
-  interval: 8000
-- type: image
-  title: Another title
-  description: Second image description
-  preview: https://picsum.photos/seed/docs-3/533/300
-  url: https://picsum.photos/seed/docs-3/1600/900
-- type: video
-  preview: https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg
-  url: https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4
-  interval: 15000
-- type: image
-  preview: https://picsum.photos/seed/docs-1/533/300
-  url: https://picsum.photos/seed/docs-1/1600/900
-- type: video-yt
-  preview: https://img.youtube.com/vi/IdtM6OPdaio/2.jpg
-  url: https://youtu.be/IdtM6OPdaio
-  interval: 15000
-- type: image
-  title: Yet another title
-  description: One more image description 😇
-  preview: https://picsum.photos/seed/docs-2/533/300
-  url: https://picsum.photos/seed/docs-2/1600/900
-options:
-- option: slide
-  value: 5000
-- option: inline
-  value: true
-{% endzx %}
+- [zKit components tags](https://zuixjs.github.io/web-app/content/docs/zkit-components-tags/)
+- [Material Design tags](https://zuixjs.github.io/web-app/content/docs/material-design-tags/)
 
 
 #### Adding custom zx tags
