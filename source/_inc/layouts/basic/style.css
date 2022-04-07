@@ -78,6 +78,10 @@ footer {
     text-overflow: ellipsis;
 }
 
+.menu-item {
+    padding: 8px;
+}
+
 .icon-button {
     width: 48px;
     height: 48px;

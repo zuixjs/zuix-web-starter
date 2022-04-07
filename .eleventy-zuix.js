@@ -217,8 +217,6 @@ function copyDependencies() {
   copyFolder(`${process.cwd()}/node_modules/flex-layout-attribute/css`, `${buildFolder}/css/fla`, (err) => {
     if (err) console.log(err);
   });
-  // - Animate.CSS
-  fs.copyFileSync(`${process.cwd()}/node_modules/animate.css/animate.min.css`, `${buildFolder}/css/animate.min.css`);
 }
 
 function rawFileInclude(page, fileName) {
