@@ -1,7 +1,7 @@
 {
-  "name": "zUIx Web Starter",
+  "name": "Web Starter",
   "short_name": "Web Starter",
-  "description": "A very cool web app powered by zUIx.js",
+  "description": "Simple, yet powerful!",
   "theme_color": "#178038",
   "background_color": "#dafee4",
   "display": "standalone",

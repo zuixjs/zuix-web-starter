@@ -39,6 +39,7 @@ nav, {{ tc -}} footer {
     color: var(--{{ theme }}-nav-color-text);
     fill: var(--{{ theme }}-nav-color-text);
     box-shadow: 0 4px 6px 0 rgb(0 0 0 / 20%), 0 -4px 12px 0 rgb(0 0 0 / 20%);
+    transition: color 300ms ease-in, background-color 300ms ease-in;
 }
 {{ tc -}}
 nav svg  {
@@ -60,9 +61,12 @@ a {
     color: var(--{{ theme }}-color--code);
 }
 {{ tc -}}
-.button {
-    color:  var(--{{ theme }}-nav-color-text);
-    background-color: var(--{{ theme }}-nav-color);
+.accent {
+    color: var(--{{ theme }}-color--accent);
+}
+{{ tc -}}
+.primary {
+    color: var(--{{ theme }}-color--primary);
 }
 {% endfor %}
 /*
