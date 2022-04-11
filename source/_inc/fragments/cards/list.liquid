@@ -10,5 +10,5 @@
     {% else %}
         {% assign link = item.data.link  %}
     {% endif %}
-    {% include template, data: item.data, link: link %}
+    {% include template, item: item, link: link %}
 {% endfor %}

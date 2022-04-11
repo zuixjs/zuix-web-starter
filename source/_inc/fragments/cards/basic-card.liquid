@@ -1,9 +1,9 @@
 {% wrapDom 'github-card' %}
 
 <div self="size-x1" layout="column top-stretch">
-    <h3 class="accent">{{ data.title }}</h3>
-    <p>{{ data.description }}</p>
-    <a href="{{ link | url }}" title="See {{ data.title }}"></a>
+    <h3 class="accent">{{ item.data.title }}</h3>
+    <p>{{ item.data.description }}</p>
+    <a href="{{ link | url }}" title="See {{ item.data.title }}"></a>
 </div>
 
 {% endwrapDom %}

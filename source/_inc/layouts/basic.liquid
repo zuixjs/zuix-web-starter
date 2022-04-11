@@ -44,7 +44,7 @@
 
     {% if author %}
         <div class="author">
-            by <em><a href="{{ '/content/about/' |  url }}">{{ author }}</a></em> &mdash;
+            by <em>{{ author }}</em> &mdash;
             posted on {{ pubDate | date: 'D MMMM YYYY' }}
         </div>
     {% endif %}

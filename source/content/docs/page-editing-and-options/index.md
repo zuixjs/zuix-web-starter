@@ -4,7 +4,7 @@ options: highlight ext-links
 tags: docs
 group: docs
 order: 20
-coverPreview: /content/docs/page-editing-and-options/images/cover-preview.png
+coverPreview: ./images/cover-preview.png
 coverImage: ./images/cover.png
 coverUrl: https://artsandculture.google.com/asset/meadow-with-poppies/SwEgfZYCYPZimw
 title: Page editing and options
@@ -29,8 +29,11 @@ tags: blog
 group: blog
 options: highlight ext-links
 order: 2
+coverPreview: ./images/cover-preview.png
+coverImage: ./images/cover.png
 title: My page title
 description: My page description (used for page metadata)
+author: Gene
 pubDate: 2022-02-12 12:22
 keywords:
 - Blog
@@ -126,6 +129,8 @@ In addition to the following options, other options might be available depending
   enable code highlighting
 - **`ext-links`**  
   open external links in a new window
+- **`no-title`**  
+  do not include page title
 - **`no-footer`**  
   do not include common footer
 

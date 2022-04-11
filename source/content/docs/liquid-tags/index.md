@@ -4,7 +4,7 @@ options: highlight ext-links
 tags: docs
 group: docs
 order: 30
-coverPreview: /content/docs/liquid-tags/images/cover-preview.png
+coverPreview: ./images/cover-preview.png
 coverImage: ./images/cover.png
 coverUrl: https://artsandculture.google.com/asset/the-starry-night-vincent-van-gogh/bgEuwDxel93-Pg
 title: Liquid tags and short codes
@@ -85,31 +85,16 @@ For more `zx` tags examples see also:
 #### Adding custom zx tags
 
 Any custom tag can be implemented by just adding a `./templates/tags/<custom_tag_name>.js` file. For example, this is the
-code of **./templates/tags/media-browser.js** used in the previous example:
+code of **./templates/tags/button.js** used in the previous example:
 
 ```js
 {% raw %}
-const template = `
-<div z-load="@lib/components/media-browser" class="visible-on-ready" z-lazy="true"
-     {% for o in config['options'] -%}
-     data-o-{{ o.option }}="{{ o.value }}"
-     {%- endfor -%}>
-    <div #media>
-    {%- for media in config['media'] %}
-      <article data-type="{{ media.type }}" slide-interval="{{ media.interval }}">
-        <h1 #title>{{ media.title | striptags }}</h1>
-        <h2 #description>{{ media.description | striptags }}</h2>
-        <img #preview src="{{ media.preview }}"><br>
-        <a #url href="{{ media.url }}">Open media</a>
-      </article>
-    {%- endfor %}
-    </div>
-</div>
-`;
-const YAML = require('yaml');
-module.exports = (render, config) => {
-  config = YAML.parse(config);
-  return render(template, {config});
+const template = `<a class="button" href="{{ linkUrl | safe }}">
+  {{ content }}
+</a>`;
+
+module.exports = (render, content, linkUrl) => {
+  return render(template, {content, linkUrl});
 };
 {% endraw %}
 ```

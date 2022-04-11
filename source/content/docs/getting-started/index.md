@@ -4,7 +4,7 @@ options: highlight ext-links
 tags: docs
 group: docs
 order: 10
-coverPreview: /content/docs/getting-started/images/cover-preview.png
+coverPreview: ./images/cover-preview.png
 coverImage: ./images/cover.png
 coverUrl: https://artsandculture.google.com/asset/the-dream-henri-rousseau/LwEt57AOdD6SGA
 title: Getting started

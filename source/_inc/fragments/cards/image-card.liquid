@@ -1,12 +1,16 @@
+{% assign coverUrl = item.data.coverPreview %}
+{% assign checkArray = coverUrl | split: '.' %}
+{% if checkArray[0] == blank %}
+    {% assign coverUrl = item.url | append: coverUrl %}
+{% endif %}
 {% wrapDom 'card' %}
-
-<div self="size-x1" layout="column top-stretch" style="background-image: url('{{ data.coverPreview | url }}')">
-    <h3 class="accent">{{ data.title }}</h3>
-    <p>{{ data.description }}</p>
+<div self="size-x1" layout="column top-stretch" style="background-image: url('{{ coverUrl | url }}')">
+    <h3 class="accent">{{ item.data.title }}</h3>
+    <p>{{ item.data.description }}</p>
     <div self="bottom" class="date primary">
-        {{ data.pubDate | date: 'D MMMM YYYY' }}
+        {{ item.data.pubDate | date: 'D MMMM YYYY' }}
     </div>
-    <a href="{{ link | url }}" title="See {{ data.title }}"></a>
+    <a href="{{ link | url }}" title="See {{ item.data.title }}"></a>
 </div>
 
 {% endwrapDom %}
