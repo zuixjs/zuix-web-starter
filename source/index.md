@@ -17,4 +17,4 @@ keywords:
 Welcome to `zuix-web-starter`, code base of a set of ready to use templates powered by [zuix.js](https://zuixjs.org),
 a lightweight library for creating components-based websites and applications.
 
-## &gt;&gt; [Getting started](/content/docs)
+## &gt;&gt; [Getting started](./content/docs)
