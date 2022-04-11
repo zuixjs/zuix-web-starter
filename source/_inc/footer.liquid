@@ -1,25 +1,41 @@
 {% unless options contains 'no-footer' %}
-<footer #footer layout="columns bottom-center" style="min-height: 200px;">
+<footer #footer layout="column bottom-center" style="min-height: 200px;">
 
-    <div self="size-large" layout="row sm-column top-stretch">
-        <section layout="column top-left" style="padding:32px">
-            <div><strong>Content</strong></div>
+    <div self="size-large" layout="rows top-justify">
+        <section>
+            <div><strong>{{ app.title }}</strong></div>
             <ul>
-                {% assign docs = collections[group] | sort: 'data.order' %}
-                {% for item in docs %}
+                {% assign sections = collections.sections | sort: 'data.order' %}
+                {% for item in sections %}
+                    <li>
+                        <a href="{{ item.url | url }}">{{ item.data.title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+        {% assign posts = collections[group] | sort: 'data.order' | sort: 'data.pubDate' | reverse %}
+        {% if posts.size > 0 %}
+        <section>
+            <div><strong>Latest posts</strong></div>
+            <ul>
+                {% for item in posts limit:4 %}
                     <li><a href="{{ item.url | url }}">{{ item.data.title }}</a></li>
                 {% endfor %}
             </ul>
         </section>
-        <div self="size-x1"></div>
-        <section layout="column top-left" style="padding:32px">
+        {% endif %}
+        {% if links.size > 0 %}
+        <section>
+            {% if links %}
             <div><strong>Links</strong></div>
             <ul>
                 {% for item in links %}
                     <li><a href="{{ item.link | url }}">{{ item.title }}</a></li>
                 {% endfor %}
             </ul>
+            {% endif %}
         </section>
+        {% endif %}
     </div>
 
     <div self="size-large" layout="row sm-column center-spread" style="padding: 12px;">

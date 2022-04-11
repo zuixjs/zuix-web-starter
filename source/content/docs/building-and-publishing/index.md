@@ -3,7 +3,10 @@ layout: basic.liquid
 options: highlight ext-links
 tags: docs
 group: docs
-order: 30
+order: 40
+coverPreview: /content/docs/building-and-publishing/images/cover-preview.png
+coverImage: ./images/cover.png
+coverUrl: https://artsandculture.google.com/asset/abstraction-marsden-hartley/7wGQVSmygTjslg
 title: Building for production
 description: Building for production and publishing online.
 keywords:
@@ -12,8 +15,6 @@ keywords:
 - building
 - publishing
 ---
-
-# Building for production
 
 The build process will read the default configuration of the web application, from the JSON file
 [`./config/default.json`](https://github.com/zuixjs/zuix-web-starter/blob/master/config/default.json).  

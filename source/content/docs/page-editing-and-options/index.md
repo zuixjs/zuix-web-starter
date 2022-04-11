@@ -3,7 +3,10 @@ layout: basic.liquid
 options: highlight ext-links
 tags: docs
 group: docs
-order: 10
+order: 20
+coverPreview: /content/docs/page-editing-and-options/images/cover-preview.png
+coverImage: ./images/cover.png
+coverUrl: https://artsandculture.google.com/asset/meadow-with-poppies/SwEgfZYCYPZimw
 title: Page editing and options
 description: Layout, front matter options and custom liquid tags.
 keywords:
@@ -12,8 +15,6 @@ keywords:
 - markdown
 - template
 ---
-
-# Page editing
 
 As described in the previous chapter, content pages are simple text files implemented using [Markdown](https://www.markdownguide.org/) syntax,
 and that have front matter data where is possible to specify the page layout to be used, metadata and other options for
@@ -150,6 +151,14 @@ The `bootstrap` option can then be used to select *Bootstrap CSS framework* for 
 Set the listing order of the page, that is mainly used for rendering navigation links and content listing menus, like
 the one in the footer of this page.
 
+### `coverImage`
+
+A cover image to show at top of the page (preferred size 1000x400).
+
+### `coverPreview`
+
+Thumbnail of cover image (preferred size 300x120).
+
 ### `title`
 
 The page title.
@@ -157,6 +166,10 @@ The page title.
 ### `description`
 
 The page description that will also be added to the page's metadata.
+
+### `author`
+
+The author of the page
 
 ### `pubDate`
 

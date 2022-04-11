@@ -6,15 +6,23 @@
     <lastmod>2022-04-03</lastmod>
   </url>
   <url>
-    <loc>https://zuixjs.github.io/zuix-web-starter//content/building-and-publishing/</loc>
+    <loc>https://zuixjs.github.io/zuix-web-starter//content/docs/building-and-publishing/</loc>
     <lastmod>2022-04-03</lastmod>
   </url>
   <url>
-    <loc>https://zuixjs.github.io/zuix-web-starter//content/liquid-tags/</loc>
+    <loc>https://zuixjs.github.io/zuix-web-starter//content/docs/liquid-tags/</loc>
     <lastmod>2022-04-03</lastmod>
   </url>
   <url>
-    <loc>https://zuixjs.github.io/zuix-web-starter//content/page-editing-and-options/</loc>
+    <loc>https://zuixjs.github.io/zuix-web-starter//content/docs/page-editing-and-options/</loc>
     <lastmod>2022-04-03</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zuix-web-starter//content/docs/</loc>
+    <lastmod>2022-04-11</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zuix-web-starter//content/docs/getting-started/</loc>
+    <lastmod>2022-04-11</lastmod>
   </url>
 </urlset>

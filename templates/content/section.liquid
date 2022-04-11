@@ -2,7 +2,8 @@
 layout: basic.liquid
 tags: sections
 order: 1
-<$- frontMatter -$>---
+<$- frontMatter -$>title: <$ section $>
+---
 {% assign section = '<$ section $>' %}
 {% for post in collections[section] %}
 - [{{ post.title }}]({{ post.url }})

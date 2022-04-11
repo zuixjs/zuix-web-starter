@@ -1,0 +1,14 @@
+{% if template == blank %}
+    {% assign template = './image-card' %}
+{% endif %}
+{% if items == blank %}
+    {% assign items = collections[group] | sort: data.order | sort: data.pubDate | reverse %}
+{% endif %}
+{% for item in items %}
+    {% if item.data.link == blank %}
+        {% assign link = item.url  %}
+    {% else %}
+        {% assign link = item.data.link  %}
+    {% endif %}
+    {% include template, data: item.data, link: link %}
+{% endfor %}

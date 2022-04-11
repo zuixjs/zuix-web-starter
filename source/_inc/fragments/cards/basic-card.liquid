@@ -1,0 +1,58 @@
+{% wrapDom 'github-card' %}
+
+<div self="size-x1" layout="column top-stretch">
+    <h3 class="accent">{{ data.title }}</h3>
+    <p>{{ data.description }}</p>
+    <a href="{{ link | url }}" title="See {{ data.title }}"></a>
+</div>
+
+{% endwrapDom %}
+
+{% wrapCss 'github-card' %}
+<style>
+    :host {
+        position: relative;
+        cursor: pointer;
+        background-repeat: no-repeat;
+        background-position: 1px 1px;
+        background-color: #bbbbbb15;
+        border-radius: 12px;
+        min-width: 288px;
+        width: 288px;
+        max-width: 288px;
+        height: 135px;
+        min-height: 135px;
+        max-height: 135px;
+        margin: 12px;
+        box-shadow: 0 1px 4px 0 #00000055;
+        transition-property: background-color, box-shadow;
+        transition: 0.2s ease-in-out;
+    }
+    :host:hover {
+        background-color: #bbbbbb1a;
+        box-shadow: 0 3px 8px 0 #00000055;
+    }
+    :host:active {
+        background-color: #bbbbbb26;
+        box-shadow: 0 0 2px 0 #00000055;
+    }
+    h3, p {
+        padding: 8px;
+        margin: 0;
+    }
+    h3 {
+        padding-top: 16px;
+    }
+    p {
+        padding-top: 0;
+        font-size: 75%;
+    }
+    a {
+        position: absolute;
+        top: 0; left: 0;
+        height: 100%;
+        width: 100%;
+        text-decoration: none;
+    }
+</style>
+{% endwrapCss %}

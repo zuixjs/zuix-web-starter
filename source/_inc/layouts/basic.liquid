@@ -33,7 +33,24 @@
 </nav>
 
 <main self="size-{{ layout_size }}">
-{{ content | safe }}
+
+    {% if coverImage -%}
+        <img src="{{ coverImage }}" alt="Cover image" class="cover">
+    {%- endif %}
+
+    {% if title and false == options contains 'no-title' %}
+        <h1>{{ title }}</h1>
+    {% endif %}
+
+    {% if author %}
+        <div class="author">
+            by <em><a href="{{ '/content/about/' |  url }}">{{ author }}</a></em> &mdash;
+            posted on {{ pubDate | date: 'D MMMM YYYY' }}
+        </div>
+    {% endif %}
+
+    {{ content | safe }}
+
 </main>
 
 {% include "./basic/page-navigation.liquid" %}
