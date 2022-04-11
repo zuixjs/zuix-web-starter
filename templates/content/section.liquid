@@ -1,10 +1,10 @@
 ---
 layout: basic.liquid
 tags: sections
+group: <$ name $>
 order: 1
-<$- frontMatter -$>title: <$ section $>
+title: <$ title $>
 ---
-{% assign section = '<$ section $>' %}
-{% for post in collections[section] %}
-- [{{ post.title }}]({{ post.url }})
-{% endfor %}
+{% layout 'rows top-spread' %}
+{% include 'fragments/cards/list' %}
+{% endlayout %}
