@@ -88,7 +88,7 @@ Any custom tag can be implemented by just adding a `./templates/tags/<custom_tag
 code of **./templates/tags/button.js** used in the previous example:
 
 ```js
-{% raw %}
+{%- raw -%}
 const template = `<a class="button" href="{{ linkUrl | safe }}">
   {{ content }}
 </a>`;

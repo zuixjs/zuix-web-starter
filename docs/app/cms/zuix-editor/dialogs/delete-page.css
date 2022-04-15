@@ -1,0 +1,8 @@
+pre {
+    word-break: break-all;
+    word-wrap: break-word;
+}
+.footer {
+    gap: 12px;
+    padding-top: 12px;
+}

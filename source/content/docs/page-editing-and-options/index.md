@@ -94,7 +94,7 @@ The `./source/_inc` folder, is also used to place common page's bits that can be
 
 `./source/_inc/layouts/my-new-layout.liquid`
 ```liquid
-{% raw %}
+{%- raw -%}
 {% include "head_open.liquid" %}
 <style>
 {% include "./my-new-layout/style.css" %}

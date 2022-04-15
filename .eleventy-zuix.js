@@ -33,8 +33,14 @@ const {
   generateServiceWorker,
   generateAppConfig,
   wrapDom,
-  wrapCss
+  wrapCss,
+  generate
 } = require('zuix');
+
+const {classNameFromHyphens} = require('zuix/common/utils');
+const chalk = require('chalk');
+const mkdirp = require('mkdirp');
+const yesno = require('yesno');
 
 // Read configuration either from './config/{default}.json'
 // or './config/production.json' based on current `NODE_ENV'
@@ -46,6 +52,8 @@ const copyFiles = zuixConfig.get('build.copy');
 const ignoreFiles = zuixConfig.get('build.ignore');
 const componentsFolders = zuixConfig.get('build.componentsFolders');
 const contentFolder = zuixConfig.get('build.contentFolder', 'content');
+const contentSourceFolder = path.join(sourceFolder, contentFolder);
+const contentBuildFolder = path.join(buildFolder, contentFolder)
 const dataFolder = zuixConfig.get('build.dataFolder');
 const includesFolder = zuixConfig.get('build.includesFolder');
 // this file is a temporary file create to trigger 11ty build
@@ -58,7 +66,7 @@ const normalizeMarkup = (s) => s.trim().split('\n').filter((l) => {
   if (l.trim().length > 0) {
     return l;
   }
-}).join('\n');
+}).map((l) => l.trim()).join(' ');
 
 function getZuixConfig() {
   return {
@@ -75,7 +83,7 @@ function getZuixConfig() {
 }
 
 let wrappedCssIds = [];
-
+let io;
 function startWatcher(eleventyConfig, browserSync) {
   // Watch zuix.js folders and files (`./source/lib`, `./source/app`, zuixConfig.copy), ignored by 11ty
   const watchEvents = {add: true, change: true, unlink: true};
@@ -111,6 +119,56 @@ function startWatcher(eleventyConfig, browserSync) {
       forceRebuild();
     }
   });
+  // WebSocket API
+  if (browserSync && !io) {
+    io = browserSync.instance.io;
+    io.on('connection', (socket) => {
+      socket.on('zuix:addPage', (data) => {
+        browserSync.notify('Adding new page...');
+        addPage(data);
+        const redirectUrl = zuixConfig.app.baseUrl + contentFolder + '/' + data.section + '/';
+        io.emit('zuix:addPage:done', redirectUrl);
+        console.log('zuix:addPage', data);
+      });
+      socket.on('zuix:deletePage', (data) => {
+        browserSync.notify('Deleting page...');
+        try {
+          //fs.rmSync(data.page.inputPath);
+          //fs.rmSync(data.page.outputPath);
+          if (data.page.filePathStem.endsWith('/index')) {
+            // delete folder too
+            fs.rmSync(path.resolve(data.page.inputPath, '..'), { recursive: true, force: true });
+            fs.rmSync(path.resolve(data.page.outputPath, '..'), { recursive: true, force: true });
+          }
+        } catch (e) { console.log(e); }
+        const redirectUrl = path.resolve(data.page.url, '..');
+        io.emit('zuix:deletePage:done', redirectUrl);
+        console.log('zuix:deletePage', data.page.outputPath, path.resolve(data.page.url, '..'));
+      });
+      socket.on('zuix:addComponent', (data) => {
+        browserSync.notify('Adding component...');
+        if (data.view && data.ctrl) {
+          generate('component', [data.name])
+            .then((res) =>  {
+              generateTemplate(res);
+              io.emit('zuix:addComponent:done', res);
+            });
+        } else if (data.view) {
+          generate('template', [data.name])
+            .then((res) =>  {
+              generateTemplate(res);
+              io.emit('zuix:addComponent:done', res);
+            });
+        } else if (data.ctrl) {
+          generate('controller', [data.name])
+            .then((res) => {
+              generateTemplate(res);
+              io.emit('zuix:addComponent:done', res);
+            });
+        }
+      });
+    });
+  }
 }
 
 function forceRebuild() {
@@ -126,6 +184,7 @@ function initEleventyZuix(eleventyConfig) {
   let rebuildAll = true;
   copyDependencies();
   // zUIx.js specific code and life-cycle hooks
+  zuixConfig.app.environment = process.env.NODE_ENV || 'default';
   eleventyConfig.addGlobalData("app", zuixConfig.app);
   eleventyConfig.addWatchTarget('./templates/tags/');
   // Add zUIx transform
@@ -242,6 +301,28 @@ function rawFileInclude(page, fileName) {
   }
 }
 
+function renderTemplate(content, template, ...args) {
+  const p = `./templates/tags/${template}.js`;
+  if (fs.existsSync(p)) {
+    delete require.cache[require.resolve(p)];
+    return normalizeMarkup(require(p)(nunjucks.renderString, content, ...args));
+  }
+  return ''; // 'Not implemented! (' + content + ') [' + args + ']';
+}
+function generateTemplate(data) {
+  const outputFile = `./templates/tags/${data.componentId}.js`;
+  if (!fs.existsSync(outputFile)) {
+    mkdirp.sync(path.dirname(outputFile));
+    fs.writeFileSync(outputFile, `const template = '${data.html}';
+
+module.exports = (render, content, linkUrl) => {
+  return render(template, {content, linkUrl});
+};
+`);
+  }
+  data.liquid = `{% zx '${data.componentId}' %}{% endzx %}`;
+}
+
 function configure(eleventyConfig) {
   initEleventyZuix(eleventyConfig);
 
@@ -295,12 +376,7 @@ function configure(eleventyConfig) {
   });
 
   eleventyConfig.addPairedShortcode('zx', function(content, template, ...args) {
-    const p = `./templates/tags/${template}.js`;
-    if (fs.existsSync(p)) {
-      delete require.cache[require.resolve(p)];
-      return normalizeMarkup(require(p)(nunjucks.renderString, content, ...args));
-    }
-    return ''; // 'Not implemented! (' + content + ') [' + args + ']';
+    return renderTemplate(content, template, ...args);
   });
 
   eleventyConfig.addPairedShortcode('wrapDom', function(content, cssId) {
@@ -324,8 +400,102 @@ function configure(eleventyConfig) {
     // cssId already outputted for this page
     return '';
   });
+
+  eleventyConfig.addShortcode('edit', function(fileName) {
+    return renderTemplate('', 'editable');
+  });
+}
+
+function addPage(args) {
+  const pageTemplatesPath = path.join('./templates', contentFolder, '/');
+  const template = args.layout;
+  let outputFile = args.name.toLowerCase();
+  const pageName = path.basename(outputFile);
+  const pageTitle = classNameFromHyphens(pageName);
+  console.log(
+    chalk.cyanBright('*') + ' Generating',
+    chalk.yellow.bold(template),
+    '→',
+    outputFile
+  );
+  let extension = '.liquid';
+  let componentTemplate = `${pageTemplatesPath}${template}${extension}`;
+  if (!fs.existsSync(componentTemplate)) {
+    extension = '.md'
+    componentTemplate = `${pageTemplatesPath}${template}${extension}`;
+  }
+  if (fs.existsSync(componentTemplate)) {
+    let sectionFolder = path.join(sourceFolder, contentFolder);
+    if (args.section) {
+      args.section = args.section.toLowerCase();
+      sectionFolder = path.join(sectionFolder, args.section);
+    }
+    const frontMatter = args.frontMatter && '\n' + args.frontMatter.join('\n') + '\n';
+    const date = new moment().format('yyyy-MM-DD hh:mm:ss');
+    let pageTemplate = fs.readFileSync(componentTemplate).toString('utf8');
+    const env = new nunjucks.Environment(new nunjucks.FileSystemLoader('views'), {
+      tags: {
+        blockStart: '<%',
+        blockEnd: '%>',
+        variableStart: '<$',
+        variableEnd: '$>',
+        commentStart: '<#',
+        commentEnd: '#>'
+      }
+    });
+    pageTemplate = env.renderString(pageTemplate, {
+      title: pageTitle,
+      name: pageName,
+      section: args.section,
+      frontMatter,
+      date
+    });
+    const outputPath = path.join(sectionFolder, outputFile);
+    outputFile = path.join(outputPath, 'index' + extension);
+    if (!fs.existsSync(outputFile)) {
+      mkdirp.sync(outputPath);
+      fs.writeFileSync(outputFile, pageTemplate);
+      console.log(chalk.cyanBright('*') + ' NEW page:', chalk.green.bold(outputFile));
+      // Create section if it does not exist
+      if (args.section) {
+        const sectionFile = path.join(sectionFolder, 'index.liquid');
+        if (!fs.existsSync(sectionFile)) {
+          addPage({layout: 'section', name: args.section, frontMatter: [
+              `group: ${args.section}`,
+              `title: ${classNameFromHyphens(args.section)}`,
+            ]});
+        } else {
+          forceRebuild();
+        }
+      }
+    } else {
+      console.error(
+        chalk.red.bold('A file with that name already exists.')
+      );
+    }
+  } else {
+    console.error(
+      chalk.red.bold('Invalid page template:', componentTemplate)
+    );
+  }
+}
+async function wipeContent() {
+  const confirm = await yesno({
+    question: `All content in "${contentSourceFolder}" will be deleted.\nThis action cannot be undone!\nAre you sure to proceed?`
+  });
+  if (confirm) {
+    if (fs.existsSync(contentSourceFolder)) {
+      console.log(chalk.cyanBright('*') + ' Removing', chalk.green.bold(contentSourceFolder));
+      fs.rmSync(contentSourceFolder, {recursive: true});
+    }
+    if (fs.existsSync(contentBuildFolder)) {
+      console.log(chalk.cyanBright('*') + ' Removing', chalk.green.bold(contentBuildFolder));
+      fs.rmSync(contentBuildFolder, {recursive: true});
+    }
+    forceRebuild();
+  }
 }
 
 module.exports = {
-  startWatcher, configure, getZuixConfig
+  startWatcher, configure, getZuixConfig, addPage, wipeContent
 }

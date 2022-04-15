@@ -34,15 +34,15 @@ media:
 - type: image
   title: Some title
   description: Description of this image
-  preview: https://picsum.photos/seed/docs-4/533/300
-  url: https://picsum.photos/seed/docs-4/1600/900
+  preview: https://picsum.photos/seed/docs-14/533/300
+  url: https://picsum.photos/seed/docs-14/1600/900
   interval: 8000
 
 - type: image
   title: Another title
   description: Second image description
-  preview: https://picsum.photos/seed/docs-3/533/300
-  url: https://picsum.photos/seed/docs-3/1600/900
+  preview: https://picsum.photos/seed/docs-131/533/300
+  url: https://picsum.photos/seed/docs-131/1600/900
 
 - type: video
   preview: https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg

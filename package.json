@@ -35,7 +35,7 @@
   "dependencies": {
     "elasticlunr": "^0.9.5",
     "flex-layout-attribute": "^1.0.3",
-    "zuix-dist": "^1.0.31"
+    "zuix-dist": "^1.0.32"
   },
   "devDependencies": {
     "@11ty/eleventy": "^2.0.0-canary.4",
@@ -45,7 +45,7 @@
     "chokidar": "^3.5.3",
     "compression": "^1.7.4",
     "config": "^3.3.7",
-    "eslint": "^8.4.1",
+    "eslint": "^8.13.0",
     "eslint-config-google": "^0.14.0",
     "jsdom": "^19.0.0",
     "less": "^4.1.2",
@@ -54,6 +54,6 @@
     "nunjucks": "^3.2.3",
     "yaml": "^1.10.2",
     "yesno": "^0.3.1",
-    "zuix": "^0.4.0-beta.7"
+    "zuix": "^0.4.0-beta.8"
   }
 }

@@ -2,6 +2,9 @@
 
 The base starter project for component based web development with [zuix.js](https://zuixjs.github.io/zuixjs.org) and [Eleventy](https://www.11ty.dev).
 
+**Installs with:**  
+`npx zuix new my-project-name`
+
 ### --&gt;&gt;[ [Demo and Docs](https://zuixjs.github.io/zuix-web-starter) ]&lt;&lt;--
 
 ![Lighthouse performance test](https://zuixjs.github.io/zuix-web-starter/images/lighthouse.png)

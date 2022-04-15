@@ -1,0 +1,10 @@
+.footer {
+    gap: 12px;
+    padding-top: 12px;
+}
+input[type=checkbox] {
+    width: 24px;
+}
+label {
+    width: auto;
+}

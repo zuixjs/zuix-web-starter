@@ -12,7 +12,7 @@
     --dark-color-text: #d2d2d2;
     --dark-nav-color: #741f3b; /* #014b76; */ /* #60142d; */
     --dark-nav-color-text: #ccc;
-    --dark-color--accent: #beaa5a;
+    --dark-color--accent: #f1c700;
     --dark-color--primary: #6ba64d;
     --dark-color--code: #8fc563;
     --dark-font--weigth: 400;
@@ -42,8 +42,12 @@ nav, {{ tc -}} footer {
     transition: color 300ms ease-in, background-color 300ms ease-in;
 }
 {{ tc -}}
-nav svg  {
+nav svg, {{ tc -}} .menu-button svg {
     fill:var(--{{ theme }}-nav-color-text);
+}
+{{ tc -}}
+svg {
+    fill:var(--{{ theme }}-color-text);
 }
 {{ tc -}}
 nav a, {{ tc -}} footer a {
@@ -63,10 +67,16 @@ a {
 {{ tc -}}
 .accent {
     color: var(--{{ theme }}-color--accent);
+    fill: var(--{{ theme }}-color--accent);
 }
 {{ tc -}}
 .primary {
     color: var(--{{ theme }}-color--primary);
+    fill: var(--{{ theme }}-color--primary);
+}
+{{ tc -}}
+.background {
+    background-color: var(--{{ theme }}-color);
 }
 {% endfor %}
 /*
@@ -116,6 +126,6 @@ a {
     background-color: var(--dark-nav-color)!important;
     fill: var(--dark-nav-color-text)!important;
 }
-.theme-dark [z-context="menu-overlay"] div[z-field="menu_overlay"] {
+.theme-dark [z-load*="/components/menu-overlay"] div[z-field="menu_overlay"] {
     background: radial-gradient(circle at bottom, black, #000000dd, #00000077, transparent)!important;
 }

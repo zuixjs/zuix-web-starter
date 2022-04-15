@@ -11,7 +11,7 @@ const template = `
       <article data-type="{{ media.type }}" slide-interval="{{ media.interval }}">
         <h1 #title>{{ media.title | striptags }}</h1>
         <h2 #description>{{ media.description | striptags }}</h2>
-        <img #preview src="{{ media.preview }}"><br>
+        <img #preview src="{{ media.preview }}" alt=""><br>
         <a #url href="{{ media.url }}">Open media</a>
       </article>
     {%- endfor %}

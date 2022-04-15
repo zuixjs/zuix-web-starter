@@ -1,0 +1,54 @@
+<div class="dialog background" #main-dialog>
+
+    <h2 class="primary">Add component</h2>
+
+    <div layout="column top-left" class="content">
+
+        <label class="accent">Type</label>
+        <div layout="rows center-left">
+            <label layout="row center-start">
+                <input type="checkbox" #type-view checked>
+                <span>View</span>
+            </label>
+            <label layout="row center-start">
+                <input type="checkbox" #type-ctrl checked>
+                <span>Controller</span>
+            </label>
+        </div>
+
+        <label class="accent" for="componentName">Component ID (path/name)</label>
+        <input #component-name type="text" placeholder="component name" id="componentName">
+
+    </div>
+
+    <div layout="row centee-spread" class="footer">
+        <button #cancel-btn class="button primary">Cancel</button>
+        <button @disable-if="componentName.value === '' || (!typeView.checked && !typeCtrl.checked)"
+                self="center" #add-btn class="button primary">Confirm</button>
+    </div>
+
+</div>
+<div class="dialog background" #result-dialog>
+
+    <h2 class="primary">Component added!</h2>
+
+    <div class="content">
+
+        <label class="accent">Path</label>
+        <pre #path></pre>
+
+        <h3>Load with:</h3>
+
+        <label class="accent">HTML</label>
+        <pre #html></pre>
+
+        <label class="accent">Liquid</label>
+        <pre #liquid></pre>
+
+    </div>
+
+    <div layout="row centee-spread" class="footer">
+        <button #cancel-btn class="button primary">Close</button>
+    </div>
+
+</div>
