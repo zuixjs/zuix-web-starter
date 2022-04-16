@@ -26,15 +26,12 @@ a lightweight library for creating components-based websites and applications.
 {% endfor %}
 
 
-{% if app.environment != 'production' %}
-
-## Live editing component
+## Live editing component!
 
 When browsing the site in development mode (`NODE_ENV !== 'production'`), the `zuix-editor` button will be always
 visible in the lower right corner of every page.
 
 Tap it to popup editing options, to add new pages and sections, edit or delete existing ones, directly in the browser. 
 
-{% endif %}
 
 ### Try `zuix-web-starter` on &gt;&gt; [StackBlitz](https://stackblitz.com/github/zuixjs/zuix-web-starter) &lt;&lt;
