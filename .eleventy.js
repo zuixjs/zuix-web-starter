@@ -51,6 +51,10 @@ module.exports = function(eleventyConfig) {
     f = path.join(zuixConfig.sourceFolder, f);
     eleventyConfig.ignores.add(f);
   });
+  // Ignore `zuix-editor` if mode is 'production'
+  if (process.env.NODE_ENV === 'production') {
+    eleventyConfig.ignores.add(path.join(zuixConfig.sourceFolder, 'editor/*'));
+  }
   // Ignore "copy" files, because they are handled by zuix11ty
   zuixConfig.copyFiles.forEach((f) => {
     f = path.join(zuixConfig.sourceFolder, f);

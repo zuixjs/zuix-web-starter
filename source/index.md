@@ -25,108 +25,16 @@ a lightweight library for creating components-based websites and applications.
     {%- endif %}
 {% endfor %}
 
-## How easy is using components with **zuix.js**?
 
-{% zx 'media-browser' %}
+{% if app.environment != 'production' %}
 
-media:
+## Live editing component
 
-- type: image
-  title: Some title
-  description: Description of this image
-  preview: https://picsum.photos/seed/docs-14/533/300
-  url: https://picsum.photos/seed/docs-14/1600/900
-  interval: 8000
+When browsing the site in development mode (`NODE_ENV !== 'production'`), the `zuix-editor` button will be always
+visible in the lower right corner of every page.
 
-- type: image
-  title: Another title
-  description: Second image description
-  preview: https://picsum.photos/seed/docs-131/533/300
-  url: https://picsum.photos/seed/docs-131/1600/900
+Tap it to popup editing options, to add new pages and sections, edit or delete existing ones, directly in the browser. 
 
-- type: video
-  preview: https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg
-  url: https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4
-  interval: 15000
+{% endif %}
 
-- type: image
-  preview: https://picsum.photos/seed/docs-1/533/300
-  url: https://picsum.photos/seed/docs-1/1600/900
-
-- type: video-yt
-  preview: https://img.youtube.com/vi/IdtM6OPdaio/2.jpg
-  url: IdtM6OPdaio
-  interval: 15000
-
-- type: image
-  title: Yet another title
-  description: One more image description 😇
-  preview: https://picsum.photos/seed/docs-2/533/300
-  url: https://picsum.photos/seed/docs-2/1600/900
-
-options:
-
-- name: slide
-  value: 5000
-
-- name: inline
-  value: true
-
-{% endzx %}
-
-
-The above component is loaded with the following code:
-
-
-```yaml
-{%- raw -%} 
-{% zx 'media-browser' %}
-
-media:
-
-- type: image
-  title: Some title
-  description: Description of this image
-  preview: https://picsum.photos/seed/docs-4/533/300
-  url: https://picsum.photos/seed/docs-4/1600/900
-  interval: 8000
-
-- type: image
-  title: Another title
-  description: Second image description
-  preview: https://picsum.photos/seed/docs-3/533/300
-  url: https://picsum.photos/seed/docs-3/1600/900
-
-- type: video
-  preview: https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg
-  url: https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4
-  interval: 15000
-
-- type: image
-  preview: https://picsum.photos/seed/docs-1/533/300
-  url: https://picsum.photos/seed/docs-1/1600/900
-
-- type: video-yt
-  preview: https://img.youtube.com/vi/IdtM6OPdaio/2.jpg
-  url: IdtM6OPdaio
-  interval: 15000
-
-- type: image
-  title: Yet another title
-  description: One more image description 😇
-  preview: https://picsum.photos/seed/docs-2/533/300
-  url: https://picsum.photos/seed/docs-2/1600/900
-
-options:
-
-- name: slide
-  value: 5000
-
-- name: inline
-  value: true
-
-{% endzx %}
-{% endraw -%}
-```
-
-quite easy, isn't it? =)
+### Try `zuix-web-starter` on &gt;&gt; [StackBlitz](https://stackblitz.com/github/zuixjs/zuix-web-starter) &lt;&lt;

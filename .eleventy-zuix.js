@@ -199,7 +199,7 @@ function initEleventyZuix(eleventyConfig) {
   const changedFiles = [];
   let rebuildAll = true;
   // Copy node_modules dependencies
-  copyDependencies(zuixConfig.build.dependencies);
+  copyDependencies(zuixConfig.build.dependencies[0]);
   // Auto-generated config.js
   generateAppConfig(zuixConfig);
   // zUIx.js specific code and life-cycle hooks

@@ -27,7 +27,7 @@
       "includesFolder": "_inc",
       "componentsFolders": [ "app", "lib" ],
       "contentFolder": "content",
-      "dependencies": {
+      "dependencies": [{
         "zuix-dist/js": "js/zuix",
         "elasticlunr/release": "js/elasticlunr",
         "flex-layout-attribute/css": "css/fla",
@@ -45,7 +45,7 @@
         "codemirror/theme/darcula.css": "js/codemirror",
         "codemirror/theme/abcdef.css": "js/codemirror",
         "codemirror/theme/ayu-dark.css": "js/codemirror"
-      },
+      }],
       "bundle": {
         "js": false,
         "css": false,
