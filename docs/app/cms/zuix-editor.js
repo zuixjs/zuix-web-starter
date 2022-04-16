@@ -47,10 +47,14 @@ function zuixEditor(cp) {
 
     cp.field('edit-page').on('click', function() {
       const editUrl = '/editor/#' + location.pathname;
-      if (parent.location.pathname !== '/editor/') {
-        document.location.replace(editUrl);
-      } else {
+      let isEditorOpen = false;
+      try {
+        isEditorOpen = parent.location.pathname === '/editor/';
+      } catch (e) { }
+      if (isEditorOpen) {
         parent.location.replace(editUrl);
+      } else {
+        document.location.replace(editUrl);
       }
     });
 
