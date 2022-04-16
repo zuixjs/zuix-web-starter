@@ -1,0 +1,234 @@
+<html>
+<head>
+    <link rel="preload" as="style" href="{{ '/css/fla/flex-layout-attribute.min.css' | url }}"/>
+    <link rel="stylesheet" href="{{ '/css/fla/flex-layout-attribute.min.css' | url }}"/>
+
+    <link rel="stylesheet" href="{{ '/js/codemirror/codemirror.css' | url }}">
+    <link rel="stylesheet" href="{{ '/js/codemirror/ayu-dark.css' | url }}">
+    <script src="{{ '/js/codemirror/codemirror.js' | url }}"></script>
+    <script src="{{ '/js/codemirror/overlay.js' | url }}"></script>
+    <script src="{{ '/js/codemirror/htmlmixed.js' | url }}"></script>
+    <script src="{{ '/js/codemirror/css.js' | url }}"></script>
+    <script src="{{ '/js/codemirror/xml.js' | url }}"></script>
+    <script src="{{ '/js/codemirror/javascript.js' | url }}"></script>
+    <script src="{{ '/js/codemirror/markdown.js' | url }}"></script>
+    <script src="{{ '/js/codemirror/gfm.js' | url }}"></script>
+    <script src="{{ '/js/codemirror/yaml.js' | url }}"></script>
+    <script src="{{ '/js/codemirror/yaml-frontmatter.js' | url }}"></script>
+
+    <!-- zuix.js https://github.com/zuixjs/zuix -->
+    <link rel="preload" as="script" href="{{ '/js/zuix/zuix.min.js' | url }}">
+    <link rel="preload" as="script" href="{{ '/config.js' | url }}">
+    <script src="{{ '/js/zuix/zuix.min.js' | url }}"></script>
+    <script src="{{ '/config.js' | url }}"></script>
+
+    <style>
+        body {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        a {
+            cursor: pointer;
+        }
+        a:hover:not(.not-modified) {
+            color: deeppink;
+            fill: deeppink;
+        }
+
+        [\#toolbar] {
+            height: 48px;
+            max-height: 64px;
+            gap: 6px
+        }
+
+        [\#preview-panel] {
+            transition-property: width, max-width;
+            transition-duration: 300ms;
+            transition-timing-function: ease-in-out;
+        }
+
+        .closed {
+            width: 0;
+        }
+        .not-modified {
+            opacity: 0.5;
+            cursor: default;
+        }
+    </style>
+</head>
+<body layout="row stretch-stretch">
+
+<div class="editor-panel" layout="column stretch-stretch">
+
+    <div #toolbar z-load="default" layout="row center-justify">
+
+        <a #close-btn title="Close editor">
+            <svg height="48px" viewBox="0 0 24 24" width="48px">
+                <path d="M0 0h24v24H0V0z" fill="none"/>
+                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/>
+            </svg>
+        </a>
+        <a #save-btn title="Save content"
+           @on:click="saveContent()"
+           @get="isClean() as clean"
+           @set="clean ? $this.addClass('not-modified') : $this.removeClass('not-modified')">
+            <svg height="48px" viewBox="0 0 24 24" width="48px">
+                <path d="M0 0h24v24H0V0z" fill="none"/><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm2 16H5V5h11.17L19 7.83V19zm-7-7c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zM6 6h9v4H6z"/>
+            </svg>
+        </a>
+        <div #file-path self="size-x1" layout="row center-center">
+        </div>
+        <a #preview-toggle-btn title="Toggle preview">
+            <svg height="48px" viewBox="0 0 24 24" width="48px">
+                <g>
+                    <rect fill="none" height="24" width="24"/>
+                    <path d="M19,3H5C3.89,3,3,3.9,3,5v14c0,1.1,0.89,2,2,2h14c1.1,0,2-0.9,2-2V5C21,3.9,20.11,3,19,3z M19,19H5V7h14V19z M12,10.5 c1.84,0,3.48,0.96,4.34,2.5c-0.86,1.54-2.5,2.5-4.34,2.5S8.52,14.54,7.66,13C8.52,11.46,10.16,10.5,12,10.5 M12,9 c-2.73,0-5.06,1.66-6,4c0.94,2.34,3.27,4,6,4s5.06-1.66,6-4C17.06,10.66,14.73,9,12,9L12,9z M12,14.5c-0.83,0-1.5-0.67-1.5-1.5 s0.67-1.5,1.5-1.5s1.5,0.67,1.5,1.5S12.83,14.5,12,14.5z"/>
+                </g>
+            </svg>
+        </a>
+        <a #swap-btn title="Swap views">
+            <svg height="48px" viewBox="0 0 24 24" width="48px">
+                <path d="M0 0h24v24H0V0z" fill="none"/>
+                <path d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"/>
+            </svg>
+        </a>
+
+    </div>
+
+    <textarea id="code" name="code" style="width: 100%; height: 100%"></textarea>
+
+</div>
+
+<div #preview-panel self="size-1of2">
+
+    <iframe id="preview" style="width: 100%; height: 100%"></iframe>
+
+</div>
+
+<script>
+  const previewFrame = document.querySelector('iframe');
+  let zuixEditor = null;
+  let browserSync = null;
+  let originalContent = '';
+
+  zuix.field('swap-btn').on('click', function() {
+    const doc = zuix.$(document.body);
+    const toolbar = zuix.field('toolbar');
+    if (doc.css('flex-direction') !== '') {
+      doc.css('flex-direction', '');
+      toolbar.css('flex-direction', '');
+    } else {
+      doc.css('flex-direction', 'row-reverse');
+      toolbar.css('flex-direction', 'row-reverse');
+    }
+  });
+  zuix.field('preview-toggle-btn').on('click', function() {
+    const previewPanel = zuix.field('preview-panel');
+    if (previewPanel.hasClass('closed')) {
+      previewPanel.removeClass('closed');
+    } else {
+      previewPanel.addClass('closed');
+    }
+  });
+
+  previewFrame.contentDocument.onhashchange = function(a, b, c) {
+    console.log(a, b, c);
+  };
+
+  editor = CodeMirror.fromTextArea(
+    document.getElementById('code'),
+    {
+      mode: 'yaml-frontmatter',
+      lineNumbers: true,
+      autoCloseTags: true,
+      lineWrapping: true,
+      theme: 'ayu-dark',
+      extraKeys: {
+        'Ctrl-S': function() {
+          saveContent();
+        }
+      }
+    }
+  );
+
+  document.querySelector('#preview').src = location.hash.substring(1);
+
+  waitObject(function() {
+    return window['___browserSync___'] && zuixEditor;
+  }, function() {
+    browserSync = window['___browserSync___'];
+    // setup IO events handlers
+    browserSync.socket.on('zuix:loadContent:done', function(response) {
+      // TODO: should ask before replacing content for subsequent requests
+      originalContent = response.content;
+      editor.setValue(response.content);
+      editor.markClean();
+      editor.clearHistory();
+    });
+    browserSync.socket.on('zuix:addPage:done', function(redirectUrl) {
+      browserSync.socket.disconnect();
+    });
+    browserSync.socket.on('zuix:deletePage:done', function(redirectUrl) {
+      browserSync.socket.disconnect();
+    });
+    loadContent({path: zuixEditor.data.page.inputPath});
+  });
+
+  document.querySelector('iframe').onload = function() {
+    zuixEditor = null;
+    waitObject(function() {
+      return previewFrame.contentWindow.zuixEditor;
+    }, function(zed) {
+      zuixEditor = zed;
+      zuix.field('file-path').html(zed.data.page.inputPath);
+      zuix.field('close-btn').get().href = previewFrame.contentWindow.location.href;
+      document.location.hash = previewFrame.contentWindow.location.pathname;
+      if (browserSync) {
+        if (!browserSync.socket.disconnected) {
+          loadContent({path: zuixEditor.data.page.inputPath});
+        } else {
+          browserSync.socket.connect();
+        }
+      }
+    });
+  };
+
+  function isClean() {
+    return originalContent === editor.getValue();
+  }
+
+  function loadContent(request) {
+    if (browserSync && !browserSync.socket.disconnected) {
+      browserSync.socket.emit('zuix:loadContent', request);
+    } else {
+      // TODO: report error
+    }
+  }
+  function saveContent() {
+    if (!isClean() && browserSync && !browserSync.socket.disconnected) {
+      const content = editor.getValue();
+      const request = {path: zuixEditor.data.page.inputPath, content};
+      originalContent = content;
+      browserSync.socket.emit('zuix:saveContent', request);
+      browserSync.socket.disconnect();
+    } else {
+      // TODO: report error
+    }
+  }
+
+  function waitObject(objectInstance, callback) {
+    if (!objectInstance()) {
+      setTimeout(function() {
+        waitObject(objectInstance, callback);
+      }, 100);
+    } else {
+      callback(objectInstance());
+    }
+  }
+</script>
+
+</body>
+</html>

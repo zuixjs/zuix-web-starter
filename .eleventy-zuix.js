@@ -84,6 +84,7 @@ function getZuixConfig() {
 
 let wrappedCssIds = [];
 let io;
+
 function startWatcher(eleventyConfig, browserSync) {
   // Watch zuix.js folders and files (`./source/lib`, `./source/app`, zuixConfig.copy), ignored by 11ty
   const watchEvents = {add: true, change: true, unlink: true};
@@ -119,10 +120,25 @@ function startWatcher(eleventyConfig, browserSync) {
       forceRebuild();
     }
   });
+  setupSocketApi(browserSync);
+}
+
+function setupSocketApi(browserSync) {
   // WebSocket API
   if (browserSync && !io) {
     io = browserSync.instance.io;
     io.on('connection', (socket) => {
+      socket.on('zuix:loadContent', (request) => {
+        const content = fs.readFileSync(request.path);
+        request.content = content.toString('utf8');
+        io.emit('zuix:loadContent:done', request);
+        console.log('zuix:loadContent', request.path);
+      });
+      socket.on('zuix:saveContent', (request) => {
+        fs.writeFileSync(request.path, request.content);
+        io.emit('zuix:saveContent:done', {path: request.path});
+        console.log('zuix:saveContent', request.path);
+      });
       socket.on('zuix:addPage', (data) => {
         browserSync.notify('Adding new page...');
         addPage(data);
@@ -182,7 +198,10 @@ function initEleventyZuix(eleventyConfig) {
   const postProcessFiles = [];
   const changedFiles = [];
   let rebuildAll = true;
-  copyDependencies();
+  // Copy node_modules dependencies
+  copyDependencies(zuixConfig.build.dependencies);
+  // Auto-generated config.js
+  generateAppConfig(zuixConfig);
   // zUIx.js specific code and life-cycle hooks
   zuixConfig.app.environment = process.env.NODE_ENV || 'default';
   eleventyConfig.addGlobalData("app", zuixConfig.app);
@@ -263,21 +282,19 @@ function initEleventyZuix(eleventyConfig) {
   eleventyConfig.setDataDeepMerge(true);
 }
 
-function copyDependencies() {
-  // Copy last zUIx release
-  copyFolder(`${process.cwd()}/node_modules/zuix-dist/js`, `${buildFolder}/js/zuix`, (err) => {
-    if (err) console.log(err);
-  });
-  // Auto-generated config.js
-  generateAppConfig(zuixConfig);
-  // Copy other dependencies
-  // - elasticlurn search engine
-  copyFolder(`${process.cwd()}/node_modules/elasticlunr/release`, `${buildFolder}/js/elasticlunr`, (err) => {
-    if (err) console.log(err);
-  });
-  // - Flex Layout Attribute
-  copyFolder(`${process.cwd()}/node_modules/flex-layout-attribute/css`, `${buildFolder}/css/fla`, (err) => {
-    if (err) console.log(err);
+function copyDependencies(dependencyList) {
+  const nodeFolder = `${process.cwd()}/node_modules`;
+  Object.keys(dependencyList).forEach((sourcePath) => {
+    const destinationPath = dependencyList[sourcePath];
+    sourcePath = path.join(nodeFolder, sourcePath);
+    if (fs.lstatSync(sourcePath).isDirectory()) {
+      copyFolder(sourcePath, path.join(buildFolder, destinationPath), (err) => {
+        if (err) console.log(err);
+      });
+    } else {
+      const destinationFile = path.basename(sourcePath);
+      fs.copyFileSync(sourcePath, path.join(buildFolder, destinationPath, destinationFile));
+    }
   });
 }
 

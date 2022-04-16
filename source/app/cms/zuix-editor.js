@@ -45,6 +45,10 @@ function zuixEditor(cp) {
       createComponentDialog.open(_data);
     });
 
+    cp.field('edit-page').on('click', function() {
+      parent.location.replace('/editor/#' + location.pathname);
+    });
+
     cp.expose({
       data: {
         get() {
