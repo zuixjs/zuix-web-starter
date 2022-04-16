@@ -46,7 +46,12 @@ function zuixEditor(cp) {
     });
 
     cp.field('edit-page').on('click', function() {
-      parent.location.replace('/editor/#' + location.pathname);
+      const editUrl = '/editor/#' + location.pathname;
+      if (parent.location.pathname !== '/editor/') {
+        document.location.replace(editUrl);
+      } else {
+        parent.location.replace(editUrl);
+      }
     });
 
     cp.expose({
