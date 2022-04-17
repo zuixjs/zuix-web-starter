@@ -185,6 +185,9 @@
     browserSync.socket.on('zuix:deletePage:done', function(redirectUrl) {
       browserSync.socket.disconnect();
     });
+    //browserSync.socket.on('disconnect', function(reason) {
+    //  console.log('DISCONNECTED', reason);
+    //});
     loadContent({path: zuixEditor.data.page.inputPath});
   });
 
@@ -220,9 +223,11 @@
       if (!browserSync.socket.disconnected) {
         const content = editor.getValue();
         const request = {path: zuixEditor.data.page.inputPath, content};
-        originalContent = content;
         browserSync.socket.emit('zuix:saveContent', request);
-        browserSync.socket.disconnect();
+        setTimeout(function() {
+          browserSync.socket.disconnect();
+        }, 10);
+        originalContent = content;
       } else {
         // TODO: report connection error
       }
