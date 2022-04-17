@@ -224,7 +224,7 @@ function initEleventyZuix(eleventyConfig) {
     }
     return content;
   });
-  eleventyConfig.on('beforeWatch', (cf) => {
+  eleventyConfig.on('eleventy.beforeWatch', (cf) => {
     // changedFiles is an array of files that changed
     // to trigger the watch/serve build
     changedFiles.length = 0;
@@ -239,7 +239,7 @@ function initEleventyZuix(eleventyConfig) {
     }
     changedFiles.push(...cf);
   });
-  eleventyConfig.on('afterBuild', async function(args) {
+  eleventyConfig.on('eleventy.after', async function(args) {
     console.log();
     postProcessFiles.forEach((pf) => {
       const result = compilePage(pf.file, pf.file, {
@@ -266,6 +266,9 @@ function initEleventyZuix(eleventyConfig) {
     if (fs.existsSync(triggerFile)) {
       fs.unlinkSync(triggerFile);
       fs.unlinkSync(triggerFileOut);
+    }
+    if (io) {
+      io.emit('zuix:build:done');
     }
   });
   if (process.argv.indexOf('--serve') === -1) {

@@ -57,6 +57,18 @@
             opacity: 0.5;
             cursor: default;
         }
+
+        @keyframes blinking {
+            0% {
+                opacity: 1.0;
+            }
+            75% {
+                opacity: 0.2;
+            }
+        }
+        .busy {
+            animation: blinking 0.3s infinite;
+        }
     </style>
 </head>
 <body layout="row stretch-stretch">
@@ -74,7 +86,8 @@
         <a #save-btn title="Save content"
            @on:click="saveContent()"
            @get="isClean() as clean"
-           @set="clean ? $this.addClass('not-modified') : $this.removeClass('not-modified')">
+           @set="clean ? $this.addClass('not-modified') : $this.removeClass('not-modified')"
+           @if="pendingSaveResponse" @then="$this.addClass('busy')" @else="$this.removeClass('busy')">
             <svg height="48px" viewBox="0 0 24 24" width="48px">
                 <path d="M0 0h24v24H0V0z" fill="none"/><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm2 16H5V5h11.17L19 7.83V19zm-7-7c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zM6 6h9v4H6z"/>
             </svg>
@@ -126,6 +139,9 @@
   let zuixEditor = null;
   let browserSync = null;
   let originalContent = '';
+  let pendingSaveResponse = false;
+  let savePostponeTimeout = null;
+  let currentContentPath = '';
 
   editor = CodeMirror.fromTextArea(
     document.getElementById('code'),
@@ -161,10 +177,7 @@
     darkMode();
   });
 
-  previewFrame.contentDocument.onhashchange = function(a, b, c) {
-    console.log(a, b, c);
-  };
-
+  // load current page in the preview panel
   document.querySelector('#preview').src = location.hash.substring(1);
 
   waitObject(function() {
@@ -174,21 +187,28 @@
     // setup IO events handlers
     browserSync.socket.on('zuix:loadContent:done', function(response) {
       // TODO: should ask before replacing content for subsequent requests
-      originalContent = response.content;
-      editor.setValue(response.content);
-      editor.markClean();
-      editor.clearHistory();
+      if (originalContent !== response.content && savePostponeTimeout == null && !pendingSaveResponse) {
+        originalContent = response.content;
+        editor.setValue(response.content);
+        editor.markClean();
+        editor.clearHistory();
+      }
     });
     browserSync.socket.on('zuix:addPage:done', function(redirectUrl) {
-      browserSync.socket.disconnect();
+      // TODO: ...
     });
     browserSync.socket.on('zuix:deletePage:done', function(redirectUrl) {
+      // TODO: ...
+    });
+    browserSync.socket.on('zuix:build:done', function() {
       browserSync.socket.disconnect();
     });
-    //browserSync.socket.on('disconnect', function(reason) {
-    //  console.log('DISCONNECTED', reason);
-    //});
-    loadContent({path: zuixEditor.data.page.inputPath});
+    browserSync.socket.on('disconnect', function(reason) {
+      if (reason !== 'io client disconnect') {
+        console.log('DISCONNECTED', reason);
+      }
+    });
+    loadContent();
   });
 
   document.querySelector('iframe').onload = function() {
@@ -197,13 +217,15 @@
       return previewFrame.contentWindow.zuixEditor;
     }, function(zed) {
       zuixEditor = zed;
-      zuix.field('file-path').html(zed.data.page.inputPath);
-      zuix.field('close-btn').get().href = previewFrame.contentWindow.location.href;
       document.location.hash = previewFrame.contentWindow.location.pathname;
       if (browserSync) {
-        if (!browserSync.socket.disconnected) {
-          loadContent({path: zuixEditor.data.page.inputPath});
+        if (browserSync.socket.connected) {
+          loadContent();
         } else {
+          browserSync.socket.once('connect', function() {
+            pendingSaveResponse = false;
+            loadContent();
+          });
           browserSync.socket.connect();
         }
       }
@@ -211,26 +233,33 @@
   };
 
 
-  function loadContent(request) {
-    if (browserSync && !browserSync.socket.disconnected) {
+  function loadContent() {
+    const request = {path: zuixEditor.data.page.inputPath};
+    currentContentPath = request.path;
+    zuix.field('file-path').html(currentContentPath);
+    zuix.field('close-btn').get().href = previewFrame.contentWindow.location.href;
+    if (browserSync && browserSync.socket.connected) {
       browserSync.socket.emit('zuix:loadContent', request);
     } else {
       // TODO: report error
     }
   }
   function saveContent() {
-    if (!isClean() && browserSync) {
-      if (!browserSync.socket.disconnected) {
+    clearTimeout(savePostponeTimeout);
+    savePostponeTimeout = null;
+    if (browserSync && !isClean() && !pendingSaveResponse) {
+      if (browserSync.socket.connected) {
         const content = editor.getValue();
         const request = {path: zuixEditor.data.page.inputPath, content};
         browserSync.socket.emit('zuix:saveContent', request);
-        setTimeout(function() {
-          browserSync.socket.disconnect();
-        }, 10);
         originalContent = content;
+        pendingSaveResponse = true;
       } else {
         // TODO: report connection error
+        console.log('NOT CONNECTED!');
       }
+    } else if (!isClean()) {
+      savePostponeTimeout = setTimeout(saveContent, 100);
     }
   }
   function isClean() {
@@ -265,11 +294,9 @@
     if (previewPanel.hasClass('closed')) {
       previewPanel.removeClass('closed');
       localStorage.setItem(settings.togglePreview, 'false');
-      togglePreviewOn = false;
     } else {
       previewPanel.addClass('closed');
       localStorage.setItem(settings.togglePreview, 'true');
-      togglePreviewOn = true;
     }
   }
   function darkMode() {

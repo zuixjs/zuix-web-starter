@@ -109,7 +109,7 @@ module.exports = function(eleventyConfig) {
     module: "@11ty/eleventy-server-browsersync",
     //reloadDelay: 2000,
     files: [ ...zuixConfig.componentsFolders ],
-    notify: true,
+    notify: false,
     cors: true,
     middleware: [compress(), function(req, res, next) {
       res.setHeader('Set-Cookie', 'SameSite=Lax; Secure');
