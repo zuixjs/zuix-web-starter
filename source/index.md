@@ -34,4 +34,4 @@ visible in the lower right corner of every page.
 Tap it to popup editing options, to add new pages and sections, edit or delete existing ones, directly in the browser. 
 
 
-### Try `zuix-web-starter` on &gt;&gt; [StackBlitz](https://stackblitz.com/github/zuixjs/zuix-web-starter) &lt;&lt;
+### Try `zuix-web-starter` on &gt;&gt; [StackBlitz](https://stackblitz.com/github/zuixjs/zuix-web-starter/?view=preview) &lt;&lt;
