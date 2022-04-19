@@ -69,6 +69,11 @@ function zuixEditor(cp) {
         },
         'error': function() {
           hideWaitingSpinner();
+        },
+        'keydown': function(e) {
+          if (e.key === 'Escape') {
+            this.trigger('close');
+          }
         }
       }
     });

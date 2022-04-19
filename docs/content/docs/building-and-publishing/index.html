@@ -211,6 +211,44 @@ blockquote span {
     box-shadow: 0 0 0 0 #00000055;
 }
 
+/* from https://codepen.io/nikstech/pen/xmMxpr */
+
+.input-container {
+    position: relative;
+    margin-bottom: 25px;
+}
+.input-container label {
+    z-index: -1;
+    position:absolute;
+    top: 12px;
+    left: 0;
+    pointer-event: none!important;
+    transition: all 0.15s ease-in-out;
+}
+.input-container input {
+    z-index: 0;
+    border:0;
+    width: 100%;
+    background: transparent;
+    border-bottom: 1px solid;
+    padding: 8px 0 5px 0;
+}
+.input-container input:focus {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #bd0505!important;
+}
+.input-container input:focus ~ label,
+.input-container input:valid ~ label {
+    top: -14px;
+    font-size: 80%;
+    font-weight: bold;
+}
+.theme-dark .input-container input:valid {
+    border-bottom: 1px solid;
+    border-bottom-color: var(--dark-color--primary)!important;
+}
+
 :root {
     --lite-color: #fff;
     --lite-color-text: #000;
@@ -278,6 +316,13 @@ code:not([class*=language-]), pre:not([class*=language-]) {
 .background {
     background-color: var(--lite-color);
 }
+.input-container input {
+  color: var(--lite-color-text);
+  border-bottom-color: var(--lite-color--primary);
+}
+.input-container input:valid {
+  border-bottom-color: var(--lite-color--primary)!important;
+}
 
 /*========================*\
       Theme 'dark'
@@ -325,6 +370,13 @@ body.theme-dark {
 }
 .theme-dark .background {
     background-color: var(--dark-color);
+}
+.theme-dark .input-container input {
+  color: var(--dark-color-text);
+  border-bottom-color: var(--dark-color--primary);
+}
+.theme-dark .input-container input:valid {
+  border-bottom-color: var(--dark-color--primary)!important;
 }
 
 /*
@@ -376,7 +428,7 @@ body.theme-dark {
 }
 .theme-dark [z-load*="/components/menu-overlay"] div[z-field="menu_overlay"] {
     background: radial-gradient(circle at bottom, black, #000000dd, #00000077, transparent)!important;
-}</style><body layout="column stretch-center" ctrl="" z-load="@lib/controllers/header-auto-hide" data-o-header="header-bar" z-lazy="scroll"><nav layout="row top-center" #header-bar=""><div self="size-large stretch" layout="row center-center" style="gap: 8px;"><a class="icon-button" aria-label="Home" href="/zuix-web-starter/"><!-- put your logo here --> <svg xmlns="http://www.w3.org/2000/svg" width="48px" height="48px" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M12 5.69l5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"></path></svg></a><div self="size-x1"><h1 class="title">Web Starter</h1><div class="subtitle">Building for production</div></div><div style="padding-top: 4px; padding-right: 4px"><input class="theme-toggle" type="checkbox" aria-label="Toggle theme" checked></div></div></nav><main self="size-large"><img src="./images/cover.png" alt="Cover image" class="cover"><h1>Building for production</h1><p>The build process will read the default configuration of the web application, from the JSON file <a href="https://github.com/zuixjs/zuix-web-starter/blob/master/config/default.json"><code>./config/default.json</code></a>.<br>This file contains, among the other options, the base url of the application that by default is <code>/</code>:<p>./config/<strong>default.json</strong><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"zuix"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>    ...<br>    ...<br>    <span class="token property">"app"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>      <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"My web application"</span><span class="token punctuation">,</span><br>      <span class="token property">"baseUrl"</span><span class="token operator">:</span> <span class="token string">"/"</span><span class="token punctuation">,</span><br>      ...<br>    <span class="token punctuation">}</span><br>  <span class="token punctuation">}</span><br><span class="token punctuation">}</span></code></pre><p>Depending on the hosting service where the application will be published, the base url might not be the root of the website, like it happens for <em>GitHub</em> hosted pages, where the base url is the name of the project, unless custom domain is used:<pre><code>https://&lt;account_name&gt;.github.io/&lt;project_name&gt;/
+}</style><body layout="column stretch-center" ctrl="" z-load="@lib/controllers/header-auto-hide" data-o-header="header-bar" z-lazy="scroll"><nav layout="row top-center" #header-bar=""><div self="size-large stretch" layout="row center-center" style="gap: 8px;"><a class="icon-button" aria-label="Home" href="/zuix-web-starter/"><!-- put your logo here --> <svg width="48px" height="48px" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M12 5.69l5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"></path></svg></a><div self="size-x1"><h1 class="title">Web Starter</h1><div class="subtitle">Building for production</div></div><a class="icon-button" href="/zuix-web-starter/search"><svg width="48px" height="48px" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg></a><div style="padding-top: 4px; padding-right: 4px"><input class="theme-toggle" type="checkbox" aria-label="Toggle theme" checked></div></div></nav><main self="size-large"><img src="./images/cover.png" alt="Cover image" class="cover"><h1>Building for production</h1><p>The build process will read the default configuration of the web application, from the JSON file <a href="https://github.com/zuixjs/zuix-web-starter/blob/master/config/default.json"><code>./config/default.json</code></a>.<br>This file contains, among the other options, the base url of the application that by default is <code>/</code>:<p>./config/<strong>default.json</strong><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"zuix"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>    ...<br>    ...<br>    <span class="token property">"app"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>      <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"My web application"</span><span class="token punctuation">,</span><br>      <span class="token property">"baseUrl"</span><span class="token operator">:</span> <span class="token string">"/"</span><span class="token punctuation">,</span><br>      ...<br>    <span class="token punctuation">}</span><br>  <span class="token punctuation">}</span><br><span class="token punctuation">}</span></code></pre><p>Depending on the hosting service where the application will be published, the base url might not be the root of the website, like it happens for <em>GitHub</em> hosted pages, where the base url is the name of the project, unless custom domain is used:<pre><code>https://&lt;account_name&gt;.github.io/&lt;project_name&gt;/
 </code></pre><p>For this purpose, when building for production, a different configuration file is used with the proper base url set:<p>./config/<strong>production.json</strong><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"zuix"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>    ...<br>    ...<br>    <span class="token property">"app"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>      <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"My web application"</span><span class="token punctuation">,</span><br>      <span class="token property">"baseUrl"</span><span class="token operator">:</span> <span class="token string">"/my-web-app/"</span><span class="token punctuation">,</span><br>      ...<br>    <span class="token punctuation">}</span><br>  <span class="token punctuation">}</span><br><span class="token punctuation">}</span></code></pre><p>also, the <code>{{ app.baseUrl }}</code> variable, if used in a template, will be replaced with the proper value depending on the selected configuration.<p>So, to select the <em>production</em> configuration when building the web application, the environment variable <code>NODE_ENV</code> must be set to <code>production</code>:<pre class="language-shell"><code class="language-shell"><span class="token assign-left variable">NODE_ENV</span><span class="token operator">=</span>production npx zuix build</code></pre><p>it's also possible to simulate the production hosting when running the development server:<pre class="language-shell"><code class="language-shell"><span class="token assign-left variable">NODE_ENV</span><span class="token operator">=</span>production npx zuix start</code></pre><p>in which case, the application will be served at the url specified by <code>baseUrl</code> in the production configuration file.</main><div self="size-large" layout="rows center-spread" class="page-navigation"><a href="/zuix-web-starter/content/docs/liquid-tags/" style="text-align: center;"><div layout="row center-center" class="navigation-direction"><svg xmlns="http://www.w3.org/2000/svg" width="32px" height="32px" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path></svg> <span style="padding-right: 24px">Previous</span></div><div class="navigation-title">Liquid tags and short codes</div></a><div>&nbsp;</div></div><style>.page-navigation {
             margin-top: 40px;
             gap:12px;

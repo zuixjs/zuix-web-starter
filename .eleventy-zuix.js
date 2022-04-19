@@ -137,7 +137,6 @@ function setupSocketApi(browserSync) {
       socket.on('zuix:saveContent', (request) => {
         fs.writeFileSync(request.path, request.content);
         io.emit('zuix:saveContent:done', {path: request.path});
-        forceRebuild(); // <--- this is a patch to the fact sometimes 11ty doesn't rebuild
         console.log('zuix:saveContent', request.path);
       });
       socket.on('zuix:addPage', (data) => {
@@ -160,7 +159,6 @@ function setupSocketApi(browserSync) {
           }
           const redirectUrl = path.resolve(data.page.url, '..');
           io.emit('zuix:deletePage:done', redirectUrl);
-          forceRebuild(); // <--- this is a patch to the fact sometimes 11ty doesn't rebuild
         } catch (e) {
           console.log(e);
           io.emit('zuix:deletePage:error', e);
@@ -489,7 +487,6 @@ function addPage(args) {
                 `title: ${classNameFromHyphens(args.section)}`,
               ]}).then(resolve).catch(reject);
           } else {
-            forceRebuild();
             resolve();
           }
         } else {

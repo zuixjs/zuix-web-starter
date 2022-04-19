@@ -78,6 +78,15 @@ a {
 .background {
     background-color: var(--{{ theme }}-color);
 }
+{{ tc -}}
+.input-container input {
+  color: var(--{{ theme }}-color-text);
+  border-bottom-color: var(--{{ theme }}-color--primary);
+}
+{{ tc -}}
+.input-container input:valid {
+  border-bottom-color: var(--{{ theme }}-color--primary)!important;
+}
 {% endfor %}
 /*
 ---------------------------------

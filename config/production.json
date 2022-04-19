@@ -29,7 +29,7 @@
       "contentFolder": "content",
       "dependencies": [{
         "zuix-dist/js": "js/zuix",
-        "elasticlunr/release": "js/elasticlunr",
+        "fuse.js/dist": "js/fuse",
         "flex-layout-attribute/css": "css/fla"
       }],
       "bundle": {

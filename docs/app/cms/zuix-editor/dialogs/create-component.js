@@ -14,6 +14,13 @@ function createComponentDialog(cp) {
 
     cp.field('cancel-btn').on('click', cancel);
     cp.field('add-btn').on('click', createComponent);
+    cp.field('component-name')
+        .on('keypress', function(e) {
+          if (e.key === 'Enter') {
+            cp.field('add-btn')
+                .get().click();
+          }
+        });
 
     if (_browserSync) {
       _browserSync.socket.on('zuix:addComponent:done', function(data) {

@@ -12,6 +12,13 @@ function addPageDialog(cp) {
         .on('click', addPage);
     cp.field('cancel-btn')
         .on('click', cancel);
+    cp.field('page-name')
+        .on('keypress', function(e) {
+          if (e.key === 'Enter') {
+            cp.field('add-btn')
+                .get().click();
+          }
+        });
 
     const sections = cp.field('sections').children();
     zuix.loadComponent(sections, '_editor/section', 'view');

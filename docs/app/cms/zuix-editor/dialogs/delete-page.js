@@ -32,6 +32,8 @@ function deletePageDialog(cp) {
     });
     cp.view().show();
     cp.trigger('open', $opener);
+    cp.field('cancel-btn')
+        .get().focus();
     return cp.context;
   }
   function close() {
