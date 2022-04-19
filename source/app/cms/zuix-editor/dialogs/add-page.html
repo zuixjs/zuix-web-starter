@@ -11,10 +11,11 @@
 
         <label class="accent" for="pageName">Page name</label>
         <input #page-name type="text" placeholder="page name" id="pageName">
+        <div #error-message></div>
 
     </div>
 
-    <div layout="row centee-spread" class="footer">
+    <div layout="row center-spread" class="footer">
         <button #cancel-btn class="button primary">Cancel</button>
         <button @disable-if="!isValid()" self="center" #add-btn class="button primary">Confirm</button>
     </div>

@@ -7,20 +7,8 @@ function deletePageDialog(cp) {
   cp.create = onCreate;
 
   function onCreate() {
-    cp.expose({
-      open: function(data) {
-        _data = data;
-        cp.model({
-          'page-title': data.title,
-          'page-path': data.page.url
-        });
-        cp.view().show();
-        return cp.context;
-      },
-      close: function() {
-        cp.view().hide();
-      }
-    }).view().hide();
+    cp.expose({open, close})
+        .view().hide();
 
     cp.field('delete-btn').on('click', deletePage);
     cp.field('cancel-btn').on('click', cancel);
@@ -35,9 +23,29 @@ function deletePageDialog(cp) {
     }
   }
 
+  function open(data, $opener) {
+    _data = data;
+    setError('');
+    cp.model({
+      'page-title': data.title,
+      'page-path': data.page.url
+    });
+    cp.view().show();
+    cp.trigger('open', $opener);
+    return cp.context;
+  }
+  function close() {
+    cp.trigger('close');
+  }
   function cancel() {
-    cp.view().hide();
     cp.trigger('cancel');
+  }
+
+  function setError(err) {
+    if (err !== '') {
+      err = 'ERROR: ' + err;
+    }
+    cp.field('error-message').html(err);
   }
 
   function deletePage(e, $btn) {
@@ -47,9 +55,9 @@ function deletePageDialog(cp) {
       result = _browserSync.socket.emit('zuix:deletePage', _data);
     }
     if (result) {
-      cp.trigger('success');
+      cp.trigger('waiting');
     } else {
-      cp.trigger('error', 'Could not send command');
+      setError('Could not send command');
     }
   }
 }

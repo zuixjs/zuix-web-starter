@@ -5,20 +5,13 @@ function addPageDialog(cp) {
   const _browserSync = ___browserSync___;
   let _data;
   cp.create = function() {
-    cp.expose({
-      open: function(data) {
-        _data = data;
-        cp.field('section-name').value(data.group);
-        cp.view().show();
-        return cp.context;
-      },
-      close: function() {
-        cp.view().hide();
-      }
-    }).view().hide();
+    cp.expose({open, close})
+        .view().hide();
 
-    cp.field('add-btn').on('click', addPage);
-    cp.field('cancel-btn').on('click', cancel);
+    cp.field('add-btn')
+        .on('click', addPage);
+    cp.field('cancel-btn')
+        .on('click', cancel);
 
     const sections = cp.field('sections').children();
     zuix.loadComponent(sections, '_editor/section', 'view');
@@ -33,17 +26,39 @@ function addPageDialog(cp) {
       _browserSync.socket.on('zuix:addPage:done', function(redirectUrl) {
         document.location.hash += '#reload(' + redirectUrl + ')';
       });
+      _browserSync.socket.on('zuix:addPage:error', function(err) {
+        console.log('ERROR', err);
+        setError(err);
+        cp.trigger('error', err);
+      });
     }
 
     enableDrag();
   };
 
+  function open(data, $opener) {
+    _data = data;
+    setError('');
+    cp.field('section-name').value(data.group);
+    cp.trigger('open', $opener);
+    cp.field('page-name').value('')
+        .get().focus();
+  }
+  function close() {
+    cp.trigger('close');
+  }
   function cancel() {
-    cp.view().hide();
     cp.trigger('cancel');
   }
-  function addPage(e, $btn) {
-    $btn.attr({disabled: true});
+
+  function setError(err) {
+    if (err !== '') {
+      err = 'ERROR: ' + err;
+    }
+    cp.field('error-message').html(err);
+  }
+
+  function addPage() {
     const section = cp.field('section-name').value();
     const name = zuix.utils.camelCaseToHyphens(cp.field('page-name').value().replace(/[^a-z0-9\s]/gi, '_'));
     let result;
@@ -52,11 +67,10 @@ function addPageDialog(cp) {
         layout: 'article', section, name
       });
     }
-    cp.view().hide();
     if (result) {
-      cp.trigger('success');
+      cp.trigger('waiting');
     } else {
-      cp.trigger('error', 'Could not send command');
+      setError('Could not send command');
     }
   }
 

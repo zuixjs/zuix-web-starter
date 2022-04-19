@@ -142,9 +142,12 @@ function setupSocketApi(browserSync) {
       });
       socket.on('zuix:addPage', (data) => {
         browserSync.notify('Adding new page...');
-        addPage(data);
-        const redirectUrl = zuixConfig.app.baseUrl + contentFolder + '/' + data.section + '/';
-        io.emit('zuix:addPage:done', redirectUrl);
+        addPage(data).then(() => {
+          const redirectUrl = zuixConfig.app.baseUrl + contentFolder + '/' + data.section + '/';
+          io.emit('zuix:addPage:done', redirectUrl);
+        }).catch((err) => {
+          io.emit('zuix:addPage:error', err.message);
+        });
         console.log('zuix:addPage', data);
       });
       socket.on('zuix:deletePage', (data) => {
@@ -155,32 +158,32 @@ function setupSocketApi(browserSync) {
             fs.rmSync(path.resolve(data.page.inputPath, '..'), { recursive: true, force: true });
             fs.rmSync(path.resolve(data.page.outputPath, '..'), { recursive: true, force: true });
           }
-        } catch (e) { console.log(e); }
-        const redirectUrl = path.resolve(data.page.url, '..');
-        io.emit('zuix:deletePage:done', redirectUrl);
-        forceRebuild(); // <--- this is a patch to the fact sometimes 11ty doesn't rebuild
+          const redirectUrl = path.resolve(data.page.url, '..');
+          io.emit('zuix:deletePage:done', redirectUrl);
+          forceRebuild(); // <--- this is a patch to the fact sometimes 11ty doesn't rebuild
+        } catch (e) {
+          console.log(e);
+          io.emit('zuix:deletePage:error', e);
+        }
         console.log('zuix:deletePage', data.page.outputPath, path.resolve(data.page.url, '..'));
       });
       socket.on('zuix:addComponent', (data) => {
         browserSync.notify('Adding component...');
+        const handlePromise = (promise) => {
+          promise.then((res) =>  {
+            generateTemplate(res);
+            io.emit('zuix:addComponent:done', res);
+          })
+          .catch((err) => {
+            io.emit('zuix:addComponent:error', err.message);
+          });
+        };
         if (data.view && data.ctrl) {
-          generate('component', [data.name])
-            .then((res) =>  {
-              generateTemplate(res);
-              io.emit('zuix:addComponent:done', res);
-            });
+          handlePromise(generate('component', [data.name]));
         } else if (data.view) {
-          generate('template', [data.name])
-            .then((res) =>  {
-              generateTemplate(res);
-              io.emit('zuix:addComponent:done', res);
-            });
+          handlePromise(generate('template', [data.name]));
         } else if (data.ctrl) {
-          generate('controller', [data.name])
-            .then((res) => {
-              generateTemplate(res);
-              io.emit('zuix:addComponent:done', res);
-            });
+          handlePromise(generate('controller', [data.name]));
         }
       });
     });
@@ -427,77 +430,86 @@ function configure(eleventyConfig) {
 }
 
 function addPage(args) {
-  const pageTemplatesPath = path.join('./templates', contentFolder, '/');
-  const template = args.layout;
-  let outputFile = args.name.toLowerCase();
-  const pageName = path.basename(outputFile);
-  const pageTitle = classNameFromHyphens(pageName);
-  console.log(
-    chalk.cyanBright('*') + ' Generating',
-    chalk.yellow.bold(template),
-    '→',
-    outputFile
-  );
-  let extension = '.liquid';
-  let componentTemplate = `${pageTemplatesPath}${template}${extension}`;
-  if (!fs.existsSync(componentTemplate)) {
-    extension = '.md'
-    componentTemplate = `${pageTemplatesPath}${template}${extension}`;
-  }
-  if (fs.existsSync(componentTemplate)) {
-    let sectionFolder = path.join(sourceFolder, contentFolder);
-    if (args.section) {
-      args.section = args.section.toLowerCase();
-      sectionFolder = path.join(sectionFolder, args.section);
+  return new Promise((resolve, reject) => {
+    const pageTemplatesPath = path.join('./templates', contentFolder, '/');
+    const template = args.layout;
+    let outputFile = args.name.toLowerCase();
+    const pageName = path.basename(outputFile);
+    const pageTitle = classNameFromHyphens(pageName);
+    console.log(
+      chalk.cyanBright('*') + ' Generating',
+      chalk.yellow.bold(template),
+      '→',
+      outputFile
+    );
+    let extension = '.liquid';
+    let componentTemplate = `${pageTemplatesPath}${template}${extension}`;
+    if (!fs.existsSync(componentTemplate)) {
+      extension = '.md'
+      componentTemplate = `${pageTemplatesPath}${template}${extension}`;
     }
-    const frontMatter = args.frontMatter && '\n' + args.frontMatter.join('\n') + '\n';
-    const date = new moment().format('yyyy-MM-DD hh:mm:ss');
-    let pageTemplate = fs.readFileSync(componentTemplate).toString('utf8');
-    const env = new nunjucks.Environment(new nunjucks.FileSystemLoader('views'), {
-      tags: {
-        blockStart: '<%',
-        blockEnd: '%>',
-        variableStart: '<$',
-        variableEnd: '$>',
-        commentStart: '<#',
-        commentEnd: '#>'
-      }
-    });
-    pageTemplate = env.renderString(pageTemplate, {
-      title: pageTitle,
-      name: pageName,
-      section: args.section,
-      frontMatter,
-      date
-    });
-    const outputPath = path.join(sectionFolder, outputFile);
-    outputFile = path.join(outputPath, 'index' + extension);
-    if (!fs.existsSync(outputFile)) {
-      mkdirp.sync(outputPath);
-      fs.writeFileSync(outputFile, pageTemplate);
-      console.log(chalk.cyanBright('*') + ' NEW page:', chalk.green.bold(outputFile));
-      // Create section if it does not exist
+    if (fs.existsSync(componentTemplate)) {
+      let sectionFolder = path.join(sourceFolder, contentFolder);
       if (args.section) {
-        const sectionFile = path.join(sectionFolder, 'index.liquid');
-        if (!fs.existsSync(sectionFile)) {
-          addPage({layout: 'section', name: args.section, frontMatter: [
-              `group: ${args.section}`,
-              `title: ${classNameFromHyphens(args.section)}`,
-            ]});
-        } else {
-          forceRebuild();
+        args.section = args.section.toLowerCase();
+        sectionFolder = path.join(sectionFolder, args.section);
+      }
+      const frontMatter = args.frontMatter && '\n' + args.frontMatter.join('\n') + '\n';
+      const date = new moment().format('yyyy-MM-DD hh:mm:ss');
+      let pageTemplate = fs.readFileSync(componentTemplate).toString('utf8');
+      const env = new nunjucks.Environment(new nunjucks.FileSystemLoader('views'), {
+        tags: {
+          blockStart: '<%',
+          blockEnd: '%>',
+          variableStart: '<$',
+          variableEnd: '$>',
+          commentStart: '<#',
+          commentEnd: '#>'
         }
+      });
+      pageTemplate = env.renderString(pageTemplate, {
+        title: pageTitle,
+        name: pageName,
+        section: args.section,
+        frontMatter,
+        date
+      });
+      const outputPath = path.join(sectionFolder, outputFile);
+      outputFile = path.join(outputPath, 'index' + extension);
+      if (!fs.existsSync(outputFile)) {
+        mkdirp.sync(outputPath);
+        fs.writeFileSync(outputFile, pageTemplate);
+        console.log(chalk.cyanBright('*') + ' NEW page:', chalk.green.bold(outputFile));
+        // Create section if it does not exist
+        if (args.section) {
+          const sectionFile = path.join(sectionFolder, 'index.liquid');
+          if (!fs.existsSync(sectionFile)) {
+            addPage({layout: 'section', name: args.section, frontMatter: [
+                `group: ${args.section}`,
+                `title: ${classNameFromHyphens(args.section)}`,
+              ]}).then(resolve).catch(reject);
+          } else {
+            forceRebuild();
+            resolve();
+          }
+        } else {
+          resolve();
+        }
+      } else {
+        const errorMessage = `"${args.name}" already exists.`;
+        console.error(
+          chalk.red.bold(errorMessage)
+        );
+        reject(new Error(errorMessage));
       }
     } else {
+      const errorMessage = 'Invalid page template: ' + componentTemplate;
       console.error(
-        chalk.red.bold('A file with that name already exists.')
+        chalk.red.bold(errorMessage)
       );
+      reject(new Error(errorMessage));
     }
-  } else {
-    console.error(
-      chalk.red.bold('Invalid page template:', componentTemplate)
-    );
-  }
+  });
 }
 async function wipeContent() {
   const confirm = await yesno({

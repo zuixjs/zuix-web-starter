@@ -18,10 +18,11 @@
 
         <label class="accent" for="componentName">Component ID (path/name)</label>
         <input #component-name type="text" placeholder="component name" id="componentName">
+        <div #error-message></div>
 
     </div>
 
-    <div layout="row centee-spread" class="footer">
+    <div layout="row center-spread" class="footer">
         <button #cancel-btn class="button primary">Cancel</button>
         <button @disable-if="componentName.value === '' || (!typeView.checked && !typeCtrl.checked)"
                 self="center" #add-btn class="button primary">Confirm</button>

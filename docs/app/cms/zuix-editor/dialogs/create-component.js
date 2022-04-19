@@ -8,18 +8,8 @@ function createComponentDialog(cp) {
 
   function onCreate() {
     cp.expose({
-      open: function(data) {
-        _data = data;
-        showMainDialog();
-        return cp.context;
-      },
-      close: function() {
-        cp.view().hide();
-      },
-      showResult: function(data) {
-        cp.model(data);
-        showResultDialog();
-      }
+      open, close,
+      showResult
     }).view().hide();
 
     cp.field('cancel-btn').on('click', cancel);
@@ -32,15 +22,36 @@ function createComponentDialog(cp) {
           document.location.reload();
         }, 2000);
       });
+      _browserSync.socket.on('zuix:addComponent:error', function(err) {
+        setError(err);
+        cp.trigger('error', err);
+      });
     }
   }
 
+  function open(data, $opener) {
+    _data = data;
+    setError('');
+    showMainDialog();
+    cp.trigger('open', $opener);
+    cp.field('component-name').value('')
+        .get().focus();
+  }
+  function close() {
+    cp.trigger('close');
+  }
   function cancel() {
-    cp.view().hide();
     cp.trigger('cancel');
   }
-  function createComponent(e, $btn) {
-    $btn.attr({disabled: true});
+
+  function setError(err) {
+    if (err !== '') {
+      err = 'ERROR: ' + err;
+    }
+    cp.field('error-message').html(err);
+  }
+
+  function createComponent() {
     const view = cp.field('type-view').checked();
     const ctrl = cp.field('type-ctrl').checked();
     const name = zuix.utils.camelCaseToHyphens(cp.field('component-name').value().replace(/[^a-z0-9/\s]/gi, '_'));
@@ -50,11 +61,10 @@ function createComponentDialog(cp) {
         view, ctrl, name
       });
     }
-    cp.view().hide();
     if (result) {
-      cp.trigger('success');
+      cp.trigger('waiting');
     } else {
-      cp.trigger('error', 'Could not send command');
+      setError('Could not send command');
     }
   }
 
@@ -67,6 +77,10 @@ function createComponentDialog(cp) {
     cp.field('main-dialog').hide();
     cp.field('result-dialog').show();
     cp.view().show();
+  }
+  function showResult(data) {
+    cp.model(data);
+    showResultDialog();
   }
 }
 
