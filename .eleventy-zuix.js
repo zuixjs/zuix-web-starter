@@ -41,6 +41,7 @@ const {classNameFromHyphens} = require('zuix/common/utils');
 const chalk = require('chalk');
 const mkdirp = require('mkdirp');
 const yesno = require('yesno');
+const capcon = require('capture-console');
 
 // Read configuration either from './config/{default}.json'
 // or './config/production.json' based on current `NODE_ENV'
@@ -135,9 +136,11 @@ function setupSocketApi(browserSync) {
         console.log('zuix:loadContent', request.path);
       });
       socket.on('zuix:saveContent', (request) => {
-        fs.writeFileSync(request.path, request.content);
-        io.emit('zuix:saveContent:done', {path: request.path});
-        console.log('zuix:saveContent', request.path);
+        fs.writeFile(request.path, request.content, () => {
+          io.emit('zuix:saveContent:done', {path: request.path});
+          // forceRebuild(3000); // <--- this is a patch to the fact sometimes 11ty doesn't rebuild
+          console.log('zuix:saveContent', request.path);
+        });
       });
       socket.on('zuix:addPage', (data) => {
         browserSync.notify('Adding new page...');
@@ -159,6 +162,7 @@ function setupSocketApi(browserSync) {
           }
           const redirectUrl = path.resolve(data.page.url, '..');
           io.emit('zuix:deletePage:done', redirectUrl);
+          forceRebuild(); // <--- this is a patch to the fact sometimes 11ty doesn't rebuild
         } catch (e) {
           console.log(e);
           io.emit('zuix:deletePage:error', e);
@@ -185,14 +189,48 @@ function setupSocketApi(browserSync) {
         }
       });
     });
+    // Errors notifying
+    let errorObject = {
+      errors: [],
+      message: '',
+      debug: false
+    }
+    let errorNotifierTimeout = null;
+    const errorNotifier = function() {
+      io.emit('zuix:eleventy:error', errorObject);
+      errorObject.errors = [];
+      errorObject.message = '';
+      errorObject.debug = false;
+    }
+    // Capture console output to notify errors
+    capcon.startCapture(process.stderr, {}, function (stderr) {
+      stderr = stderr
+        .replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, '')
+        .replace(/ *\([^)]*\) */g, '').replace(/ +$/, '');
+      if (stderr.indexOf('\n[11ty] ') !== -1) {
+        errorObject.debug = true;
+      } else if (stderr.startsWith('[11ty]')) {
+        stderr = stderr.substring(6).replace(/ +$/, '');
+      }
+      errorObject.errors.push(stderr);
+      if (!errorObject.debug) {
+        errorObject.message += stderr;
+      }
+      clearTimeout(errorNotifierTimeout);
+      errorNotifierTimeout = setTimeout(errorNotifier, 250);
+    });
   }
 }
 
-function forceRebuild() {
-  fs.writeFileSync(triggerFile, `---
+let forceRebuildTimeout = null;
+function forceRebuild(delay) {
+  clearTimeout(forceRebuildTimeout);
+  forceRebuildTimeout = setTimeout(() => {
+    fs.writeFileSync(triggerFile, `---
 permalink: .zuix.build.tmp
 ---
 Temporary file to trigger 11ty build`);
+  }, delay);
 }
 
 function initEleventyZuix(eleventyConfig) {
@@ -226,6 +264,7 @@ function initEleventyZuix(eleventyConfig) {
     return content;
   });
   eleventyConfig.on('eleventy.beforeWatch', (cf) => {
+    clearTimeout(forceRebuildTimeout);
     // changedFiles is an array of files that changed
     // to trigger the watch/serve build
     changedFiles.length = 0;
@@ -476,22 +515,24 @@ function addPage(args) {
       outputFile = path.join(outputPath, 'index' + extension);
       if (!fs.existsSync(outputFile)) {
         mkdirp.sync(outputPath);
-        fs.writeFileSync(outputFile, pageTemplate);
-        console.log(chalk.cyanBright('*') + ' NEW page:', chalk.green.bold(outputFile));
-        // Create section if it does not exist
-        if (args.section) {
-          const sectionFile = path.join(sectionFolder, 'index.liquid');
-          if (!fs.existsSync(sectionFile)) {
-            addPage({layout: 'section', name: args.section, frontMatter: [
-                `group: ${args.section}`,
-                `title: ${classNameFromHyphens(args.section)}`,
-              ]}).then(resolve).catch(reject);
+        fs.writeFile(outputFile, pageTemplate, () => {
+          console.log(chalk.cyanBright('*') + ' NEW page:', chalk.green.bold(outputFile));
+          // Create section if it does not exist
+          if (args.section) {
+            const sectionFile = path.join(sectionFolder, 'index.liquid');
+            if (!fs.existsSync(sectionFile)) {
+              addPage({layout: 'section', name: args.section, frontMatter: [
+                  `group: ${args.section}`,
+                  `title: ${classNameFromHyphens(args.section)}`,
+                ]}).then(resolve).catch(reject);
+            } else {
+//              forceRebuild(3000);
+              resolve();
+            }
           } else {
             resolve();
           }
-        } else {
-          resolve();
-        }
+        });
       } else {
         const errorMessage = `"${args.name}" already exists.`;
         console.error(

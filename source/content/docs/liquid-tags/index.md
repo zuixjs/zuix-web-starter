@@ -3,12 +3,14 @@ layout: basic.liquid
 options: highlight ext-links
 tags: docs
 group: docs
-order: 30
+order: 20
 coverPreview: ./images/cover-preview.png
 coverImage: ./images/cover.png
 coverUrl: https://artsandculture.google.com/asset/the-starry-night-vincent-van-gogh/bgEuwDxel93-Pg
 title: Liquid tags and short codes
 description: About liquid template language and short codes
+author: Gene
+pubDate: 2022-04-05
 keywords:
 - zuix
 - web starter

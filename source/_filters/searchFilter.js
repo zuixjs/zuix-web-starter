@@ -11,10 +11,10 @@ module.exports = function(collection) {
         .renderString('{{ content | striptags }}', data)
         .substring(0, 600);
     let image = page.template.frontMatter.data.coverPreview;
-    if (image.startsWith('./')) {
+    if (image && image.startsWith('./')) {
       image = path.join(page.url, page.template.frontMatter.data.coverPreview);
     }
-    if (image.startsWith('/')) {
+    if (image && image.startsWith('/')) {
       image = path.join(baseUrl, image);
     }
     return {

@@ -2,7 +2,7 @@
     {% assign template = './image-card' %}
 {% endif %}
 {% if items == blank %}
-    {% assign items = collections[group] | sort: data.order | sort: data.pubDate | reverse %}
+    {% assign items = collections[group] | sort: 'data.order' | sort: 'data.pubDate' | reverse %}
 {% endif %}
 {% for item in items %}
     {% if item.data.link == blank %}

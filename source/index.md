@@ -31,6 +31,12 @@ a lightweight library for creating components-based websites and applications.
 When browsing the site in development mode (`NODE_ENV !== 'production'`), the `zuix-editor` button will be always
 visible in the lower right corner of every page.
 
+<!--
+<div layout="row center-center">
+  <video src="{{ '/images/web-starter-editor.webm' | url }}" style="border: solid 1px; width: 100%; max-width: 640px" autoplay controls />
+</div>
+-->
+
 Tap it to popup editing options, to add new pages and sections, edit or delete existing ones, directly in the browser. 
 
 

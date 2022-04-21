@@ -1,16 +1,16 @@
 <div class="dialog background">
 
-    <h2 class="primary">Add page</h2>
+    <h2>Add page</h2>
 
     <div layout="column top-left" class="content">
 
-        <label class="accent" for="sectionInput">Section</label>
-        <input #section-name type="text" placeholder="section name" id="sectionInput">
+        <label class="primary" for="sectionInput">Section</label>
+        <input #section-name type="text" placeholder="enter name" id="sectionInput" required>
 
         <div #sections layout="rows center-left" class="sections"></div>
 
-        <label class="accent" for="pageName">Page name</label>
-        <input #page-name type="text" placeholder="page name" id="pageName">
+        <label class="primary" for="pageName">Page</label>
+        <input #page-name type="text" placeholder="enter name" id="pageName" required>
         <div #error-message></div>
 
     </div>

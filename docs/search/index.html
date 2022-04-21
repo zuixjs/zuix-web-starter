@@ -217,25 +217,24 @@ blockquote span {
     margin-bottom: 25px;
 }
 .input-container label {
-    z-index: -1;
     position:absolute;
     top: 12px;
     left: 0;
     pointer-event: none!important;
     transition: all 0.15s ease-in-out;
 }
-.input-container input {
-    z-index: 0;
+.input-container input, input:not([type="checkbox"]):not([type="radio"]) {
+    z-index: 1;
     border:0;
     width: 100%;
     background: transparent;
     border-bottom: 1px solid;
     padding: 8px 0 5px 0;
 }
-.input-container input:focus {
+.input-container input:focus, input:focus:not([type="checkbox"]):not([type="radio"]) {
     border: none;
     outline: none;
-    border-bottom: 1px solid #bd0505!important;
+    border-bottom: 1px solid #bd0505;
 }
 .input-container input:focus ~ label,
 .input-container input:valid ~ label {
@@ -243,9 +242,37 @@ blockquote span {
     font-size: 80%;
     font-weight: bold;
 }
-.theme-dark .input-container input:valid {
-    border-bottom: 1px solid;
-    border-bottom-color: var(--dark-color--primary)!important;
+
+
+[type=radio],
+[type=checkbox] {
+    -webkit-appearance: none;
+    -moz-appearance:    none;
+    appearance:         none;
+    border: solid 1px;
+}
+[type=radio],
+[type=checkbox] {
+    width: 22px!important;
+    height: 18px;
+    margin-left: 6px;
+    margin-right: 6px;
+    position: relative;
+    border: solid 1px;
+    border-radius: 2px;
+}
+[type=radio]:checked::before,
+[type=checkbox]:checked::before {
+    content: "";
+    width: 12px;
+    height: 10px;
+    position: absolute;
+    top: 3px;
+    left: 4px;
+}
+[type=radio],
+[type=radio]:checked::before{
+    border-radius: 100%;
 }
 
 :root {
@@ -315,12 +342,24 @@ code:not([class*=language-]), pre:not([class*=language-]) {
 .background {
     background-color: var(--lite-color);
 }
-.input-container input {
+.input-container input,  input {
   color: var(--lite-color-text);
   border-bottom-color: var(--lite-color--primary);
 }
-.input-container input:valid {
+.input-container input:valid,  input:valid {
   border-bottom-color: var(--lite-color--primary)!important;
+}
+
+[type=radio]:checked::before,
+
+[type=checkbox]:checked::before {
+    background-color: var(--lite-color--accent);
+}
+
+[type=radio],
+
+[type=checkbox] {
+    border-color: var(--lite-color--primary);
 }
 
 /*========================*\
@@ -370,34 +409,47 @@ body.theme-dark {
 .theme-dark .background {
     background-color: var(--dark-color);
 }
-.theme-dark .input-container input {
+.theme-dark .input-container input, .theme-dark  input {
   color: var(--dark-color-text);
   border-bottom-color: var(--dark-color--primary);
 }
-.theme-dark .input-container input:valid {
+.theme-dark .input-container input:valid, .theme-dark  input:valid {
   border-bottom-color: var(--dark-color--primary)!important;
+}
+.theme-dark 
+[type=radio]:checked::before,
+.theme-dark 
+[type=checkbox]:checked::before {
+    background-color: var(--dark-color--accent);
+}
+.theme-dark 
+[type=radio],
+.theme-dark 
+[type=checkbox] {
+    border-color: var(--dark-color--primary);
 }
 
 /*
 ---------------------------------
  */
 
-.theme-toggle {
+.theme-toggle[type=checkbox] {
     margin: 0;
     --size: 32px;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     outline: none;
+    border: none;
     cursor: pointer;
-    width: var(--size);
-    height: var(--size);
+    width: var(--size)!important;
+    height: var(--size)!important;
     box-shadow: inset calc(var(--size) * 0.33) calc(var(--size) * -0.25) 0;
     border-radius: var(--size);
     transition: all 500ms;
     color: var(--lite-nav-color-text);
 }
-.theme-toggle:checked {
+.theme-toggle[type=checkbox]:checked {
     --ray-size: calc(var(--size) * -0.4);
     --offset-orthogonal: calc(var(--size) * 0.65);
     --offset-diagonal: calc(var(--size) * 0.45);
@@ -412,6 +464,10 @@ body.theme-dark {
         calc(var(--offset-diagonal) * -1) var(--offset-diagonal) 0 var(--ray-size),
         var(--offset-diagonal) calc(var(--offset-diagonal) * -1) 0 var(--ray-size);
     color: var(--dark-nav-color-text);
+    background-color: transparent!important;
+}
+.theme-toggle[type=checkbox]:checked::before {
+    background-color: transparent!important;
 }
 
 /* ----- MENU OVERLAY COMPONENT ----- */

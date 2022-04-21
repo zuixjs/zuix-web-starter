@@ -1,3 +1,6 @@
+---
+eleventyExcludeFromCollections: true
+---
 <html>
 <head>
     <link rel="preload" as="style" href="{{ '/css/fla/flex-layout-attribute.min.css' | url }}"/>
@@ -23,6 +26,11 @@
     <script src="{{ '/config.js' | url }}"></script>
 
     <style>
+        {% include "layouts/basic/style.css" %}
+        {% include "layouts/common/theme.css.liquid" %}
+    </style>
+
+    <style>
         body {
             width: 100vw;
             height: 100vh;
@@ -33,9 +41,9 @@
         a {
             cursor: pointer;
         }
-        a:hover:not(.not-modified) {
-            color: deeppink;
-            fill: deeppink;
+        a:hover:not(.not-modified), a:hover:not(.not-modified) svg {
+            color: deeppink!important;
+            fill: deeppink!important;
         }
 
         [\#toolbar] {
@@ -56,6 +64,34 @@
         .not-modified {
             opacity: 0.5;
             cursor: default;
+        }
+
+        .dialog-container  {
+            position: fixed;
+            left: 0; top: 0;
+            bottom: 0; right: 0;
+            background-color: rgba(127, 127, 127, 0.25);
+            z-index: 10000;
+            width: 100vw;
+            height: 100vh;
+        }
+        .dialog {
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid;
+            min-width: 360px;
+            max-height: 480px;
+            overflow-y: auto;
+            box-shadow: 0 1px 12px 3px #44444488;
+            background: #fff;
+        }
+        .dialog h2 {
+            margin-top: 0;
+        }
+        .dialog .content {
+            width: auto;
+            gap: 12px;
+            margin-bottom: 12px;
         }
 
         @keyframes blinking {
@@ -134,6 +170,21 @@
 
 </div>
 
+<div #dialog z-load="default" class="dialog-container" layout="column center-center">
+
+    <div class="dialog">
+        <h2>Error</h2>
+        <pre #message class="dialog-content"></pre>
+        <div layout="row center-center">
+            <a class="button" @on:click="context.$.hide()">
+                Close
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
 <script>
   const previewFrame = document.querySelector('iframe');
   let zuixEditor = null;
@@ -142,6 +193,7 @@
   let pendingSaveResponse = false;
   let savePostponeTimeout = null;
   let currentContentPath = '';
+  const dialog = zuix.field('dialog').hide();
 
   editor = CodeMirror.fromTextArea(
     document.getElementById('code'),
@@ -202,6 +254,13 @@
     });
     browserSync.socket.on('zuix:build:done', function() {
       browserSync.socket.disconnect();
+    });
+    browserSync.socket.on('zuix:eleventy:error', function(err) {
+      pendingSaveResponse = false;
+      console.log(err);
+      dialog.field('message')
+        .html(err.message);
+      dialog.show();
     });
     browserSync.socket.on('disconnect', function(reason) {
       if (reason !== 'io client disconnect') {

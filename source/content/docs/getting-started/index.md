@@ -3,12 +3,14 @@ layout: basic.liquid
 options: highlight ext-links
 tags: docs
 group: docs
-order: 10
+order: 40
 coverPreview: ./images/cover-preview.png
 coverImage: ./images/cover.png
 coverUrl: https://artsandculture.google.com/asset/the-dream-henri-rousseau/LwEt57AOdD6SGA
 title: Getting started
 description: Getting started with this template.
+author: Gene
+pubDate: 2022-04-05
 keywords:
 - zuix
 - web starter

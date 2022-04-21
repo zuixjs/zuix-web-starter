@@ -1,11 +1,11 @@
 <div class="dialog background" #main-dialog>
 
-    <h2 class="primary">Add component</h2>
+    <h2>Add component</h2>
 
     <div layout="column top-left" class="content">
 
-        <label class="accent">Type</label>
-        <div layout="rows center-left">
+        <label class="primary">Type</label>
+        <div layout="row center-left" style="margin-bottom: 12px; gap: 12px">
             <label layout="row center-start">
                 <input type="checkbox" #type-view checked>
                 <span>View</span>
@@ -16,8 +16,8 @@
             </label>
         </div>
 
-        <label class="accent" for="componentName">Component ID (path/name)</label>
-        <input #component-name type="text" placeholder="component name" id="componentName">
+        <label class="primary" for="componentName">Component ID (path/name)</label>
+        <input #component-name type="text" placeholder="enter name" id="componentName" required>
         <div #error-message></div>
 
     </div>

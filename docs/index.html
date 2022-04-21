@@ -218,25 +218,24 @@ blockquote span {
     margin-bottom: 25px;
 }
 .input-container label {
-    z-index: -1;
     position:absolute;
     top: 12px;
     left: 0;
     pointer-event: none!important;
     transition: all 0.15s ease-in-out;
 }
-.input-container input {
-    z-index: 0;
+.input-container input, input:not([type="checkbox"]):not([type="radio"]) {
+    z-index: 1;
     border:0;
     width: 100%;
     background: transparent;
     border-bottom: 1px solid;
     padding: 8px 0 5px 0;
 }
-.input-container input:focus {
+.input-container input:focus, input:focus:not([type="checkbox"]):not([type="radio"]) {
     border: none;
     outline: none;
-    border-bottom: 1px solid #bd0505!important;
+    border-bottom: 1px solid #bd0505;
 }
 .input-container input:focus ~ label,
 .input-container input:valid ~ label {
@@ -244,9 +243,37 @@ blockquote span {
     font-size: 80%;
     font-weight: bold;
 }
-.theme-dark .input-container input:valid {
-    border-bottom: 1px solid;
-    border-bottom-color: var(--dark-color--primary)!important;
+
+
+[type=radio],
+[type=checkbox] {
+    -webkit-appearance: none;
+    -moz-appearance:    none;
+    appearance:         none;
+    border: solid 1px;
+}
+[type=radio],
+[type=checkbox] {
+    width: 22px!important;
+    height: 18px;
+    margin-left: 6px;
+    margin-right: 6px;
+    position: relative;
+    border: solid 1px;
+    border-radius: 2px;
+}
+[type=radio]:checked::before,
+[type=checkbox]:checked::before {
+    content: "";
+    width: 12px;
+    height: 10px;
+    position: absolute;
+    top: 3px;
+    left: 4px;
+}
+[type=radio],
+[type=radio]:checked::before{
+    border-radius: 100%;
 }
 
 :root {
@@ -316,12 +343,24 @@ code:not([class*=language-]), pre:not([class*=language-]) {
 .background {
     background-color: var(--lite-color);
 }
-.input-container input {
+.input-container input,  input {
   color: var(--lite-color-text);
   border-bottom-color: var(--lite-color--primary);
 }
-.input-container input:valid {
+.input-container input:valid,  input:valid {
   border-bottom-color: var(--lite-color--primary)!important;
+}
+
+[type=radio]:checked::before,
+
+[type=checkbox]:checked::before {
+    background-color: var(--lite-color--accent);
+}
+
+[type=radio],
+
+[type=checkbox] {
+    border-color: var(--lite-color--primary);
 }
 
 /*========================*\
@@ -371,34 +410,47 @@ body.theme-dark {
 .theme-dark .background {
     background-color: var(--dark-color);
 }
-.theme-dark .input-container input {
+.theme-dark .input-container input, .theme-dark  input {
   color: var(--dark-color-text);
   border-bottom-color: var(--dark-color--primary);
 }
-.theme-dark .input-container input:valid {
+.theme-dark .input-container input:valid, .theme-dark  input:valid {
   border-bottom-color: var(--dark-color--primary)!important;
+}
+.theme-dark 
+[type=radio]:checked::before,
+.theme-dark 
+[type=checkbox]:checked::before {
+    background-color: var(--dark-color--accent);
+}
+.theme-dark 
+[type=radio],
+.theme-dark 
+[type=checkbox] {
+    border-color: var(--dark-color--primary);
 }
 
 /*
 ---------------------------------
  */
 
-.theme-toggle {
+.theme-toggle[type=checkbox] {
     margin: 0;
     --size: 32px;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     outline: none;
+    border: none;
     cursor: pointer;
-    width: var(--size);
-    height: var(--size);
+    width: var(--size)!important;
+    height: var(--size)!important;
     box-shadow: inset calc(var(--size) * 0.33) calc(var(--size) * -0.25) 0;
     border-radius: var(--size);
     transition: all 500ms;
     color: var(--lite-nav-color-text);
 }
-.theme-toggle:checked {
+.theme-toggle[type=checkbox]:checked {
     --ray-size: calc(var(--size) * -0.4);
     --offset-orthogonal: calc(var(--size) * 0.65);
     --offset-diagonal: calc(var(--size) * 0.45);
@@ -413,6 +465,10 @@ body.theme-dark {
         calc(var(--offset-diagonal) * -1) var(--offset-diagonal) 0 var(--ray-size),
         var(--offset-diagonal) calc(var(--offset-diagonal) * -1) 0 var(--ray-size);
     color: var(--dark-nav-color-text);
+    background-color: transparent!important;
+}
+.theme-toggle[type=checkbox]:checked::before {
+    background-color: transparent!important;
 }
 
 /* ----- MENU OVERLAY COMPONENT ----- */
@@ -428,4 +484,8 @@ body.theme-dark {
 }
 .theme-dark [z-load*="/components/menu-overlay"] div[z-field="menu_overlay"] {
     background: radial-gradient(circle at bottom, black, #000000dd, #00000077, transparent)!important;
-}</style><body layout="column stretch-center" ctrl="" z-load="@lib/controllers/header-auto-hide" data-o-header="header-bar" z-lazy="scroll"><nav layout="row top-center" #header-bar=""><div self="size-large stretch" layout="row center-center" style="gap: 8px;"><a class="icon-button" aria-label="Home" href="/zuix-web-starter/"><!-- put your logo here --> <svg width="48px" height="48px" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M12 5.69l5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"></path></svg></a><div self="size-x1"><h1 class="title">Web Starter</h1><div class="subtitle">Home</div></div><a class="icon-button" href="/zuix-web-starter/search"><svg width="48px" height="48px" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg></a><div style="padding-top: 4px; padding-right: 4px"><input class="theme-toggle" type="checkbox" aria-label="Toggle theme" checked></div></div></nav><main self="size-large"><h1>Hello world!</h1><p>Welcome to <code>zuix-web-starter</code>, code base of a set of ready to use templates powered by <a href="https://zuixjs.org">zuix.js</a>, a lightweight library for creating components-based websites and applications.<h2>Contents</h2><h2>- <a href="/zuix-web-starter/content/docs/">Documentation</a></h2><h2>Live editing component!</h2><p>When browsing the site in development mode (<code>NODE_ENV !== 'production'</code>), the <code>zuix-editor</code> button will be always visible in the lower right corner of every page.<p>Tap it to popup editing options, to add new pages and sections, edit or delete existing ones, directly in the browser.<h3>Try <code>zuix-web-starter</code> on &gt;&gt; <a href="https://stackblitz.com/github/zuixjs/zuix-web-starter/?view=preview">StackBlitz</a> &lt;&lt;</h3></main><footer #footer="" layout="column bottom-center" style="min-height: 200px;"><div self="size-large" layout="rows top-justify"><section><div><strong>Web Starter</strong></div><ul><li><a href="/zuix-web-starter/">Home</a><li><a href="/zuix-web-starter/content/docs/">Documentation</a></ul></section><section><div><strong>Links</strong></div><ul><li><a href="https://zuixjs.org">zuix.js docs</a><li><a href="https://zuixjs.github.io/zkit">zKit components</a><li><a href="https://11ty.dev/docs">11ty site generator docs</a></ul></section></div><div self="size-large" layout="row sm-column center-spread" style="padding: 12px;"><a self="left" href="https://pagespeed.web.dev/report?url=https://zuixjs.github.io/zuix-web-starter//"><div layout="row center-left" style="gap: 8px;"><img width="24" height="24" alt="PageSpeed Insight logo" src="/zuix-web-starter/images/page-speed-insight-icon.png"> <span>PageSpeed Insight</span></div></a><div self="right">powered by <a href="https://zuixjs.github.io/zkit"><strong>zKit</strong></a> and <a href="https://zuixjs.org"><strong>zuix⚡js</strong></a></div></div></footer><div z-load="@lib/components/menu-overlay" z-context="menu-overlay" data-o-position="center" data-o-before="footer"><div #items=""><code>-~=(Web Starter)=~-</code> <a href="/zuix-web-starter/">Home</a> | <a href="/zuix-web-starter/content/docs/">Documentation</a> |</div></div><script>function themeSetup(){const n=zuix.$(document.body),o=n.find(".theme-toggle"),r="theme-dark",a="app.theme";function e(e){var t=e?o.checked():"true"===localStorage.getItem(a);e||o.checked(t),t?n.addClass(r):n.removeClass(r),localStorage.setItem(a,String(t))}o.on("change",e),e()}function processExternalLinks(e){zuix.$(e).find('a[href*="://"]').attr("target","_blank").attr("rel","noreferrer")}zuix.lazyLoad(!0),themeSetup(),zuix.hook("view:process",function(e){processExternalLinks(e)}),processExternalLinks(document)</script><!-- zUIx.js inline resources bundle --><script src="index.bundle.js"></script><!-- zUIx.js inline resources bundle --><script src="index.bundle.ext.js"></script>
+}</style><body layout="column stretch-center" ctrl="" z-load="@lib/controllers/header-auto-hide" data-o-header="header-bar" z-lazy="scroll"><nav layout="row top-center" #header-bar=""><div self="size-large stretch" layout="row center-center" style="gap: 8px;"><a class="icon-button" aria-label="Home" href="/zuix-web-starter/"><!-- put your logo here --> <svg width="48px" height="48px" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M12 5.69l5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"></path></svg></a><div self="size-x1"><h1 class="title">Web Starter</h1><div class="subtitle">Home</div></div><a class="icon-button" href="/zuix-web-starter/search"><svg width="48px" height="48px" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg></a><div style="padding-top: 4px; padding-right: 4px"><input class="theme-toggle" type="checkbox" aria-label="Toggle theme" checked></div></div></nav><main self="size-large"><h1>Hello world!</h1><p>Welcome to <code>zuix-web-starter</code>, code base of a set of ready to use templates powered by <a href="https://zuixjs.org">zuix.js</a>, a lightweight library for creating components-based websites and applications.<h2>Contents</h2><h2>- <a href="/zuix-web-starter/content/docs/">Documentation</a></h2><h2>Live editing component!</h2><p>When browsing the site in development mode (<code>NODE_ENV !== 'production'</code>), the <code>zuix-editor</code> button will be always visible in the lower right corner of every page.</p><!--
+<div layout="row center-center">
+  <video src="/zuix-web-starter/images/web-starter-editor.webm" style="border: solid 1px; width: 100%; max-width: 640px" autoplay controls />
+</div>
+--><p>Tap it to popup editing options, to add new pages and sections, edit or delete existing ones, directly in the browser.<h3>Try <code>zuix-web-starter</code> on &gt;&gt; <a href="https://stackblitz.com/github/zuixjs/zuix-web-starter/?view=preview">StackBlitz</a> &lt;&lt;</h3></main><footer #footer="" layout="column bottom-center" style="min-height: 200px;"><div self="size-large" layout="rows top-justify"><section><div><strong>Web Starter</strong></div><ul><li><a href="/zuix-web-starter/">Home</a><li><a href="/zuix-web-starter/content/docs/">Documentation</a></ul></section><section><div><strong>Links</strong></div><ul><li><a href="https://zuixjs.org">zuix.js docs</a><li><a href="https://zuixjs.github.io/zkit">zKit components</a><li><a href="https://11ty.dev/docs">11ty site generator docs</a></ul></section></div><div self="size-large" layout="row sm-column center-spread" style="padding: 12px;"><a self="left" href="https://pagespeed.web.dev/report?url=https://zuixjs.github.io/zuix-web-starter//"><div layout="row center-left" style="gap: 8px;"><img width="24" height="24" alt="PageSpeed Insight logo" src="/zuix-web-starter/images/page-speed-insight-icon.png"> <span>PageSpeed Insight</span></div></a><div self="right">powered by <a href="https://zuixjs.github.io/zkit"><strong>zKit</strong></a> and <a href="https://zuixjs.org"><strong>zuix⚡js</strong></a></div></div></footer><div z-load="@lib/components/menu-overlay" z-context="menu-overlay" data-o-position="center" data-o-before="footer"><div #items=""><code>-~=(Web Starter)=~-</code> <a href="/zuix-web-starter/">Home</a> | <a href="/zuix-web-starter/content/docs/">Documentation</a> |</div></div><script>function themeSetup(){const n=zuix.$(document.body),o=n.find(".theme-toggle"),r="theme-dark",a="app.theme";function e(e){var t=e?o.checked():"true"===localStorage.getItem(a);e||o.checked(t),t?n.addClass(r):n.removeClass(r),localStorage.setItem(a,String(t))}o.on("change",e),e()}function processExternalLinks(e){zuix.$(e).find('a[href*="://"]').attr("target","_blank").attr("rel","noreferrer")}zuix.lazyLoad(!0),themeSetup(),zuix.hook("view:process",function(e){processExternalLinks(e)}),processExternalLinks(document)</script><!-- zUIx.js inline resources bundle --><script src="index.bundle.js"></script><!-- zUIx.js inline resources bundle --><script src="index.bundle.ext.js"></script>

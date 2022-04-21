@@ -1,5 +1,6 @@
 input {
     width: 100%;
+    padding-top: 0;
 }
 
 .menu-item svg {
@@ -84,10 +85,12 @@ input {
     margin: 8px;
     box-sizing: border-box;
     border: 32px solid;
-    border-top-color: transparent;
-    border-bottom-color: transparent;
+    border-color: var(--lite-color--accent);
+    border-top-color: var(--lite-color);
+    border-bottom-color: var(--lite-color);
     animation: lds-hourglass 1.2s infinite;
 }
+
 @keyframes lds-hourglass {
     0% {
         transform: rotate(0);

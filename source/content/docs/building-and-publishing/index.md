@@ -3,12 +3,14 @@ layout: basic.liquid
 options: highlight ext-links
 tags: docs
 group: docs
-order: 40
+order: 10
 coverPreview: ./images/cover-preview.png
 coverImage: ./images/cover.png
 coverUrl: https://artsandculture.google.com/asset/abstraction-marsden-hartley/7wGQVSmygTjslg
 title: Building for production
 description: Building for production and publishing online.
+author: Gene
+pubDate: 2022-04-05
 keywords:
 - zuix
 - web starter

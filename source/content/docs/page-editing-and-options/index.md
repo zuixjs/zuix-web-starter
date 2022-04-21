@@ -3,12 +3,14 @@ layout: basic.liquid
 options: highlight ext-links
 tags: docs
 group: docs
-order: 20
+order: 30
 coverPreview: ./images/cover-preview.png
 coverImage: ./images/cover.png
 coverUrl: https://artsandculture.google.com/asset/meadow-with-poppies/SwEgfZYCYPZimw
 title: Page editing and options
 description: Layout, front matter options and custom liquid tags.
+author: Gene
+pubDate: 2022-04-05
 keywords:
 - zuix
 - web starter
