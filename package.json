@@ -38,7 +38,7 @@
     "zuix-dist": "^1.0.35"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^2.0.0-canary.6",
+    "@11ty/eleventy": "^2.0.0-canary.8",
     "@11ty/eleventy-plugin-syntaxhighlight": "^4.0.0",
     "@11ty/eleventy-server-browsersync": "^1.0.2",
     "capture-console": "^1.0.1",
@@ -47,7 +47,7 @@
     "codemirror": "^5.65.2",
     "compression": "^1.7.4",
     "config": "^3.3.7",
-    "eslint": "^8.13.0",
+    "eslint": "^8.14.0",
     "eslint-config-google": "^0.14.0",
     "jsdom": "^19.0.0",
     "less": "^4.1.2",

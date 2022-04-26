@@ -5,7 +5,7 @@ const nunjucks = require('nunjucks');
 
 module.exports = function(collection) {
   const baseUrl = this.ctx.app.baseUrl;
-  const pages = collection.map(function(page) {
+  const pages = collection.filter((page) => page.url !== false).map((page) => {
     const data = {content: page.template.frontMatter.content};
     const content = nunjucks
         .renderString('{{ content | striptags }}', data)
@@ -18,7 +18,7 @@ module.exports = function(collection) {
       image = path.join(baseUrl, image);
     }
     return {
-      url: path.join(baseUrl, page.url),
+      url: path.join(baseUrl, page.url !== false ? page.url : '/'),
       date: page.template.frontMatter.data.pubDate,
       title: page.template.frontMatter.data.title,
       description: page.template.frontMatter.data.description,

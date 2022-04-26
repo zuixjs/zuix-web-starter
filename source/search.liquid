@@ -32,7 +32,7 @@ description: Search this website
         //findAllMatches: true,
         keys: ['title', 'description', 'content']
       }
-      /** @type {elasticlunr.Index} searchIndex */
+
       fetch('{{ app.baseUrl }}search-index.json').then((indexResponse) =>
         indexResponse.json().then((searchIndex) => {
           fetch('{{ app.baseUrl }}search-list.json').then((listResponse) =>
@@ -44,6 +44,7 @@ description: Search this website
           );
         })
       );
+
       // update results list on 'keydown'
       $searchInput.on('keyup search', (e, v) => {
         if (!searchEngine) {
@@ -83,17 +84,17 @@ description: Search this website
 
 <!--Inline list item template -->
 <div z-view="inline/result-item-view">
-    <div layout="row top-justify">
+    <div layout="row center-justify">
         <div self="size-x1">
-            <a #url><h3 #title>Item title</h3></a>
-            <p #description self="size-x1">Description</p>
+            <a #url><h3 #title>Untitled</h3></a>
+            <p #description self="size-x1">No description provided.</p>
         </div>
-        <a #url><img #image style="max-width: 150px; height:80px" /></a>
+        <a #url><img #image /></a>
     </div>
 </div>
 <style media="#inline/result-item-view">
     :host {
-
+        margin-bottom: 24px;
     }
     h3 {
         margin: 0;
@@ -104,19 +105,27 @@ description: Search this website
     }
     p {
         margin-top: 6px;
-        margin-bottom: 32px;
+        margin-bottom: 6px;
     }
     img {
         border-radius: 4px;
         margin: 8px;
+        height: 80px;
+        width: auto;
     }
     @media only screen and (max-width: 600px) {
+        p {
+            font-size: 88%;
+        }
         div {
             font-size: 88%;
             margin-bottom: 0;
         }
+        img {
+            height: 50px;
+        }
     }
 </style>
 
-<!--elasticlunr JS -->
+<!-- Fuse JS -->
 <script src="{{ '/js/fuse/fuse.min.js' | url }}" defer async></script>

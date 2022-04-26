@@ -1,6 +1,6 @@
 body {
     font-family: "Times New Roman", Times, Georgia, "Bookman Old Style", serif;
-    font-size: 0.9em;
+    font-size: 1.0em;
     margin: 0;
 }
 
@@ -36,7 +36,7 @@ main p {
     font-family: 'Helvetica Neue', Helvetica, sans-serif;
     line-height: 140%;
 }
-main img.cover {
+main img.image-cover {
     margin-top: 2px;
     /*margin-top: 24px;
     border-top-left-radius: 12px;
@@ -166,98 +166,4 @@ blockquote span {
 }
 .icon-button:active svg {
     transform: scale(97%);
-}
-
-.button {
-    cursor: pointer;
-    display: flex;
-    padding: 6px;
-    height: 48px;
-    align-items: center;
-    border-radius: 6px;
-    background-color: #bbbbbb15;
-    box-shadow: 0 1px 4px 0 #00000055;
-    transition-property: background-color, box-shadow;
-    transition: 0.1s ease-in-out;
-}
-.button:hover {
-    background-color: #bbbbbb1a;
-    box-shadow: 0 3px 8px 0 #00000055;
-}
-.theme-dark .button:hover {
-    box-shadow: 0 0 6px 2px var(--dark-color-text);
-}
-.button:active {
-    background-color: #bbbbbb26;
-    box-shadow: 0 0 2px 0 #00000055;
-}
-.button[disabled] {
-    cursor: not-allowed;
-    opacity: 0.5;
-    box-shadow: 0 0 0 0 #00000055;
-}
-
-/* from https://codepen.io/nikstech/pen/xmMxpr */
-
-.input-container {
-    position: relative;
-    margin-bottom: 25px;
-}
-.input-container label {
-    position:absolute;
-    top: 12px;
-    left: 0;
-    pointer-event: none!important;
-    transition: all 0.15s ease-in-out;
-}
-.input-container input, input:not([type="checkbox"]):not([type="radio"]) {
-    z-index: 1;
-    border:0;
-    width: 100%;
-    background: transparent;
-    border-bottom: 1px solid;
-    padding: 8px 0 5px 0;
-}
-.input-container input:focus, input:focus:not([type="checkbox"]):not([type="radio"]) {
-    border: none;
-    outline: none;
-    border-bottom: 1px solid #bd0505;
-}
-.input-container input:focus ~ label,
-.input-container input:valid ~ label {
-    top: -14px;
-    font-size: 80%;
-    font-weight: bold;
-}
-
-
-[type=radio],
-[type=checkbox] {
-    -webkit-appearance: none;
-    -moz-appearance:    none;
-    appearance:         none;
-    border: solid 1px;
-}
-[type=radio],
-[type=checkbox] {
-    width: 22px!important;
-    height: 18px;
-    margin-left: 6px;
-    margin-right: 6px;
-    position: relative;
-    border: solid 1px;
-    border-radius: 2px;
-}
-[type=radio]:checked::before,
-[type=checkbox]:checked::before {
-    content: "";
-    width: 12px;
-    height: 10px;
-    position: absolute;
-    top: 3px;
-    left: 4px;
-}
-[type=radio],
-[type=radio]:checked::before{
-    border-radius: 100%;
 }

@@ -2,51 +2,97 @@
  * @param cp {ContextController}
  */
 function zuixEditor(cp) {
-  let _data;
+  const _browserSync = ___browserSync___;
+
+  let btnAddPage;
+  let btnEditPage;
+  let btnDeletePage;
+  let btnAddComponent;
+  let brnRebuildAll;
+
   let modalView;
+  let editMode = {};
+  let actionResult = null;
+
   cp.create = function() {
     modalView = cp.view('.container')
         .hide();
     handleActionResult();
 
+    btnAddPage = cp.field('add-page');
+    btnEditPage = cp.field('edit-page');
+    btnDeletePage = cp.field('delete-page');
+    btnAddComponent = cp.field('add-component');
+    brnRebuildAll = cp.field('rebuild-all');
+
     zuix.context('add-page-dialog', function(addPageDialog) {
-      cp.field('add-page').on('click', function(e, $el) {
-        addPageDialog.open(_data, $el);
+      btnAddPage.on('click', function(e, $el) {
+        addPageDialog.open(editMode.data, $el);
       });
     });
 
     zuix.context('delete-page-dialog', function(deletePageDialog) {
-      cp.field('delete-page').on('click', function(e, $el) {
-        deletePageDialog.open(_data, $el);
+      btnDeletePage.on('click', function(e, $el) {
+        deletePageDialog.open(editMode.data, $el);
       });
     });
 
     zuix.context('create-component-dialog', function(createComponentDialog) {
-      cp.field('add-component').on('click', function(e, $el) {
-        createComponentDialog.open(_data, $el);
+      btnAddComponent.on('click', function(e, $el) {
+        createComponentDialog.open(editMode.data, $el);
       });
     });
 
-    cp.field('edit-page').on('click', function() {
-      const editUrl = '/editor/#' + location.pathname;
+    btnEditPage.on('click', function() {
+      const data = editMode.data;
+      if (editMode && data.host && data.page.url) {
+        const editUrl = '/editor/#' + data.page.url;
+        data.host.location.replace(editUrl);
+        return;
+      }
+      const editUrl = '/editor/#' + data.page.url;
       let isEditorOpen = false;
       try {
         isEditorOpen = parent.location.pathname === '/editor/';
       } catch (e) { }
-      if (isEditorOpen) {
+      if (isEditorOpen) { // || top !== window) {
         parent.location.replace(editUrl);
       } else {
         document.location.replace(editUrl);
       }
     });
+    brnRebuildAll.on('click', function() {
+      if (_browserSync) {
+        showWaitingSpinner();
+        showModal();
+        _browserSync.socket.emit('zuix:buildAll');
+      }
+    });
+
+    _browserSync.socket.on('zuix:build:done', function() {
+      _browserSync.socket.disconnect();
+      cp.trigger('zuix:action:result', actionResult);
+      actionResult = null;
+      hideModal();
+    });
 
     cp.expose({
-      data: {
-        get() {
-          return _data;
-        },
-        set(obj) {
-          _data = obj;
+      mode: function(m) {
+        if (m) {
+          editMode = m;
+          editMode.editPage ? btnEditPage.show() : btnEditPage.hide();
+          editMode.deletePage ? btnDeletePage.show() : btnDeletePage.hide();
+          editMode.addPage ? btnAddPage.show() : btnAddPage.hide();
+          editMode.addComponent ? btnAddComponent.show() : btnAddComponent.hide();
+          editMode.rebuildAll ? brnRebuildAll.show() : brnRebuildAll.hide();
+          if (editMode.hidden) {
+            cp.view().hide();
+          } else {
+            cp.view().show();
+          }
+          return cp.context;
+        } else {
+          return editMode;
         }
       },
       dialogBehavior: {
@@ -69,6 +115,11 @@ function zuixEditor(cp) {
         },
         'error': function() {
           hideWaitingSpinner();
+        },
+        'success': function(e, ar) {
+          this.hide();
+          actionResult = ar;
+          cp.trigger('zuix:action:progress', actionResult);
         },
         'keydown': function(e) {
           if (e.key === 'Escape') {

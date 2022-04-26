@@ -15,10 +15,7 @@ function deletePageDialog(cp) {
 
     if (_browserSync) {
       _browserSync.socket.on('zuix:deletePage:done', function(redirectUrl) {
-        if (redirectUrl === '/content') {
-          redirectUrl ='/';
-        }
-        document.location.href = redirectUrl + '#waitReload';
+        cp.trigger('success', {action: 'delete-page', data: _data, redirect: redirectUrl});
       });
     }
   }
@@ -32,6 +29,8 @@ function deletePageDialog(cp) {
     });
     cp.view().show();
     cp.trigger('open', $opener);
+    cp.field('delete-btn')
+        .attr({disabled: null});
     cp.field('cancel-btn')
         .get().focus();
     return cp.context;
@@ -54,7 +53,10 @@ function deletePageDialog(cp) {
     $btn.attr({disabled: true});
     let result;
     if (_browserSync) {
-      result = _browserSync.socket.emit('zuix:deletePage', _data);
+      if (_browserSync.socket.disconnected) {
+        _browserSync.socket.connect();
+      }
+      result = _browserSync.socket.emit('zuix:deletePage', {page: _data.page});
     }
     if (result) {
       cp.trigger('waiting');

@@ -99,6 +99,11 @@ a {
 [type=checkbox] {
     border-color: var(--{{ theme }}-color--primary);
 }
+{{ tc }}
+button {
+    color: var(--{{ theme }}-color-text);
+    fill: var(--{{ theme }}-color-text);
+}
 {% endfor %}
 /*
 ---------------------------------
@@ -142,12 +147,12 @@ a {
 }
 
 /* ----- MENU OVERLAY COMPONENT ----- */
-[z-context="menu-overlay"] .circle-button {
+[z-load*="/components/menu-overlay"] .circle-button {
     border: solid 1px var(--lite-color);
     background-color: var(--lite-nav-color)!important;
     fill: var(--lite-nav-color-text)!important;
 }
-.theme-dark [z-context="menu-overlay"] .circle-button {
+.theme-dark [z-load*="/components/menu-overlay"] .circle-button {
     border: solid 1px var(--dark-color);
     background-color: var(--dark-nav-color)!important;
     fill: var(--dark-nav-color-text)!important;

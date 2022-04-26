@@ -3,7 +3,6 @@
  */
 function createComponentDialog(cp) {
   const _browserSync = ___browserSync___;
-  let _data;
   cp.create = onCreate;
 
   function onCreate() {
@@ -37,7 +36,6 @@ function createComponentDialog(cp) {
   }
 
   function open(data, $opener) {
-    _data = data;
     setError('');
     showMainDialog();
     cp.trigger('open', $opener);

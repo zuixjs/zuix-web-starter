@@ -1,6 +1,7 @@
 {% include "head_open.liquid" %}
 <style>
 {% include "./basic/style.css" %}
+{% include "./common/forms.css" %}
 {% include "./common/theme.css.liquid" %}
 </style>
 {% include "head_close.html" %}
@@ -39,7 +40,10 @@
 <main self="size-{{ layout_size }}">
 
     {% if coverImage -%}
-        <img src="{{ coverImage }}" alt="Cover image" class="cover">
+        <div self="size-large" style="position: relative;width: 100%;;display: block">
+            <img class="image-cover" src="{{ coverPreview }}" alt="Cover image preview" style="position: absolute;display: block">
+            <img class="image-cover" src="{{ coverImage }}" alt="Cover image" style="position: relative;display: block; z-index: 1">
+        </div>
     {%- endif %}
 
     {% if title and false == options contains 'no-title' %}
@@ -70,17 +74,7 @@
 
 </div>
 
-{% if app.environment == 'default' or app.environment == 'development' -%}
-<div z-load="cms/zuix-editor" z-context="zuix-editor" z-lazy="false" class="visible-on-ready">
-    <div #sections>
-        {% for s in collections.sections %}
-            <div>
-                <div #name>{{ s.data.group }}</div>
-            </div>
-        {% endfor %}
-    </div>
-</div>
-{%- endif %}
+{% include '../fragments/zuix-editor.liquid' %}
 
 {% include "body_end.liquid" %}
 <script>

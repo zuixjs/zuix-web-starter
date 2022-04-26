@@ -1,39 +1,46 @@
 //window.__zuix__debug = true;
 zuix.lazyLoad(true);
-themeSetup();
+{% include '../common/theme.js' %}
 
-function themeSetup() {
-  const doc = zuix.$(document.body);
-  const toggle = doc.find('.theme-toggle');
-  const themeDark = 'theme-dark';
-  const storeKey = 'app.theme';
-  toggle.on('change', toggleTheme);
-  toggleTheme();
-  function toggleTheme(ev) {
-    const checked = ev ?
-        toggle.checked() :
-        localStorage.getItem(storeKey) === 'true';
-    !ev && toggle.checked(checked);
-    checked ? doc.addClass(themeDark) : doc.removeClass(themeDark);
-    localStorage.setItem(storeKey, String(checked));
-  }
-}
 {% if options contains 'ext-links' -%}
-function processExternalLinks(view) {
-  // Force opening of all non-local links in a new window
-  zuix.$(view).find('a[href*="://"]')
-      .attr('target', '_blank')
-      .attr('rel', 'noreferrer');
+{% include '../common/external-links.js'  %}
+{% endif %}
+
+{% if zuixEditor -%}
+// zuix-editor events handling
+zuix.context('zuix-editor', function(ed) {
+  const data = ed.data;
+  if (data.tags && data.tags.indexOf('sections') !== -1) {
+    data.section = data.group;
+  }
+  setEditorData(ed.data);
+  ed.on({
+    'zuix:action:progress': function(e, ar) {
+      if (ar.action === 'delete-page' && !ar.data.section) {
+        document.location.href = ar.redirect;
+      }
+    },
+    'zuix:action:result': function(e, ar) {
+      if (ar) {
+        switch(ar.action) {
+          case 'add-page':
+            document.location.href = ar.url;
+            break;
+          case 'delete-page':
+            if (ar.data.section) { // whole section
+              document.location.href = data.app.baseUrl;
+            } else { // single page
+              refresh();
+            }
+            break;
+        }
+      } else {
+        refresh();
+      }
+    }
+  });
+});
+function refresh(scrollTop) {
+  document.location.reload();
 }
-zuix.hook('view:process', function(view) {
-  processExternalLinks(view);
-});
-processExternalLinks(document);
-{% endif %}
-{% if app.environment == 'default' or app.environment == 'development' -%}
-var zuixEditor = null;
-zuix.context('zuix-editor', function(ctx) {
-  zuixEditor = ctx
-  zuixEditor.data = {{ eleventyComputed._data | json }};
-});
-{% endif %}
+{% endif -%}

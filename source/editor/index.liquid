@@ -26,7 +26,6 @@ eleventyExcludeFromCollections: true
     <script src="{{ '/config.js' | url }}"></script>
 
     <style>
-        {% include "layouts/basic/style.css" %}
         {% include "layouts/common/theme.css.liquid" %}
     </style>
 
@@ -254,6 +253,9 @@ eleventyExcludeFromCollections: true
     });
     browserSync.socket.on('zuix:build:done', function() {
       browserSync.socket.disconnect();
+      if (parent.refresh) {
+          parent.refresh();
+      }
     });
     browserSync.socket.on('zuix:eleventy:error', function(err) {
       pendingSaveResponse = false;
@@ -276,6 +278,10 @@ eleventyExcludeFromCollections: true
       return previewFrame.contentWindow.zuixEditor;
     }, function(zed) {
       zuixEditor = zed;
+      if (parent.setEditorData) {
+          zuixEditor.data.host = previewFrame.contentWindow;
+          parent.setEditorData(zuixEditor.data, true);
+      }
       document.location.hash = previewFrame.contentWindow.location.pathname;
       if (browserSync) {
         if (browserSync.socket.connected) {

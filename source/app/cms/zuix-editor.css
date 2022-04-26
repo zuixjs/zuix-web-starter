@@ -47,7 +47,7 @@ input {
 .dialog h2 {
     margin-top: 0;
 }
-.dialog .content {
+.dialog .dialog-content {
     width: auto;
     gap: 12px;
     margin-bottom: 12px;

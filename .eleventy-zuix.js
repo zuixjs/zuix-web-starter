@@ -57,9 +57,6 @@ const contentSourceFolder = path.join(sourceFolder, contentFolder);
 const contentBuildFolder = path.join(buildFolder, contentFolder)
 const dataFolder = zuixConfig.get('build.dataFolder');
 const includesFolder = zuixConfig.get('build.includesFolder');
-// this file is a temporary file create to trigger 11ty build
-const triggerFile = path.join(sourceFolder, '.zuix.build.md');
-const triggerFileOut = path.join(buildFolder, '.zuix.build.tmp');
 // replace {{variables}} eventually employed in the config
 zuixConfig = JSON.parse(nunjucks.renderString(JSON.stringify(zuixConfig), zuixConfig));
 
@@ -67,7 +64,7 @@ const normalizeMarkup = (s) => s.trim().split('\n').filter((l) => {
   if (l.trim().length > 0) {
     return l;
   }
-}).map((l) => l.trim()).join(' ');
+}).map((l) => l.trim()).join('\n');
 
 function getZuixConfig() {
   return {
@@ -115,70 +112,76 @@ function startWatcher(eleventyConfig, browserSync) {
   });
   const includes = path.join(sourceFolder, includesFolder);
   const allFilesWatcher = chokidar.watch([sourceFolder]).on('all', (event, file, stats) => {
-    if (event.startsWith('unlink') && file !== triggerFile) {
-      forceRebuild();
+    if (event.startsWith('unlink')) {
+      forceRebuild(200);
     } else if (!file.startsWith(includes) && file.indexOf(path.join('/', '_inc', '/')) !== -1) {
-      forceRebuild();
+      forceRebuild(200);
     }
   });
   setupSocketApi(browserSync);
 }
 
 function setupSocketApi(browserSync) {
-  // WebSocket API
+  // zuix-browser-sync WebSocket API
   if (browserSync && !io) {
     io = browserSync.instance.io;
     io.on('connection', (socket) => {
       socket.on('zuix:loadContent', (request) => {
-        const content = fs.readFileSync(request.path);
-        request.content = content.toString('utf8');
-        io.emit('zuix:loadContent:done', request);
-        console.log('zuix:loadContent', request.path);
+        cmsLog('zuix:loadContent', request.path);
+        fs.readFile(request.path, (err, content) => {
+          if (!err) {
+            request.content = content.toString('utf8');
+            ioEmit('zuix:loadContent:done', request);
+          } else {
+            ioEmit('zuix:loadContent:error', err.message);
+          }
+        });
       });
       socket.on('zuix:saveContent', (request) => {
+        cmsLog('zuix:saveContent', request.path);
         fs.writeFile(request.path, request.content, () => {
-          io.emit('zuix:saveContent:done', {path: request.path});
-          // forceRebuild(3000); // <--- this is a patch to the fact sometimes 11ty doesn't rebuild
-          console.log('zuix:saveContent', request.path);
+          ioEmit('zuix:saveContent:done', {path: request.path});
+          forceRebuild(2000); // <--- TODO: this is a patch to the fact sometimes 11ty doesn't rebuild
         });
       });
       socket.on('zuix:addPage', (data) => {
-        browserSync.notify('Adding new page...');
+        cmsLog('zuix:addPage', data);
         addPage(data).then(() => {
           const redirectUrl = zuixConfig.app.baseUrl + contentFolder + '/' + data.section + '/';
-          io.emit('zuix:addPage:done', redirectUrl);
+          ioEmit('zuix:addPage:done', redirectUrl);
+          forceRebuild(2000); // <--- TODO: this is a patch to the fact sometimes 11ty doesn't rebuild
         }).catch((err) => {
-          io.emit('zuix:addPage:error', err.message);
+          ioEmit('zuix:addPage:error', err.message);
         });
-        console.log('zuix:addPage', data);
       });
       socket.on('zuix:deletePage', (data) => {
-        browserSync.notify('Deleting page...');
+        cmsLog('zuix:deletePage', data.page.outputPath, path.resolve(data.page.url, '..'));
         try {
           if (data.page.filePathStem.endsWith('/index')) {
             // delete folder too
             fs.rmSync(path.resolve(data.page.inputPath, '..'), { recursive: true, force: true });
             fs.rmSync(path.resolve(data.page.outputPath, '..'), { recursive: true, force: true });
+          } else {
+            // delete single file
+            fs.rmSync(data.page.inputPath);
           }
           const redirectUrl = path.resolve(data.page.url, '..');
-          io.emit('zuix:deletePage:done', redirectUrl);
-          forceRebuild(); // <--- this is a patch to the fact sometimes 11ty doesn't rebuild
+          ioEmit('zuix:deletePage:done', redirectUrl);
+          forceRebuild();
         } catch (e) {
-          console.log(e);
-          io.emit('zuix:deletePage:error', e);
+          ioEmit('zuix:deletePage:error', e);
         }
-        console.log('zuix:deletePage', data.page.outputPath, path.resolve(data.page.url, '..'));
       });
       socket.on('zuix:addComponent', (data) => {
         browserSync.notify('Adding component...');
         const handlePromise = (promise) => {
           promise.then((res) =>  {
             generateTemplate(res);
-            io.emit('zuix:addComponent:done', res);
+            ioEmit('zuix:addComponent:done', res);
           })
-          .catch((err) => {
-            io.emit('zuix:addComponent:error', err.message);
-          });
+            .catch((err) => {
+              ioEmit('zuix:addComponent:error', err.message);
+            });
         };
         if (data.view && data.ctrl) {
           handlePromise(generate('component', [data.name]));
@@ -188,6 +191,10 @@ function setupSocketApi(browserSync) {
           handlePromise(generate('controller', [data.name]));
         }
       });
+      socket.on('zuix:buildAll', (request) => {
+        cmsLog('zuix:buildAll');
+        forceRebuild(200);
+      });
     });
     // Errors notifying
     let errorObject = {
@@ -195,9 +202,12 @@ function setupSocketApi(browserSync) {
       message: '',
       debug: false
     }
+    // Eleventy console messages handling
     let errorNotifierTimeout = null;
     const errorNotifier = function() {
-      io.emit('zuix:eleventy:error', errorObject);
+      if (!errorObject.errors[0].startsWith('! ') && !errorObject.errors[0].startsWith(' Benchmark ')) {
+        ioEmit('zuix:eleventy:error', errorObject);
+      }
       errorObject.errors = [];
       errorObject.message = '';
       errorObject.debug = false;
@@ -221,16 +231,35 @@ function setupSocketApi(browserSync) {
     });
   }
 }
+function ioEmit(message, data) {
+  io.emit(message, data);
+  // log emitted data
+  let info = data ? ` (${JSON.stringify(data)})` : '';
+  if (data && data.page) {
+    info = ` (${data.page.outputPath} ${path.resolve(data.page.url, '..')})`;
+  } else if (data && data.path) {
+    info = ` (${data.path})`;
+  }
+  cmsLog(`${message}${info}`);
+}
+function cmsLog(...args) {
+  console.log(`[zuix-cms] ${args.join(' ')}`);
+}
 
 let forceRebuildTimeout = null;
 function forceRebuild(delay) {
   clearTimeout(forceRebuildTimeout);
   forceRebuildTimeout = setTimeout(() => {
-    fs.writeFileSync(triggerFile, `---
-permalink: .zuix.build.tmp
----
-Temporary file to trigger 11ty build`);
+    touch('.eleventy.js');
   }, delay);
+}
+function touch(filename) {
+  const time = new Date();
+  try {
+    fs.utimesSync(filename, time, time);
+  } catch (err) {
+    fs.closeSync(fs.openSync(filename, 'w'));
+  }
 }
 
 function initEleventyZuix(eleventyConfig) {
@@ -302,13 +331,8 @@ function initEleventyZuix(eleventyConfig) {
       // reverts to incremental build mode
       rebuildAll = false;
     }
-    // delete temporary build-trigger file if found
-    if (fs.existsSync(triggerFile)) {
-      fs.unlinkSync(triggerFile);
-      fs.unlinkSync(triggerFileOut);
-    }
     if (io) {
-      io.emit('zuix:build:done');
+      ioEmit('zuix:build:done');
     }
   });
   if (process.argv.indexOf('--serve') === -1) {
@@ -374,7 +398,6 @@ function generateTemplate(data) {
   if (!fs.existsSync(outputFile)) {
     mkdirp.sync(path.dirname(outputFile));
     fs.writeFileSync(outputFile, `const template = '${data.html}';
-
 module.exports = (render, content, linkUrl) => {
   return render(template, {content, linkUrl});
 };
@@ -459,10 +482,6 @@ function configure(eleventyConfig) {
     }
     // cssId already outputted for this page
     return '';
-  });
-
-  eleventyConfig.addShortcode('edit', function(fileName) {
-    return renderTemplate('', 'editable');
   });
 }
 
