@@ -4,6 +4,15 @@ function themeSetup() {
   const toggle = doc.find('.theme-toggle');
   const themeDark = 'theme-dark';
   const storeKey = 'app.theme';
+  const fadeColors = {
+    transition: 'color 300ms ease-in, background-color 300ms ease-in'
+  };
+  setTimeout(function() {
+    doc.css(fadeColors);
+    doc.find('header').css(fadeColors);
+    doc.find('nav').css(fadeColors);
+    doc.find('footer').css(fadeColors);
+  }, 100);
   toggle.on('change', toggleTheme);
   toggleTheme();
   function toggleTheme(ev) {

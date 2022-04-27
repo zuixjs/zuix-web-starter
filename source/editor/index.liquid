@@ -272,6 +272,9 @@ eleventyExcludeFromCollections: true
     loadContent();
   });
 
+  const connect = function() {
+    browserSync.socket.connect();
+  };
   document.querySelector('iframe').onload = function() {
     zuixEditor = null;
     waitObject(function() {
@@ -291,7 +294,7 @@ eleventyExcludeFromCollections: true
             pendingSaveResponse = false;
             loadContent();
           });
-          browserSync.socket.connect();
+          setTimeout(connect, 500);
         }
       }
     });

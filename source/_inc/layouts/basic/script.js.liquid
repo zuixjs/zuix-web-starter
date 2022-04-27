@@ -17,7 +17,7 @@ zuix.context('zuix-editor', function(ed) {
   ed.on({
     'zuix:action:progress': function(e, ar) {
       if (ar.action === 'delete-page' && !ar.data.section) {
-        document.location.href = ar.redirect;
+        document.location.href = ar.redirect + '#waitReload';
       }
     },
     'zuix:action:result': function(e, ar) {

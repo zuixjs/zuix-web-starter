@@ -195,8 +195,6 @@ blockquote span {
     border-radius: 6px;
     background-color: #bbbbbb15;
     box-shadow: 0 1px 4px 0 #00000055;
-    transition-property: background-color, box-shadow;
-    transition: 0.1s ease-in-out;
 }
 .button:hover {
     background-color: #bbbbbb1a;
@@ -308,14 +306,12 @@ body{
     background-color: var(--lite-color);
     color: var(--lite-color-text);
     font-weight: var(--lite-font--weigth);
-    transition: color 300ms ease-in, background-color 300ms ease-in;
 }
 nav, footer {
     background-color: var(--lite-nav-color);
     color: var(--lite-nav-color-text);
     fill: var(--lite-nav-color-text);
     box-shadow: 0 4px 6px 0 rgb(0 0 0 / 20%), 0 -4px 12px 0 rgb(0 0 0 / 20%);
-    transition: color 300ms ease-in, background-color 300ms ease-in;
 }
 nav svg, .menu-button svg {
     fill:var(--lite-nav-color-text);
@@ -380,14 +376,12 @@ body.theme-dark {
     background-color: var(--dark-color);
     color: var(--dark-color-text);
     font-weight: var(--dark-font--weigth);
-    transition: color 300ms ease-in, background-color 300ms ease-in;
 }
 .theme-dark nav, .theme-dark footer {
     background-color: var(--dark-nav-color);
     color: var(--dark-nav-color-text);
     fill: var(--dark-nav-color-text);
     box-shadow: 0 4px 6px 0 rgb(0 0 0 / 20%), 0 -4px 12px 0 rgb(0 0 0 / 20%);
-    transition: color 300ms ease-in, background-color 300ms ease-in;
 }
 .theme-dark nav svg, .theme-dark .menu-button svg {
     fill:var(--dark-nav-color-text);
@@ -527,4 +521,4 @@ button {
         }
         .theme-dark .navigation-title {
             color: var(--dark-color-text);
-        }</style><footer #footer="" layout="column bottom-center" style="min-height: 200px;"><div self="size-large" layout="rows top-justify"><section><div><strong>Web Starter</strong></div><ul><li><a href="/zuix-web-starter/">Home</a><li><a href="/zuix-web-starter/content/docs/">Documentation</a></ul></section><section><div><strong>Latest posts</strong></div><ul><li><a href="/zuix-web-starter/content/docs/getting-started/">Getting started</a><li><a href="/zuix-web-starter/content/docs/page-editing-and-options/">Page editing and options</a><li><a href="/zuix-web-starter/content/docs/liquid-tags/">Liquid tags and short codes</a><li><a href="/zuix-web-starter/content/docs/building-and-publishing/">Building for production</a></ul></section><section><div><strong>Links</strong></div><ul><li><a href="https://zuixjs.org">zuix.js docs</a><li><a href="https://zuixjs.github.io/zkit">zKit components</a><li><a href="https://11ty.dev/docs">11ty site generator docs</a></ul></section></div><div self="size-large" layout="row sm-column center-spread" style="padding: 12px;"><a self="left" href="https://pagespeed.web.dev/report?url=https://zuixjs.github.io/zuix-web-starter//content/docs/building-and-publishing/"><div layout="row center-left" style="gap: 8px;"><img width="24" height="24" alt="PageSpeed Insight logo" src="/zuix-web-starter/images/page-speed-insight-icon.png"> <span>PageSpeed Insight</span></div></a><div self="right">powered by <a href="https://zuixjs.github.io/zkit"><strong>zKit</strong></a> and <a href="https://zuixjs.org"><strong>zuix⚡js</strong></a></div></div></footer><div z-load="@lib/components/menu-overlay" z-context="menu-overlay" data-o-position="center" data-o-before="footer"><div #items=""><code>-~=(Web Starter)=~-</code> <a href="/zuix-web-starter/">Home</a> | <a href="/zuix-web-starter/content/docs/">Documentation</a> |</div></div><script>function themeSetup(){const n=zuix.$(document.body),o=n.find(".theme-toggle"),r="theme-dark",a="app.theme";function e(e){var t=e?o.checked():"true"===localStorage.getItem(a);e||o.checked(t),t?n.addClass(r):n.removeClass(r),localStorage.setItem(a,String(t))}o.on("change",e),e()}function processExternalLinks(e){zuix.$(e).find('a[href*="://"]').attr("target","_blank").attr("rel","noreferrer")}zuix.lazyLoad(!0),themeSetup(),zuix.hook("view:process",function(e){processExternalLinks(e)}),processExternalLinks(document)</script><!-- zUIx.js inline resources bundle --><script src="index.bundle.js"></script><!-- zUIx.js inline resources bundle --><script src="index.bundle.ext.js"></script>
+        }</style><footer #footer="" layout="column bottom-center" style="min-height: 200px;"><div self="size-large" layout="rows top-justify"><section><div><strong>Web Starter</strong></div><ul><li><a href="/zuix-web-starter/">Home</a><li><a href="/zuix-web-starter/content/docs/">Documentation</a></ul></section><section><div><strong>Latest posts</strong></div><ul><li><a href="/zuix-web-starter/content/docs/getting-started/">Getting started</a><li><a href="/zuix-web-starter/content/docs/page-editing-and-options/">Page editing and options</a><li><a href="/zuix-web-starter/content/docs/liquid-tags/">Liquid tags and short codes</a><li><a href="/zuix-web-starter/content/docs/building-and-publishing/">Building for production</a></ul></section><section><div><strong>Links</strong></div><ul><li><a href="https://zuixjs.org">zuix.js docs</a><li><a href="https://zuixjs.github.io/zkit">zKit components</a><li><a href="https://11ty.dev/docs">11ty site generator docs</a></ul></section></div><div self="size-large" layout="row sm-column center-spread" style="padding: 12px;"><a self="left" href="https://pagespeed.web.dev/report?url=https://zuixjs.github.io/zuix-web-starter//content/docs/building-and-publishing/"><div layout="row center-left" style="gap: 8px;"><img width="24" height="24" alt="PageSpeed Insight logo" src="/zuix-web-starter/images/page-speed-insight-icon.png"> <span>PageSpeed Insight</span></div></a><div self="right">powered by <a href="https://zuixjs.github.io/zkit"><strong>zKit</strong></a> and <a href="https://zuixjs.org"><strong>zuix⚡js</strong></a></div></div></footer><div z-load="@lib/components/menu-overlay" z-context="menu-overlay" data-o-position="center" data-o-before="footer"><div #items=""><code>-~=(Web Starter)=~-</code> <a href="/zuix-web-starter/">Home</a> | <a href="/zuix-web-starter/content/docs/">Documentation</a> |</div></div><script>function themeSetup(){const n=zuix.$(document.body),o=n.find(".theme-toggle"),s="theme-dark",r="app.theme",e={transition:"color 300ms ease-in, background-color 300ms ease-in"};function t(e){var t=e?o.checked():"true"===localStorage.getItem(r);e||o.checked(t),t?n.addClass(s):n.removeClass(s),localStorage.setItem(r,String(t))}setTimeout(function(){n.css(e),n.find("header").css(e),n.find("nav").css(e),n.find("footer").css(e)},100),o.on("change",t),t()}function processExternalLinks(e){zuix.$(e).find('a[href*="://"]').attr("target","_blank").attr("rel","noreferrer")}zuix.lazyLoad(!0),themeSetup(),zuix.hook("view:process",function(e){processExternalLinks(e)}),processExternalLinks(document)</script><!-- zUIx.js inline resources bundle --><script src="index.bundle.js"></script><!-- zUIx.js inline resources bundle --><script src="index.bundle.ext.js"></script>
