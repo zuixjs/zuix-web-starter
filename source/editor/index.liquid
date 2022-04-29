@@ -254,9 +254,11 @@ eleventyExcludeFromCollections: true
     });
     browserSync.socket.on('zuix:build:done', function() {
       browserSync.socket.disconnect();
-      if (parent.refresh) {
-          parent.refresh();
-      }
+      try {
+          if (parent.refresh) {
+              parent.refresh();
+          }
+      } catch (e) { }
     });
     browserSync.socket.on('zuix:eleventy:error', function(err) {
       pendingSaveResponse = false;
@@ -282,10 +284,12 @@ eleventyExcludeFromCollections: true
       return previewFrame.contentWindow.zuixEditor;
     }, function(zed) {
       zuixEditor = zed;
-      if (parent.setEditorData) {
+      try {
+        if (parent.setEditorData) {
           zuixEditor.data.host = previewFrame.contentWindow;
           parent.setEditorData(zuixEditor.data, true);
-      }
+        }
+      } catch (e) { }
       document.location.hash = previewFrame.contentWindow.location.pathname;
       if (browserSync) {
         if (browserSync.socket.connected) {
