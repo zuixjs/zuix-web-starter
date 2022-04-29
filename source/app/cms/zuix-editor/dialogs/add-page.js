@@ -2,8 +2,9 @@
  * @param cp {ContextController}
  */
 function addPageDialog(cp) {
-  const _browserSync = ___browserSync___;
+  let _browserSync;
   cp.create = function() {
+    _browserSync = zuix.context(cp.view().parent('[z-load]')).browserSync;
     cp.expose({open, close})
         .view().hide();
 
@@ -47,7 +48,12 @@ function addPageDialog(cp) {
   function open(data, $opener) {
     setError('');
     if (data) {
-      cp.field('section-name').value(data.section);
+      const sections = cp.field('sections').children();
+      let sectionName = data.section;
+      if (!sectionName && sections.length() > 0) {
+        sectionName = sections.get(0).textContent.trim();
+      }
+      cp.field('section-name').value(sectionName);
     }
     cp.trigger('open', $opener);
     cp.field('page-name').value('')

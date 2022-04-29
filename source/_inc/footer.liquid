@@ -13,7 +13,8 @@
                 {% endfor %}
             </ul>
         </section>
-        {% assign posts = collections[group] | sort: 'data.order' | sort: 'data.pubDate' | reverse %}
+        {% if group == blank %}{% assign group = 'all' %}{% endif %}
+        {% assign posts = collections[group] | sort: 'data.pubDate' | sort: 'data.order' | reverse %}
         {% if posts.size > 0 %}
         <section>
             <div><strong>Latest posts</strong></div>

@@ -46,14 +46,14 @@
     <div class="loading-message lds-hourglass"></div>
 
     <div z-load="cms/zuix-editor/dialogs/add-page" z-context="add-page-dialog" z-lazy="false"
-         z-behavior="context.dialogBehavior">
+         z-behavior="context.dialogBehavior" class="visible-on-ready">
         <div #sections inherits="true"></div>
     </div>
 
     <div z-load="cms/zuix-editor/dialogs/delete-page" z-context="delete-page-dialog" z-lazy="false"
-         z-behavior="context.dialogBehavior"></div>
+         z-behavior="context.dialogBehavior" class="visible-on-ready"></div>
 
     <div z-load="cms/zuix-editor/dialogs/create-component" z-context="create-component-dialog" z-lazy="false"
-         z-behavior="context.dialogBehavior"></div>
+         z-behavior="context.dialogBehavior" class="visible-on-ready"></div>
 
 </div>

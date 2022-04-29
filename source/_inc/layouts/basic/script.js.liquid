@@ -3,7 +3,7 @@ zuix.lazyLoad(true);
 {% include '../common/theme.js' %}
 
 {% if options contains 'ext-links' -%}
-{% include '../common/external-links.js'  %}
+{% include '../common/external-links.js' %}
 {% endif %}
 
 {% if zuixEditor -%}
@@ -16,7 +16,7 @@ zuix.context('zuix-editor', function(ed) {
   setEditorData(ed.data);
   ed.on({
     'zuix:action:progress': function(e, ar) {
-      if (ar.action === 'delete-page' && !ar.data.section) {
+      if (ar.action === 'delete-page' && ar.data.tags.indexOf('sections') === -1) {
         document.location.href = ar.redirect + '#waitReload';
       }
     },
@@ -27,15 +27,18 @@ zuix.context('zuix-editor', function(ed) {
             document.location.href = ar.url;
             break;
           case 'delete-page':
-            if (ar.data.section) { // whole section
+            if (ar.data.tags.indexOf('sections') !== -1) { // whole section
               document.location.href = data.app.baseUrl;
             } else { // single page
               refresh();
             }
             break;
+          case 'add-component':
+            refresh();
+            break;
         }
       } else {
-        refresh();
+        ed.browserSync.socket.connect();
       }
     }
   });

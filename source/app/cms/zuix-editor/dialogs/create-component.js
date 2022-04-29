@@ -2,16 +2,19 @@
  * @param {ContextController} cp
  */
 function createComponentDialog(cp) {
-  const _browserSync = ___browserSync___;
+  let _browserSync;
+  let actionResult;
   cp.create = onCreate;
 
   function onCreate() {
+    _browserSync = zuix.context(cp.view().parent('[z-load]')).browserSync;
     cp.expose({
       open, close,
       showResult
     }).view().hide();
 
     cp.field('cancel-btn').on('click', cancel);
+    cp.field('close-btn').on('click', close);
     cp.field('add-btn').on('click', createComponent);
     cp.field('component-name')
         .on('keypress', function(e) {
@@ -23,10 +26,12 @@ function createComponentDialog(cp) {
 
     if (_browserSync) {
       _browserSync.socket.on('zuix:addComponent:done', function(data) {
-        localStorage.setItem('result', JSON.stringify({action: 'addComponent', data}));
-        setTimeout(function() {
-          document.location.reload();
-        }, 2000);
+        cp.trigger('success', {
+          action: 'add-component',
+          data,
+          showingResult: true
+        });
+        showResult({action: 'add-component', data});
       });
       _browserSync.socket.on('zuix:addComponent:error', function(err) {
         setError(err);
@@ -36,6 +41,7 @@ function createComponentDialog(cp) {
   }
 
   function open(data, $opener) {
+    actionResult = null;
     setError('');
     showMainDialog();
     cp.trigger('open', $opener);
@@ -43,7 +49,7 @@ function createComponentDialog(cp) {
         .get().focus();
   }
   function close() {
-    cp.trigger('close');
+    cp.trigger('close', actionResult);
   }
   function cancel() {
     cp.trigger('cancel');
@@ -83,8 +89,9 @@ function createComponentDialog(cp) {
     cp.field('result-dialog').show();
     cp.view().show();
   }
-  function showResult(data) {
-    cp.model(data);
+  function showResult(result) {
+    actionResult = result;
+    cp.model(result.data);
     showResultDialog();
   }
 }

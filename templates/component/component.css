@@ -1,3 +1,11 @@
 /* CSS Styles for '{{name}}' component */
 :host {
+    border: dotted 1px;
+    border-radius: 32px;
+    padding: 8px;
+    margin: 8px;
+}
+h1 {
+    margin: 0;
+    text-align: center;
 }

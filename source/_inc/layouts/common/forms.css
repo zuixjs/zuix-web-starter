@@ -42,7 +42,7 @@
     pointer-event: none!important;
     transition: all 0.15s ease-in-out;
 }
-.input-container input, input:not([type="checkbox"]):not([type="radio"]) {
+.input-container input, input:not([type="checkbox"]):not([type="radio"]):not(.mdl-textfield__input) {
     z-index: 1;
     border:0;
     width: 100%;

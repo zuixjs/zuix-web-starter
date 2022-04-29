@@ -2,11 +2,12 @@
  * @param {ContextController} cp
  */
 function deletePageDialog(cp) {
-  const _browserSync = ___browserSync___;
+  let _browserSync;
   let _data;
   cp.create = onCreate;
 
   function onCreate() {
+    _browserSync = zuix.context(cp.view().parent('[z-load]')).browserSync;
     cp.expose({open, close})
         .view().hide();
 

@@ -2,13 +2,15 @@
     {% assign template = './image-card' %}
 {% endif %}
 {% if items == blank %}
-    {% assign items = collections[group] | sort: 'data.order' | sort: 'data.pubDate' | reverse %}
+    {% assign items = collections[group] | sort: 'data.pubDate' | sort: 'data.order' | reverse %}
 {% endif %}
 {% for item in items %}
+{% if item.data.group == group and item.url != page.url %}
     {% if item.data.link == blank %}
         {% assign link = item.url  %}
     {% else %}
         {% assign link = item.data.link  %}
     {% endif %}
     {% include template, item: item, link: link %}
+{% endif %}
 {% endfor %}

@@ -2,7 +2,7 @@
  * @param cp {ContextController}
  */
 function zuixEditor(cp) {
-  const _browserSync = ___browserSync___;
+  let _browserSync;
 
   let btnAddPage;
   let btnEditPage;
@@ -15,6 +15,28 @@ function zuixEditor(cp) {
   let actionResult = null;
 
   cp.create = function() {
+    zuix.activeRefresh(cp.view(), cp.view(), null, function($view, $element, data, nextCallback, attributeName) {
+      if (window['___browserSync___']) {
+        _browserSync = ___browserSync___;
+        _browserSync.socket.on('zuix:build:done', function() {
+          _browserSync.socket.disconnect();
+          cp.trigger('zuix:action:result', actionResult);
+          hideModal();
+        });
+        // this is a work-around to socket not sending messages when using
+        // the "back" button to navigate on the page
+        window.addEventListener('pageshow', (event) => {
+          if (event.persisted) {
+            _browserSync.socket.disconnect();
+            setTimeout(function() {
+              _browserSync.socket.connect();
+            });
+          }
+        });
+      } else {
+        nextCallback(null, 100);
+      }
+    }).start();
     modalView = cp.view('.container')
         .hide();
     handleActionResult();
@@ -69,13 +91,6 @@ function zuixEditor(cp) {
       }
     });
 
-    _browserSync.socket.on('zuix:build:done', function() {
-      _browserSync.socket.disconnect();
-      cp.trigger('zuix:action:result', actionResult);
-      actionResult = null;
-      hideModal();
-    });
-
     cp.expose({
       mode: function(m) {
         if (m) {
@@ -103,9 +118,12 @@ function zuixEditor(cp) {
           }).playTransition('zoomOut zoomIn').show();
           showModal();
         },
-        'close': function() {
+        'close': function(e, ar) {
           this.playTransition('zoomIn zoomOut');
           hideModal();
+          if (ar) {
+            cp.trigger('zuix:action:result', ar);
+          }
         },
         'cancel': function() {
           this.trigger('close');
@@ -117,7 +135,12 @@ function zuixEditor(cp) {
           hideWaitingSpinner();
         },
         'success': function(e, ar) {
-          this.hide();
+          if (!ar.showingResult) {
+            this.hide();
+          } else {
+            hideWaitingSpinner();
+            _browserSync.socket.disconnect();
+          }
           actionResult = ar;
           cp.trigger('zuix:action:progress', actionResult);
         },
@@ -126,6 +149,9 @@ function zuixEditor(cp) {
             this.trigger('close');
           }
         }
+      },
+      get browserSync() {
+        return _browserSync;
       }
     });
 
@@ -158,6 +184,7 @@ function zuixEditor(cp) {
     }, 500);
 
     addTransitions();
+    setTimeout(zuix.componentize);
   };
 
   function showModal() {
@@ -193,19 +220,6 @@ function zuixEditor(cp) {
       showWaitingSpinner();
       document.location.hash = '';
       return;
-    }
-    // read result from previous action (if any)
-    let actionResult = localStorage.getItem('result');
-    if (actionResult) {
-      localStorage.removeItem('result');
-      actionResult = JSON.parse(actionResult);
-      if (actionResult.action === 'addComponent') {
-        zuix.context('create-component-dialog', function(createComponentDialog) {
-          hideWaitingSpinner();
-          showModal();
-          createComponentDialog.showResult(actionResult.data);
-        });
-      }
     }
   }
 

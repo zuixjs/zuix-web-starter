@@ -41,8 +41,8 @@
           } else if (pageData.section) {
             // section / group
             ed.mode({
-              editPage: false,
-              deletePage: true,
+              editPage: true,
+              deletePage: pageData.group != null && pageData.group.length > 0,
               addPage: true,
               addComponent: true,
               rebuildAll: true,
@@ -50,11 +50,12 @@
             });
           } else {
             // single page
+            pageData.section = pageData.group;
             ed.mode({
               editPage: !hideEdit,
-              deletePage: true,
-              addPage: false,
-              addComponent: false,
+              deletePage: pageData.group != null && pageData.group.length > 0,
+              addPage: true,
+              addComponent: true,
               rebuildAll: false,
               data: pageData
             });

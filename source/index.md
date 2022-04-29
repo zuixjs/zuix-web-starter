@@ -1,8 +1,6 @@
 ---
 layout: basic.liquid
 options: highlight ext-links no-title
-tags: sections
-group: home
 order: 0
 title: Home
 description: About this web starter and how to get started with it.
