@@ -20,7 +20,7 @@ dateFormat: 'ddd, DD MMM YYYY HH:mm:ss ZZ'
         <link>{{ app.siteMapUrl }}</link>
     </image>
     {%- for post in collections.all %}
-    {%- set postUrl %}{{ app.siteMapUrl }}{{ post.url | url }}{% endset %}
+    {%- set postUrl %}{{ app.siteMapUrl }}{{ post.url }}{% endset %}
     <item>
         <title>{{ post.data.title }}</title>
         <link>{{ postUrl }}</link>
