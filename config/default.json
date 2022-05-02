@@ -78,8 +78,7 @@
         "@lib": "{{ app.baseUrl }}lib/1.1/",
         "@hgui": "https://genielabs.github.io/homegenie-web-ui/app/",
         "@cdnjs": "https://cdnjs.cloudflare.com/ajax/libs/"
-      },
-      "siteMapUrl": "https://zuixjs.github.io{{ app.baseUrl }}"
+      }
     }
   }
 }

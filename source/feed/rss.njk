@@ -29,10 +29,10 @@ dateFormat: 'ddd, DD MMM YYYY HH:mm:ss ZZ'
         <pubDate>{{ post.data.pubDate | date(dateFormat) }}</pubDate>
         <atom:link href="{{ postUrl }}" rel="self" />
         <dc:creator>{{ post.data.author }}</dc:creator>
-        {%- if post.data.coverImage -%}
+        {%- if post.data.coverPreview -%}
         <!-- TODO: resolve cover image url either local or on a different site -->
         <media:content medium="image" width="300" height="125"
-                       url="{{ postUrl }}{{ post.data.coverImage | url }}" />
+                       url="{{ postUrl }}{{ post.data.coverPreview | url }}" />
         <media:credit></media:credit>
         <media:description></media:description>
         {%- endif %}
