@@ -3,6 +3,7 @@
   zuix.store('config', {
     "title": "Web Starter",
     "subtitle": "Simple, yet powerful!",
+    "language": "en",
     "baseUrl": "/zuix-web-starter/",
     "resourcePath": "/zuix-web-starter/app/",
     "libraryPath": {

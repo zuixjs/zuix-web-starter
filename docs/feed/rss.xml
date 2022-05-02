@@ -2,15 +2,15 @@
 <rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
 <channel>
     <title>Web Starter</title>
-    <link href="https://zuixjs.github.io/zuix-web-starter/"/>
+    <link>https://zuixjs.github.io/zuix-web-starter/</link>
     <atom:link href="https://zuixjs.github.io/zuix-web-starter//feed/rss.xml" rel="self"></atom:link>
     <description></description>
-    <language></language>
+    <language>en</language>
     <copyright></copyright>
-    <lastBuildDate></lastBuildDate>
-    <pubDate></pubDate>
+    <lastBuildDate>Mon, 02 May 2022 15:16:07 +0200</lastBuildDate>
+    <pubDate>Mon, 02 May 2022 15:16:07 +0200</pubDate>
     <image>
-        <title>NYT &gt; Top Stories</title>
+        <title>Web Starter</title>
         <url>https://zuixjs.github.io/zuix-web-starter//images/icons/icon-152x152.png</url>
         <link>https://zuixjs.github.io/zuix-web-starter/</link>
     </image>
@@ -18,39 +18,28 @@
         <title>Home</title>
         <link>https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/</link>
         <guid isPermaLink="true">https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/</guid>
-        <atom:link href="https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/" rel="standout" />
         <description>About this web starter and how to get started with it.</description>
+        <pubDate>Mon, 02 May 2022 15:16:07 +0200</pubDate>
+        <atom:link href="https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/" rel="self" />
         <dc:creator></dc:creator>
-        <pubDate></pubDate>
-        <!-- TODO: resolve cover image url either local or on a different site -->
-        <media:content medium="image" width="300" height="125"
-                       url="https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/." />
-        <media:credit></media:credit>
-        <media:description></media:description>
     </item>
     <item>
         <title>Search</title>
         <link>https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/search/</link>
         <guid isPermaLink="true">https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/search/</guid>
-        <atom:link href="https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/search/" rel="standout" />
         <description>Search this website</description>
+        <pubDate>Mon, 02 May 2022 15:16:07 +0200</pubDate>
+        <atom:link href="https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/search/" rel="self" />
         <dc:creator></dc:creator>
-        <pubDate></pubDate>
-        <!-- TODO: resolve cover image url either local or on a different site -->
-        <media:content medium="image" width="300" height="125"
-                       url="https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/search/." />
-        <media:credit></media:credit>
-        <media:description></media:description>
     </item>
     <item>
         <title>Building for production</title>
         <link>https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/content/docs/building-and-publishing/</link>
         <guid isPermaLink="true">https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/content/docs/building-and-publishing/</guid>
-        <atom:link href="https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/content/docs/building-and-publishing/" rel="standout" />
         <description>Building for production and publishing online.</description>
-        <dc:creator>Gene</dc:creator>
-        <pubDate>Tue Apr 05 2022 02:00:00 GMT+0200 (Ora legale dell’Europa centrale)</pubDate>
-        <!-- TODO: resolve cover image url either local or on a different site -->
+        <pubDate>Tue, 05 Apr 2022 02:00:00 +0200</pubDate>
+        <atom:link href="https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/content/docs/building-and-publishing/" rel="self" />
+        <dc:creator>Gene</dc:creator><!-- TODO: resolve cover image url either local or on a different site -->
         <media:content medium="image" width="300" height="125"
                        url="https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/content/docs/building-and-publishing/images/cover.png" />
         <media:credit></media:credit>
@@ -60,11 +49,10 @@
         <title>Getting started</title>
         <link>https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/content/docs/getting-started/</link>
         <guid isPermaLink="true">https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/content/docs/getting-started/</guid>
-        <atom:link href="https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/content/docs/getting-started/" rel="standout" />
         <description>Getting started with this template.</description>
-        <dc:creator>Gene</dc:creator>
-        <pubDate>Tue Apr 05 2022 02:00:00 GMT+0200 (Ora legale dell’Europa centrale)</pubDate>
-        <!-- TODO: resolve cover image url either local or on a different site -->
+        <pubDate>Tue, 05 Apr 2022 02:00:00 +0200</pubDate>
+        <atom:link href="https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/content/docs/getting-started/" rel="self" />
+        <dc:creator>Gene</dc:creator><!-- TODO: resolve cover image url either local or on a different site -->
         <media:content medium="image" width="300" height="125"
                        url="https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/content/docs/getting-started/images/cover.png" />
         <media:credit></media:credit>
@@ -74,25 +62,19 @@
         <title>Documentation</title>
         <link>https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/content/docs/</link>
         <guid isPermaLink="true">https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/content/docs/</guid>
-        <atom:link href="https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/content/docs/" rel="standout" />
         <description>No description provided.</description>
+        <pubDate>Mon, 02 May 2022 15:16:07 +0200</pubDate>
+        <atom:link href="https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/content/docs/" rel="self" />
         <dc:creator></dc:creator>
-        <pubDate></pubDate>
-        <!-- TODO: resolve cover image url either local or on a different site -->
-        <media:content medium="image" width="300" height="125"
-                       url="https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/content/docs/." />
-        <media:credit></media:credit>
-        <media:description></media:description>
     </item>
     <item>
         <title>Liquid tags and short codes</title>
         <link>https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/content/docs/liquid-tags/</link>
         <guid isPermaLink="true">https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/content/docs/liquid-tags/</guid>
-        <atom:link href="https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/content/docs/liquid-tags/" rel="standout" />
         <description>About liquid template language and short codes</description>
-        <dc:creator>Gene</dc:creator>
-        <pubDate>Tue Apr 05 2022 02:00:00 GMT+0200 (Ora legale dell’Europa centrale)</pubDate>
-        <!-- TODO: resolve cover image url either local or on a different site -->
+        <pubDate>Tue, 05 Apr 2022 02:00:00 +0200</pubDate>
+        <atom:link href="https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/content/docs/liquid-tags/" rel="self" />
+        <dc:creator>Gene</dc:creator><!-- TODO: resolve cover image url either local or on a different site -->
         <media:content medium="image" width="300" height="125"
                        url="https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/content/docs/liquid-tags/images/cover.png" />
         <media:credit></media:credit>
@@ -102,11 +84,10 @@
         <title>Page editing and options</title>
         <link>https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/content/docs/page-editing-and-options/</link>
         <guid isPermaLink="true">https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/content/docs/page-editing-and-options/</guid>
-        <atom:link href="https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/content/docs/page-editing-and-options/" rel="standout" />
         <description>Layout, front matter options and custom liquid tags.</description>
-        <dc:creator>Gene</dc:creator>
-        <pubDate>Tue Apr 05 2022 02:00:00 GMT+0200 (Ora legale dell’Europa centrale)</pubDate>
-        <!-- TODO: resolve cover image url either local or on a different site -->
+        <pubDate>Tue, 05 Apr 2022 02:00:00 +0200</pubDate>
+        <atom:link href="https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/content/docs/page-editing-and-options/" rel="self" />
+        <dc:creator>Gene</dc:creator><!-- TODO: resolve cover image url either local or on a different site -->
         <media:content medium="image" width="300" height="125"
                        url="https://zuixjs.github.io/zuix-web-starter//zuix-web-starter/content/docs/page-editing-and-options/images/cover.png" />
         <media:credit></media:credit>

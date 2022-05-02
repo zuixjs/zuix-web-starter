@@ -1,7 +1,7 @@
 {% if group and collections[group] %}
 
-    {% assign prevPost = collections[group] | sort: 'data.pubDate' | reverse | sort: 'data.order' | getPreviousCollectionItem: page %}
-    {% assign nextPost = collections[group] | sort: 'data.pubDate' | reverse | sort: 'data.order' | getNextCollectionItem: page %}
+    {% assign prevPost = collections[group] | sort: 'data.pubDate' | sort: 'data.order' | reverse | getPreviousCollectionItem: page %}
+    {% assign nextPost = collections[group] | sort: 'data.pubDate' | sort: 'data.order' | reverse | getNextCollectionItem: page %}
 
     <div self="size-large" layout="rows center-spread" class="page-navigation">
 

@@ -57,6 +57,7 @@
     "app": {
       "title": "Web Starter",
       "subtitle": "Simple, yet powerful!",
+      "language": "en",
       "baseUrl": "/zuix-web-starter/",
       "resourcePath": "{{ app.baseUrl }}app/",
       "libraryPath": {

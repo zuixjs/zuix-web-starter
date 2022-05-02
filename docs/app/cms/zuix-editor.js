@@ -184,7 +184,6 @@ function zuixEditor(cp) {
     }, 500);
 
     addTransitions();
-    setTimeout(zuix.componentize);
   };
 
   function showModal() {
@@ -219,7 +218,6 @@ function zuixEditor(cp) {
       showModal();
       showWaitingSpinner();
       document.location.hash = '';
-      return;
     }
   }
 

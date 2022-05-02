@@ -29,15 +29,13 @@
     box-shadow: 0 0 0 0 #00000055;
 }
 
-/* from https://codepen.io/nikstech/pen/xmMxpr */
-
 .input-container {
     position: relative;
     margin-bottom: 25px;
 }
 .input-container label {
     position:absolute;
-    top: 12px;
+    top: 8px;
     left: 0;
     pointer-event: none!important;
     transition: all 0.15s ease-in-out;

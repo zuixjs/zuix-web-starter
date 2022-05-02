@@ -71,6 +71,7 @@
     "app": {
       "title": "Web Starter",
       "subtitle": "Simple, yet powerful!",
+      "language": "en",
       "baseUrl": "/",
       "resourcePath": "{{ app.baseUrl }}app/",
       "libraryPath": {

@@ -14,13 +14,29 @@
 
 <nav layout="row top-center" #header-bar>
     <div self="size-{{ layout_size }} stretch" layout="row center-center" style="gap: 8px;">
-        <a class="icon-button" aria-label="Home" href="{{ '/' |  url }}">
+        {% if page.url == '/' %}<!-- HOME LOGO -->
+        <a class="icon-button" aria-label="Home" href="{{ '/' |  url }}" style="width: 48px">
             <!-- put your logo here -->
             <svg width="48px" height="48px" viewBox="0 0 24 24">
                 <path d="M0 0h24v24H0V0z" fill="none"/>
                 <path d="M12 5.69l5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/>
             </svg>
         </a>
+        {% elsif tags contains 'sections' or group == blank %}<!-- BACK TO HOME CONTENTS -->
+        <a class="icon-button" aria-label="Back to home contents" href="{{ '/' |  url }}" style="width: 48px">
+            <svg height="48px" viewBox="0 0 24 24" width="48px">
+                <path d="M0 0h24v24H0V0z" fill="none"/>
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+            </svg>
+        </a>
+        {% else %}<!-- BACK TO POST LIST -->
+        <a class="icon-button" aria-label="Back to post list" href="{{ '..' |  url }}" style="width: 48px">
+            <svg height="48px" viewBox="0 0 24 24" width="48px">
+                <path d="M0 0h24v24H0V0z" fill="none"/>
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+            </svg>
+        </a>
+        {% endif %}
         <div self="size-x1">
             <h1 class="title">{{ app.title }}</h1>
             <div class="subtitle">{{ title }}</div>

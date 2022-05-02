@@ -1,20 +1,21 @@
 ---
 permalink: feed/rss.xml
 eleventyExcludeFromCollections: true
+dateFormat: 'ddd, DD MMM YYYY HH:mm:ss ZZ'
 ---
 <?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
 <channel>
     <title>{{ app.title }}</title>
-    <link href="{{ app.siteMapUrl }}"/>
+    <link>{{ app.siteMapUrl }}</link>
     <atom:link href="{{ app.siteMapUrl }}/{{ permalink }}" rel="self"></atom:link>
     <description>{{ app.description }}</description>
     <language>{{ app.language }}</language>
     <copyright></copyright>
-    <lastBuildDate></lastBuildDate>
-    <pubDate></pubDate>
+    <lastBuildDate>{{ now | date(dateFormat) }}</lastBuildDate>
+    <pubDate>{{ now | date(dateFormat) }}</pubDate>
     <image>
-        <title>NYT &gt; Top Stories</title>
+        <title>{{ app.title }}</title>
         <url>{{ app.siteMapUrl }}/images/icons/icon-152x152.png</url>
         <link>{{ app.siteMapUrl }}</link>
     </image>
@@ -24,15 +25,17 @@ eleventyExcludeFromCollections: true
         <title>{{ post.data.title }}</title>
         <link>{{ postUrl }}</link>
         <guid isPermaLink="true">{{ postUrl }}</guid>
-        <atom:link href="{{ postUrl }}" rel="standout" />
         <description>{{ post.data.description }}</description>
+        <pubDate>{{ post.data.pubDate | date(dateFormat) }}</pubDate>
+        <atom:link href="{{ postUrl }}" rel="self" />
         <dc:creator>{{ post.data.author }}</dc:creator>
-        <pubDate>{{ post.data.pubDate }}</pubDate>
+        {%- if post.data.coverImage -%}
         <!-- TODO: resolve cover image url either local or on a different site -->
         <media:content medium="image" width="300" height="125"
                        url="{{ postUrl }}{{ post.data.coverImage | url }}" />
         <media:credit></media:credit>
         <media:description></media:description>
+        {%- endif %}
     </item>
     {%- endfor %}
 </channel>

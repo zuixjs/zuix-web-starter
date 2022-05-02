@@ -1,38 +1,25 @@
 /* globals zuix */
+// noinspection JSClosureCompilerSyntax
 // componentId: '{{componentId}}'
 
 /**
- * {{name}} class
+ * Class {{name}}.
  *
- * @class
  * @author {{author}}
  * @version v1.0
+ * @extends ControllerInstance
  */
-class {{name}} {
-  /**
-   * @constructor
-   * @param {ContextController} cp The component's context controller.
-   */
-  constructor(cp) {
-    cp.init = this.onInit;
-    cp.create = this.onCreate;
-    cp.update = this.onUpdate;
-    cp.dispose = this.onDispose;
-  }
-  /** @this {ContextController} */
+class {{name}} extends ControllerInstance {
   onInit() {
     const ctx = this.context;
     console.log(ctx.componentId, 'initialized as context', ctx.contextId);
   }
-  /** @this {ContextController} */
   onCreate() {
     console.log('It works!', this);
   }
-  /** @this {ContextController} */
-  onUpdate(target, key, value, path, old) {
-  }
-  /** @this {ContextController} */
   onDispose() {
+  }
+  onUpdate(target, key, value, path, old) {
   }
 }
 
