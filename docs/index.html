@@ -183,7 +183,6 @@ blockquote span {
 }
 
 /* forms */
-/* forms */
 
 .button {
     cursor: pointer;
@@ -221,7 +220,6 @@ blockquote span {
     position:absolute;
     top: 8px;
     left: 0;
-    pointer-event: none!important;
     transition: all 0.15s ease-in-out;
 }
 .input-container input, input:not([type="checkbox"]):not([type="radio"]):not(.mdl-textfield__input) {
@@ -482,6 +480,12 @@ button {
     border: solid 1px var(--lite-color);
     background-color: var(--lite-nav-color)!important;
     fill: var(--lite-nav-color-text)!important;
+}
+[z-load*="/components/menu-overlay"] .circle-button .material-icons {
+    color: var(--lite-nav-color-text);
+}
+.theme-dark [z-load*="/components/menu-overlay"] .circle-button .material-icons {
+    color: var(--dark-nav-color-text);
 }
 .theme-dark [z-load*="/components/menu-overlay"] .circle-button {
     border: solid 1px var(--dark-color);

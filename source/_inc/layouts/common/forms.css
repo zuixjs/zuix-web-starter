@@ -1,5 +1,4 @@
 /* forms */
-/* forms */
 
 .button {
     cursor: pointer;
@@ -37,7 +36,6 @@
     position:absolute;
     top: 8px;
     left: 0;
-    pointer-event: none!important;
     transition: all 0.15s ease-in-out;
 }
 .input-container input, input:not([type="checkbox"]):not([type="radio"]):not(.mdl-textfield__input) {

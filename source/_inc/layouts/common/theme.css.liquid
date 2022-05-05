@@ -150,6 +150,12 @@ button {
     background-color: var(--lite-nav-color)!important;
     fill: var(--lite-nav-color-text)!important;
 }
+[z-load*="/components/menu-overlay"] .circle-button .material-icons {
+    color: var(--lite-nav-color-text);
+}
+.theme-dark [z-load*="/components/menu-overlay"] .circle-button .material-icons {
+    color: var(--dark-nav-color-text);
+}
 .theme-dark [z-load*="/components/menu-overlay"] .circle-button {
     border: solid 1px var(--dark-color);
     background-color: var(--dark-nav-color)!important;
