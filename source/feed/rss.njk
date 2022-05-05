@@ -20,6 +20,7 @@ dateFormat: 'ddd, DD MMM YYYY HH:mm:ss ZZ'
         <link>{{ app.siteMapUrl }}</link>
     </image>
     {%- for post in collections.all %}
+    {%- if post.url and post.data.title != 'Untitled' -%}
     {%- set postUrl %}{{ app.siteMapUrl }}{{ post.url }}{% endset %}
     <item>
         <title>{{ post.data.title }}</title>
@@ -37,6 +38,7 @@ dateFormat: 'ddd, DD MMM YYYY HH:mm:ss ZZ'
         <media:description></media:description>
         {%- endif %}
     </item>
+    {%- endif -%}
     {%- endfor %}
 </channel>
 </rss>
