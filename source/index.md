@@ -31,3 +31,4 @@ visible in the lower right corner of every page. Tap it to popup editing options
 delete existing ones, directly in the browser.
 
 {% include "fragments/starter-links.liquid" %}
+{% include "fragments/zuix-funding.liquid" %}

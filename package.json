@@ -34,11 +34,11 @@
   "bugs": "https://github.com/zuixjs/zuix-web-starter/issues",
   "dependencies": {
     "flex-layout-attribute": "^1.0.3",
-    "fuse.js": "^6.5.3",
-    "zuix-dist": "^1.0.39"
+    "fuse.js": "^6.6.2",
+    "zuix-dist": "^1.1.0"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^2.0.0-canary.8",
+    "@11ty/eleventy": "^2.0.0-canary.9",
     "@11ty/eleventy-plugin-syntaxhighlight": "^4.0.0",
     "@11ty/eleventy-server-browsersync": "^1.0.2",
     "capture-console": "^1.0.1",
