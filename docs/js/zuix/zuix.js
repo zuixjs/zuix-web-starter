@@ -1,4 +1,4 @@
-/* zUIx v1.1.0 22.05.12 11:57:28 */
+/* zuix.js v1.1.6 22.05.26 17:50:11 */
 
 var zuix;
 /******/ (function() { // webpackBootstrap
@@ -546,6 +546,26 @@ module.exports = {
     return s.split(/(?=[A-Z])/).join('-').toLowerCase();
   },
 
+  normalizeControllerCode: function(javascriptCode) {
+    if (javascriptCode.indexOf('module.exports') >= 0) {
+      return '\'use strict\'; let module = {}; ' + javascriptCode + ';\nreturn module.exports;';
+    } else {
+      // TODO: improve code parsing
+      let code = javascriptCode;
+      const fni = javascriptCode.indexOf('function ');
+      const fnz = javascriptCode.indexOf('zuix.controller');
+      const fnc = javascriptCode.indexOf('class ');
+      if (fnc >= 0 && (fnc < fni || fni === -1) && (fnc < fnz || fnz === -1)) {
+        code = javascriptCode.substring(0, fnc) + 'return ' + javascriptCode.substring(fnc);
+      } else if (fni >= 0 && (fni < fnz || fnz === -1)) {
+        code = javascriptCode.substring(0, fni) + 'return ' + javascriptCode.substring(fni);
+      } else if (fnz !== -1) {
+        code = javascriptCode.substring(0, fnz) + 'return ' + javascriptCode.substring(fnz + 15);
+      }
+      return code;
+    }
+  },
+
   dom: {
 
     queryAttribute: function(name, value, appendValue) {
@@ -618,6 +638,14 @@ module.exports = {
           }
         };
       })(selector);
+    },
+    getShadowRoot: function(node) {
+      for (; node; node = node.parentNode) {
+        if (node instanceof ShadowRoot) {
+          return node;
+        }
+      }
+      return false;
     }
 
   }
@@ -1675,7 +1703,7 @@ ZxQueryStatic.wrapCss = function(wrapperRule, css, encapsulate) {
       if (ruleParts != null && ruleParts.length > 0) {
         ruleParts = ruleParts.replace(/\n/g, '');
         const classes = ruleParts.split(',');
-        let isMediaQuery = false;
+        let isAtRule = false;
         z$.each(classes, function(k, v) {
           // TODO: deprecate the 'single dot' notation
           if (v.trim() === '.' || v.trim() === ':host') {
@@ -1685,18 +1713,16 @@ ZxQueryStatic.wrapCss = function(wrapperRule, css, encapsulate) {
           } else if (v.trim()[0] === '@') {
             // leave it as is if it's an animation or media rule
             wrappedCss += v + ' ';
-            if (v.trim().toLowerCase().startsWith('@media')) {
-              isMediaQuery = true;
+            if (v.trim().toLowerCase().startsWith('@media') || v.trim().toLowerCase().startsWith('@supports')) {
+              isAtRule = true;
             }
           } else if (encapsulate) {
             // wrap the class names (v)
             v.split(/\s+/).forEach(function(attr) {
               attr = attr.trim();
               if (attr.lastIndexOf('.') > 0) {
-                attr.replace(/(?=[.])/gi, ',').split(',').forEach(function(attr2) {
-                  if (attr2 !== '') {
-                    wrappedCss += '\n' + attr2 + wrapperRule;
-                  }
+                attr.replace(/(?=\.)(?![^\[\]()]*(?:\[[^\[\]()]*([\])]))?([\])]))/gi, ',').split(',').forEach(function(attr2) {
+                  wrappedCss += attr2 !== '' ? attr2 + wrapperRule : '\n';
                 });
               } else if (attr !== '' && attr !== '>' && attr !== '*') {
                 wrappedCss += '\n' + attr + wrapperRule + ' ';
@@ -1717,9 +1743,9 @@ ZxQueryStatic.wrapCss = function(wrapperRule, css, encapsulate) {
             wrappedCss = wrappedCss.trim() + ', ';
           }
         });
-        if (isMediaQuery) {
-          const wrappedMediaQuery = z$.wrapCss(wrapperRule, ruleMatch[1].substring(ruleMatch[2].length).replace(/^{([^\0]*?)}$/, '$1'), encapsulate);
-          wrappedCss += '{\n  '+wrappedMediaQuery+'\n}';
+        if (isAtRule) {
+          const wrappedAtRule = z$.wrapCss(wrapperRule, ruleMatch[1].substring(ruleMatch[2].length).replace(/^{([^\0]*?)}$/, '$1'), encapsulate);
+          wrappedCss += '{\n  ' + wrappedAtRule + '\n}\n';
         } else {
           wrappedCss += ruleMatch[1].substring(ruleMatch[2].length) + '\n';
         }
@@ -1742,10 +1768,11 @@ ZxQueryStatic.wrapCss = function(wrapperRule, css, encapsulate) {
  * @param {string} css Stylesheet text
  * @param {Element|HTMLElement|null} target Existing style element to replace
  * @param {string} cssId id to assign to the stylesheet
+ * @param {Node|undefined} [container] The container where to append the style element
  * @return {Element|HTMLElement} The new style element created out of the given css text.
  */
-ZxQueryStatic.appendCss = function(css, target, cssId) {
-  const head = document.head || document.getElementsByTagName('head')[0];
+ZxQueryStatic.appendCss = function(css, target, cssId, container) {
+  const head = container || document.head || document.getElementsByTagName('head')[0];
   let style = null;
   // remove old style if already defined
   if (!util.isNoU(target) && head.contains(target)) {
@@ -1996,8 +2023,10 @@ ZxQueryStatic.getPosition = function(el, tolerance) {
  * @param {string} className CSS class name to assign to this transition.
  * @param {Array<Object>|JSON} properties List of CSS properties/values to set.
  * @param {Array<Object>|JSON} options List of transition options.
+ * @param {Node|undefined} [container] The container where to append the style element
+ * @return {Element|HTMLElement} The new style element created out of the given css text.
  */
-ZxQueryStatic.addTransition = function(cssId, scope, className, properties, options) {
+ZxQueryStatic.addTransition = function(cssId, scope, className, properties, options, container) {
   let cssText = '';
   let styleElement = document.getElementById(cssId);
   if (styleElement != null) {
@@ -2020,8 +2049,7 @@ ZxQueryStatic.addTransition = function(cssId, scope, className, properties, opti
   cssText += (scope + '.' + className +
     ', ' + scope + ' .' + className +
     '{\n' + props + '  transition-property: ' + transProps + opts + '}\n');
-  this.appendCss(cssText, styleElement, cssId);
-  return cssText;
+  return this.appendCss(cssText, styleElement, cssId, container);
 };
 /**
  * Plays transition effects or animations on a given element inside the component.
@@ -2034,6 +2062,10 @@ ZxQueryStatic.addTransition = function(cssId, scope, className, properties, opti
 ZxQueryStatic.playFx = function(config) {
   const _t = this;
   const $el = z$(config.target);
+  if ($el.length() === 0) {
+    _log.warn('playFx: target element is undefined', config);
+    return;
+  }
   if (config.classes == null) {
     config.classes = [];
   } else if (typeof config.classes === 'string') {
@@ -2796,7 +2828,7 @@ function dataBind(el, boundData) {
                 (!util.isNoU(boundData.innerHTML) ? boundData.innerHTML : boundData));
       if (!util.isNoU(boundData.href) && !util.isNoU(boundData.innerHTML) && boundData.innerHTML.trim() !== '') {
         // won't replace innerHTML if it contains inner bound fields
-        const t = zuix.$(boundData);
+        const t = z$(boundData);
         if (t.find(util.dom.queryAttribute(_optionAttributes.zField)).length() === 0) {
           z$(el).html('').append(document.createTextNode(boundData.innerHTML));
         }
@@ -3280,7 +3312,7 @@ ComponentContext.prototype.style = function(css) {
   _log.t(this.componentId, 'view:style', 'timer:view:start', cssId);
   if (css == null || css instanceof Element) {
     this._css = (css instanceof Element) ? css.innerText : css;
-    this._style = z$.appendCss(css, this._style, this.componentId + '@' + cssId);
+    this._style = z$.appendCss(css, this._style, this.componentId + '@' + cssId, util.dom.getShadowRoot(this._container));
   } else if (typeof css === 'string') {
     // store original unparsed css (might be useful for debugging)
     this._css = css;
@@ -3306,7 +3338,7 @@ ComponentContext.prototype.style = function(css) {
     );
 
     // output css
-    this._style = z$.appendCss(css, this._style, this.componentId + '@' + cssId);
+    this._style = z$.appendCss(css, this._style, this.componentId + '@' + cssId, util.dom.getShadowRoot(this._container));
   }
   this.checkEncapsulation();
   // TODO: should throw error if ```css``` is not a valid type
@@ -3516,7 +3548,7 @@ ComponentContext.prototype.loadCss = function(options, enableCaching) {
       }
     } else {
       if (cssPath == context.componentId) {
-        cssPath += '.css' + (!enableCaching ? '?' + new Date().getTime() : '');
+        cssPath += '.css';
       }
       z$.ajax({
         url: zuix.getResourcePath(cssPath),
@@ -3636,7 +3668,7 @@ ComponentContext.prototype.loadHtml = function(options, enableCaching) {
     } else {
       const cext = util.isNoU(options.cext) ? '.html' : options.cext;
       if (htmlPath == context.componentId) {
-        htmlPath += cext + (!enableCaching ? '?' + new Date().getTime() : '');
+        htmlPath += cext;
       }
       z$.ajax({
         url: zuix.getResourcePath(htmlPath),
@@ -4485,6 +4517,8 @@ function lazyElementCheck(element) {
 
 const z$ =
     __webpack_require__(917);
+const util =
+    __webpack_require__(826);
 
 /**
  * Function called when the data model of the component is updated
@@ -4662,8 +4696,16 @@ ContextController.prototype.addBehavior = function(eventPath, handler) {
  */
 ContextController.prototype.addTransition = function(className, properties, options) {
   const cssId = this.context.getCssId();
+  this.context.$.attr(cssId, '');
   const scope = '[z-component][' + cssId + ']';
-  z$.addTransition(this.context.componentId + '@' + cssId, scope, className, properties, options);
+  z$.addTransition(
+      this.context.componentId + '@' + cssId,
+      scope,
+      className,
+      properties,
+      options,
+      util.dom.getShadowRoot(this.context.container())
+  );
   return this;
 };
 /**
@@ -5339,8 +5381,6 @@ let _contextSeqNum = 0;
 /** @private */
 let _disableComponentize = false;
 /** @private */
-let _enableHttpCaching = true;
-/** @private */
 const _objectObserver = new ObjectObserver();
 
 /** @private */
@@ -5521,7 +5561,7 @@ function field(fieldName, container, context) {
   let el = null;
   if (typeof context._fieldCache[fieldName] === 'undefined') {
     el = z$(container)
-        .find(util.dom.queryAttribute(_optionAttributes.zField, fieldName) + ',[\\#'+fieldName+']');
+        .find(util.dom.queryAttribute(_optionAttributes.zField, fieldName) + ',[' + CSS.escape('#' + fieldName) + ']');
     if (el != null && el.length() > 0) {
       context._fieldCache[fieldName] = el;
       // extend the returned `ZxQuery` object adding the `field` method
@@ -5646,7 +5686,6 @@ function loadResources(ctx, options) {
     if (options.css !== false && typeof options.css !== 'string') {
       resourceLoadTask[ctx.componentId].step(ctx.componentId+':css');
       ctx.loadCss({
-        caching: _enableHttpCaching,
         success: function(css) {
           cachedComponent.css = css;
         },
@@ -5690,7 +5729,6 @@ function loadResources(ctx, options) {
 
         ctx.loadHtml({
           cext: options.cext,
-          caching: _enableHttpCaching,
           success: function(html) {
             if (cachedComponent == null) {
               cachedComponent = cacheComponent(ctx);
@@ -5760,20 +5798,35 @@ function loadComponent(elements, componentId, type, options) {
   elements = z$(elements);
   unload(elements);
   /**
-   * @param {ZxQuery} container
+   * @param {ZxQuery} el
    */
-  const load = function(container) {
-    container.attr(_optionAttributes.zLoad, componentId);
-    if (type) {
-      container.attr(type, '');
+  const load = function(el) {
+    let sr = el.get().shadowRoot;
+    if (sr == null && options && options.container instanceof ShadowRoot) {
+      sr = options.container;
     }
-    if ((options && options.lazyLoad && options.lazyLoad.toString() === 'true') || container.attr(_optionAttributes.zLazy) === 'true') {
+    if (sr) {
+      const shadowView = document.createElement('div');
+      sr.appendChild(shadowView);
+      Array.from(el.get().childNodes).map(function(el) {
+        shadowView.appendChild(el);
+      });
+      if (options && options.container) {
+        options.container = shadowView;
+      }
+      el = z$(shadowView);
+    }
+    el.attr(_optionAttributes.zLoad, componentId);
+    if (type) {
+      el.attr(type, '');
+    }
+    if ((options && options.lazyLoad && options.lazyLoad.toString() === 'true') || el.attr(_optionAttributes.zLazy) === 'true') {
       if (options) {
-        container.get().__zuix_loadOptions = options;
+        el.get().__zuix_loadOptions = options;
       }
       return false;
     }
-    return _componentizer.loadInline(container, options);
+    return _componentizer.loadInline(el, options);
   };
   elements.each(function(i, el, $el) {
     load($el);
@@ -5853,20 +5906,6 @@ function trigger(context, path, data) {
   }
 }
 
-/**
- * Enable/Disable HTTP caching
- *
- * @private
- * @param {boolean} [enable]
- * @return {boolean} *true* if HTTP caching is enabled, *false* otherwise.
- */
-function httpCaching(enable) {
-  if (enable != null) {
-    _enableHttpCaching = enable;
-  }
-  return _enableHttpCaching;
-}
-
 // *********************** private members ************************* //
 
 /** @private */
@@ -5913,27 +5952,21 @@ function loadController(context, task) {
       createComponent(context, task);
     } else {
       const job = function(t) {
-        const jsPath = context.componentId + '.js' + (_enableHttpCaching ? '' : '?'+new Date().getTime());
+        const jsPath = context.componentId + '.js';
         z$.ajax({
           url: getResourcePath(jsPath),
           success: function(ctrlJs) {
-            // TODO: improve js parsing!
+            ctrlJs += '\n//# sourceURL="'+context.componentId + '.js"\n';
             try {
-              const fn = ctrlJs.indexOf('function');
-              const il = ctrlJs.indexOf('.load');
-              if (il > 1 && il < fn) {
-                ctrlJs = ctrlJs.substring(0, il - 4);
-              }
-              const ih = ctrlJs.indexOf('.controller');
-              if (ih > 1 && ih < fn) {
-                ctrlJs = ctrlJs.substring(ih + 11);
-              }
-              const ec = ctrlJs.indexOf('//<--controller');
-              if (ec > 0) {
-                ctrlJs = ctrlJs.substring(0, ec);
-              }
-              ctrlJs += '\n//# sourceURL="'+context.componentId + '.js"\n';
               context.controller(getController(ctrlJs));
+              let cached = getCachedComponent(context.componentId);
+              if (cached == null) {
+                cached = {
+                  componentId: context.componentId,
+                  controller: context.controller()
+                };
+                _componentCache.push(cached);
+              }
             } catch (e) {
               _log.e(new Error(), e, ctrlJs, context);
               if (util.isFunction(context.error)) {
@@ -6036,7 +6069,7 @@ function createComponent(context, task) {
         // it can be then restored with c.restoreView()
         c.saveView();
 
-        if (cached === null) {
+        if (cached === null && context.componentId !== 'default') {
           cached = {
             componentId: context.componentId,
             controller: context.controller()
@@ -6051,7 +6084,6 @@ function createComponent(context, task) {
             if (cached.view == null) {
               context.loadHtml({
                 cext: context.options().cext,
-                caching: _enableHttpCaching,
                 success: function(html) {
                   cached.view = html;
                   _log.d(context.componentId, 'component:deferred:html');
@@ -6080,7 +6112,6 @@ function createComponent(context, task) {
         if (context.options().css !== false && typeof context.options().css !== 'string') {
           if (cached.css == null) {
             context.loadCss({
-              caching: _enableHttpCaching,
               success: function(css) {
                 cached.css = css;
                 _log.d(context.componentId, 'component:deferred:css');
@@ -6376,13 +6407,8 @@ function initController(ctrl) {
 function getController(javascriptCode) {
   let instance = function(ctx) { };
   if (typeof javascriptCode === 'string') {
-    let ctrl;
     try {
-      if (javascriptCode.indexOf('module.exports') >= 0) {
-        ctrl = Function('\'use strict\'; let ControllerInstance = arguments[0]; let module = {};\n' + javascriptCode + '; return module.exports;')(ControllerInstance);
-      } else {
-        ctrl = Function('return ' + javascriptCode)();
-      }
+      const ctrl = Function(util.normalizeControllerCode(javascriptCode))();
       if (typeof ctrl !== 'function') {
         throw new Error('Unexpected module type: "' + (typeof ctrl) + '"');
       }
@@ -6396,13 +6422,6 @@ function getController(javascriptCode) {
   return instance;
 }
 
-/**
- * @private
- * @param c
- */
-function replaceCache(c) {
-  _componentCache = c;
-}
 
 // ******************* proto ******************** //
 
@@ -6731,9 +6750,10 @@ zuix.using('script', 'https://some.cdn.js/moment.min.js', function(){
  * @param {string} resourceType Either *'style'*, *'script'* or *'component'*
  * @param {string} resourcePath Relative or absolute resource url path
  * @param {ResourceUsingCallback} [callback] Callback function to call once resource is loaded
+ * @param {ComponentContext} [ctx] The target context.
  * @return {Zuix} The `{Zuix}` object itself.
  */
-Zuix.prototype.using = function(resourceType, resourcePath, callback) {
+Zuix.prototype.using = function(resourceType, resourcePath, callback, ctx) {
   resourcePath = _componentizer.resolvePath(resourcePath);
   resourceType = resourceType.toLowerCase();
   const hashId = resourceType + '-' + resourcePath.hashCode();
@@ -6751,7 +6771,9 @@ Zuix.prototype.using = function(resourceType, resourcePath, callback) {
           }
         },
         error: function() {
-          callback(resourcePath, null);
+          if (typeof callback === 'function') {
+            callback(resourcePath, null);
+          }
         }
       });
     } else if (typeof callback === 'function') {
@@ -6761,7 +6783,8 @@ Zuix.prototype.using = function(resourceType, resourcePath, callback) {
   } else {
     const isCss = (resourceType === 'style');
     if (z$.find(resourceType + '[id="' + hashId + '"]').length() === 0) {
-      const head = document.head || document.getElementsByTagName('head')[0];
+      const container = ctx ? util.dom.getShadowRoot(ctx.container()) : null;
+      const head = container || document.head || document.getElementsByTagName('head')[0];
       const resource = document.createElement(resourceType);
       if (isCss) {
         resource.type = 'text/css';
@@ -6844,20 +6867,6 @@ Zuix.prototype.lazyLoad = function(enable, threshold) {
     _componentizer.lazyLoad(enable, threshold);
   } else {
     return _componentizer.lazyLoad();
-  }
-  return this;
-};
-/**
- * Enables/Disables HTTP caching or gets the current settings.
- *
- * @param {boolean} [enable]
- * @return {Zuix|boolean} *true* if HTTP caching is enabled, *false* otherwise.
- */
-Zuix.prototype.httpCaching = function(enable) {
-  if (enable != null) {
-    httpCaching(enable);
-  } else {
-    return httpCaching();
   }
   return this;
 };
@@ -7090,8 +7099,13 @@ Zuix.prototype.utils = util;
  * @return {Zuix}
  */
 module.exports = function() {
+  if (window && window.zuix) {
+    //console.log('WARNING zuix.js already imported!');
+    return window.zuix;
+  }
   const zuix = new Zuix();
   if (window && document) {
+    window.zuix = zuix;
     const globalStyle = '[z-view]{display:none;}[type="jscript"],[media*="#"]{display:none;}[z-include][z-ready=true].visible-on-ready,[z-load][z-ready=true].visible-on-ready{opacity:1}[z-include]:not([z-ready=true]).visible-on-ready,[z-load]:not([z-ready=true]).visible-on-ready{opacity:0;visibility:hidden}';
     zuix.$.appendCss(globalStyle, null, 'zuix-global');
     const refreshCallback = function() {

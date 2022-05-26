@@ -95,16 +95,40 @@ function startWatcher(eleventyConfig, browserSync) {
     f = path.resolve(path.join(sourceFolder, f));
     watchFiles.push(f);
   });
+  const templateExtensions = ['.js', '.mjs', '.html', '.css', '.less', '.scss', '.njk'];
+  const templateFolders = componentsFolders.map(f =>  path.resolve(path.join(sourceFolder, f)));
   const copyFilesWatcher = chokidar.watch(watchFiles).on('all', (event, file, stats) => {
-    if (watchEvents[event] && fs.existsSync(file)) {
+    if (watchEvents[event] && fs.existsSync(file) && file.indexOf('/_inc/') === -1) {
       const outputFile = path.resolve(path.join(buildFolder, file.substring(path.resolve(sourceFolder).length)));
       const outputFolder = path.dirname(outputFile);
       if (!fs.existsSync(outputFolder)) {
         fs.mkdirSync(outputFolder, { recursive: true })
       }
-      fs.copyFileSync(file, outputFile);
+      const postProcess = templateExtensions.filter(cn => file.endsWith(cn));
+      if (postProcess.length === 1) {
+        // Post-process file with Nunjucks
+        const njk = new nunjucks.Environment(new nunjucks.FileSystemLoader([
+          path.dirname(file),
+          ...templateFolders
+        ], {}));
+        njk.render(file, zuixConfig, function(err, res) {
+          if (err != null) {
+            console.error(
+              chalk.red.bold(err)
+            );
+          } else {
+            fs.writeFile(outputFile, res, function() {
+              // TODO: ...
+            });
+          }
+        });
+      } else {
+        // Do not post-process, copy as-is
+        fs.copyFileSync(file, outputFile);
+      }
     } else {
-      // TODO: maybe remove file from output folder as well?
+      // TODO: maybe remove file from output folder as well if it was unlinked?
+      // TODO: >> recompile dependant files if the modified file is inside an `_inc` folder
     }
     if (browserSync) {
       browserSync.reload();
@@ -214,20 +238,22 @@ function setupSocketApi(browserSync) {
     }
     // Capture console output to notify errors
     capcon.startCapture(process.stderr, {}, function (stderr) {
-      stderr = stderr
-        .replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, '')
-        .replace(/ *\([^)]*\) */g, '').replace(/ +$/, '');
-      if (stderr.indexOf('\n[11ty] ') !== -1) {
-        errorObject.debug = true;
-      } else if (stderr.startsWith('[11ty]')) {
-        stderr = stderr.substring(6).replace(/ +$/, '');
+      if (stderr && stderr.replace) {
+        stderr = stderr
+            .replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, '')
+            .replace(/ *\([^)]*\) */g, '').replace(/ +$/, '');
+        if (stderr.indexOf('\n[11ty] ') !== -1) {
+          errorObject.debug = true;
+        } else if (stderr.startsWith('[11ty]')) {
+          stderr = stderr.substring(6).replace(/ +$/, '');
+        }
+        errorObject.errors.push(stderr);
+        if (!errorObject.debug) {
+          errorObject.message += stderr;
+        }
+        clearTimeout(errorNotifierTimeout);
+        errorNotifierTimeout = setTimeout(errorNotifier, 250);
       }
-      errorObject.errors.push(stderr);
-      if (!errorObject.debug) {
-        errorObject.message += stderr;
-      }
-      clearTimeout(errorNotifierTimeout);
-      errorNotifierTimeout = setTimeout(errorNotifier, 250);
     });
   }
 }
