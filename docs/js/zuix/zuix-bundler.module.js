@@ -1,4 +1,4 @@
-/* zuix.js v1.1.7 22.06.06 23:17:57 */
+/* zuix.js v1.1.10 22.06.10 19:58:26 */
 
 /******/ var __webpack_modules__ = ({
 
@@ -514,8 +514,6 @@ const OptionAttributes = Object.freeze({
         'z-context',
   zField:
         'z-field',
-  zInclude:
-        'z-include',
   zLazy:
         'z-lazy',
   zLoad:
@@ -524,6 +522,8 @@ const OptionAttributes = Object.freeze({
         'z-loaded',
   zOptions:
         'z-options',
+  zUsing:
+        'z-using',
   zPriority:
         'z-priority',
   zView:
