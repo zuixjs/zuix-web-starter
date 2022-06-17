@@ -156,7 +156,7 @@ function zuixEditor(cp) {
     });
 
     // Hide main application menu's button when opening zuix-editor menu
-    zuix.context('menu-overlay', function(appMenu) {
+    zuix.context('menu-overlay', (appMenu) => {
       if (!appMenu) return;
       cp.field('menu').on({
         'open': function() {

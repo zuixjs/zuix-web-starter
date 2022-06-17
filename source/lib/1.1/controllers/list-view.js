@@ -76,7 +76,8 @@ zuix.controller(function(cp) {
                 (listMode === MODE_PAGED && i >= startItem && i < startItem+itemsPerPage) ||
                 (listMode === MODE_INCREMENTAL && i < startItem+itemsPerPage)) {
         if (typeof listItems[id] === 'undefined') {
-          const container = zuix.createComponent(dataItem.componentId, dataItem.options).container();
+          const container = document.createElement('div');
+          zuix.loadComponent(container, dataItem.componentId, dataItem.type || 'view', dataItem.options);
           // use a responsive CSS class if provided
           if (dataItem.options.className != null) {
             // this class should set the min-height property
