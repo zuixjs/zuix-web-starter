@@ -1,6 +1,6 @@
 {
   "name": "zuix-web-starter",
-  "version": "1.0.0",
+  "version": "1.0.26",
   "private": true,
   "description": "Minimal starter project for component oriented web development with zuix.js and Eleventy.",
   "scripts": {
