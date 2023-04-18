@@ -119,7 +119,7 @@ eleventyExcludeFromCollections: true
             </svg>
         </a>
         <a #save-btn title="Save content"
-           @on:click="saveContent()"
+           (click)="saveContent()"
            @get="isClean() as clean"
            @set="clean ? $this.addClass('not-modified') : $this.removeClass('not-modified')"
            @if="pendingSaveResponse" @then="$this.addClass('busy')" @else="$this.removeClass('busy')">
@@ -175,7 +175,7 @@ eleventyExcludeFromCollections: true
         <h2>Error</h2>
         <pre #message class="dialog-content"></pre>
         <div layout="row center-center">
-            <a class="button" @on:click="context.$.hide()">
+            <a class="button" (click)="context.$.hide()">
                 Close
             </a>
         </div>

@@ -23,7 +23,7 @@
         }
       };
       {% endfor %}
-      var zuixEditor = null;
+      self.zuixEditor = null;
       zuix.context('zuix-editor', function(ctx) {
         zuixEditor = ctx
         zuixEditor.data = {{ eleventyComputed._data | json }};
