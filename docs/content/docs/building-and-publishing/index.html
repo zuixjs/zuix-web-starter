@@ -68,6 +68,7 @@ li {
     font-size: 95%;
     padding-top: 4px;
     padding-bottom: 4px;
+    min-height: 32px;
 }
 
 small {
@@ -139,6 +140,13 @@ blockquote span {
     padding-right: 12px;
     padding-bottom: 32px;
     font-size: 85%
+}
+
+.card-title {
+    font-size: 110%;
+    padding: 8px;
+    text-align: left;
+    line-height: 140%;
 }
 
 .menu-item {
@@ -494,7 +502,7 @@ button {
 }
 .theme-dark [z-load*="/components/menu-overlay"] div[z-field="menu_overlay"] {
     background: radial-gradient(circle at bottom, black, #000000dd, #00000077, transparent)!important;
-}</style><!-- zUIx.js inline resources bundle --><script src="index.bundle.js"></script><body layout="column stretch-center" ctrl="" z-load="@lib/controllers/header-auto-hide" data-o-header="header-bar" z-lazy="scroll"><nav layout="row top-center" #header-bar=""><div self="size-large stretch" layout="row center-center" style="gap: 8px;"><!-- BACK TO POST LIST --> <a class="icon-button" aria-label="Back to post list" href=".." style="width: 48px"><svg height="48px" viewBox="0 0 24 24" width="48px"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path></svg></a><div self="size-x1"><h1 class="title">Web Starter</h1><div class="subtitle">Building for production</div></div><a class="icon-button" href="/zuix-web-starter/search"><svg width="48px" height="48px" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg></a><div style="padding-top: 4px; padding-right: 4px"><input class="theme-toggle" type="checkbox" aria-label="Toggle theme" checked></div></div></nav><main self="size-large"><div self="size-large" style="position: relative;width: 100%;;display: block"><img class="image-cover" src="./images/cover-preview.png" alt="Cover image preview" style="position: absolute;display: block"> <img class="image-cover" src="./images/cover.png" alt="Cover image" style="position: relative;display: block; z-index: 1"></div><h1>Building for production</h1><div class="author">by <em>Gene</em> — posted on 5 April 2022</div><p>The build process will read the default configuration of the web application, from the JSON file <a href="https://github.com/zuixjs/zuix-web-starter/blob/master/config/default.json"><code>./config/default.json</code></a>.<br>This file contains, among the other options, the base url of the application that by default is <code>/</code>:<p>./config/<strong>default.json</strong><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+}</style><!-- zUIx.js inline resources bundle --><script src="index.bundle.js"></script><body layout="column stretch-center" ctrl="" z-load="@lib/controllers/header-auto-hide" data-o-header="header-bar" z-lazy="scroll"><nav layout="row top-center" #header-bar=""><div self="size-large stretch" layout="row center-center" style="gap: 8px;"><!-- BACK TO POST LIST --> <a class="icon-button" aria-label="Back to post list" href=".." style="width: 48px"><svg height="48px" viewBox="0 0 24 24" width="48px"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path></svg></a><div self="size-x1"><h1 class="title">Web Starter</h1><div class="subtitle">Building for production</div></div><a class="icon-button" aria-label="Search" href="/zuix-web-starter/search"><svg width="48px" height="48px" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg></a><div style="padding-top: 4px; padding-right: 4px"><input class="theme-toggle" type="checkbox" aria-label="Toggle theme" checked></div></div></nav><main self="size-large"><div self="size-large" style="position: relative;width: 100%;;display: block"><img class="image-cover" src="./images/cover-preview.png" alt="Cover image preview" style="position: absolute; display: block"> <img class="image-cover" src="./images/cover.png" alt="Cover image" style="position: relative; display: block; z-index: 1"></div><h1>Building for production</h1><div class="author">by <em>Gene</em> — posted on 5 April 2022</div><p>The build process will read the default configuration of the web application, from the JSON file <a href="https://github.com/zuixjs/zuix-web-starter/blob/master/config/default.json"><code>./config/default.json</code></a>.<br>This file contains, among the other options, the base url of the application that by default is <code>/</code>:<p>./config/<strong>default.json</strong><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"zuix"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     ...
     ...

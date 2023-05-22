@@ -5,7 +5,7 @@
 {% endif %}
 {% wrapDom 'card' %}
 <div self="size-x1" layout="column top-stretch" style="background-image: url('{{ coverUrl | url }}')">
-    <h3 class="accent">{{ item.data.title }}</h3>
+    <div class="card-title accent">{{ item.data.title }}</div>
     <p>{{ item.data.description }}</p>
     <div self="bottom" class="date primary">
         {{ item.data.pubDate | date: 'D MMMM YYYY' }}

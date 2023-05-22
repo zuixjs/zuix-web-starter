@@ -54,6 +54,7 @@ li {
     font-size: 95%;
     padding-top: 4px;
     padding-bottom: 4px;
+    min-height: 32px;
 }
 
 small {
@@ -125,6 +126,13 @@ blockquote span {
     padding-right: 12px;
     padding-bottom: 32px;
     font-size: 85%
+}
+
+.card-title {
+    font-size: 110%;
+    padding: 8px;
+    text-align: left;
+    line-height: 140%;
 }
 
 .menu-item {
