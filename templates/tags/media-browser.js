@@ -4,7 +4,7 @@ const template = `
      z-{{ s.name }}="{{ s.value }}"
      {%- endfor -%}
      {% for o in config.options -%}
-     data-o-{{ o.name }}="{{ o.value }}"
+     :{{ o.name }}="'{{ o.value }}'"
      {%- endfor -%}>
     <div #media>
     {%- for media in config['media'] %}
