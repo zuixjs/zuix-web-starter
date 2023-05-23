@@ -16,15 +16,24 @@
             </label>
         </div>
 
-        <label class="primary" for="componentName">Component ID (path/name)</label>
-        <input #component-name type="text" placeholder="enter name" id="componentName" required>
+        <label class="primary" for="componentName">Component ID</label>
+        <input #component-name type="text" spellcheck="false"
+               (input)="normalizeName(this)"
+               placeholder="enter id" id="componentName" required>
+        <small style="max-width: 330px">
+            The <code>componentId</code> must be at least 3 characters long and
+            can contain only lower case letters, <code>-</code> and <code>/</code>.
+            <br>
+            &nbsp;&nbsp;<strong>e.g.:</strong>&nbsp;&nbsp; <em>layout/my-card</em>
+        </small>
+
         <div #error-message></div>
 
     </div>
 
     <div layout="row center-spread" class="footer">
         <button #cancel-btn class="button primary">Cancel</button>
-        <button @disable-if="componentName.value === '' || (!typeView.checked && !typeCtrl.checked)"
+        <button @disable-if="componentName.value.length < 3 || (!typeView.checked && !typeCtrl.checked)"
                 self="center" #add-btn class="button primary">Confirm</button>
     </div>
 
@@ -53,3 +62,11 @@
     </div>
 
 </div>
+<script type="jscript">
+    function normalizeName(input) {
+      input.value = input.value
+        .toLowerCase()
+        .replace(/\s\s+/g, ' ')
+        .replace(/[^a-z0-9\-\/]/gi, '');
+    }
+</script>

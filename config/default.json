@@ -25,7 +25,7 @@
       ],
       "dataFolder": "_data",
       "includesFolder": "_inc",
-      "componentsFolders": [ "app", "lib" ],
+      "componentsFolders": [ "app" ],
       "contentFolder": "content",
       "dependencies": [{
         "zuix-dist/js": "js/zuix",
@@ -75,7 +75,7 @@
       "baseUrl": "/",
       "resourcePath": "{{ app.baseUrl }}app/",
       "libraryPath": {
-        "@lib": "{{ app.baseUrl }}lib/1.1/",
+        "@lib": "https://zuixjs.github.io/zkit/lib/1.2/",
         "@hgui": "https://genielabs.github.io/homegenie-web-ui/app/",
         "@cdnjs": "https://cdnjs.cloudflare.com/ajax/libs/"
       }

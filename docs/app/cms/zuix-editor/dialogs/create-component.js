@@ -65,7 +65,7 @@ function createComponentDialog(cp) {
   function createComponent() {
     const view = cp.field('type-view').checked();
     const ctrl = cp.field('type-ctrl').checked();
-    const name = zuix.utils.camelCaseToHyphens(cp.field('component-name').value().replace(/[^a-z0-9/\s]/gi, '_'));
+    const name = cp.field('component-name').value();
     let result;
     if (_browserSync) {
       result = _browserSync.socket.emit('zuix:addComponent', {

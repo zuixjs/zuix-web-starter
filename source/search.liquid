@@ -19,8 +19,9 @@ description: Search this website
     </div>
 
     <div layout="column center-center">
-        <!-- zuix.js list-view component -->
-        <div self="size-medium" #results-list ctrl z-load="@lib/controllers/list-view"></div>
+        <!-- zKit list-view component -->
+        <div #results-list self="size-medium"
+             ctrl z-load="@lib/controllers/list-view"></div>
     </div>
 
     <script type="jscript">
@@ -57,15 +58,15 @@ description: Search this website
         _resultsList.clear();
         if (results.length > 0) {
           $resultsNone.hide();
-          _resultsList.model({
-            itemList: results,
-            getItem: function(index, item) {
+          _resultsList.model(results);
+          _resultsList.config({
+            adapter: (index, item) => {
               item = searchItems[item.refIndex];
               return {
                 itemId: index,
                 componentId: 'inline/result-item-view',
+                type: 'view',
                 options: {
-                  controller: zuix.controller(function(cp){}),
                   className: 'item',
                   model: item
                 }
