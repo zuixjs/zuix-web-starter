@@ -81,8 +81,9 @@
 
 {% include "footer.liquid" %}
 
-<div z-load="@lib/components/menu-overlay" z-context="menu-overlay"
-     data-o-position="center" data-o-before="footer">
+<div z-load="@lib/components/menu-overlay"
+     z-context="menu-overlay"
+     :position="'center'" :before="'footer'">
 
     <div #items>
         {% include './basic/menu-items.liquid' %}
