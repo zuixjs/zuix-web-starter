@@ -4,8 +4,8 @@ options: highlight ext-links
 tags: docs
 group: docs
 order: 30
-coverPreview: ./images/cover-preview.png
-coverImage: ./images/cover.png
+coverPreview: ./images/cover-preview.webp
+coverImage: ./images/cover.webp
 coverUrl: https://artsandculture.google.com/asset/meadow-with-poppies/SwEgfZYCYPZimw
 title: Page editing and options
 description: Layout, front matter options and custom liquid tags.

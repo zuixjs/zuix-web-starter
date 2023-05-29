@@ -4,8 +4,8 @@ options: highlight ext-links
 tags: docs
 group: docs
 order: 20
-coverPreview: ./images/cover-preview.png
-coverImage: ./images/cover.png
+coverPreview: ./images/cover-preview.webp
+coverImage: ./images/cover.webp
 coverUrl: https://artsandculture.google.com/asset/the-starry-night-vincent-van-gogh/bgEuwDxel93-Pg
 title: Liquid tags and short codes
 description: About liquid template language and short codes

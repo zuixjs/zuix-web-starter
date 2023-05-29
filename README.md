@@ -1,6 +1,6 @@
 # zuix.js web starter
 
-The base starter project for component based web development with [zuix.js](https://zuixjs.github.io/zuixjs.org) and [Eleventy](https://www.11ty.dev).
+The base starter project for component based web development with [zuix.js](https://zuixjs.github.io/zuixjs.org) and [11ty](https://www.11ty.dev).
 
 **Installs with:**  
 `npx zuix new my-project-name`
@@ -27,7 +27,6 @@ The base starter project for component based web development with [zuix.js](http
  
 # Related resources
 
-- **Web Starter** https://zuixjs.github.io/zuix-web-starter
-- **zKit** https://zuixjs.github.io/zkit/
 - **zuix.js** https://zuixjs.org
-- **11ty** https://11ty.dev
+- **zKit** https://zuixjs.github.io/zkit/
+- **Web Starter** https://zuixjs.github.io/zuix-web-starter

@@ -4,8 +4,8 @@ options: highlight ext-links
 tags: docs
 group: docs
 order: 10
-coverPreview: ./images/cover-preview.png
-coverImage: ./images/cover.png
+coverPreview: ./images/cover-preview.webp
+coverImage: ./images/cover.webp
 coverUrl: https://artsandculture.google.com/asset/abstraction-marsden-hartley/7wGQVSmygTjslg
 title: Building for production
 description: Building for production and publishing online.

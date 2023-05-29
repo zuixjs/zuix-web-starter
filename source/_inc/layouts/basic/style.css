@@ -1,6 +1,6 @@
 body {
     font-family: "Times New Roman", Times, Georgia, "Bookman Old Style", serif;
-    font-size: 1.0em;
+    font-size: 18px;
     margin: 0;
 }
 
@@ -29,12 +29,18 @@ main h1, main h2, main h3, main h4, main h5, main h6, main p {
     padding-right: 8px;
     margin-top: 1.5em;
 }
+main h2 {
+    margin-top: 2.5em;
+}
+main h1 {
+    font-size: 250%;
+}
 main h4 {
     font-weight: bold;
 }
 main p {
     font-family: 'Helvetica Neue', Helvetica, sans-serif;
-    line-height: 140%;
+    line-height: 150%;
 }
 main img.image-cover {
     margin-top: 2px;
