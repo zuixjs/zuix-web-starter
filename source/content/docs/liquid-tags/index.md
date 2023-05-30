@@ -7,8 +7,8 @@ order: 20
 coverPreview: ./images/cover-preview.webp
 coverImage: ./images/cover.webp
 coverUrl: https://artsandculture.google.com/asset/the-starry-night-vincent-van-gogh/bgEuwDxel93-Pg
-title: Liquid tags and short codes
-description: About liquid template language and short codes
+title: Liquid tags and shortcodes
+description: About liquid template language and shortcodes
 author: Gene
 pubDate: 2022-04-05
 keywords:
@@ -24,11 +24,10 @@ keywords:
 - layout
 ---
 
-[Short codes](https://11ty.dev/docs/shortcodes/) are used to process rendered content or as a handy way to output reusable
-content and even components, without having to deal with HTML nor JavaScript.  
-They can be used in any template file: Markdown, Liquid, Nunjucks, JavaScript, Handlebars.
+[Shortcodes](https://11ty.dev/docs/shortcodes/) can be used to process rendered content or as a handy way to output reusable
+fragments of content, and even web components, without having to deal with HTML or JavaScript.  
 
-## Web starter short codes
+## Web starter shortcodes
 
 ### layout
 
@@ -63,9 +62,9 @@ It's mainly intended wrap and format `zx` shortcode output.
 
 ### zx
 
-The `zx` short code is used to render HTML fragments or components based on dynamically loaded tag templates.
-Tag templates are loaded from the `./templates/tags` folder, and they consist of simple and small JavaScript code that
-renders the requested tag.
+The `zx` shortcode is used to render HTML fragments or components based on user-defined tag templates.
+Tag templates are loaded from the `./templates/tags` folder, and they consist of simple and small JavaScript
+code that usually renders reusable bits.
 
 {% raw %}
 ```liquid
@@ -86,8 +85,8 @@ For more `zx` tags examples see also:
 
 #### Adding custom zx tags
 
-Any custom tag can be implemented by just adding a `./templates/tags/<custom_tag_name>.js` file. For example, this is the
-code of **./templates/tags/button.js** used in the previous example:
+A custom tag can be implemented by adding a `<custom_tag_name>.js` file to the `./templates/tags/` folder.  
+For instance, the following code is the **./templates/tags/button.js** used in the previous example:
 
 ```js
 {%- raw -%}
@@ -133,18 +132,19 @@ if the editor is not highlighting the HTML markup.
 
 ### wrapDom / wrapCss
 
-These two tags adds to a CSS style and HTML fragment, the required attributes so that the CSS style will be only applied
-to the given HTML fragment (scoped CSS).
-Can also be used together with the `include` shortcode to load the style and the HTML fragment from external files.
+These two tags will add to a CSS and HTML fragments, the required code so that the CSS will be only applied
+to those HTML fragments defined inside `wrapDom` having the same `<fragment_id>` (scoped CSS).  
+This can also be used with the `include` shortcode, to load the CSS and HTML fragments from external files.
 
+**Syntax:**
 {% raw %}
 ```liquid
 {% wrapDom '<fragment_id>' %}
-... HTML fragment ...
+  <!-- HTML fragment -->
 {% endwrapDom %}
 <style>
 {% wrapCss '<fragment_id>' [<encapsulate>] %}
-... CSS styles ...
+  /* CSS fragment */
 {% endwrapCss %}
 </style>
 ```

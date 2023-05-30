@@ -146,6 +146,7 @@ blockquote span {
 }
 
 .icon-button {
+    display: flex;
     width: 48px;
     height: 48px;
     cursor: pointer;
@@ -173,9 +174,9 @@ blockquote span {
 .icon-button:active:before {
     position: absolute;
     border-radius: 4em;
-    transform: translate(20px, 20px);
+    transform: translate(22px, 22px);
     opacity: 1;
-    box-shadow: 0 0 12px 30px rgba(255,255,255,0.1);
+    box-shadow: 0 0 12px 24px rgba(255,255,255,0.1);
     transition: all 150ms ease-in-out;
 }
 .icon-button:active svg {

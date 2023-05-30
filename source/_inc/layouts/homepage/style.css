@@ -1,0 +1,68 @@
+ul {
+    line-height: 130%;
+}
+header {
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    display: block;
+    width: 100%;
+    min-height: 50vh;
+    padding-top: 64px;
+    padding-bottom: 48px;
+}
+header a {
+    color: #ffff7a;
+}
+header .logo {
+    border-radius: 28px;
+    box-shadow: 0 0 12px 0 white;
+    background: linear-gradient(white 10%, transparent);
+    padding: 4px;
+    width: 180px;
+    height: 180px;
+}
+header h1, .theme-dark header h1 {
+    margin: 24px;
+    font-size: 200%;
+    font-weight: 500;
+    text-align: center;
+}
+header h2, .theme-dark header h2 {
+    margin: 24px;
+    font-weight: 300;
+    font-size: 150%;
+    text-align: center;
+}
+header small {
+    opacity: 1.0;
+}
+
+nav, .theme-dark nav {
+    background-color: transparent;
+    box-shadow: none;
+    width: 100%;
+    color: white;
+    margin: 0;
+    height: 64px;
+    padding: 0 8px;
+    position: absolute;
+}
+
+pre {
+    border-radius: 4px;
+}
+
+@media screen and (max-width: 520px) {
+    header, .theme-dark header {
+        padding-bottom: 32px;
+    }
+    header .logo {
+        width: 140px;
+        height: 140px;
+    }
+    header h1, .theme-dark header h1 {
+        font-size: 150%;
+    }
+    header h2, .theme-dark header h2 {
+        font-size: 90%;
+    }
+}

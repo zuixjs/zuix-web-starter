@@ -1,0 +1,94 @@
+{% include "head_open.liquid" %}
+<style>
+    {% include "./basic/style.css" %}
+    {% include "./common/forms.css" %}
+    {% include "./common/theme.css.liquid" %}
+    {% include "./homepage/style.css" %}
+</style>
+{% include "head_close.html" %}
+{% if layout_size == blank %}
+    {% assign layout_size = "large" %}
+{% endif %}
+
+{% include "./common/svg-icons.liquid" %}
+
+<body layout="column stretch-center">
+
+<header layout="column start-center">
+
+    <div>
+        <img alt="Logo" src="../images/zuix-logo.svg" class="logo">
+    </div>
+    <div self="size-x1" layout="column justify-center">
+        <h1>
+            Static website starter<br>
+            based on <a href="https://www.11ty.dev">11ty</a> and <a href="https://zuixjs.org">zuix.js</a>
+        </h1>
+        <h2 self="size-x1">
+            remote assets mirroring,
+            resources bundling,<br>
+            search engine,
+            web components, and more...
+        </h2>
+        <small>
+            Requires <a href="https://nodejs.org/en/download/">Node.js</a> version 14 or higher.
+        </small>
+    </div>
+
+</header>
+
+<nav layout="row center-center">
+    <div self="size-large" layout="row center-stretch">
+        <div>
+            <a class="icon-button" href="https://github.com/zuixjs/zuix-web-starter" aria-label="GitHub repository">
+                <img src="../images/github-mark-white.png" alt="GitHub logo" width="32" height="32">
+            </a>
+        </div>
+        <div self="size-x1"></div>
+        <div layout="row center-right" style="gap: 8px; padding-right: 4px">
+            <div>
+                <a class="icon-button" aria-label="Search" href="{{ '/search' | url }}">
+                    {{ search_icon }}
+                </a>
+            </div>
+            <div style="padding-top: 4px">
+                <input class="theme-toggle" type="checkbox"
+                       aria-label="Toggle theme" checked>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main self="size-{{ layout_size }}">
+
+    {% if coverImage -%}
+        <div self="size-large" style="position: relative;width: 100%;;display: block">
+            <img class="image-cover" src="{{ coverPreview }}" alt="Cover image preview" style="position: absolute; display: block">
+            <img class="image-cover" src="{{ coverImage }}" alt="Cover image" style="position: relative; display: block; z-index: 1">
+        </div>
+    {%- endif %}
+
+    {{ content | safe }}
+
+</main>
+
+{% include "footer.liquid" %}
+
+<div z-load="@lib/components/menu-overlay"
+     z-context="menu-overlay"
+     :position="'center'" :before="'footer'">
+
+    <div #items>
+        {% include './basic/menu-items.liquid' %}
+    </div>
+
+</div>
+
+{% include './common/zuix-editor.liquid' %}
+
+{% include "body_end.liquid" %}
+<script>
+    {% include "./basic/script.js.liquid" %}
+</script>
+</body>
+{% include "html_close.html" %}

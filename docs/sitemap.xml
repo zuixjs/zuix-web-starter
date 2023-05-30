@@ -2,10 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://zuixjs.github.io/zuix-web-starter//</loc>
-    <lastmod>2022-04-16</lastmod>
-  </url>
-  <url>
     <loc>https://zuixjs.github.io/zuix-web-starter//search/</loc>
     <lastmod>2022-04-19</lastmod>
   </url>
@@ -28,5 +24,9 @@
   <url>
     <loc>https://zuixjs.github.io/zuix-web-starter//content/docs/page-editing-and-options/</loc>
     <lastmod>2022-04-22</lastmod>
+  </url>
+  <url>
+    <loc>https://zuixjs.github.io/zuix-web-starter//</loc>
+    <lastmod>2023-05-29</lastmod>
   </url>
 </urlset>

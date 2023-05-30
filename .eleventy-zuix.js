@@ -512,7 +512,7 @@ function configure(eleventyConfig) {
   );
 
   /*
-  || Add short codes
+  || Add shortcodes
   */
 
   eleventyConfig.addShortcode('rawFile', function(fileName) {

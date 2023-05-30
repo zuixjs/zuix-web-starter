@@ -52,8 +52,9 @@ Welcome to my blog about...
 
 ## Front matter data
 
-As shown in the example above, front matter data is enclosed in a block delimited by the sequence: `---`. Inside this
-block data can be specified in the form `<field_name>: <value>`, more specifically using the [YAML syntax](https://docs.fileformat.com/programming/yaml/).
+As shown in the example above, front matter data is enclosed in a block delimited by the sequence: `---`. 
+Inside this block, data can be specified in the form `<field_name>: <value>`, using the
+[YAML syntax](https://docs.fileformat.com/programming/yaml/).
 
 The following is a list of fields that can be used in the front matter.
 
@@ -62,22 +63,23 @@ The following is a list of fields that can be used in the front matter.
 Sets the page layout to be used for the current content. Different page layouts are available depending on the starter
 template that is being used. The base `zuix-web-starter` includes only one kind of page layout:
 - `basic.liquid` <small>(the one used for this page)</small>
+- `homepage.liquid` <small>(the home page layout)</small>
 
-To see layouts from other starter templates, referrer to the documentation included in the [online demos](/#creating_new_project)
+To see layouts from other starter templates, referrer to the documentation included in the [online demos](/content/docs/getting-started/#creating_new_project)
 of each template. 
 
 
 #### Adding a custom layout
 
-Layouts are located in the `./source/_inc/layouts` folder. A layout consists of a [`.liquid`](https://shopify.dev/api/liquid) file and, when required, also
-a folder with the same base name of the layout file, and that eventually contains additional files required for the
-implementation.
+Layouts are located in the `./source/_inc/layouts` folder.  
+A layout consists of a [`.liquid`](https://shopify.dev/api/liquid) file and, optionally,
+a folder with the same base name of the layout file, that may contain additional files required
+for the layout implementation.
 
-So, a new layout can be implemented by creating a `<layout_name>.liquid` file into the *layouts* folder. It can be then selected,
-like the other layout templates, by specifying its name in the `layout` field of page's front matter.
+So, to create a new layout, add `<layout_name>.liquid` file to the `./source/_inc/layouts` folder.  
+Then, to use the new layout, specify its name in the `layout` field of the page's front matter.
 
-
-The `./source/_inc` folder, is also used to place common page's bits that can be reused across different layout implementations:
+The `./source/_inc` folder, is also used to place common page's bits that can be reused across different layouts:
 
 - `head_open.liquid`  
   This file contains the initial part of the `HTML` document with `head` section and styles/scripts inclusion.
@@ -125,7 +127,7 @@ This value is used, for instance, to implement navigation between pages belongin
 
 ### `options`
 
-In addition to the following options, other options might be available depending on the template that is being used. 
+Options are used to enable or disable specific features of a page layout.
 
 - **`highlight`**  
   enable code highlighting
@@ -135,6 +137,9 @@ In addition to the following options, other options might be available depending
   do not include page title
 - **`no-footer`**  
   do not include common footer
+
+In addition to the options above, other options might be available depending
+on the template that is being used. 
 
 
 #### Adding custom options
@@ -186,12 +191,3 @@ The date to show as publishing date. This field has the precedence over `order` 
 
 A list of keywords that identify this page. Keywords are used by internal search and are also added to page's metadata
 for search engines as some of them might still use meta keywords for indexing.
-
-
-## For advanced users
-
-Beside the default settings and configuration described in these pages, it is possible to take advantage of all advanced
-features provided by the site generator behind these *web starters*, which is *Eleventy*, *&laquo;a simpler
-static site generator&raquo;*.  
-For further insights about the *11ty* site generator and component-based web development with *zuix.js*, see the **Links**
-section in the footer.

@@ -18,7 +18,7 @@ keywords:
 - publishing
 ---
 
-The build process will read the default configuration of the web application, from the JSON file
+The build process will read the default configuration of the web application, from the file
 [`./config/default.json`](https://github.com/zuixjs/zuix-web-starter/blob/master/config/default.json).  
 This file contains, among the other options, the base url of the application that by default is `/`:
 

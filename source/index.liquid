@@ -1,0 +1,68 @@
+---
+layout: homepage.liquid
+options: highlight ext-links
+order: 0
+title: Home
+description: About this web starter and how to get started with it.
+keywords:
+- zuix
+- web starter
+- home
+---
+
+{% layout 'rows top-stretch' 'style="gap: 24px"' %}
+
+    <div>{% renderTemplate "md" %}
+
+## Creating a new project
+```shell
+npx zuix new my-webapp
+cd my-webapp
+```
+
+## Starting dev server
+```shell
+npx zuix start
+```
+
+    {% endrenderTemplate %}</div>
+
+    <div style="min-width: 260px">{% renderTemplate "md" %}
+
+## Features
+
+- Content sections and pages supporting *FrontMatter*, *Markdown* and *Liquid* syntax
+- Customizable tags for rendering web components using simple text <small>(no HTML, no JS code!)</small> - [example](https://zuixjs.github.io/web-app/content/docs/zkit-components-tags/#media_browser)
+- Live editing with embedded content editor
+- Page indexing and client-side search engine
+- Light and dark modes
+- Remote assets mirroring
+- Resources bundling
+- Progressive Web App 🎉 100 / 100 / 100 / 100 🥳
+
+    {% endrenderTemplate %}</div>
+
+{% endlayout %}
+
+{% layout 'row center-center' 'style="margin-top: 24px"' %}
+    {% renderTemplate "md" -%}
+[📔 See full documentation](/content/docs)
+    {%- endrenderTemplate %}
+{% endlayout %}
+
+
+{% if collections.sections.length > 1 %}
+<h3>Content sections</h3>
+<ul>
+    {% for section in collections.sections %}
+        {%- if section.url != page.url -%}
+            <li>
+                <a href="{{ section.url | url }}">{{ section.data.title }}</a>
+            </li>
+        {%- endif %}
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% include "fragments/starter-links.liquid" %}
+{% include "fragments/zuix-funding.liquid" %}

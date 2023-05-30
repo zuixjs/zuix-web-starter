@@ -39,7 +39,7 @@ npx zuix
 <a name="creating_new_project"></a>
 ## Creating a new project
 
-To create a new web-starter project enter the following command:
+To create a new project enter the following command:
 
 ```shell
 npx zuix new <project_name> [-t <template_name>]
@@ -49,10 +49,10 @@ Where `<project_name>` is the name of the new project and the optional parameter
 
 ### Available templates
 
-- **`zuix-web-starter`**  
+- **`zuix-web-starter`** <small>(default)</small>  
   <small>The base starter, coming with a basic template with light/dark modes, collapsible header and FAB menu. It's the
   one used for this page.</small>
-    - [online demo](https://zuixjs.github.io/zuix-web-starter) 👈 <small>you are here</small>
+    - [online demo](https://zuixjs.github.io/zuix-web-starter)
     - [source code](https://github.com/zuixjs/zuix-web-starter)
 - **`news-blog`**  
   <small>A fully immersive template, suitable for publishing feeds of news or blog posts. With "Save for later" and share/print
@@ -83,7 +83,7 @@ cd my-webapp
 ## Starting the development server
 
 The development server will listen by default on port `8080` and serve files from the build folder `./docs`.
-It will also watch for file changes in the `./source` folder, and compile changed files as needed, also refreshing
+It will also watch for file changes in the `./source` folder, compile changed files as needed, and reload
 the browser page automatically.
 
 ```shell
@@ -103,7 +103,7 @@ Once the server started, you can open the web browser and load the website using
 ```
 
 The main project folder is the `./source` folder, where all website files are located. In particular, the `./source/content` folder,
-contains all website pages' content that are implemented as text files using [**Markdown**](https://www.markdownguide.org/getting-started/) syntax,
+contains all website content pages implemented as simple text files using [**Markdown**](https://www.markdownguide.org/getting-started/) syntax,
 and that will contain just the main content of the page. All other structural and layout parts will be compiled
 automatically by the development server.
 
@@ -156,7 +156,6 @@ Template engine folders:
 *zuix.js* components folders:
 ```
 ./source/app  # user-defined components
-./source/lib  # copy of zKit components
 ```
 
 Global asset files and folders:
