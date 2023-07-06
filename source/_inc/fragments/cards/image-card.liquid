@@ -3,7 +3,7 @@
 {% if checkArray[0] == blank %}
     {% assign coverUrl = item.url | append: coverUrl %}
 {% endif %}
-{% wrapDom 'card' %}
+{% wrapDom 'image-card' %}
 <div self="size-x1" layout="column top-stretch" style="background-image: url('{{ coverUrl | url }}')">
     <div class="card-title accent">{{ item.data.title }}</div>
     <p>{{ item.data.description }}</p>
@@ -15,7 +15,7 @@
 
 {% endwrapDom %}
 
-{% wrapCss 'card' %}
+{% wrapCss 'image-card' %}
 <style>
     :host {
         position: relative;

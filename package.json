@@ -35,7 +35,7 @@
   "dependencies": {
     "flex-layout-attribute": "^1.0.3",
     "fuse.js": "^6.6.2",
-    "zuix-dist": "^1.1.28"
+    "zuix-dist": "^1.1.29"
   },
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",
@@ -56,6 +56,6 @@
     "nunjucks": "^3.2.4",
     "yaml": "^2.2.2",
     "yesno": "^0.3.1",
-    "zuix": "^0.4.2"
+    "zuix": "^0.4.3"
   }
 }

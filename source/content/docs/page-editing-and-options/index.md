@@ -18,9 +18,9 @@ keywords:
 - template
 ---
 
-As described in the previous chapter, content pages are simple text files implemented using [Markdown](https://www.markdownguide.org/) syntax,
-and that have front matter data where is possible to specify the page layout to be used, metadata and other options for
-the current content.
+As described in the previous chapter, content pages are simple text files written using [Markdown](https://www.markdownguide.org/basic-syntax/) syntax,
+and also have [front matter data](https://www.11ty.dev/docs/data-frontmatter/) where is possible to specify the page layout,
+metadata, and other options for the current content.
 
 **Example:** `index.md`
 
@@ -56,7 +56,7 @@ As shown in the example above, front matter data is enclosed in a block delimite
 Inside this block, data can be specified in the form `<field_name>: <value>`, using the
 [YAML syntax](https://docs.fileformat.com/programming/yaml/).
 
-The following is a list of fields that can be used in the front matter.
+The following fields can be used in the front matter:
 
 ### `layout`
 
