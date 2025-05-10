@@ -26,7 +26,7 @@
       self.zuixEditor = null;
       zuix.context('zuix-editor', function(ctx) {
         zuixEditor = ctx
-        zuixEditor.data = {{ eleventyComputed._data | json }};
+        zuixEditor.data = {{ eleventyComputed._data | structured_data | jsonScriptSafe }};
       });
       function setEditorData(pageData, hideEdit) {
         zuix.context('zuix-editor', function(ed) {
