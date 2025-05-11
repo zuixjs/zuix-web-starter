@@ -123,20 +123,20 @@ npx zuix wipe-content
 Pages are organized into sections, and can be easily added with the following command:
 
 ```shell
-npx zuix add -s <section_name> -n <page_name> [-fm "<field>: <value>"]
+npx zuix add -s <section_name> -n <page_name> [-f "<field>: <value>"]
 ```
 
 Where the `-s` option is used to specify the name of the section under which the new page will be grouped, while the `-n`
 option is used to specify the name of the page. Both names must be *file-name* friendly, and the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) convention
 is suggested, where names are only formed by lowercase letters and dashes to separate words.  
-With the optional `-fm` option it's possible to specify [front matter data](../pages-layout) and it can be repeated to
+With the optional `-f` option it's possible to specify [front matter data](../pages-layout) and it can be repeated to
 allow adding multiple fields.
 
 For example, the following command will add a new page in a section called "blog", and it will enable syntax highlighting
 for preformatted code blocks:
 
 ```shell
-npx zuix add -s blog -n my-first-blog-post -fm "options: highlight"
+npx zuix add -s blog -n my-first-blog-post -f "options: highlight"
 ```
 
 The new content page file will be `./source/content/blog/my-first-blog-post/index.md`, and the `blog` folder will be automatically
