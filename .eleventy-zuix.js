@@ -435,6 +435,10 @@ function initEleventyZuix(eleventyConfig) {
         console.error(chalk.red.bold('Error generating the service worker:'), swError);
       }
     }
+    if (rebuildAll) {
+      // reverts to incremental build mode
+      rebuildAll = false;
+    }
     if (io) {
       ioEmit('zuix:build:done');
     }
