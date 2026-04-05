@@ -1,5 +1,5 @@
 const template = `
-<div z-load="components/media-browser" z-lazy class="visible-on-ready animate__animated animate__fadeIn animate__faster" style="width: 100%; height: 100%; aspect-ratio: auto!important; overflow: hidden"
+<div z-load="@lib/components/media-browser" z-lazy class="visible-on-ready animate__animated animate__fadeIn animate__faster" style="width: 100%; height: 100%; aspect-ratio: auto!important; overflow: hidden"
      {% for s in config.settings -%}
      z-{{ s.name }}="{{ s.value }}"
      {%- endfor -%}
