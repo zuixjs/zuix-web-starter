@@ -235,7 +235,7 @@ function setupSocketApi(browserSync) {
         cmsLog('zuix:saveContent', request.path);
         fs.writeFile(request.path, request.content, () => {
           ioEmit('zuix:saveContent:done', {path: request.path});
-          forceRebuild(2000); // <--- TODO: this is a patch to the fact sometimes 11ty doesn't rebuild
+          //forceRebuild(2000); // <--- TODO: this is a patch to the fact sometimes 11ty doesn't rebuild
         });
       });
       socket.on('zuix:addPage', (data) => {
@@ -243,7 +243,7 @@ function setupSocketApi(browserSync) {
         addPage(data).then(() => {
           const redirectUrl = zuixConfig.app.baseUrl + contentFolder + '/' + data.section + '/';
           ioEmit('zuix:addPage:done', redirectUrl);
-          forceRebuild(2000); // <--- TODO: this is a patch to the fact sometimes 11ty doesn't rebuild
+          //forceRebuild(2000); // <--- TODO: this is a patch to the fact sometimes 11ty doesn't rebuild
         }).catch((err) => {
           ioEmit('zuix:addPage:error', err.message);
         });
@@ -309,8 +309,8 @@ function setupSocketApi(browserSync) {
     capcon.startCapture(process.stderr, {}, function (stderr) {
       if (stderr && stderr.replace) {
         stderr = stderr
-            .replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, '')
-            .replace(/ *\([^)]*\) */g, '').replace(/ +$/, '');
+          .replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, '')
+          .replace(/ *\([^)]*\) */g, '').replace(/ +$/, '');
         if (stderr.indexOf('\n[11ty] ') !== -1) {
           errorObject.debug = true;
         } else if (stderr.startsWith('[11ty]')) {
@@ -592,6 +592,41 @@ function configure(eleventyConfig) {
     (date, format) => moment(date).format(format || 'YYYY-MM-DD')
   );
 
+  /**
+   * Filter to transform a relative URL into an absolute URL.
+   * Checks if the URL is already absolute before doing anything.
+   * @param {string} url - The URL to process (e.g., /images/cover.jpg).
+   * @param {string} baseUrl - The base URL of the site (e.g., https://www.yoursite.com).
+   */
+  eleventyConfig.addFilter("toAbsoluteUrl", (url, baseUrl) => {
+    // If the url is not a string or is empty, do nothing.
+    if (typeof url !== 'string' || url.trim() === '') {
+      return '';
+    }
+    try {
+      // new URL() handles everything: if the url is already absolute, it leaves it as is.
+      // If it's relative, it combines it with the baseUrl.
+      return new URL(url, baseUrl).href;
+    } catch (e) {
+      //console.error(`Could not create an absolute URL for: ${url}`, e);
+      return url;
+    }
+  });
+
+  /**
+   * Filter to extract the first <img> tag from HTML content.
+   * @param {string} content - The HTML content of the page/post.
+   */
+  eleventyConfig.addFilter("extractFirstImage", (content) => {
+    if (!content) {
+      return '';
+    }
+    // Search for the first occurrence of <img src="..."
+    const match = content.match(/<img\s+[^>]*?src="([^"]+)"[^>]*?>/);
+    // If a match is found, return the src value (the first captured group).
+    return match ? match[1] : '';
+  });
+
   /*
   || Add shortcodes
   */
@@ -695,7 +730,7 @@ function addPage(args) {
             if (!fs.existsSync(sectionFile)) {
               addPage({layout: 'section', name: args.section, frontMatter: [
                   `group: ${args.section}`,
-                  `title: ${classNameFromHyphens(args.section)}`,
+                  `title: ${classNameFromHyphens(args.section)}`
                 ]}).then(resolve).catch(reject);
             } else {
 //              forceRebuild(3000);

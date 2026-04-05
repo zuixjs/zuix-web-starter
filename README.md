@@ -1,6 +1,8 @@
 # zuix.js web starter
 
 The base starter project for component based web development with [zuix.js](https://zuixjs.github.io/zuixjs.org) and [11ty](https://www.11ty.dev).
+Requires **Node.js v20**.
+
 
 **Installs with:**  
 `npx zuix new my-project-name`
