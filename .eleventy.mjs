@@ -38,7 +38,7 @@ const linter = new ESLintLinter();
 const lintConfig = JSON.parse(readFileSync(new URL('./.eslintrc.json', import.meta.url), 'utf8'));
 
 export default function(eleventyConfig) {
-  eleventyConfig.setEventEmitterMode('sequential');
+//  eleventyConfig.setEventEmitterMode('sequential');
   eleventyConfig.setWatchJavaScriptDependencies(false);
   eleventyConfig.addPlugin(EleventyRenderPlugin);
 

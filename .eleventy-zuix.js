@@ -392,15 +392,16 @@ function initEleventyZuix(eleventyConfig) {
     // changedFiles is an array of files that changed
     // to trigger the watch/serve build
     changedFiles.length = 0;
-    const baseFolder = path.resolve(zuixConfig.build.input);
-    const dataFolder = path.join(baseFolder, zuixConfig.build.dataFolder);
-    const includesFolder = path.join(baseFolder, zuixConfig.build.includesFolder);
-    const templateChanged = cf.find(f => path.resolve(f).startsWith(includesFolder));
-    const dataChanged = cf.find(f => path.resolve(f).startsWith(dataFolder));
-    if (templateChanged || dataChanged) {
-      rebuildAll = true;
-      return;
-    }
+//    const baseFolder = path.resolve(zuixConfig.build.input);
+//    const dataFolder = path.join(baseFolder, zuixConfig.build.dataFolder);
+//    const includesFolder = path.join(baseFolder, zuixConfig.build.includesFolder);
+//    const templateChanged = cf.find(f => path.resolve(f).startsWith(includesFolder));
+//    const dataChanged = cf.find(f => path.resolve(f).startsWith(dataFolder));
+//    if (templateChanged || dataChanged) {
+//TODO: this was causing multiple rebuilds/loop
+//      rebuildAll = true;
+//      return;
+//    }
     changedFiles.push(...cf);
   });
   eleventyConfig.on("eleventy.before", () => {
