@@ -344,7 +344,7 @@ function cmsLog(...args) {
 function forceRebuild(delay) {
   clearTimeout(forceRebuildTimeout);
   forceRebuildTimeout = setTimeout(() => {
-    touch('.eleventy.js');
+    touch('.eleventy.lock');
   }, delay);
 }
 function touch(filename) {
@@ -368,6 +368,7 @@ function initEleventyZuix(eleventyConfig) {
   zuixConfig.app.environment = process.env.NODE_ENV || 'default';
   eleventyConfig.addGlobalData("app", zuixConfig.app);
   eleventyConfig.addWatchTarget('./templates/tags/');
+  eleventyConfig.addWatchTarget('./.eleventy.lock');
   // Add zUIx transform
   eleventyConfig.addTransform('zuix-js', function(content) {
     const inputPath = this.inputPath;
@@ -401,6 +402,9 @@ function initEleventyZuix(eleventyConfig) {
       return;
     }
     changedFiles.push(...cf);
+  });
+  eleventyConfig.on("eleventy.before", () => {
+    wrappedCssIds = [];
   });
   eleventyConfig.on('eleventy.after', async function({ dir, results, runMode, outputMode }) {
     if (postProcessFiles.length > 0) {
